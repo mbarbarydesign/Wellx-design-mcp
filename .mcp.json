@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "wellx-design-system": {
+      "command": "node",
+      "args": ["mcp/server.mjs"]
+    }
+  }
+}

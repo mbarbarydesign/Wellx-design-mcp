@@ -1,0 +1,7 @@
+{
+  "name": "@wellx/design-tokens",
+  "version": "2.1.0",
+  "description": "Wellx Unified Design System tokens — CSS variables (light/dark) + Tailwind preset. Generated from the Figma Foundations library; do not hand-edit.",
+  "main": "wellx-tailwind-preset.cjs",
+  "files": ["wellx-tokens.css", "wellx-tokens.json", "wellx-tailwind-preset.cjs"]
+}

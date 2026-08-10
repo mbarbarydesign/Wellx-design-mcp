@@ -1,0 +1,1289 @@
+<title>Wellx Unified Design System</title>
+<style>
+  :root {
+    /* Semantics — Light (from Figma Foundations) */
+    --bg: #ffffff;                 /* backgrounds/screen-bg */
+    --fg: #0a0d12;                 /* Text/primary = Gray/950 */
+    --card: #ffffff;               /* backgrounds/primary */
+    --muted: #f5f5f5;              /* backgrounds/Active = Gray/100 */
+    --muted-soft: #fafafa;         /* backgrounds/inactive = Gray/50 */
+    --muted-fg: #535862;           /* Text/label = Gray/600 */
+    --muted-fg-soft: #717680;      /* Text/tertiary = Gray/500 */
+    --border: #e9eaeb;             /* borders/tertiary = Gray/200 */
+    --primary: #5043ed;            /* Brand/500 */
+    --primary-strong: #483cd5;     /* Brand/600 */
+    --link: #483cd5;               /* Text/link = Brand/600 */
+    --accent-tint: #eeecfd;        /* backgrounds/brand-light = Brand/50 */
+    --accent-tint-fg: #4036be;     /* Brand/700 */
+    --secondary-pink: #f63c81;     /* Secondary/500 */
+    --success: #17b26a;            /* states/success = Success/500 */
+    --warning: #f79009;            /* states/warning = Warning/500 */
+    --destructive: #d92d20;        /* Error/600 */
+    --code-bg: #f5f5f5;
+    --av-bg: #d5d7da;
+    --av-fg: #717680;
+    --border-input: #d5d7da;
+    /* status tones — Foundations palettes */
+    --t-brand-bg:#eeecfd; --t-brand-fg:#4036be; --t-brand-dot:#5043ed;
+    --t-warn-bg:#fffaeb; --t-warn-fg:#b54708; --t-warn-dot:#f79009;
+    --t-err-bg:#fef3f2; --t-err-fg:#b42318; --t-err-dot:#f04438;
+    --t-succ-bg:#ecfdf3; --t-succ-fg:#067647; --t-succ-dot:#17b26a;
+    --t-gblue-bg:#f8f9fc; --t-gblue-fg:#3e4784; --t-gblue-dot:#4e5ba6;
+    --t-gray-bg:#f5f5f5; --t-gray-fg:#535862; --t-gray-dot:#a4a7ae;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0d12;               /* Gray/950 */
+      --fg: #ffffff;               /* Text/primary dark */
+      --card: #181d27;             /* backgrounds/primary dark = Gray/900 */
+      --muted: #252b37;            /* Gray/800 */
+      --muted-soft: #252b37;
+      --muted-fg: #d5d7da;         /* Text/secondary dark = Gray/300 */
+      --muted-fg-soft: #a4a7ae;    /* Gray/400 */
+      --border: #414651;           /* borders/tertiary dark = Gray/700 */
+      --primary: #5043ed;
+      --primary-strong: #968ef4;   /* Brand/400 */
+      --link: #a8a1f6;             /* Text/link dark = Brand/300 */
+      --accent-tint: #201b5f;      /* Brand/900 */
+      --accent-tint-fg: #a8a1f6;   /* Brand/300 */
+      --destructive: #f04438;      /* Error/500 */
+      --code-bg: #252b37;
+      --av-bg: #414651;
+      --av-fg: #a4a7ae;
+      --border-input: #535862;
+      --t-brand-bg:#201b5f; --t-brand-fg:#a8a1f6;
+      --t-warn-bg:#7a2e0e; --t-warn-fg:#fec84b;
+      --t-err-bg:#7a271a; --t-err-fg:#fda29b;
+      --t-succ-bg:#074d31; --t-succ-fg:#75e0a7;
+      --t-gblue-bg:#293056; --t-gblue-fg:#b3b8db;
+      --t-gray-bg:#252b37; --t-gray-fg:#d5d7da;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:#0a0d12; --fg:#ffffff; --card:#181d27; --muted:#252b37; --muted-soft:#252b37;
+    --muted-fg:#d5d7da; --muted-fg-soft:#a4a7ae; --border:#414651;
+    --primary:#5043ed; --primary-strong:#968ef4; --link:#a8a1f6;
+    --accent-tint:#201b5f; --accent-tint-fg:#a8a1f6; --destructive:#f04438; --code-bg:#252b37; --av-bg:#414651; --av-fg:#a4a7ae; --border-input:#535862;
+    --t-brand-bg:#201b5f; --t-brand-fg:#a8a1f6;
+    --t-warn-bg:#7a2e0e; --t-warn-fg:#fec84b;
+    --t-err-bg:#7a271a; --t-err-fg:#fda29b;
+    --t-succ-bg:#074d31; --t-succ-fg:#75e0a7;
+    --t-gblue-bg:#293056; --t-gblue-fg:#b3b8db;
+    --t-gray-bg:#252b37; --t-gray-fg:#d5d7da;
+  }
+  :root[data-theme="light"] {
+    --bg:#ffffff; --fg:#0a0d12; --card:#ffffff; --muted:#f5f5f5; --muted-soft:#fafafa;
+    --muted-fg:#535862; --muted-fg-soft:#717680; --border:#e9eaeb;
+    --primary:#5043ed; --primary-strong:#483cd5; --link:#483cd5;
+    --accent-tint:#eeecfd; --accent-tint-fg:#4036be; --destructive:#d92d20; --code-bg:#f5f5f5; --av-bg:#d5d7da; --av-fg:#717680; --border-input:#d5d7da;
+    --t-brand-bg:#eeecfd; --t-brand-fg:#4036be;
+    --t-warn-bg:#fffaeb; --t-warn-fg:#b54708;
+    --t-err-bg:#fef3f2; --t-err-fg:#b42318;
+    --t-succ-bg:#ecfdf3; --t-succ-fg:#067647;
+    --t-gblue-bg:#f8f9fc; --t-gblue-fg:#3e4784;
+    --t-gray-bg:#f5f5f5; --t-gray-fg:#535862;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Manrope", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 48px 28px 96px; }
+
+  h1, h2, h3 { letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+  h1 { font-size: 30px; font-weight: 700; line-height: 38px; }
+  p { margin: 0; }
+
+  .eyebrow {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+    font-weight: 600; color: var(--muted-fg-soft);
+  }
+  .sub { font-size: 14px; line-height: 20px; color: var(--muted-fg); max-width: 62ch; }
+
+  section { margin-top: 44px; }
+  .sec-head { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .sec-head h2 { font-size: 18px; font-weight: 700; }
+  .sec-head .hint { font-size: 13px; color: var(--muted-fg); max-width: 70ch; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px; /* Radius/card = radius-2xl */
+  }
+
+  code, .mono {
+    font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+  }
+  code { background: var(--code-bg); border-radius: 5px; padding: 1.5px 5px; }
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  /* header */
+  .masthead { display: flex; flex-direction: column; gap: 10px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  .brandline { display: flex; align-items: center; gap: 10px; }
+  .brandline .spacer { flex: 1; }
+
+  /* theme toggle — segmented control: muted tray, bordered active chip */
+  .theme-toggle {
+    display: inline-flex; gap: 2px; padding: 3px; border-radius: 9999px;
+    background: var(--muted); border: none;
+  }
+  .theme-toggle button {
+    font-family: inherit; font-size: 12.5px; font-weight: 600; color: var(--muted-fg-soft);
+    background: transparent; border: 1px solid transparent; border-radius: 9999px;
+    height: 28px; padding: 0 12px; cursor: pointer;
+  }
+  .theme-toggle button:focus-visible { outline: 2px solid color-mix(in srgb, var(--primary) 45%, transparent); }
+  .theme-toggle button[aria-pressed="true"] {
+    background: var(--card); color: var(--fg); border-color: var(--border);
+  }
+  .brandmark {
+    width: 30px; height: 30px; border-radius: 8px; background: var(--primary);
+    display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 13px;
+  }
+  .meta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .chip {
+    font-size: 12px; padding: 4px 11px; border-radius: 9999px;
+    border: 1px solid var(--border); color: var(--muted-fg); background: var(--card);
+  }
+
+  /* principles */
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .principle { padding: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .principle b { font-size: 14px; font-weight: 700; }
+  .principle span { font-size: 13px; color: var(--muted-fg); }
+
+  /* scale strips */
+  .scale-strip { display: flex; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .scale-strip div { flex: 1; height: 44px; position: relative; }
+  .scale-strip div span {
+    position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+    font-size: 9px; font-family: ui-monospace, Menlo, monospace;
+  }
+  .scale-block { display: flex; flex-direction: column; gap: 6px; }
+  .scale-block .scale-name { font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
+  .scale-block .scale-name .mono { color: var(--muted-fg-soft); font-weight: 400; }
+
+  /* swatch tables */
+  .tok-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tok-table th {
+    text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    font-weight: 600; color: var(--muted-fg-soft); padding: 10px 16px; border-bottom: 1px solid var(--border);
+  }
+  .tok-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .tok-table tr:last-child td { border-bottom: 0; }
+  .sw { display: inline-block; width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--border); vertical-align: middle; }
+  .sw-pair { display: flex; align-items: center; gap: 8px; }
+  .tok-use { color: var(--muted-fg); }
+  .scroll-x { overflow-x: auto; }
+
+  /* gradients */
+  .gradient-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+  .gradient-chip { height: 110px; display: flex; align-items: flex-end; padding: 12px 14px; }
+  .gradient-chip b { color: #fff; font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
+  .g-brand-h { background: linear-gradient(90deg, #968ef4 0%, #100d2f 100%); }
+  .g-brand-v { background: linear-gradient(180deg, #968ef4 0%, #100d2f 100%); }
+  .g-sec-h { background: linear-gradient(90deg, #f8639a 0%, #19060d 100%); }
+  .g-sec-v { background: linear-gradient(180deg, #f8639a 0%, #19060d 100%); }
+
+  /* brand row */
+  .brand-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .brand-card { overflow: hidden; }
+  .brand-chip { height: 84px; }
+  .brand-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 3px; }
+  .brand-body b { font-size: 14px; font-weight: 700; }
+  .brand-body span { font-size: 12.5px; color: var(--muted-fg); }
+
+  /* pills */
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; padding: 3.5px 10px; border-radius: 9999px;
+  }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  /* type scale */
+  .type-row { display: grid; grid-template-columns: 210px 1fr; gap: 20px; align-items: baseline; padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .type-row:last-child { border-bottom: 0; }
+  .type-spec { font-size: 12px; color: var(--muted-fg-soft); }
+  @media (max-width: 640px) { .type-row { grid-template-columns: 1fr; gap: 4px; } }
+
+  /* radius */
+  .radius-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .radius-cell { padding: 16px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .radius-demo { width: 64px; height: 64px; background: var(--muted); border: 1px solid var(--border); }
+  .radius-cell b { font-size: 13px; font-weight: 700; }
+  .radius-cell span { font-size: 12px; color: var(--muted-fg); }
+  .radius-scale { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 20px; }
+  .radius-chip {
+    font-size: 12px; padding: 5px 10px; border: 1px solid var(--border); background: var(--muted-soft);
+    font-family: ui-monospace, Menlo, monospace;
+  }
+
+  /* buttons — Radius/input-field = radius-md 8px */
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 16px;
+    border-radius: 12px; font-size: 14px; font-weight: 600; border: 1px solid transparent;
+    cursor: default; font-family: inherit;
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-outline { background: var(--card); border-color: var(--border); color: var(--fg); }
+  .btn-ghost { background: transparent; color: var(--fg); }
+  .btn-destructive { background: var(--destructive); color: #fff; }
+  .btn-icon { width: 40px; padding: 0; justify-content: center; }
+
+  .filter-pill {
+    display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 9999px;
+    font-size: 13px; font-weight: 500; border: 1px solid var(--border); background: var(--card); color: var(--muted-fg);
+  }
+  .filter-pill.active { background: var(--accent-tint); color: var(--accent-tint-fg); border-color: transparent; font-weight: 600; }
+
+  .search-demo {
+    display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px;
+    border-radius: 9999px; background: var(--muted); color: var(--muted-fg-soft); font-size: 13.5px; min-width: 220px;
+  }
+
+  /* kpi */
+  .kpi { padding: 20px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .kpi-label { font-size: 13px; color: var(--muted-fg); font-weight: 500; }
+  .kpi-value { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .kpi-delta {
+    display: inline-flex; align-items: center; font-size: 12px; font-weight: 600;
+    padding: 2.5px 8px; border-radius: 9999px; background: var(--t-succ-bg); color: var(--t-succ-fg);
+  }
+  .kpi-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .sparkline { flex-shrink: 0; }
+
+  /* table demo */
+  .demo-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+  .demo-table th {
+    text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted-fg-soft); background: var(--muted-soft);
+    padding: 13px 20px; border-bottom: 1px solid var(--border);
+  }
+  .demo-table td { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .avatar-40 { width: 40px; height: 40px; font-size: 12px; }
+  .cell-name { font-size: 15px; font-weight: 600; line-height: 1.3; }
+  .cell-ids { font-size: 13px; color: var(--muted-fg-soft); }
+  .cline { display: flex; align-items: center; gap: 7px; font-size: 13.5px; color: var(--muted-fg); line-height: 1.5; }
+  .cline .ic { color: var(--muted-fg-soft); opacity: .8; font-size: 13px; }
+  .demo-table tbody tr:hover { background: color-mix(in srgb, var(--muted) 60%, transparent); }
+  .table-foot { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; font-size: 13px; color: var(--muted-fg); }
+  .pager { display: flex; gap: 6px; }
+  .pager button {
+    height: 30px; min-width: 30px; padding: 0 8px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--card); color: var(--fg); font-size: 13px; font-family: inherit;
+  }
+  .pager .on { background: var(--muted); font-weight: 700; }
+
+  .avatar {
+    width: 32px; height: 32px; border-radius: 50%; display: inline-grid; place-items: center;
+    background: var(--av-bg); color: var(--av-fg); font-size: 10.5px; font-weight: 700; flex-shrink: 0;
+  }
+  .avatar-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .cell-person { display: flex; align-items: center; gap: 10px; }
+  .cell-person small { display: block; font-size: 12.5px; color: var(--muted-fg-soft); }
+
+  /* spacing spec list */
+  .spec-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; }
+  .spec-item { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; font-size: 13.5px; }
+  .spec-item span:first-child { color: var(--muted-fg); }
+  .spec-item span:last-child { text-align: right; }
+
+  .space-ladder { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; }
+  .space-row { display: grid; grid-template-columns: 170px 1fr; align-items: center; gap: 12px; font-size: 12px; }
+  .space-row .bar { height: 14px; background: var(--accent-tint); border: 1px solid var(--primary); border-radius: 3px; }
+  .space-row .mono { color: var(--muted-fg-soft); }
+
+  /* empty state */
+  .empty { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 44px 20px; text-align: center; }
+  .empty-icon {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--muted);
+    display: grid; place-items: center; color: var(--muted-fg-soft);
+  }
+  .empty b { font-size: 14px; font-weight: 700; }
+  .empty span { font-size: 13px; color: var(--muted-fg); }
+
+  /* do / don't */
+  .dd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+  .dd { padding: 18px 20px; }
+  .dd h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+  .dd ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .dd li { font-size: 13px; color: var(--muted-fg); padding-left: 16px; position: relative; }
+  .dd li::before { content: ""; position: absolute; left: 2px; top: 8px; width: 5px; height: 5px; border-radius: 50%; }
+  .dd-do li::before { background: var(--success); }
+  .dd-dont li::before { background: var(--destructive); }
+  .dd .mark { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* dialog demo */
+  .dialog-demo {
+    border-radius: 16px; border: 1px solid var(--border); background: var(--card);
+    box-shadow: 0 16px 48px rgba(10,13,18,.16); max-width: 400px; padding: 22px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  @media (prefers-color-scheme: dark) { .dialog-demo { box-shadow: 0 16px 48px rgba(0,0,0,.5); } }
+  :root[data-theme="dark"] .dialog-demo { box-shadow: 0 16px 48px rgba(0,0,0,.5); }
+  :root[data-theme="light"] .dialog-demo { box-shadow: 0 16px 48px rgba(10,13,18,.16); }
+  .dialog-demo h3 { font-size: 18px; font-weight: 700; }
+  .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .field input {
+    width: 100%; height: 40px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--card); color: var(--fg); padding: 0 12px; font-size: 14px; font-family: inherit;
+  }
+  .field input:focus { outline: 2px solid color-mix(in srgb, var(--primary) 35%, transparent); outline-offset: 0; border-color: var(--primary); }
+  .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+  /* sidebar nav item — 40px row, radius-lg 10, monochrome states */
+  .nav-states { display: flex; flex-wrap: wrap; gap: 28px; padding: 18px 20px; }
+  .nav-state-col { display: flex; flex-direction: column; gap: 8px; max-width: 210px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; width: 200px; height: 40px;
+    padding: 0 12px; border-radius: 10px; font-size: 14px; font-weight: 500;
+    color: var(--muted-fg); box-sizing: border-box; cursor: default;
+  }
+  .nav-item svg { flex-shrink: 0; }
+  .nav-item.is-hover { background: var(--muted-soft); }
+  .nav-item.is-active { background: var(--muted); color: var(--fg); }
+  .nav-state-name { font-size: 12px; font-weight: 600; }
+  .nav-state-cap { font-size: 11.5px; color: var(--muted-fg-soft); line-height: 15px; }
+
+  /* sidebar anatomy mock */
+  .sb-mock-tray { background: var(--muted-soft); border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
+  .sb { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--border); height: 520px; }
+  .sb-expanded { width: 224px; }
+  .sb-rail { width: 64px; }
+  .sb-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--border); }
+  .sb-rail .sb-header { justify-content: center; padding: 0; }
+  .sb-logo { height: 32px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 8px; background: var(--primary); color: #fff; font-size: 13px; font-weight: 700; }
+  .sb-collapse { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; color: var(--muted-fg-soft); }
+  .sb-rail .sb-collapse svg { transform: scaleX(-1); } /* collapsed rail mirrors the panel icon — chevron points out */
+  .sb-nav { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 24px; overflow: hidden; }
+  .sb-rail .sb-nav { align-items: center; gap: 2px; }
+  .sb-group { display: flex; flex-direction: column; gap: 2px; }
+  .sb-group-label { padding: 0 12px 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-fg-soft); }
+  .sb .nav-item { width: 100%; }
+  .sb-rail-item { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; color: var(--muted-fg-soft); }
+  .sb-rail-item.is-active { background: var(--muted); color: var(--fg); }
+  .sb-powered { padding: 0 24px 10px; font-size: 12px; color: var(--muted-fg-soft); }
+  .sb-powered b { color: var(--fg); font-size: 13px; }
+  .sb-footer { border-top: 1px solid var(--border); padding: 12px; display: flex; align-items: center; gap: 10px; }
+  .sb-rail .sb-footer { justify-content: center; }
+  .sb-user-name { font-size: 13px; font-weight: 500; line-height: 1.2; }
+  .sb-user-role { font-size: 11px; color: var(--muted-fg-soft); line-height: 1.2; margin-top: 2px; }
+  .sb-user-meta { flex: 1; min-width: 0; }
+  .sb-dots { color: var(--muted-fg-soft); }
+  .sb-steps { margin: 0; padding: 0; list-style: none; counter-reset: sbstep; }
+  .sb-steps li { counter-increment: sbstep; padding: 12px 20px; border-bottom: 1px solid var(--border); font-size: 12.5px; color: var(--muted-fg); line-height: 17px; }
+  .sb-steps li:last-child { border-bottom: 0; }
+  .sb-steps li b { display: block; font-size: 13px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .sb-steps li b::before { content: counter(sbstep) " · "; color: var(--muted-fg-soft); font-weight: 600; }
+
+  .tabs-demo { display: flex; gap: 22px; border-bottom: 1px solid var(--border); padding: 0 4px; }
+  .tab { font-size: 14px; font-weight: 500; color: var(--muted-fg-soft); padding: 10px 2px; border-bottom: 2px solid transparent; }
+  .tab.active { color: var(--fg); font-weight: 600; border-bottom-color: var(--primary); }
+
+  .note {
+    display: flex; gap: 10px; padding: 13px 16px; border-radius: 10px;
+    background: var(--accent-tint); color: var(--accent-tint-fg); font-size: 13px;
+  }
+  a { color: var(--link); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+  @media (max-width: 820px) { .two-col { grid-template-columns: 1fr; } }
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+  .demo-strip { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 18px 20px; }
+  .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; color: var(--muted-fg-soft); padding: 14px 20px 0; }
+
+  /* forms */
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; padding: 18px 20px; }
+  .form-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .form-field > label { font-size: 13px; font-weight: 600; }
+  .input {
+    height: 40px; border-radius: 8px; border: 1px solid var(--border-input); background: var(--card);
+    color: var(--fg); padding: 0 12px; font-size: 14px; font-family: inherit; width: 100%; box-sizing: border-box;
+  }
+  .input::placeholder { color: var(--muted-fg-soft); }
+  .input.is-focus { border-color: var(--primary); outline: 2px solid color-mix(in srgb, var(--primary) 35%, transparent); }
+  .input.is-error { border-color: #f04438; }
+  .input.is-disabled { background: var(--muted-soft); color: var(--muted-fg-soft); }
+  .help { font-size: 12.5px; color: var(--muted-fg-soft); }
+  .field-error { font-size: 12.5px; color: var(--destructive); }
+  .ctl-row { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .cb { width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--border-input); background: var(--card); display: inline-grid; place-items: center; flex-shrink: 0; }
+  .cb.on { background: var(--primary); border-color: var(--primary); color: #fff; font-size: 12px; font-weight: 700; }
+  .radio { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--border-input); background: var(--card); display: inline-grid; place-items: center; flex-shrink: 0; }
+  .radio.on { border-color: var(--primary); }
+  .radio.on::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+  .tg { width: 36px; height: 20px; border-radius: 9999px; background: var(--border); position: relative; flex-shrink: 0; transition: background .15s; }
+  .tg::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: left .15s; }
+  .tg.on { background: var(--primary); }
+  .tg.on::after { left: 18px; }
+
+  /* feedback */
+  .alert { display: flex; gap: 10px; padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 18px; align-items: flex-start; }
+  .toast {
+    display: inline-flex; gap: 10px; align-items: center; padding: 12px 16px; border-radius: 12px;
+    background: var(--card); border: 1px solid var(--border); box-shadow: 0 8px 24px rgba(10,13,18,.12); font-size: 13.5px;
+  }
+  .skel { height: 12px; border-radius: 6px; background: var(--muted); }
+  .spin { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--muted-fg-soft); border-radius: 50%; animation: ccspin .8s linear infinite; flex-shrink: 0; }
+  @keyframes ccspin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .spin, .shimmer::after { animation: none; } }
+
+  /* topbar mock */
+  .tb { height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 16px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
+  .tb-end { display: flex; align-items: center; gap: 6px; }
+  .tb-icon { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; color: var(--muted-fg-soft); position: relative; font-size: 14px; }
+  .tb-badge::after { content: ""; position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: #f04438; border: 1.5px solid var(--card); }
+  .tb-lang { height: 28px; padding: 0 10px; border-radius: 9999px; background: var(--muted); font-size: 12px; font-weight: 600; color: var(--muted-fg); display: inline-flex; align-items: center; }
+
+  /* icon sizes */
+  .icon-sizes { display: flex; gap: 28px; align-items: flex-end; padding: 18px 20px; flex-wrap: wrap; }
+  .icon-size-col { display: flex; flex-direction: column; gap: 8px; align-items: center; color: var(--muted-fg); }
+  .icon-size-col span { font-size: 11.5px; color: var(--muted-fg-soft); }
+
+  /* charts */
+  .series-row { display: flex; gap: 14px; flex-wrap: wrap; padding: 18px 20px; }
+  .series-chip { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--muted-fg); }
+  .series-chip i { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+</style>
+
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="brandline">
+      <div class="brandmark">W</div>
+      <span class="eyebrow">Wellx &middot; System Foundations</span>
+      <span class="spacer"></span>
+      <div class="theme-toggle" role="group" aria-label="Color mode">
+        <button type="button" data-mode="light" aria-pressed="false">Light</button>
+        <button type="button" data-mode="dark" aria-pressed="false">Dark</button>
+        <button type="button" data-mode="auto" aria-pressed="true">Auto</button>
+      </div>
+    </div>
+    <h1>Wellx Unified Design System</h1>
+    <p class="sub">The shared visual language for Wellx tools and products. Layout and component patterns come from the first Wellx portal (Flat bordered surfaces, monochrome chrome, one accent); all tokens now come from the Figma "Foundations" library — Wellx brand violet, the Untitled-UI-based color primitives, the Manrope type ramp, and the Radius / Spacing / Semantics collections.</p>
+    <div class="meta-chips">
+      <span class="chip">v2.1 — tokens from Figma Foundations (Wellx) · full component spec</span>
+      <span class="chip">Manrope · Alexandria (AR)</span>
+      <span class="chip">Light &amp; dark semantics</span>
+      <span class="chip">RTL-ready</span>
+      <span class="chip">White-label (parallel libraries)</span>
+    </div>
+  </header>
+
+  <!-- PRINCIPLES -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">01 — Foundations</span>
+      <h2>Principles</h2>
+      <p class="hint">Four rules govern every screen. When in doubt, match an existing pattern — don't invent new ones.</p>
+    </div>
+    <div class="grid-4">
+      <div class="card principle"><b>Flat, bordered surfaces</b><span>Page and cards share one canvas. 1&thinsp;px hairlines (<code>borders/tertiary</code>) define panels — no shadows, no hover lifts. Shadows survive only in modals, drawers, and auth cards.</span></div>
+      <div class="card principle"><b>Monochrome chrome</b><span>Nav, menus, and hovers use the Gray scale only. The active sidebar item is a gray pill (<code>backgrounds/Active</code>), never a colored one.</span></div>
+      <div class="card principle"><b>One brand accent</b><span>Brand violet appears only on primary buttons, links, active tab underlines, focus rings, chart lines, and active filter pills. Tenants swap it via parallel Foundations libraries.</span></div>
+      <div class="card principle"><b>Semantic tokens first</b><span>Components consume the <code>Semantics</code> layer (Text / borders / backgrounds / states), which maps to Primitives per Light and Dark mode. Never reach for a primitive directly in UI code.</span></div>
+    </div>
+  </section>
+
+  <!-- BRAND -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">02 — Brand</span>
+      <h2>Brand colors — Foundations Primitives</h2>
+      <p class="hint">From the <code>Primitives</code> collection, <strong>Wellx</strong> mode. Buttons and states use <strong>500</strong>, links and hover use <strong>600</strong>, tinted chips use <strong>50/700</strong>. Sibling libraries (Dubai Sports, Healthx, Elitex, HayatX 2.0) re-theme the same token names for white-labeling.</p>
+    </div>
+    <div class="brand-cards">
+      <div class="card brand-card">
+        <div class="brand-chip" style="background:#5043ed"></div>
+        <div class="brand-body"><b>Brand/500 <span class="mono">#5043ED</span></b><span>Primary actions, active states, focus rings, chart lines</span></div>
+      </div>
+      <div class="card brand-card">
+        <div class="brand-chip" style="background:#483cd5"></div>
+        <div class="brand-body"><b>Brand/600 <span class="mono">#483CD5</span></b><span><code>Text/link</code>, <code>Text/brand-ghost-primary</code>, button hover</span></div>
+      </div>
+      <div class="card brand-card">
+        <div class="brand-chip" style="background:#f63c81"></div>
+        <div class="brand-body"><b>Secondary/500 <span class="mono">#F63C81</span></b><span>Secondary accent (pink) — highlights, women's health, active-minutes code</span></div>
+      </div>
+    </div>
+    <div class="stack" style="margin-top:12px">
+      <div class="scale-block">
+        <div class="scale-name"><span>Colors/Brand</span><span class="mono">25 → 950</span></div>
+        <div class="scale-strip">
+          <div style="background:#f6f5fe"></div><div style="background:#eeecfd"></div><div style="background:#dcd9fb"></div><div style="background:#cbc7fa"></div><div style="background:#a8a1f6"></div><div style="background:#968ef4"></div><div style="background:#5043ed"><span style="color:#fff">500</span></div><div style="background:#483cd5"></div><div style="background:#4036be"></div><div style="background:#30288e"></div><div style="background:#201b5f"></div><div style="background:#100d2f"></div>
+        </div>
+      </div>
+      <div class="scale-block">
+        <div class="scale-name"><span>Colors/Gray</span><span class="mono">25 → 950</span></div>
+        <div class="scale-strip">
+          <div style="background:#fdfdfd"></div><div style="background:#fafafa"></div><div style="background:#f5f5f5"></div><div style="background:#e9eaeb"></div><div style="background:#d5d7da"></div><div style="background:#a4a7ae"></div><div style="background:#717680"><span style="color:#fff">500</span></div><div style="background:#535862"></div><div style="background:#414651"></div><div style="background:#252b37"></div><div style="background:#181d27"></div><div style="background:#0a0d12"></div>
+        </div>
+      </div>
+      <div class="scale-block">
+        <div class="scale-name"><span>Colors/Secondary (pink)</span><span class="mono">25 → 950</span></div>
+        <div class="scale-strip">
+          <div style="background:#feecf2"></div><div style="background:#fdd8e6"></div><div style="background:#fcc5d9"></div><div style="background:#fb9ec0"></div><div style="background:#f977a7"></div><div style="background:#f8639a"></div><div style="background:#f63c81"><span style="color:#fff">500</span></div><div style="background:#dd3674"></div><div style="background:#c53067"></div><div style="background:#ac2a5a"></div><div style="background:#621834"></div><div style="background:#19060d"></div>
+        </div>
+      </div>
+    </div>
+    <div class="stack" style="margin-top:16px">
+      <div class="scale-block">
+        <div class="scale-name"><span>Gradients — Figma paint styles</span><span class="mono">Gradients/*</span></div>
+      </div>
+      <div class="gradient-cards">
+        <div class="card brand-card">
+          <div class="gradient-chip g-brand-h"><b>brand-horizontal</b></div>
+          <div class="brand-body">
+            <span class="mono">Brand/400 #968EF4 → Brand/950 #100D2F</span>
+            <span><code>linear-gradient(90deg, #968EF4, #100D2F)</code></span>
+          </div>
+        </div>
+        <div class="card brand-card">
+          <div class="gradient-chip g-brand-v"><b>brand-verticle</b></div>
+          <div class="brand-body">
+            <span class="mono">Brand/400 #968EF4 → Brand/950 #100D2F</span>
+            <span><code>linear-gradient(180deg, #968EF4, #100D2F)</code></span>
+          </div>
+        </div>
+        <div class="card brand-card">
+          <div class="gradient-chip g-sec-h"><b>secondary-horizontal</b></div>
+          <div class="brand-body">
+            <span class="mono">Secondary/400 #F8639A → Secondary/950 #19060D</span>
+            <span><code>linear-gradient(90deg, #F8639A, #19060D)</code></span>
+          </div>
+        </div>
+        <div class="card brand-card">
+          <div class="gradient-chip g-sec-v"><b>secondary-verticle</b></div>
+          <div class="brand-body">
+            <span class="mono">Secondary/400 #F8639A → Secondary/950 #19060D</span>
+            <span><code>linear-gradient(180deg, #F8639A, #19060D)</code></span>
+          </div>
+        </div>
+      </div>
+      <p class="hint" style="font-size:13px;color:var(--muted-fg)">Both ramps run 400 → 950 of their scale, so gradient surfaces always carry <strong>white text and icons</strong> (<code>Text/on-color</code>). Reserve them for featured/hero surfaces — tier cards, promo banners, featured icons — never for chrome, buttons, or data UI. Tenant variants exist as parallel styles (e.g. <code>elitex-*</code>, <code>elite-brand-verticle</code>).</p>
+    </div>
+    <div class="note" style="margin-top:12px">
+      <span>◆</span>
+      <span><strong>Accent scope is unchanged:</strong> primary buttons · active tab underline · links · sparklines · active filter pills · focus rings. <strong>Never</strong> in nav chrome, menu highlights, hovers, or page backgrounds. Gradients count as accent surfaces — same scope rules apply.</span>
+    </div>
+  </section>
+
+  <!-- TOKENS -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">03 — Semantic tokens</span>
+      <h2>Semantics collection — Light / Dark</h2>
+      <p class="hint">The app-facing layer. Each token aliases a Primitive per mode. These map 1:1 onto the portal's CSS variables (<code>--background</code>, <code>--foreground</code>, <code>--muted</code>, <code>--border</code>…).</p>
+    </div>
+    <div class="card scroll-x">
+      <table class="tok-table">
+        <thead><tr><th>Figma token</th><th>Light</th><th>Dark</th><th>App usage</th></tr></thead>
+        <tbody>
+          <tr><td><code>backgrounds/screen-bg</code></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#ffffff"></span><span class="mono">#FFFFFF</span></span></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#0a0d12"></span><span class="mono">Gray/950 #0A0D12</span></span></td>
+            <td class="tok-use">Page canvas (<code>--background</code>)</td></tr>
+          <tr><td><code>backgrounds/primary</code></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#ffffff"></span><span class="mono">#FFFFFF</span></span></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#181d27"></span><span class="mono">Gray/900 #181D27</span></span></td>
+            <td class="tok-use">Cards &amp; panels (<code>--card</code>)</td></tr>
+          <tr><td><code>Text/primary</code></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#0a0d12"></span><span class="mono">Gray/950 #0A0D12</span></span></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#ffffff"></span><span class="mono">#FFFFFF</span></span></td>
+            <td class="tok-use">Headings &amp; body ink (<code>--foreground</code>)</td></tr>
+          <tr><td><code>Text/secondary</code> / <code>tertiary</code></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#414651"></span><span class="sw" style="background:#717680"></span><span class="mono">700 / 500</span></span></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#d5d7da"></span><span class="sw" style="background:#a4a7ae"></span><span class="mono">300 / 400</span></span></td>
+            <td class="tok-use">Supporting text, labels, meta (<code>--muted-foreground</code>)</td></tr>
+          <tr><td><code>backgrounds/Active</code> / <code>inactive</code></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#f5f5f5"></span><span class="sw" style="background:#fafafa"></span><span class="mono">100 / 50</span></span></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#252b37"></span><span class="mono">Gray/800 #252B37</span></span></td>
+            <td class="tok-use">Gray fills: chips, trays, hovers, nav pill (<code>--muted</code>)</td></tr>
+          <tr><td><code>borders/tertiary</code></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#e9eaeb"></span><span class="mono">Gray/200 #E9EAEB</span></span></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#414651"></span><span class="mono">Gray/700 #414651</span></span></td>
+            <td class="tok-use">Default hairlines (<code>--border</code>); <code>secondary</code> Gray/300 for inputs</td></tr>
+          <tr><td><code>states/active</code> + <code>Text/link</code></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#5043ed"></span><span class="sw" style="background:#483cd5"></span><span class="mono">Brand 500 / 600</span></span></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#a8a1f6"></span><span class="mono">Brand/300 #A8A1F6</span></span></td>
+            <td class="tok-use">Accent + links (<code>--primary</code>, <code>--ring</code>)</td></tr>
+          <tr><td><code>states/error · warning · success</code></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#f04438"></span><span class="sw" style="background:#f79009"></span><span class="sw" style="background:#17b26a"></span></span></td>
+            <td><span class="mono tok-use">same 500s both modes</span></td>
+            <td class="tok-use">Feedback (<code>--destructive</code>, <code>--warning</code>, <code>--success</code>); pair with <code>*-light</code> bgs</td></tr>
+          <tr><td><code>backgrounds/brand-light</code></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#eeecfd"></span><span class="mono">Brand/50 #EEECFD</span></span></td>
+            <td><span class="sw-pair"><span class="sw" style="background:#201b5f"></span><span class="mono">Brand/900 #201B5F</span></span></td>
+            <td class="tok-use">Active filter pills, selected rows, brand tints (<code>--accent</code>)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- STATUS -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">04 — Status color</span>
+      <h2>Status &amp; priority tones</h2>
+      <p class="hint">Rebuilt on Foundations palettes using the <code>backgrounds/*-light</code> + <code>codes/*</code> pattern: 50-tint background, 700 text, 500 dot (dark mode: 900 background, 300 text). Keep the tone map centralized in one module; tones are fixed across tenants and products.</p>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="lbl">Status</div>
+        <div class="demo-strip">
+          <span class="pill" style="background:var(--t-brand-bg);color:var(--t-brand-fg)"><span class="dot" style="background:var(--t-brand-dot)"></span>Active</span>
+          <span class="pill" style="background:var(--t-warn-bg);color:var(--t-warn-fg)"><span class="dot" style="background:var(--t-warn-dot)"></span>Pending</span>
+          <span class="pill" style="background:var(--t-err-bg);color:var(--t-err-fg)"><span class="dot" style="background:var(--t-err-dot)"></span>Overdue</span>
+          <span class="pill" style="background:var(--t-succ-bg);color:var(--t-succ-fg)"><span class="dot" style="background:var(--t-succ-dot)"></span>Done</span>
+        </div>
+        <div class="demo-strip" style="padding-top:0">
+          <span class="mono tok-use">Brand · Warning · Error · Success</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="lbl">Priority</div>
+        <div class="demo-strip">
+          <span class="pill" style="background:var(--t-err-bg);color:var(--t-err-fg)"><span class="dot" style="background:var(--t-err-dot)"></span>Critical</span>
+          <span class="pill" style="background:var(--t-warn-bg);color:var(--t-warn-fg)"><span class="dot" style="background:var(--t-warn-dot)"></span>High</span>
+          <span class="pill" style="background:var(--t-gblue-bg);color:var(--t-gblue-fg)"><span class="dot" style="background:var(--t-gblue-dot)"></span>Medium</span>
+          <span class="pill" style="background:var(--t-gray-bg);color:var(--t-gray-fg)"><span class="dot" style="background:var(--t-gray-dot)"></span>Low</span>
+        </div>
+        <div class="demo-strip" style="padding-top:0">
+          <span class="mono tok-use">Error · Warning · Grayblue · Gray</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">05 — Typography</span>
+      <h2>Type ramp — Manrope</h2>
+      <p class="hint">From the <code>Typography</code> collection: <strong>Manrope</strong> for both display and body (English), <strong>Alexandria</strong> for Arabic RTL. Weights: Regular / Medium / Semibold / Bold. Dense data UIs (tables, meta) sit on text-sm and text-xs; all numbers are <code>tabular-nums</code>.</p>
+    </div>
+    <div class="card">
+      <div class="type-row"><span class="type-spec mono">display-md · 36/44 · Bold</span><span style="font-size:36px;font-weight:700;letter-spacing:-0.02em;line-height:44px">Marketing &amp; auth headlines</span></div>
+      <div class="type-row"><span class="type-spec mono">display-xs · 24/32 · Bold</span><span style="font-size:24px;font-weight:700;letter-spacing:-0.02em;line-height:32px">Page title — Overview</span></div>
+      <div class="type-row"><span class="type-spec mono">text-xl · 20/30 · Semibold</span><span style="font-size:20px;font-weight:600;line-height:30px">Dialog title — Invite a user</span></div>
+      <div class="type-row"><span class="type-spec mono">text-lg · 18/28 · Semibold</span><span style="font-size:18px;font-weight:600;line-height:28px">Section &amp; card heading — Recent activity</span></div>
+      <div class="type-row"><span class="type-spec mono">text-md · 16/24 · Regular</span><span style="font-size:16px;line-height:24px">Default body — reading surfaces, forms, empty states.</span></div>
+      <div class="type-row"><span class="type-spec mono">text-sm · 14/20 · Regular</span><span style="font-size:14px;line-height:20px">Dense body &amp; table cells — most recent activity appears first.</span></div>
+      <div class="type-row"><span class="type-spec mono">text-sm · 14/20 · muted</span><span style="font-size:14px;line-height:20px;color:var(--muted-fg)">Supporting text — updated 2 hours ago</span></div>
+      <div class="type-row"><span class="type-spec mono">text-xs · 12/18 · Medium</span><span style="font-size:12px;font-weight:500;line-height:18px">Small meta &amp; chips — 12 active · 3 pending</span></div>
+      <div class="type-row"><span class="type-spec mono">text-xs caps · +0.08em</span><span class="eyebrow">Micro-label — Care team</span></div>
+      <div class="type-row"><span class="type-spec mono">display-sm · 30/38 · Bold · tabular</span><span class="tabular" style="font-size:30px;font-weight:700;letter-spacing:-0.02em;line-height:38px">1,284 <span style="font-size:13px;color:var(--muted-fg);font-weight:400">metric numbers</span></span></div>
+    </div>
+    <div class="note" style="margin-top:12px">
+      <span>◆</span>
+      <span>The full ramp continues up through display-sm 30/38, display-lg 48/60, display-xl 60/72, display-2xl 72/90 (−2 tracking) for marketing surfaces — rarely used inside the portals.</span>
+    </div>
+  </section>
+
+  <!-- ICONOGRAPHY -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">05B — Iconography</span>
+      <h2>Icons — Lucide</h2>
+      <p class="hint">One library everywhere: <strong>Lucide</strong> (<code>lucide-react</code>). Stroke icons on the 24px grid, rendered at fixed sizes with <code>strokeWidth 1.75</code>. Icons inherit text color — gray in chrome, white inside primary buttons, tone color inside alerts. Never the brand accent in nav or menus.</p>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="lbl">Sizes by context</div>
+        <div class="icon-sizes">
+          <div class="icon-size-col"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg><span>16 — buttons, chips, inline</span></div>
+          <div class="icon-size-col"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg><span>18 — nav, toolbar, topbar</span></div>
+          <div class="icon-size-col"><svg width="20" height="20" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg><span>20 — empty states, features</span></div>
+        </div>
+      </div>
+      <div class="card dd dd-do">
+        <h3><span class="mark" style="background:var(--success)"></span>Rules</h3>
+        <ul>
+          <li>Stroke 1.75 at every size — never mix filled and stroked styles in one surface</li>
+          <li>Color = <code>currentColor</code>; icons never carry their own hex</li>
+          <li>Directional icons (chevrons, arrows, panel toggles) mirror in RTL</li>
+          <li>Icon-only buttons always get <code>aria-label</code> + <code>title</code></li>
+          <li>In Figma use the Untitled UI icon set — visually equivalent; devs map names to Lucide</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- RADIUS -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">06 — Shape</span>
+      <h2>Radius — Foundations scale</h2>
+      <p class="hint">From the <code>Radius</code> collection. Component tokens: <code>card = radius-2xl (16)</code>, <code>input-field = radius-md (8)</code>; buttons sit on <code>radius-xl (12)</code>.</p>
+    </div>
+    <div class="radius-grid">
+      <div class="card radius-cell"><div class="radius-demo" style="border-radius:16px"></div><b>16px · radius-2xl</b><span><code>card</code> — cards, panels, modals, chat bubbles</span></div>
+      <div class="card radius-cell"><div class="radius-demo" style="border-radius:8px"></div><b>8px · radius-md</b><span><code>input-field</code> — inputs, selects</span></div>
+      <div class="card radius-cell"><div class="radius-demo" style="border-radius:12px"></div><b>12px · radius-xl</b><span>Buttons — all variants</span></div>
+      <div class="card radius-cell"><div class="radius-demo" style="border-radius:10px"></div><b>10px · radius-lg</b><span>Sidebar nav pill, small tiles</span></div>
+      <div class="card radius-cell"><div class="radius-demo" style="border-radius:9999px"></div><b>radius-full</b><span>Pills, search input, avatars, dots</span></div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="lbl">Full scale</div>
+      <div class="radius-scale">
+        <span class="radius-chip" style="border-radius:0">none 0</span>
+        <span class="radius-chip" style="border-radius:2px">xxs 2</span>
+        <span class="radius-chip" style="border-radius:4px">xs 4</span>
+        <span class="radius-chip" style="border-radius:6px">sm 6</span>
+        <span class="radius-chip" style="border-radius:8px">md 8</span>
+        <span class="radius-chip" style="border-radius:10px">lg 10</span>
+        <span class="radius-chip" style="border-radius:12px">xl 12</span>
+        <span class="radius-chip" style="border-radius:16px">2xl 16</span>
+        <span class="radius-chip" style="border-radius:20px">3xl 20</span>
+        <span class="radius-chip" style="border-radius:24px">4xl 24</span>
+        <span class="radius-chip" style="border-radius:9999px">full 9999</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">07 — Layout</span>
+      <h2>Spacing, widths &amp; shell</h2>
+      <p class="hint">From the <code>Measures</code> and <code>Widths</code> collections — a 4px-base ladder with named steps (<code>spacing-xs</code> … <code>spacing-11xl</code>) and container widths up to 1,920px.</p>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="lbl">Spacing ladder (core steps)</div>
+        <div class="space-ladder">
+          <div class="space-row"><span class="mono">spacing-xs · 4</span><div class="bar" style="width:4px"></div></div>
+          <div class="space-row"><span class="mono">spacing-md · 8</span><div class="bar" style="width:8px"></div></div>
+          <div class="space-row"><span class="mono">spacing-lg · 12</span><div class="bar" style="width:12px"></div></div>
+          <div class="space-row"><span class="mono">spacing-xl · 16 (gutter)</span><div class="bar" style="width:16px"></div></div>
+          <div class="space-row"><span class="mono">spacing-2xl · 20</span><div class="bar" style="width:20px"></div></div>
+          <div class="space-row"><span class="mono">spacing-3xl · 24 (section)</span><div class="bar" style="width:24px"></div></div>
+          <div class="space-row"><span class="mono">spacing-4xl · 32</span><div class="bar" style="width:32px"></div></div>
+          <div class="space-row"><span class="mono">spacing-5xl · 40</span><div class="bar" style="width:40px"></div></div>
+          <div class="space-row"><span class="mono">spacing-6xl · 48</span><div class="bar" style="width:48px"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="spec-list" style="grid-template-columns:1fr">
+          <div class="spec-item"><span>Page padding</span><span class="mono">spacing-3xl 24 · lg: spacing-4xl 32</span></div>
+          <div class="spec-item"><span>Section rhythm</span><span class="mono">spacing-2xl 20 / 3xl 24</span></div>
+          <div class="spec-item"><span>Card inner padding</span><span class="mono">spacing-2xl 20 / 3xl 24</span></div>
+          <div class="spec-item"><span>Tab content max width (big screens)</span><span class="mono">width-4xl 1,440 · centered</span></div>
+          <div class="spec-item"><span>Forms / settings max width</span><span class="mono">width-xl 768 · paragraph-max 720</span></div>
+          <div class="spec-item"><span>Topbar height</span><span class="mono">56px</span></div>
+          <div class="spec-item"><span>Sidebar width</span><span class="mono">224px · 64px collapsed</span></div>
+          <div class="spec-item"><span>Table row height</span><span class="mono">~76px default · 52px compact</span></div>
+          <div class="spec-item"><span>Control heights</span><span class="mono">40 default · 36 sm · 32 pills</span></div>
+          <div class="spec-item"><span>Direction</span><span class="mono">logical only: ps-* / pe-* / border-e</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:12px">
+      <span>◆</span>
+      <span><strong>Shell recipe:</strong> 56px topbar (pill search start · theme / language / bell end) + 224px sidebar on the same canvas, split by a single <code>borders/tertiary</code> hairline. Brand lockup and user block live in the sidebar. Active nav = <code>backgrounds/Active</code> gray pill, no accent.</span>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">08 — Components</span>
+      <h2>Core patterns</h2>
+      <p class="hint">Build each pattern once as a shared component (<code>PageHeader</code>, <code>KpiCard</code>, <code>Table</code>, <code>Toolbar</code> / <code>FilterPill</code> / <code>SearchInput</code>, <code>StatusPill</code>, <code>Avatar</code>) on shadcn/Radix primitives, skinned with Foundations tokens — import, don't re-create.</p>
+    </div>
+
+    <div class="stack">
+      <!-- buttons -->
+      <div class="card">
+        <div class="lbl">Buttons — 40px, radius-xl 12, neutral hovers</div>
+        <div class="demo-strip">
+          <button class="btn btn-primary">Create</button>
+          <button class="btn btn-outline">Export</button>
+          <button class="btn btn-ghost">Cancel</button>
+          <button class="btn btn-destructive">Delete</button>
+          <button class="btn btn-outline btn-icon" aria-label="More options" title="More options">⋯</button>
+        </div>
+      </div>
+
+      <!-- toolbar -->
+      <div class="card">
+        <div class="lbl">Filter bar — muted search pill + chips (active = backgrounds/brand-light)</div>
+        <div class="demo-strip">
+          <span class="search-demo">⌕&ensp;Search…</span>
+          <span class="filter-pill active">All items</span>
+          <span class="filter-pill">Assigned to me</span>
+          <span class="filter-pill">Flagged</span>
+          <span class="filter-pill">Archived</span>
+        </div>
+      </div>
+
+      <!-- sidebar nav states -->
+      <div class="card">
+        <div class="lbl">Sidebar nav item — 40px row · radius-lg 10 · monochrome states, no accent</div>
+        <div class="nav-states">
+          <div class="nav-state-col">
+            <span class="nav-item">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg>
+              Item
+            </span>
+            <span class="nav-state-name">Inactive</span>
+            <span class="nav-state-cap">transparent · Text/label Gray/600 · icon Gray/500</span>
+          </div>
+          <div class="nav-state-col">
+            <span class="nav-item is-hover">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg>
+              Item
+            </span>
+            <span class="nav-state-name">Hover</span>
+            <span class="nav-state-cap">backgrounds/inactive Gray/50 · Text Gray/700</span>
+          </div>
+          <div class="nav-state-col">
+            <span class="nav-item is-active">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg>
+              Item
+            </span>
+            <span class="nav-state-name">Active</span>
+            <span class="nav-state-cap">backgrounds/Active Gray/100 · ink Gray/900 — same weight, gray pill, never accent</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- tabs -->
+      <div class="card">
+        <div class="lbl">Tabs — 2px Brand/500 underline on active only</div>
+        <div style="padding: 8px 20px 20px">
+          <div class="tabs-demo">
+            <span class="tab active">Overview</span>
+            <span class="tab">Activity</span>
+            <span class="tab">Details</span>
+            <span class="tab">Settings</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <!-- KPI -->
+        <div class="card kpi">
+          <span class="kpi-label">Active users</span>
+          <div class="kpi-foot">
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span class="kpi-value tabular">248</span>
+              <span class="kpi-delta">▲ 12%</span>
+            </div>
+            <svg class="sparkline" width="96" height="32" viewBox="0 0 96 32" aria-hidden="true">
+              <polyline points="0,24 12,20 24,22 36,14 48,17 60,10 72,12 84,6 96,8" fill="none" stroke="var(--primary)" stroke-width="1.75" stroke-linecap="round"/>
+              <circle cx="96" cy="8" r="2.5" fill="var(--primary)"/>
+            </svg>
+          </div>
+          <span style="font-size:12px;color:var(--muted-fg)">KpiCard — label · display-sm tabular number · success-light delta chip · Brand/500 sparkline</span>
+        </div>
+
+        <!-- empty state -->
+        <div class="card empty">
+          <div class="empty-icon">◎</div>
+          <b>No results match these filters</b>
+          <span>Try widening the date range or clearing a filter.</span>
+        </div>
+      </div>
+
+      <!-- table -->
+      <div class="card scroll-x">
+        <div class="lbl" style="padding-bottom:2px">Table (default) — two-line rows ~76px · caps header on Gray/50 · radius-2xl 16 · no checkboxes</div>
+        <div style="padding:0 20px 10px;font-size:12px;color:var(--muted-fg-soft)">Compact variant (single-line, ~52px rows) survives for dashboard widgets and drill-downs.</div>
+        <table class="demo-table">
+          <thead><tr><th>User</th><th>Contact</th><th>Status</th><th>Assigned to</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="cell-person"><span class="avatar avatar-40">FA</span><span><span class="cell-name">Fatimah Al-Harbi</span><span class="cell-ids" style="display:block">ID 1098234571 · REF-100234</span></span></span></td>
+              <td><span class="cline"><span class="ic">✆</span>+966501122334</span><span class="cline"><span class="ic">✉</span>fatimah.harbi@example.com</span></td>
+              <td><span class="pill" style="background:var(--t-warn-bg);color:var(--t-warn-fg)"><span class="dot" style="background:var(--t-warn-dot)"></span>Pending</span></td>
+              <td style="color:var(--muted-fg)">Sarah A.</td>
+            </tr>
+            <tr>
+              <td><span class="cell-person"><span class="avatar avatar-40">AA</span><span><span class="cell-name">Abdullah Al-Ghamdi</span><span class="cell-ids" style="display:block">ID 1076554320 · REF-100311</span></span></span></td>
+              <td><span class="cline"><span class="ic">✆</span>+966552233445</span><span class="cline"><span class="ic">✉</span>abdullah.ghamdi@example.com</span></td>
+              <td><span class="pill" style="background:var(--t-gray-bg);color:var(--t-gray-fg)"><span class="dot" style="background:var(--t-gray-dot)"></span>Inactive</span></td>
+              <td style="color:var(--muted-fg)">Sarah A.</td>
+            </tr>
+            <tr>
+              <td><span class="cell-person"><span class="avatar avatar-40">SA</span><span><span class="cell-name">Sara Al-Otaibi</span><span class="cell-ids" style="display:block">ID 1088123409 · REF-100455</span></span></span></td>
+              <td><span class="cline"><span class="ic">✆</span>+966533344556</span><span class="cline"><span class="ic">✉</span>sara.otaibi@example.com</span></td>
+              <td><span class="pill" style="background:var(--t-succ-bg);color:var(--t-succ-fg)"><span class="dot" style="background:var(--t-succ-dot)"></span>Active</span></td>
+              <td style="color:var(--muted-fg)">Sarah A.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-foot">
+          <span class="tabular">Showing 1 to 3 of 248</span>
+          <span class="pager"><button>‹</button><button class="on">1</button><button>2</button><button>3</button><button>›</button></span>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <!-- avatars -->
+        <div class="card">
+          <div class="lbl">Avatars — neutral gray · Gray/300 fill · Gray/500 Bold initials</div>
+          <div class="demo-strip">
+            <div class="avatar-row">
+              <span class="avatar">NA</span>
+              <span class="avatar">FK</span>
+              <span class="avatar">LM</span>
+              <span class="avatar">OR</span>
+              <span class="avatar">SA</span>
+              <span class="avatar">HG</span>
+              <span class="avatar">MB</span>
+              <span class="avatar">RD</span>
+            </div>
+          </div>
+          <div class="demo-strip" style="padding-top:0">
+            <span style="font-size:12px;color:var(--muted-fg)">All people use the neutral avatar: Gray/300 fill with Gray/500 Bold initials (Gray/700 + Gray/400 in dark). The Teal→Success staff gradient survives only in the sidebar user block. Never shadows.</span>
+          </div>
+        </div>
+
+        <!-- dialog -->
+        <div class="card" style="background:var(--muted);border-style:dashed;display:grid;place-items:center;padding:24px">
+          <div class="dialog-demo">
+            <h3>Invite a user</h3>
+            <div class="field">
+              <label for="dd-email">Email</label>
+              <input id="dd-email" value="name@company.com" readonly>
+            </div>
+            <div class="dialog-actions">
+              <button class="btn btn-ghost" style="height:36px">Cancel</button>
+              <button class="btn btn-primary" style="height:36px">Invite</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIDEBAR ANATOMY -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">08B — App shell</span>
+      <h2>Sidebar — anatomy &amp; rules</h2>
+      <p class="hint">The sidebar owns the brand and the user identity — the topbar carries neither. White canvas, one <code>border-e</code> hairline, monochrome gray states everywhere. Specs match the reference implementation shipped with the first portal.</p>
+    </div>
+    <div class="two-col">
+      <div class="sb-mock-tray">
+        <!-- expanded -->
+        <div class="sb sb-expanded" aria-hidden="true">
+          <div class="sb-header">
+            <span class="sb-logo">Logo</span>
+            <span class="sb-collapse"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.25" y="2.25" width="13.5" height="13.5" rx="1.5" stroke="currentColor" stroke-width="1.3125"/><path d="M6.75 2.25v13.5" stroke="currentColor" stroke-width="1.3125" stroke-linecap="round"/><path d="M12 11.25 9.75 9 12 6.75" stroke="currentColor" stroke-width="1.3125" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="sb-nav">
+            <div class="sb-group">
+              <span class="sb-group-label">Section</span>
+              <span class="nav-item is-active"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg>Item</span>
+              <span class="nav-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg>Item</span>
+              <span class="nav-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg>Item</span>
+            </div>
+            <div class="sb-group">
+              <span class="sb-group-label">Section</span>
+              <span class="nav-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg>Item</span>
+              <span class="nav-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg>Item</span>
+            </div>
+          </div>
+          <div class="sb-footer">
+            <span class="avatar" style="background:linear-gradient(135deg,#15b79e,#067647);color:#fff">SA</span>
+            <span class="sb-user-meta">
+              <span class="sb-user-name">Sarah Al-Otaibi</span>
+              <span class="sb-user-role" style="display:block">Title</span>
+            </span>
+            <span class="sb-dots">⋮</span>
+          </div>
+        </div>
+        <!-- collapsed -->
+        <div class="sb sb-rail" aria-hidden="true">
+          <div class="sb-header"><span class="sb-collapse"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.25" y="2.25" width="13.5" height="13.5" rx="1.5" stroke="currentColor" stroke-width="1.3125"/><path d="M6.75 2.25v13.5" stroke="currentColor" stroke-width="1.3125" stroke-linecap="round"/><path d="M12 11.25 9.75 9 12 6.75" stroke="currentColor" stroke-width="1.3125" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="sb-nav">
+            <span class="sb-rail-item is-active"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg></span>
+            <span class="sb-rail-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg></span>
+            <span class="sb-rail-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg></span>
+            <span class="sb-rail-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg></span>
+            <span class="sb-rail-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg></span>
+          </div>
+          <div class="sb-footer">
+            <span class="avatar" style="background:linear-gradient(135deg,#15b79e,#067647);color:#fff">SA</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <ol class="sb-steps">
+          <li><b>Container</b>224px expanded · 64px collapsed. White (<code>backgrounds/primary</code>), a single <code>border-e</code> hairline, full height, sticky. 200ms width transition.</li>
+          <li><b>Header</b>64px tall with a bottom hairline, 16px side padding. Expanded: logo at the start, collapse button at the end. Collapsed: collapse button centered, nothing else.</li>
+          <li><b>Logo size</b>Brand mark/wordmark image <strong>32px tall</strong> (width auto) on the expanded rail — logo only, no product-name text; the mark carries the brand. Collapsed: <strong>28px</strong> square mark. No-logo fallback: 32px rounded-md brand tile with initials.</li>
+          <li><b>Sections</b>Groups separated by 24px. Each starts with a label: 11px Semibold, UPPERCASE, +8% tracking, Gray/500, 12px side padding, 6px below. Labels disappear when collapsed — spacing alone separates groups.</li>
+          <li><b>Nav items</b>Use the Sidebar / Nav item component: 40px row, radius-lg 10, 18px icon (stroke 1.75), 14px Medium. Stack 2px apart. Active = gray pill, never accent. Collapsed: icon only, label becomes a tooltip.</li>
+          <li><b>Collapse button</b>32×32, radius 8, panel-left icon 18px stroke 1.75, Gray/500. Hover: Gray/100 tint + darker icon. Toggles 224 ↔ 64. Always give it <code>aria-label</code> + tooltip.</li>
+          <li><b>User account (footer)</b>Pinned to the bottom behind a top hairline, 12px padding. Row = 32px round avatar (staff gradient Teal/500 → Success/700, 11px Semibold initials) + name 13px Medium + role 11px Gray/500 + ⋮. The row opens the account menu upward — Log out lives inside the menu, never as a bare icon. Collapsed: avatar only, centered.</li>
+          <li><b>Content width</b>On big screens, cap the content inside each tab at <strong>width-4xl 1,440px</strong> — center it and let the canvas breathe beyond that. Forms and settings pages cap tighter at width-xl 768px. Never let tables or dashboards stretch edge-to-edge on wide monitors.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOPBAR -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">08C — App shell</span>
+      <h2>Topbar — anatomy &amp; rules</h2>
+      <p class="hint">56px, white, split from content by a single hairline. Carries utilities only — <strong>no search, no theme switcher, no brand, no avatar</strong>. The end cluster is just language and notifications; brand and user identity live in the sidebar.</p>
+    </div>
+    <div class="card" style="padding:20px">
+      <div class="tb" style="justify-content:flex-end" aria-hidden="true">
+        <span class="tb-end">
+          <span class="tb-lang">EN · ع</span>
+          <span class="tb-icon tb-badge">🔔&#xFE0E;</span>
+        </span>
+      </div>
+      <div class="spec-list" style="margin-top:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+        <div class="spec-item"><span>Height</span><span class="mono">56px · border-b hairline</span></div>
+        <div class="spec-item"><span>End cluster</span><span class="mono">language · bell — 32px icon buttons</span></div>
+        <div class="spec-item"><span>Notification badge</span><span class="mono">7px Error/500 dot, card-colored ring</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMS -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">08D — Forms</span>
+      <h2>Form controls</h2>
+      <p class="hint">Inputs are 40px, radius-md 8, 1px <code>borders/secondary</code> (Gray/300). Label 13px Semibold above, help/error 12.5px below. Focus = brand border + 2px 35% brand ring. Error = Error/500 border + message. Disabled = Gray/50 fill.</p>
+    </div>
+    <div class="stack">
+      <div class="card">
+        <div class="lbl">Text input states</div>
+        <div class="form-grid">
+          <div class="form-field"><label>Default</label><input class="input" placeholder="Full name" readonly><span class="help">Help text — 12.5px Gray/500.</span></div>
+          <div class="form-field"><label>Focus</label><input class="input is-focus" value="Noura Alharbi" readonly></div>
+          <div class="form-field"><label>Error</label><input class="input is-error" value="05x-badphone" readonly><span class="field-error">Enter a valid phone number.</span></div>
+          <div class="form-field"><label>Disabled</label><input class="input is-disabled" value="REF-100234" disabled></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="lbl">Selection controls</div>
+          <div class="form-grid" style="grid-template-columns:1fr 1fr">
+            <span class="ctl-row"><span class="cb on">✓</span>Checkbox · 18px, radius-xs 4</span>
+            <span class="ctl-row"><span class="cb"></span>Unchecked</span>
+            <span class="ctl-row"><span class="radio on"></span>Radio · 18px</span>
+            <span class="ctl-row"><span class="radio"></span>Unselected</span>
+            <span class="ctl-row"><span class="tg on"></span>Toggle · 36×20, brand when on</span>
+            <span class="ctl-row"><span class="tg"></span>Off — Gray/200 track</span>
+          </div>
+        </div>
+        <div class="card dd dd-do">
+          <h3><span class="mark" style="background:var(--success)"></span>Form rules</h3>
+          <ul>
+            <li>Labels above fields, never floating placeholders as labels</li>
+            <li>Selects, date pickers, and comboboxes share the exact input frame (40px / radius 8)</li>
+            <li>Validate on blur, not per keystroke; keep the message under the field</li>
+            <li>Destructive confirm inputs (e.g. "type DELETE") use the error frame</li>
+            <li>Forms cap at width-xl 768px, single column by default</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEEDBACK -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">08E — Feedback</span>
+      <h2>Alerts, toasts &amp; loading</h2>
+      <p class="hint">Semantic tones only, light-tint recipe. Toasts are white cards with a soft shadow (one of the few allowed), bottom-end position, auto-dismiss 5s.</p>
+    </div>
+    <div class="two-col">
+      <div class="card" style="padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+        <div class="alert" style="background:var(--accent-tint);color:var(--accent-tint-fg)"><span>◆</span><span><strong>Info</strong> — sync runs nightly at 02:00 AST.</span></div>
+        <div class="alert" style="background:var(--t-succ-bg);color:var(--t-succ-fg)"><span>✓</span><span><strong>Success</strong> — 24 records imported.</span></div>
+        <div class="alert" style="background:var(--t-warn-bg);color:var(--t-warn-fg)"><span>▲</span><span><strong>Warning</strong> — 3 records are missing required fields.</span></div>
+        <div class="alert" style="background:var(--t-err-bg);color:var(--t-err-fg)"><span>✕</span><span><strong>Error</strong> — import failed, file exceeds 10 MB.</span></div>
+      </div>
+      <div class="card" style="padding:18px 20px;display:flex;flex-direction:column;gap:16px">
+        <span class="toast"><span style="color:var(--t-succ-dot)">✓</span>Changes saved<span style="color:var(--muted-fg-soft);margin-left:8px">Undo</span></span>
+        <div style="display:flex;flex-direction:column;gap:8px" aria-hidden="true">
+          <div class="skel shimmer" style="width:60%"></div>
+          <div class="skel shimmer" style="width:85%"></div>
+          <div class="skel shimmer" style="width:40%"></div>
+        </div>
+        <span class="ctl-row" style="color:var(--muted-fg)"><span class="spin"></span>Loading — Loader2, muted, centered in its region</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATES MATRIX -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">08F — Interaction states</span>
+      <h2>States matrix</h2>
+      <p class="hint">Hovers are neutral, focus is the brand ring, selection is a tint or pill. Disabled is always Gray fill + Gray/400 text, never opacity on colored fills.</p>
+    </div>
+    <div class="card scroll-x">
+      <table class="tok-table">
+        <thead><tr><th>Component</th><th>Hover</th><th>Focus-visible</th><th>Active / selected</th><th>Disabled</th></tr></thead>
+        <tbody>
+          <tr><td>Button primary</td><td class="tok-use">Brand/600 fill</td><td class="tok-use">2px brand ring @35%</td><td class="tok-use">Brand/700 fill</td><td class="tok-use">Gray/200 fill · Gray/400 text</td></tr>
+          <tr><td>Button outline / ghost</td><td class="tok-use">Gray/100 fill</td><td class="tok-use">2px brand ring @35%</td><td class="tok-use">Gray/100 + darker ink</td><td class="tok-use">Gray/300 text, border Gray/100</td></tr>
+          <tr><td>Sidebar nav item</td><td class="tok-use">Gray/50 fill</td><td class="tok-use">2px brand ring @35%</td><td class="tok-use">Gray/100 pill + Gray/900 ink</td><td class="tok-use">Gray/300 text</td></tr>
+          <tr><td>Table row</td><td class="tok-use">muted/60 wash</td><td class="tok-use">inset brand ring on focused row</td><td class="tok-use">brand-light wash</td><td class="tok-use">—</td></tr>
+          <tr><td>Filter pill</td><td class="tok-use">Gray/100 fill</td><td class="tok-use">2px brand ring @35%</td><td class="tok-use">brand-light bg + Brand/700 text</td><td class="tok-use">Gray/300 text</td></tr>
+          <tr><td>Input</td><td class="tok-use">border Gray/400</td><td class="tok-use">brand border + 2px ring @35%</td><td class="tok-use">—</td><td class="tok-use">Gray/50 fill · Gray/400 text</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CHARTS -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">08G — Charts</span>
+      <h2>Data visualization</h2>
+      <p class="hint">Series colors come from the Semantics <code>codes/*</code> tokens — fixed order below. Lines 1.75 with round caps and an emphasized endpoint; grids are border-color hairlines; axis labels 12px tabular Gray/500; area fills ≤ 12% tint. Tooltips are mini cards (radius 10, 1px border, soft shadow).</p>
+    </div>
+    <div class="card">
+      <div class="lbl">Series order</div>
+      <div class="series-row">
+        <span class="series-chip"><i style="background:#5043ed"></i>1 · Brand</span>
+        <span class="series-chip"><i style="background:#3e4784"></i>2 · Grayblue</span>
+        <span class="series-chip"><i style="background:#0e9384"></i>3 · Teal</span>
+        <span class="series-chip"><i style="background:#079455"></i>4 · Success</span>
+        <span class="series-chip"><i style="background:#dc6803"></i>5 · Warning</span>
+        <span class="series-chip"><i style="background:#dd3674"></i>6 · Pink</span>
+        <span class="series-chip"><i style="background:#7839ee"></i>7 · Violet</span>
+        <span class="series-chip"><i style="background:#535862"></i>8 · Gray</span>
+      </div>
+      <div class="demo-strip" style="padding-top:0">
+        <span style="font-size:12px;color:var(--muted-fg-soft)">Health metrics keep their fixed <code>codes/*</code> assignment (sleep=Violet, steps=Success, recovery=Teal, mindful=Grayblue, active minutes=Pink) regardless of series order. Charts do not mirror in RTL.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPTH -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">09 — Depth</span>
+      <h2>Elevation rules</h2>
+    </div>
+    <div class="card">
+      <div class="spec-list">
+        <div class="spec-item"><span>Cards &amp; panels</span><span>1px <code>borders/tertiary</code>, no shadow</span></div>
+        <div class="spec-item"><span>Interactive cards</span><span>border / tint shift on hover — no lift</span></div>
+        <div class="spec-item"><span>Modals &amp; dialogs</span><span class="mono">0 16px 48px rgba(10,13,18,.16)</span></div>
+        <div class="spec-item"><span>Side drawer</span><span class="mono">shadow-xl</span></div>
+        <div class="spec-item"><span>Auth cards</span><span>soft shadow allowed</span></div>
+        <div class="spec-item"><span>Everything else</span><span>flat</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTION & RTL -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">09B — Motion &amp; RTL</span>
+      <h2>Motion &amp; internationalization</h2>
+    </div>
+    <div class="two-col">
+      <div class="card dd dd-do">
+        <h3><span class="mark" style="background:var(--success)"></span>Motion</h3>
+        <ul>
+          <li>Micro-interactions (hover, fades): 150ms ease-out · layout shifts (sidebar, drawers): 200ms ease-out</li>
+          <li>Dialogs: 200ms fade + scale from 0.98 — no springs, no bounces</li>
+          <li>Animate only transform, opacity, and colors — never width/height of content containers (except the sidebar)</li>
+          <li>Respect <code>prefers-reduced-motion</code>: disable shimmer, pulses, and non-essential transitions</li>
+          <li>Live/urgent dots may pulse (2s) — the only ambient animation allowed</li>
+        </ul>
+      </div>
+      <div class="card dd dd-do">
+        <h3><span class="mark" style="background:var(--success)"></span>RTL &amp; localization</h3>
+        <ul>
+          <li><code>document.dir</code> flips per locale; shared components use logical utilities only (<code>ps-*</code>, <code>border-e</code>, <code>start-*</code>)</li>
+          <li>Arabic uses <strong>Alexandria</strong> for both display and body; Latin numerals stay tabular</li>
+          <li>Directional icons mirror (chevrons, arrows, panel toggles); charts, media controls, and phone numbers do not</li>
+          <li>Dates localize; IDs and codes (REF-100234) never do</li>
+          <li>Test every new screen in both directions before handoff</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DO / DONT -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">10 — Guardrails</span>
+      <h2>Do &amp; don't</h2>
+    </div>
+    <div class="dd-grid">
+      <div class="card dd dd-do">
+        <h3><span class="mark" style="background:var(--success)"></span>Do</h3>
+        <ul>
+          <li>Consume the <code>Semantics</code> layer (Text / borders / backgrounds / states) — it carries Light/Dark for free</li>
+          <li>Import pills, avatars, and tone maps from the central modules</li>
+          <li>Use the light-tint recipe for chips: 50 background + 700 text + 500 dot (900/300 in dark)</li>
+          <li>Use logical direction utilities everywhere shared (<code>ps-*</code>, <code>border-e</code>, <code>start-*</code>)</li>
+          <li>Set all numbers tabular; add <code>aria-label</code> + <code>title</code> to icon-only buttons</li>
+        </ul>
+      </div>
+      <div class="card dd dd-dont">
+        <h3><span class="mark" style="background:var(--destructive)"></span>Don't</h3>
+        <ul>
+          <li>Hardcode brand hex — tenants re-theme via parallel Foundations libraries (Dubai Sports, Healthx, Elitex…)</li>
+          <li>Reach for a Primitive directly in UI code when a Semantics token exists</li>
+          <li>Add shadows or hover lifts outside modals, the drawer, and auth</li>
+          <li>Put accent color in nav, menu highlights, or hovers — chrome stays Gray</li>
+          <li>Use physical direction utilities (<code>pl-*</code>, <code>border-r</code>) in shared components — RTL breaks</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin-top:56px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <span style="font-size:12.5px;color:var(--muted-fg)">Wellx Unified Design System v2 · tokens from Figma "Foundations" (Wellx mode)</span>
+    <span style="font-size:12.5px;color:var(--muted-fg)" class="mono">Primitives · Semantics · Radius · Measures · Widths · Typography</span>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = document.querySelectorAll('.theme-toggle button');
+    var KEY = 'cc-ds-theme';
+
+    function apply(mode) {
+      if (mode === 'light' || mode === 'dark') {
+        root.setAttribute('data-theme', mode);
+      } else {
+        root.removeAttribute('data-theme');
+        mode = 'auto';
+      }
+      buttons.forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === mode));
+      });
+    }
+
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var mode = b.getAttribute('data-mode');
+        try { localStorage.setItem(KEY, mode); } catch (e) {}
+        apply(mode);
+      });
+    });
+
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    if (saved === 'light' || saved === 'dark') apply(saved);
+  })();
+</script>

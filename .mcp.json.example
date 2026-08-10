@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "wellx-design-system": {
+      "command": "npx",
+      "args": ["-y", "@wellx/design-system-mcp"]
+    }
+  }
+}
