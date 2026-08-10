@@ -17,7 +17,7 @@ One hub, four surfaces. Everything in this repo is the **single source of truth*
   "mcpServers": {
     "wellx-design-system": {
       "command": "npx",
-      "args": ["-y", "github:Wellx-AI/wellx-design-system"]
+      "args": ["-y", "github:mbarbarydesign/Wellx-design-mcp"]
     }
   }
 }

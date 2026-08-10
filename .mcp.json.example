@@ -2,7 +2,7 @@
   "mcpServers": {
     "wellx-design-system": {
       "command": "npx",
-      "args": ["-y", "@wellx/design-system-mcp"]
+      "args": ["-y", "github:mbarbarydesign/Wellx-design-mcp"]
     }
   }
 }
