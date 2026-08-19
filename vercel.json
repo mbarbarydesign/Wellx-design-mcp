@@ -2,7 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "buildCommand": null,
-  "installCommand": null,
   "outputDirectory": "docs",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "functions": {
+    "api/mcp.mjs": {
+      "includeFiles": "{spec/**,tokens/**,CHANGELOG.md}",
+      "maxDuration": 30
+    }
+  }
 }

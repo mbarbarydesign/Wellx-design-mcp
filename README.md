@@ -24,7 +24,7 @@ One hub, four surfaces. Everything in this repo is the **single source of truth*
 ```
 Every new session installs and runs the latest commit of `main` — push an update and the next session anyone starts is current. Covers Claude Code and Claude Desktop. (Local dev inside this repo: `"command": "node", "args": ["mcp/server.mjs"]`.)
 
-**Production phase — remote connector.** Deploy the same tool core behind Streamable HTTP on Vercel, then add the URL once as a custom connector in the Claude workspace settings — that extends coverage to claude.ai web/mobile and Cowork. Repos then swap the npx entry for the URL.
+**Production phase — remote connector (live).** The same tool core is deployed as a stateless Streamable HTTP endpoint at `api/mcp.mjs` — Vercel serves it at `https://<deployment>/api/mcp` alongside the docs site. Add that URL once in Claude → Settings → Connectors → Add custom connector; it covers claude.ai web/mobile, the desktop app, and Claude Code, and every push to `main` redeploys it. The npx entry remains as the offline/local fallback.
 
 Tools: `get_principles` · `get_rules(topic)` · `get_component_spec(name)` · `get_tokens(category, mode)` · `search(query)` · `validate(code)` · `get_changelog`.
 

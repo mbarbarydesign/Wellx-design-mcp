@@ -166,9 +166,12 @@
       codeblock("npm install @wellx/design-tokens   # or copy tokens/ from the repo during the testing phase") +
       codeblock("// tailwind.config.js\nmodule.exports = {\n  presets: [require('@wellx/design-tokens/wellx-tailwind-preset.cjs')],\n  darkMode: ['class'],\n  content: ['./src/**/*.{ts,tsx,html}'],\n};") +
       codeblock("/* app entry css */\n@import '@wellx/design-tokens/wellx-tokens.css';") + "</section>";
-    h += '<section class="doc"><h2>2 · MCP server — for AI agents</h2><p class="hint">Gives every agent live access to the rules, component recipes, token values, and a guardrail linter. Testing phase runs straight from the repo; no hosting needed.</p>' +
-      codeblock('// .mcp.json (per project)  — or register once for your whole machine:\n// claude mcp add --scope user wellx-design-system -- node /path/to/wellx-design-system/mcp/server.mjs\n{\n  "mcpServers": {\n    "wellx-design-system": {\n      "command": "npx",\n      "args": ["-y", "github:mbarbarydesign/Wellx-design-mcp"]\n    }\n  }\n}') +
-      '<p class="hint" style="margin-top:10px">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_changelog</code></p></section>';
+    h += '<section class="doc"><h2>2 · MCP server — for AI agents</h2><p class="hint">Gives every agent live access to the rules, component recipes, token values, and a guardrail linter. Two ways in — both stay current automatically on every push to main.</p>' +
+      '<p class="hint"><strong>A · Claude connector (remote — nothing to install).</strong> In Claude, go to Settings → Connectors → Add custom connector and paste the endpoint. Works on claude.ai, the desktop app, and Claude Code.</p>' +
+      codeblock('https://<your-vercel-deployment>/api/mcp') +
+      '<p class="hint" style="margin-top:14px"><strong>B · Local (stdio via npx)</strong> — for Claude Code without the connector; needs Node 18+.</p>' +
+      codeblock('// .mcp.json (per project)  — or register once for your whole machine:\n// claude mcp add --scope user wellx-design-system -- npx -y github:mbarbarydesign/Wellx-design-mcp\n{\n  "mcpServers": {\n    "wellx-design-system": {\n      "command": "npx",\n      "args": ["-y", "github:mbarbarydesign/Wellx-design-mcp"]\n    }\n  }\n}') +
+      '<p class="hint" style="margin-top:10px">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_changelog</code></p></section>';
     h += '<section class="doc"><h2>3 · Fonts</h2>' +
       codeblock("<link href=\"https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Alexandria:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">") +
       '<p class="hint" style="margin-top:10px">Manrope for Latin UI; Alexandria for Arabic (RTL flips via <code>document.dir</code> — use logical utilities only).</p></section>';

@@ -2,9 +2,17 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.8.0";
+var VERSION = "2.9.0";
 
 var WHATS_NEW = [
+  {
+    version: "2.9.0", date: "2026-08-19", kind: "minor",
+    items: [
+      "The MCP is now a remote Claude connector: a stateless Streamable HTTP endpoint at /api/mcp, deployed on Vercel next to this site \u2014 add the URL once in Claude \u2192 Settings \u2192 Connectors, nothing to install.",
+      "Same server core for both transports (stdio npx + HTTP), so tools and content are identical everywhere and every push to main updates all of them.",
+      "How-to-install page updated: connector URL is now option A; local npx stays as option B.",
+    ],
+  },
   {
     version: "2.8.0", date: "2026-08-19", kind: "minor",
     items: [

@@ -2,6 +2,12 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.9.0 — 2026-08-19
+- Remote MCP endpoint: api/mcp.mjs serves the full tool set over stateless Streamable HTTP on Vercel (/api/mcp) for use as a Claude custom connector — claude.ai web/mobile, desktop, and Claude Code, no local install.
+- Server refactored: mcp/create-server.mjs is the single shared core; mcp/server.mjs is now a thin stdio entry. Tools/content identical across both transports.
+- vercel.json: functions config bundles spec/, tokens/, CHANGELOG.md with the endpoint; dependency install re-enabled for the build.
+- Install docs (site + README) lead with the connector URL; npx stays as the local fallback.
+
 ## 2.8.0 — 2026-08-19
 - Docs site: sidebar collapse button following the system's sidebar spec — 64px header button (panel icon, mirrors when collapsed, RTL-aware), collapsed = 64px icon-only rail with no logo and hidden group labels/sub-menus, 200ms width transition, state persisted in localStorage.
 - Collapsed-rail interactions: icon tooltips; clicking Wellx / Wellx Labs / Components from the rail expands the sidebar and opens that section. Mobile keeps the overlay drawer (collapse hidden under 860px).
