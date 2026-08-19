@@ -333,3 +333,51 @@ section.doc > .hint { font-size: 13px; color: var(--muted-fg); max-width: 76ch; 
 .pv-lbl { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--muted-fg-soft); }
 .pv-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .pv-note { font-size: 12px; color: var(--muted-fg-soft); line-height: 16px; }
+
+/* ===================== Wellx Labs pages ===================== */
+/* Labs demos are brand-accurate and theme-fixed: light panels stay light and
+   dark panels stay dark regardless of the docs theme. */
+.labs-dark { background: #07070C; border: 1px solid #262837; border-radius: 16px; font-family: "Figtree", sans-serif; }
+.labs-light { background: #F6F7FB; border: 1px solid #E4E7EE; border-radius: 16px; font-family: "Figtree", sans-serif; }
+.labs-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.labs-rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.labs-rule-grid .card h3 { font-size: 14.5px; margin: 0 0 6px; }
+.labs-rule-grid .card p { margin: 0; font-size: 13px; line-height: 1.65; color: var(--muted-fg); }
+.wl-eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
+.wl-cap { margin: 10px 0 0; font-size: 12px; line-height: 1.6; color: #98A0B3; font-family: "Figtree", sans-serif; }
+.wl-btn {
+  height: 36px; padding: 0 16px; border: 0; border-radius: 9px; cursor: pointer;
+  background: #3D7BFD; color: #fff; font-family: "Figtree", sans-serif; font-size: 13px; font-weight: 600;
+}
+.wl-btn.ghost-l { background: transparent; border: 1px solid #CBD1DC; color: #0B0B12; }
+.wl-btn.ghost-d { background: transparent; border: 1px solid #3A3C51; color: #F5F6FA; }
+.wl-input { height: 36px; border-radius: 9px; padding: 0 12px; font-family: "Figtree", sans-serif; font-size: 13px; width: 100%; }
+.wl-input.light { background: #fff; border: 1px solid #E4E7EE; color: #868D9D; }
+.wl-input.dark { background: #0B0B12; border: 1px solid #262837; color: #7E8698; }
+.wl-tag { font-family: "IBM Plex Mono", monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 1.5px; padding: 4px 9px; border-radius: 999px; }
+.labs-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+.labs-swatch { border-radius: 10px; padding: 12px 10px 10px; min-height: 68px; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; }
+.labs-swatch b { font-family: "IBM Plex Mono", monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 1.5px; }
+.labs-swatch span { font-family: "IBM Plex Mono", monospace; font-size: 10px; opacity: .75; }
+.labs-spectrum-bar { margin-top: 10px; border-radius: 10px; padding: 14px 12px; display: flex; align-items: center; }
+.labs-spectrum-bar span { font-family: "IBM Plex Mono", monospace; font-size: 9.5px; letter-spacing: 1.5px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+.labs-glow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.labs-icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 8px; }
+.labs-icon-cell {
+  background: #fff; border: 1px solid #E4E7EE; border-radius: 10px; padding: 12px 6px 9px;
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+}
+.labs-icon-cell span { font-family: "IBM Plex Mono", monospace; font-size: 8.5px; letter-spacing: .4px; color: #868D9D; text-align: center; overflow: hidden; text-overflow: ellipsis; max-width: 100%; white-space: nowrap; }
+.labs-tex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.labs-tex { margin: 0; }
+.labs-tex img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; border: 1px solid #262837; display: block; }
+.labs-tex.light img { border-color: #E4E7EE; }
+.labs-tex figcaption { font-family: "IBM Plex Mono", monospace; font-size: 9px; letter-spacing: 1.5px; color: var(--muted-fg-soft); margin-top: 6px; }
+.labs-ol { margin: 0; padding-inline-start: 18px; font-size: 13.5px; line-height: 1.85; color: var(--fg); display: flex; flex-direction: column; gap: 8px; }
+.labs-tree { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; line-height: 1.95; color: var(--muted-fg); white-space: pre-wrap; margin: 0; }
+.nav-sub .nav-sub { padding-inline-start: 14px; }
+.nav-sub .nav-sub .nav-item { height: 32px; font-size: 13px; }
+@media (max-width: 860px) {
+  .labs-pair, .labs-rule-grid, .labs-glow-grid { grid-template-columns: 1fr; }
+  .labs-tex-grid { grid-template-columns: 1fr 1fr; }
+}

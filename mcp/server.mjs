@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SPEC = join(ROOT, "spec");
 const tokens = JSON.parse(readFileSync(join(ROOT, "tokens", "wellx-tokens.json"), "utf8"));
+const labsTokens = JSON.parse(readFileSync(join(ROOT, "tokens", "wellx-labs-tokens.json"), "utf8"));
 
 const TOPICS = readdirSync(SPEC)
   .filter((f) => f.endsWith(".md"))
@@ -32,6 +33,10 @@ const KNOWN_HEX = new Set();
   else if (typeof v === "string") for (const m of v.matchAll(/#[0-9a-fA-F]{6}/g)) KNOWN_HEX.add(m[0].toLowerCase());
   else if (v && typeof v === "object") Object.values(v).forEach(collect);
 })(tokens);
+(function collectLabs(v) {
+  if (typeof v === "string") for (const m of v.matchAll(/#[0-9a-fA-F]{6}/g)) KNOWN_HEX.add(m[0].toLowerCase());
+  else if (v && typeof v === "object") Object.values(v).forEach(collectLabs);
+})(labsTokens);
 
 const server = new McpServer(
   { name: "wellx-design-system", version: tokens.$meta.version },
@@ -40,6 +45,9 @@ const server = new McpServer(
       "Wellx Unified Design System. ALWAYS consult this server before building or restyling UI for any Wellx tool: " +
       "start with get_principles, then get_rules for the area you are touching (topics: " + TOPICS.join(", ") + "), " +
       "get_component_spec for concrete recipes, and get_tokens for values. " +
+      "TWO SEPARATE BRAND SYSTEMS live here: the Wellx portal system (violet accent, Manrope, --wx-* tokens; the non-prefixed topics) " +
+      "and the Wellx Labs brand system (spectral identity, Figtree + IBM Plex Mono, --wl-* tokens; the labs-* topics + get_labs_tokens). " +
+      "Pick one per product and never mix them. " +
       "In code, import @wellx/design-tokens (CSS variables + Tailwind preset) instead of typing values. " +
       "Before finishing, run validate on your markup/styles to catch guardrail violations.",
   },
@@ -97,6 +105,13 @@ server.tool(
 );
 
 server.tool(
+  "get_labs_tokens",
+  "Wellx Labs design token values (--wl-*; semantic dual-theme roles for the Labs brand system — NOT the portal --wx-* set). category: color | gradient | radius | shadow | font | type | focusRing | all.",
+  { category: z.enum(["color", "gradient", "radius", "shadow", "font", "type", "focusRing", "all"]) },
+  async ({ category }) => text(JSON.stringify(category === "all" ? labsTokens : labsTokens[category], null, 2)),
+);
+
+server.tool(
   "search",
   "Full-text search across the entire design system spec. Returns matching lines with their topic.",
   { query: z.string().min(2) },
@@ -137,8 +152,8 @@ server.tool(
       push("shadows-restricted", m[0], "Shadows are allowed only on dialogs, drawers, toasts, and auth cards. Cards/panels use 1px borders.");
     for (const m of code.matchAll(/\b(?:pl|pr|ml|mr)-\d+|\b(?:left|right)-\d+|\bborder-[lr]\b|\btext-(?:left|right)\b|\brounded-[lr]\b/g))
       push("logical-properties-only", m[0], "Use logical utilities for RTL: ps-*/pe-*, ms-*/me-*, start-*/end-*, border-s/border-e, text-start/text-end.");
-    for (const m of code.matchAll(/font-family:\s*(?!['"]?(?:Manrope|Alexandria))['"]?([A-Za-z ]+)/g))
-      push("fonts", m[0], "Latin UI uses Manrope; Arabic uses Alexandria. Other families are off-system.");
+    for (const m of code.matchAll(/font-family:\s*(?!['"]?(?:Manrope|Alexandria|Figtree|IBM Plex Mono))['"]?([A-Za-z ]+)/g))
+      push("fonts", m[0], "Portal UI uses Manrope (Latin) / Alexandria (Arabic); Wellx Labs uses Figtree / IBM Plex Mono. Other families are off-system.");
     if (/hover:(?:bg|text|border)-(?:primary|brand|violet|indigo)/.test(code))
       push("monochrome-chrome", "accent color on hover", "Hovers are neutral gray (hover:bg-muted). Accent appears only on actions, links, focus, and active pills/tabs.");
 

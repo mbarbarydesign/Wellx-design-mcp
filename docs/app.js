@@ -21,24 +21,36 @@
   });
   try { var saved = localStorage.getItem(KEY); if (saved === "light" || saved === "dark") applyTheme(saved); } catch (e) {}
 
-  /* ---------- sidebar: components submenu + mobile ---------- */
-  var sub = $("#componentsSub");
-  var toggle = $("#componentsToggle");
+  /* ---------- sidebar: library submenus + mobile ---------- */
+  function wireToggle(toggle, sub) {
+    function set(open) {
+      sub.classList.toggle("open", open);
+      toggle.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    }
+    toggle.addEventListener("click", function () { set(!sub.classList.contains("open")); });
+    toggle.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle.click(); } });
+    return set;
+  }
+  var setWellxOpen = wireToggle($("#wellxToggle"), $("#wellxSub"));
+  var setComponentsOpen = wireToggle($("#componentsToggle"), $("#componentsSub"));
+  var setLabsOpen = wireToggle($("#labsToggle"), $("#labsSub"));
   COMPONENTS.forEach(function (c) {
     var a = document.createElement("a");
     a.className = "nav-item";
     a.href = "#/components/" + c.slug;
     a.dataset.route = "components/" + c.slug;
     a.textContent = c.name;
-    sub.appendChild(a);
+    $("#componentsSub").appendChild(a);
   });
-  function setComponentsOpen(open) {
-    sub.classList.toggle("open", open);
-    toggle.classList.toggle("open", open);
-    toggle.setAttribute("aria-expanded", String(open));
-  }
-  toggle.addEventListener("click", function () { setComponentsOpen(!sub.classList.contains("open")); });
-  toggle.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle.click(); } });
+  LABS.forEach(function (s) {
+    var a = document.createElement("a");
+    a.className = "nav-item";
+    a.href = "#/labs/" + s.slug;
+    a.dataset.route = "labs/" + s.slug;
+    a.textContent = s.name;
+    $("#labsSub").appendChild(a);
+  });
   $("#menuBtn").addEventListener("click", function () { $("#sidebar").classList.toggle("open"); });
   $("#nav").addEventListener("click", function (e) { if (e.target.closest("a")) $("#sidebar").classList.remove("open"); });
   $("#versionChip").textContent = "v" + VERSION;
@@ -82,7 +94,7 @@
   }
 
   function renderColors() {
-    var h = head("Overview", "Color tokens",
+    var h = head("Wellx", "Color tokens",
       "All color comes from the Figma “Foundations” library (Wellx mode). Components consume the Semantics layer — never a primitive directly, never a raw hex. The brand accent is tenant-injected; sibling libraries re-theme the same token names.");
     h += '<section class="doc"><h2>Brand & accent scales</h2><p class="hint">Buttons and states use 500, links and hover use 600, tinted chips use 50/700. Accent scope: primary buttons · links · active tab underline · focus rings · chart lines · active filter pills — never nav chrome, hovers, or backgrounds.</p>';
     ["Brand", "Secondary", "Gray"].forEach(function (n) {
@@ -110,6 +122,10 @@
         return '<div style="flex:1;min-width:150px;height:80px;border-radius:12px;background:' + g + ';display:flex;align-items:flex-end;padding:10px"><b style="color:#fff;font-size:12px">' + names[i] + "</b></div>";
       }).join("") + "</div></section>";
     return h;
+  }
+
+  function renderLabs(s) {
+    return head("Wellx Labs · " + s.num, s.name, s.lede) + s.body;
   }
 
   function renderComponent(c) {
@@ -441,7 +457,7 @@
   /* ---------- router ---------- */
   function route() {
     var hash = location.hash.replace(/^#\//, "") || "whats-new";
-    var html, isComponent = hash.indexOf("components/") === 0;
+    var html, isComponent = hash.indexOf("components/") === 0, isLabs = hash.indexOf("labs/") === 0;
     if (hash === "whats-new") html = renderWhatsNew();
     else if (hash === "colors") html = renderColors();
     else if (hash === "install") html = renderInstall();
@@ -450,11 +466,17 @@
       var slug = hash.split("/")[1];
       var c = COMPONENTS.filter(function (x) { return x.slug === slug; })[0];
       html = c ? renderComponent(c) : head("Components", "Not found", "No component named “" + esc(slug) + "”.");
+    } else if (isLabs) {
+      var lslug = hash.split("/")[1];
+      var s = LABS.filter(function (x) { return x.slug === lslug; })[0];
+      html = s ? renderLabs(s) : head("Wellx Labs", "Not found", "No section named “" + esc(lslug) + "”.");
     } else html = renderWhatsNew();
 
     page.innerHTML = html;
     if (hash === "creator") wireCreator();
+    if (isComponent || hash === "colors") setWellxOpen(true);
     if (isComponent) setComponentsOpen(true);
+    if (isLabs) setLabsOpen(true);
 
     document.querySelectorAll(".nav-item[data-route]").forEach(function (a) {
       a.classList.toggle("active", a.dataset.route === hash);

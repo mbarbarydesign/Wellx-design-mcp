@@ -2,9 +2,18 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.6.0";
+var VERSION = "2.7.0";
 
 var WHATS_NEW = [
+  {
+    version: "2.7.0", date: "2026-08-19", kind: "minor",
+    items: [
+      "Library reorganized: the sidebar now has a Wellx section (Color tokens + Components) and a new Wellx Labs section.",
+      "Wellx Labs brand system added — 12 pages mirroring the brand book: architecture, lockup, color, typography, glow, iconography, textures, applications, tokens, components, implementation rules, and the asset index.",
+      "Labs assets shipped with the site: the lockup (dark/light), bionic mark, all 69 line icons, and the 6 spectral textures in both variants.",
+      "Labs tokens published as tokens/wellx-labs-tokens.json; the MCP server gains get_labs_tokens and six labs-* rule topics so agents can build Labs UIs against the right system.",
+    ],
+  },
   {
     version: "2.6.0", date: "2026-07-27", kind: "minor",
     items: [
@@ -229,5 +238,211 @@ var COMPONENTS = [
   dos: ["Keep it stable across every page — the topbar never changes per route","Theme switching lives in Settings → Appearance"],
   donts: ["No page titles in the topbar — titles belong to the page header","No global search here; search is per-page"],
   code: '<header class="h-14 flex items-center justify-end gap-1.5 px-4 border-b border-border bg-card">\n  <button class="h-7 px-2.5 rounded-full bg-muted text-xs font-semibold text-muted-foreground">EN · ع</button>\n  <button aria-label="Notifications" class="relative w-8 h-8 rounded-lg grid place-items-center\n    text-muted-foreground hover:bg-muted">\n    <Bell size={18} strokeWidth={1.75} />\n    <i class="absolute top-1.5 end-1.5 w-[7px] h-[7px] rounded-full bg-error-500 ring-2 ring-card"></i>\n  </button>\n</header>'
+},
+];
+
+
+/* ===================== Wellx Labs — brand system ===================== */
+/* 12 sections mirroring the Wellx Labs Brand Book (v1, July 2026).
+   Assets live in docs/assets/labs/; tokens in tokens/wellx-labs-tokens.json. */
+
+var LABS_ICONS = ["accounting", "agents", "ai-suggest", "approved", "assistant", "audit", "automate", "billing", "bind-issue", "brokers", "calendar", "claims", "close", "collapse", "compliance", "copilot", "copy", "customers", "dashboard", "delete", "distribution", "doc-centre", "download", "edit", "endorsement", "expand", "filter", "finance", "flagged", "fraud-risk", "general", "health-tpa", "home", "ifrs-17", "in-review", "loss-ratio", "mailbox", "marine", "member-exp", "modular-core", "more", "motor", "new", "notifications", "overview", "party-and-data", "pending", "policy", "premium", "products", "property", "quote", "refresh", "renewals", "reporting", "reserves", "retakaful", "search", "send", "settings", "share", "signal", "sort", "star", "tat-sla", "templates", "treaties", "underwriting", "upload"];
+
+var LABS_SPECTRUM = "linear-gradient(100deg,#F7941D,#F0366B,#7A2BE2,#2D9CFD)";
+
+var LABS = [
+{
+  slug: "architecture", num: "01", name: "Brand architecture",
+  lede: "One masterbrand, one descriptor layer. Wellx Labs is not a second identity — it is the Wellx masterbrand plus a technical descriptor. Everything Labs-specific lives in the descriptor chip, the mono typography, and the glow environment — never in the mark or wordmark themselves.",
+  body:
+    '<section class="doc"><div class="labs-dark" style="display:flex;align-items:center;justify-content:center;padding:44px 24px">' +
+    '<img src="assets/labs/wellx-labs-lockup-dark.png" alt="Wellx Labs lockup" style="width:280px;max-width:80%"></div></section>' +
+    '<section class="doc"><h2>The four fixed points</h2><div class="labs-rule-grid">' +
+    '<div class="card"><h3>The bionic mark is fixed</h3><p>Never redraw, recolor, outline, rotate, or animate its geometry.</p></div>' +
+    '<div class="card"><h3>The wordmark is fixed</h3><p>Never retypeset it, change its case, or alter letterspacing.</p></div>' +
+    '<div class="card"><h3>Labs is always the chip</h3><p>IBM Plex Mono 500, tracked caps, gradient dot, hairline border. Never set “Labs” in the wordmark’s typeface.</p></div>' +
+    '<div class="card"><h3>The spectrum is identity, not decoration</h3><p>It appears only in the divider, the dot, and glow fields.</p></div>' +
+    '</div></section>'
+},
+{
+  slug: "lockup", num: "02", name: "The Labs lockup",
+  lede: "Bionic mark → wordmark → spectrum divider → LABS chip. One horizontal arrangement, two color modes.",
+  body:
+    '<section class="doc"><h2>Two color modes</h2><div class="labs-pair">' +
+    '<div class="labs-dark" style="display:flex;align-items:center;justify-content:center;padding:36px 20px"><img src="assets/labs/wellx-labs-lockup-dark.png" alt="Lockup on dark" style="width:240px;max-width:85%"></div>' +
+    '<div class="labs-light" style="display:flex;align-items:center;justify-content:center;padding:36px 20px"><img src="assets/labs/wellx-labs-lockup-light.png" alt="Lockup on light" style="width:240px;max-width:85%"></div>' +
+    '</div></section>' +
+    '<section class="doc"><h2>Rules</h2><div class="spec-grid">' +
+    '<div class="spec-item"><span>Clear space</span><span>= the height of the LABS chip, all sides. Nothing enters this zone — including the glow of neighboring elements.</span></div>' +
+    '<div class="spec-item"><span>Minimum size</span><span>Full lockup 180px wide on screen / 45mm in print. Below that: mark + chip, then mark alone (favicons).</span></div>' +
+    '<div class="spec-item"><span>File to ship</span><span>Use the PNG lockup in product/web (self-contained). The SVG is editable source only — it references sibling PNGs and shows gaps as a plain img src.</span></div>' +
+    '</div></section>' +
+    '<section class="doc"><h2>Never</h2><div class="card dd dont"><ul>' +
+    '<li>No gradient fills in the wordmark</li><li>No chip without the dot</li>' +
+    '<li>No stacking the chip above the wordmark</li><li>No color mark on the dark chip variant</li>' +
+    '</ul></div></section>'
+},
+{
+  slug: "color", num: "03", name: "Color",
+  lede: "Dark chrome, spectral identity. Ratio in product: ~90% ink/surface, ~8% text tones, ~2% spectrum. The spectrum gradient never colors data visualizations, table values, or body text — it marks identity and state only.",
+  body:
+    '<section class="doc"><h2>Core palette</h2><div class="labs-swatches">' +
+    [["INK 950","#07070C","#fff"],["INK 900","#0B0B12","#fff"],["SURFACE","#171827","#fff"],["TEXT","#F5F6FA","#0B0B12"],["MUTED","#98A0B3","#0B0B12"],["ELECTRIC","#3D7BFD","#fff"],["ROSE","#A0175E","#fff"],["MAGENTA","#F0366B","#fff"],["VIOLET","#7A2BE2","#fff"],["BLUE","#2D9CFD","#fff"]].map(function(s){
+      return '<div class="labs-swatch" style="background:' + s[1] + ';color:' + s[2] + (s[1]==="#F5F6FA"?';border:1px solid var(--border)':'') + '"><b>' + s[0] + '</b><span>' + s[1] + '</span></div>';
+    }).join("") + '</div>' +
+    '<div class="labs-spectrum-bar" style="background:' + LABS_SPECTRUM + '"><span>SPECTRUM · 4-STOP · #F7941D → #F0366B → #7A2BE2 → #2D9CFD</span></div></section>' +
+    '<section class="doc"><h2>Accents</h2><p class="hint">Rose <code>#A0175E</code> is the live masterbrand accent — it drives primary buttons and active nav. Electric <code>#3D7BFD</code> is the secondary accent for informational / AI-linked controls. Hot magenta <code>--wl-signal #F0366B</code> is reserved for AI and identity, identical across products. Command Center overrides the action accent to purple (<code>#6A2BD8</code> light / <code>#9B6DFF</code> dark); Care Connect keeps rose.</p></section>' +
+    '<section class="doc"><h2>Two environments</h2><div class="labs-pair">' +
+    '<div class="labs-dark" style="padding:22px"><span class="wl-eyebrow" style="color:#98A0B3">DARK — BRAND &amp; MARKETING</span><p style="margin:8px 0 0;font-size:13px;line-height:1.7;color:#B7BDCC">Splash, backdrops, social, decks, hero moments. Full spectrum + glow.</p></div>' +
+    '<div class="labs-light" style="padding:22px"><span class="wl-eyebrow" style="color:#868D9D">LIGHT — CORE PRODUCT</span><p style="margin:8px 0 0;font-size:13px;line-height:1.7;color:#454B59">The live app runs light. Icons adapt via currentColor; light texture set at 6–12% strength.</p></div>' +
+    '</div></section>' +
+    '<section class="doc"><h2>Data visualization</h2><p class="hint">Charts get their own palette. The spectrum and signal magenta are identity + AI only — data viz uses a dedicated categorical palette (<code>--wl-chart-1…6</code>), assigned in order. Single-series charts use one data blue <code>#2E6BE6</code>, never the action color. Axis ticks, legends and values are always IBM Plex Mono.</p></section>'
+},
+{
+  slug: "typography", num: "04", name: "Typography",
+  lede: "Figtree speaks, Plex Mono measures. Two typefaces only.",
+  body:
+    '<section class="doc"><div class="labs-pair">' +
+    '<div class="labs-light" style="padding:24px"><span class="wl-eyebrow" style="color:#868D9D">FIGTREE</span>' +
+    '<div style="font-family:Figtree,sans-serif;font-weight:800;font-size:30px;letter-spacing:-0.5px;color:#0B0B12;margin-top:10px">Insurance infrastructure becoming alive.</div>' +
+    '<p style="margin:10px 0 0;font-size:13px;line-height:1.7;color:#454B59">Display, headings, UI copy. Weights 400 / 600 / 700 / 800. Tight tracking above 24px (−0.5px). Closest open match to the wordmark’s geometry — never used to typeset “wellx”.</p></div>' +
+    '<div class="labs-dark" style="padding:24px"><span class="wl-eyebrow" style="color:#98A0B3">IBM PLEX MONO</span>' +
+    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:15px;color:#F5F6FA;margin-top:12px;line-height:1.9">CLM-08841 · MOTOR<br>0.94 CONF · 14:02:51 GST</div>' +
+    '<p style="margin:10px 0 0;font-size:13px;line-height:1.7;color:#B7BDCC">IDs, data, labels, the LABS chip. Weights 400 / 500. Caps labels track +2 to +5px. All claim numbers, confidence scores, and timestamps are mono.</p></div>' +
+    '</div></section>' +
+    '<section class="doc"><h2>Load the fonts</h2><div class="codeblock"><button class="copy-btn" data-copy>Copy</button><pre>&lt;link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"&gt;</pre></div></section>'
+},
+{
+  slug: "glow", num: "05", name: "Glow principle",
+  lede: "Glow is direction, never decoration. The signal glow from the identity becomes a functional layer in product: it spotlights where the user should go. One glow per view, maximum.",
+  body:
+    '<section class="doc"><div class="labs-dark" style="padding:26px"><div class="labs-glow-grid">' +
+    '<div><span class="wl-eyebrow" style="color:#98A0B3">NEXT ACTION</span><div style="margin-top:12px"><button class="wl-btn" style="box-shadow:0 0 28px rgba(61,123,253,.5)">Review now</button></div><p class="wl-cap">The one action that moves the case forward carries the glow.</p></div>' +
+    '<div><span class="wl-eyebrow" style="color:#98A0B3">ACTIVE STEP</span><div style="margin-top:12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 14px;color:#F5F6FA;font-size:13px;box-shadow:0 0 24px rgba(240,54,107,.35);display:inline-block">Underwriting assessment</div><p class="wl-cap">Glow marks where the system is working right now.</p></div>' +
+    '<div><span class="wl-eyebrow" style="color:#98A0B3">AI SIGNAL</span><div style="margin-top:12px;border:1px solid rgba(240,54,107,.5);border-radius:10px;padding:12px 14px;box-shadow:0 0 22px rgba(240,54,107,.3)"><span class="wl-eyebrow" style="background:' + LABS_SPECTRUM + ';-webkit-background-clip:text;background-clip:text;color:transparent">◆ LABS COPILOT</span><div style="color:#F5F6FA;font-size:13px;margin-top:6px">Recommend fast-track approval.</div></div><p class="wl-cap">AI-generated content is glow-framed and badged with the mark.</p></div>' +
+    '</div></div></section>' +
+    '<section class="doc"><h2>Rules</h2><div class="spec-grid">' +
+    '<div class="spec-item"><span>One glow per view</span><span>It marks the single next action, the active step, or an AI-generated surface — never more than one.</span></div>' +
+    '<div class="spec-item"><span>Identity moments</span><span>On splash and login the glow anchors the mark instead — never both uses in one screen.</span></div>' +
+    '<div class="spec-item"><span>Token</span><span>Use <code>--wl-glow</code> (shadow.glow in tokens) — never hand-rolled box-shadows.</span></div>' +
+    '</div></section>'
+},
+{
+  slug: "icons", num: "06", name: "Iconography",
+  lede: "One line system, 69 icons. 24px grid, 1.6px stroke, round caps and joins. All drawn with currentColor so a single SVG serves dark chrome and the light product.",
+  body:
+    '<section class="doc"><h2>The set</h2><div class="labs-icon-grid">' +
+    LABS_ICONS.map(function(n){ return '<div class="labs-icon-cell" title="' + n + '"><img src="assets/labs/icons/' + n + '.svg" alt="' + n + '" width="22" height="22" loading="lazy"><span>' + n + '</span></div>'; }).join("") +
+    '</div></section>' +
+    '<section class="doc"><h2>Rules</h2><div class="spec-grid">' +
+    '<div class="spec-item"><span>Grid &amp; stroke</span><span>24px grid · 1.6px stroke · round caps and joins.</span></div>' +
+    '<div class="spec-item"><span>Color</span><span>Icons inherit currentColor: <code>--wl-text-secondary</code> at rest, <code>--wl-accent</code> when active.</span></div>' +
+    '<div class="spec-item"><span>Exceptions</span><span>Only AI &amp; status icons carry color — the Copilot spark is the spectrum gradient; states use the fixed semantic set.</span></div>' +
+    '</div></section>'
+},
+{
+  slug: "textures", num: "07", name: "Textures",
+  lede: "Spectral fields, dark & light. Six reusable backdrops for empty states, card headers, hero panels and section breaks. One texture per view; the ink/white base stays dominant (6–12% presence behind content).",
+  body:
+    '<section class="doc"><h2>Dark set — brand</h2><div class="labs-tex-grid">' +
+    ["aurora-mesh","orbital-rings","signal-grid","wave-flow","particle-field","spectral-horizon"].map(function(n){
+      return '<figure class="labs-tex"><img src="assets/labs/textures/wellx-texture-' + n + '.png" alt="' + n + '" loading="lazy"><figcaption>' + n.replace(/-/g," ").toUpperCase() + '</figcaption></figure>';
+    }).join("") + '</div></section>' +
+    '<section class="doc"><h2>Light set — product</h2><div class="labs-tex-grid">' +
+    ["aurora-mesh","orbital-rings","signal-grid","wave-flow","particle-field","spectral-horizon"].map(function(n){
+      return '<figure class="labs-tex light"><img src="assets/labs/textures/light/wellx-texture-' + n + '-light.png" alt="' + n + ' light" loading="lazy"><figcaption>' + n.replace(/-/g," ").toUpperCase() + ' · LIGHT</figcaption></figure>';
+    }).join("") + '</div></section>' +
+    '<section class="doc"><h2>Rules</h2><div class="spec-grid">' +
+    '<div class="spec-item"><span>One per view</span><span>Never layer or tile textures; anchor them behind one zone.</span></div>' +
+    '<div class="spec-item"><span>Strength</span><span>Dark set on dark theme, light set on light — at 6–12% presence behind content.</span></div>' +
+    '<div class="spec-item"><span>Signature</span><span>Command Center’s backdrop is spectral horizon, anchored low so the top stays calm.</span></div>' +
+    '</div></section>'
+},
+{
+  slug: "applications", num: "08", name: "Applications",
+  lede: "The system in deployment — the fixed formats every Labs surface ships in.",
+  body:
+    '<section class="doc"><div class="labs-pair">' +
+    '<div class="labs-dark" style="display:flex;align-items:center;justify-content:center;padding:30px"><img src="assets/labs/wellx-labs-icon-tile.png" alt="Icon tile" style="width:120px;border-radius:16px"></div>' +
+    '<div class="labs-dark" style="display:flex;align-items:center;justify-content:center;padding:30px"><img src="assets/labs/wellx-bionic-dark.png" alt="Bionic mark" style="width:100px"></div>' +
+    '</div></section>' +
+    '<section class="doc"><h2>Formats</h2><div class="spec-grid">' +
+    '<div class="spec-item"><span>Demo splash</span><span>1440×900</span></div>' +
+    '<div class="spec-item"><span>Event backdrop</span><span>1920×1080</span></div>' +
+    '<div class="spec-item"><span>OG image</span><span>1200×630</span></div>' +
+    '<div class="spec-item"><span>LinkedIn banner</span><span>1584×396</span></div>' +
+    '<div class="spec-item"><span>Avatar</span><span>400×400</span></div>' +
+    '<div class="spec-item"><span>Icon tile</span><span>360×360</span></div>' +
+    '<div class="spec-item"><span>Favicon</span><span>64×64</span></div>' +
+    '</div><p class="hint" style="margin-top:12px">Dark environment (full spectrum + glow) for all marketing surfaces; the live product runs the light theme.</p></section>'
+},
+{
+  slug: "tokens", num: "09", name: "Semantic tokens",
+  lede: "Semantic tokens are the source of truth. Build against these role names, never raw hex. Default theme is light; set data-theme=“dark” on <html> to flip. Ships as tokens.css and tokens/wellx-labs-tokens.json. Accent is a two-step rose: a calm primary for actions, hot magenta reserved for AI/identity.",
+  body:
+    '<section class="doc"><h2>Color roles — light / dark</h2><div class="card scroll-x"><table class="tok-table"><thead><tr><th>Token</th><th>Light</th><th>Dark</th></tr></thead><tbody>' +
+    [["--wl-canvas","#F6F7FB","#07070C"],["--wl-surface","#FFFFFF","#101119"],["--wl-surface-raised","#FFFFFF","#191A28"],["--wl-surface-sunken","#EEF1F6","#0B0B12"],["--wl-border","#E4E7EE","#262837"],["--wl-text-primary","#0B0B12","#F5F6FA"],["--wl-text-secondary","#454B59","#B7BDCC"],["--wl-text-muted","#868D9D","#7E8698"],["--wl-accent (action)","#C42663","#FF5C86"],["--wl-accent-hover","#A71E53","#FF789B"],["--wl-signal (AI only)","#F0366B","#F0366B"],["--wl-success","#1F8A5B","#3FD38C"],["--wl-warning","#B7791F","#F0B44E"],["--wl-danger","#C4283C","#FF6B7D"],["--wl-info","#2563D6","#5B9BFF"]].map(function(r){
+      return '<tr><td><code>' + r[0] + '</code></td><td><span class="sw-pair"><span class="sw" style="background:' + r[1] + '"></span><span class="mono">' + r[1] + '</span></span></td><td><span class="sw-pair"><span class="sw" style="background:' + r[2] + '"></span><span class="mono">' + r[2] + '</span></span></td></tr>';
+    }).join("") + '</tbody></table></div></section>' +
+    '<section class="doc"><h2>Shape, elevation, focus</h2><div class="spec-grid">' +
+    '<div class="spec-item"><span>Radius</span><span>xs 4 · sm 6 · md 9 · lg 14 · pill 999</span></div>' +
+    '<div class="spec-item"><span>Shadows</span><span>sm / md / lg per theme — dark theme prefers borders over shadows for separation.</span></div>' +
+    '<div class="spec-item"><span>Glow</span><span>light 0 0 22px rgba(196,38,99,.45) · dark 0 0 24px rgba(255,92,134,.45)</span></div>' +
+    '<div class="spec-item"><span>Focus ring</span><span>light rgba(240,54,107,.45) · dark rgba(255,92,134,.50) — always visible, never removed.</span></div>' +
+    '</div></section>' +
+    '<section class="doc"><h2>Type scale</h2><div class="spec-grid">' +
+    '<div class="spec-item"><span>display</span><span>34px · 800 · −0.5px · 1.1</span></div>' +
+    '<div class="spec-item"><span>h1</span><span>24px · 800 · −0.3px · 1.2</span></div>' +
+    '<div class="spec-item"><span>h2</span><span>18px · 700 · −0.2px · 1.3</span></div>' +
+    '<div class="spec-item"><span>body / small</span><span>14px · 1.6 / 12px · 1.5</span></div>' +
+    '<div class="spec-item"><span>mono-label</span><span>10px · 500 · +2px · UPPERCASE</span></div>' +
+    '</div></section>'
+},
+{
+  slug: "components", num: "10", name: "Components",
+  lede: "Core components in both themes, built only from the semantic tokens.",
+  body:
+    '<section class="doc"><div class="labs-pair">' +
+    '<div class="labs-light" style="padding:22px;display:flex;flex-direction:column;gap:14px">' +
+    '<span class="wl-eyebrow" style="color:#868D9D">LIGHT · data-theme unset</span>' +
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="wl-btn" style="background:#C42663">Primary</button><button class="wl-btn ghost-l">Secondary</button><a href="javascript:void(0)" style="font-family:Figtree,sans-serif;font-size:13px;color:#C42663;font-weight:600">Link</a></div>' +
+    '<input class="wl-input light" value="Search or run a command…" readonly>' +
+    '<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="wl-tag" style="background:#E5F4EC;color:#1F8A5B">APPROVED</span><span class="wl-tag" style="background:#FBF0D9;color:#B7791F">IN REVIEW</span><span class="wl-tag" style="background:#FBE6E9;color:#C4283C">FLAGGED</span></div>' +
+    '<div style="border:1px solid #E4E7EE;border-radius:14px;padding:14px;background:#fff"><div style="font-family:Figtree,sans-serif;font-weight:700;font-size:14px;color:#0B0B12">Claim CLM-08841</div><div style="font-family:\'IBM Plex Mono\',monospace;font-size:10.5px;letter-spacing:1px;color:#868D9D;margin-top:3px">MOTOR · 0.94 CONF</div>' +
+    '<div style="margin-top:10px;border:1px solid rgba(240,54,107,.35);border-radius:9px;padding:10px;box-shadow:0 0 22px rgba(196,38,99,.18)"><span class="wl-eyebrow" style="background:' + LABS_SPECTRUM + ';-webkit-background-clip:text;background-clip:text;color:transparent">◆ LABS COPILOT</span><div style="font-size:12.5px;color:#0B0B12;margin-top:4px;font-family:Figtree,sans-serif">Recommend fast-track approval.</div></div></div>' +
+    '</div>' +
+    '<div class="labs-dark" style="padding:22px;display:flex;flex-direction:column;gap:14px">' +
+    '<span class="wl-eyebrow" style="color:#98A0B3">DARK · data-theme="dark"</span>' +
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="wl-btn" style="background:#FF5C86;color:#1A0812">Primary</button><button class="wl-btn ghost-d">Secondary</button><a href="javascript:void(0)" style="font-family:Figtree,sans-serif;font-size:13px;color:#FF5C86;font-weight:600">Link</a></div>' +
+    '<input class="wl-input dark" value="Search or run a command…" readonly>' +
+    '<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="wl-tag" style="background:#10231A;color:#3FD38C">APPROVED</span><span class="wl-tag" style="background:#2A2011;color:#F0B44E">IN REVIEW</span><span class="wl-tag" style="background:#2A1216;color:#FF6B7D">FLAGGED</span></div>' +
+    '<div style="border:1px solid #262837;border-radius:14px;padding:14px;background:#101119"><div style="font-family:Figtree,sans-serif;font-weight:700;font-size:14px;color:#F5F6FA">Claim CLM-08841</div><div style="font-family:\'IBM Plex Mono\',monospace;font-size:10.5px;letter-spacing:1px;color:#7E8698;margin-top:3px">MOTOR · 0.94 CONF</div>' +
+    '<div style="margin-top:10px;border:1px solid rgba(240,54,107,.5);border-radius:9px;padding:10px;box-shadow:0 0 24px rgba(255,92,134,.25)"><span class="wl-eyebrow" style="background:' + LABS_SPECTRUM + ';-webkit-background-clip:text;background-clip:text;color:transparent">◆ LABS COPILOT</span><div style="font-size:12.5px;color:#F5F6FA;margin-top:4px;font-family:Figtree,sans-serif">Recommend fast-track approval.</div></div></div>' +
+    '</div></div></section>' +
+    '<section class="doc"><h2>Sub-brand pattern — products inside Labs</h2><p class="hint">A product (Care Connect, Command Center) keeps the full Labs lockup unchanged and adds its name as a product descriptor beneath, set in the spectrum gradient (<code>background-clip:text</code>, Figtree 800), preceded by a short spectrum tick. Products run the light theme; each may carry its own action accent (Care Connect = rose, Command Center = purple) while <code>--wl-signal</code> and the spectrum stay shared.</p></section>'
+},
+{
+  slug: "rules", num: "11", name: "Implementation rules",
+  lede: "Rules for building against this system — the contract every Labs product follows.",
+  body:
+    '<section class="doc"><div class="card"><ol class="labs-ol">' +
+    '<li>Load the tokens once, globally. Default = light; add <code>data-theme="dark"</code> on <code>&lt;html&gt;</code> to flip. Never hard-code hex — reference <code>var(--wl-*)</code>.</li>' +
+    '<li><b>Accent = action.</b> Primary buttons, active nav, selected rows use <code>--wl-accent</code>. Secondary actions are bordered/neutral.</li>' +
+    '<li><b>Spectrum + <code>--wl-signal</code> are identity &amp; AI only</b> — the Copilot spark, AI-generated blocks, brand art. Never on data, charts, chrome, or body text.</li>' +
+    '<li><b>Glow = direction, one per view</b> (<code>--wl-glow</code>) — the single next-best action or active AI surface. Never decorative.</li>' +
+    '<li><b>Icons</b> inherit currentColor — <code>--wl-text-secondary</code> at rest, <code>--wl-accent</code> when active. Status/AI icons keep their own color.</li>' +
+    '<li><b>Textures</b> — dark set on dark theme, light set on light, 6–12% presence. One per view.</li>' +
+    '<li><b>Type</b> — Figtree for UI/display, IBM Plex Mono for IDs, data, timestamps, labels. Never retypeset the wordmark; “Labs” is always the mono chip.</li>' +
+    '<li><b>Radius &amp; elevation</b> come from tokens (<code>--wl-radius-*</code>, <code>--wl-shadow-*</code>). Dark theme uses borders over shadows for separation.</li>' +
+    '<li><b>Focus</b> is always <code>--wl-focus-ring</code> — visible, never removed.</li>' +
+    '</ol></div></section>' +
+    '<section class="doc"><h2>For AI agents</h2><p class="hint">The MCP server carries these rules as the <code>labs-*</code> topics (<code>get_rules</code>), and the Labs token values via <code>get_labs_tokens</code>. Portal rules (violet, Manrope, flat-bordered) and Labs rules (spectral, Figtree, glow) are separate systems — never mix them in one product.</p></section>'
+},
+{
+  slug: "files", num: "12", name: "Asset index",
+  lede: "Delivered files — where everything lives.",
+  body:
+    '<section class="doc"><h2>In this repo</h2><div class="card"><pre class="labs-tree">docs/assets/labs/\n  wellx-labs-lockup-dark.png · wellx-labs-lockup-light.png · wellx-labs-icon-tile.png\n  wellx-bionic-dark.png · wellx-bionic-light.png\n  icons/            · 69 line icons · SVG · currentColor\n  textures/         · 6 spectral fields · dark + light/ · 1600×900 PNG\ntokens/wellx-labs-tokens.json · semantic dual-theme tokens\nspec/labs-*.md      · the rules, served by the MCP</pre></div></section>' +
+    '<section class="doc"><h2>Full brand kit (source)</h2><div class="card"><pre class="labs-tree">wellx-brand-kit/\n  01-brand-guide/   · BRAND.md · BRAND-RULES.md · the printable brand book (HTML → PDF)\n  02-tokens/        · tokens.css · tokens.json\n  03-logo/          · master wellx marks — logo, symbol, bionic + wordmark (dark &amp; light)\n  04-lockups/       · wellx-labs lockup dark/light · PNG + SVG · icon tile\n  05-social/        · avatar-400 · favicon-64 · og-1200×630 · linkedin-1584×396\n  06-brand-art/     · splash-1440×900 · backdrop-1920×1080\n  07-icons/         · 69 line icons · SVG\n  08-textures/      · 6 spectral fields · dark + light\n  09-designs/       · every screen designed to date (live HTML)\n  10-handoff-kits/  · per-product developer packages</pre></div></section>'
 },
 ];

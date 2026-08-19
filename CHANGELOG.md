@@ -2,6 +2,13 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.7.0 — 2026-08-19
+- Library reorganized: docs sidebar now groups the portal system under **Wellx** (Color tokens + Components) and adds a **Wellx Labs** section.
+- Wellx Labs brand system added as 12 documentation pages mirroring the brand book: architecture, lockup, color, typography, glow principle, iconography (69 icons), textures (6 spectral fields, dark + light), applications, semantic tokens, components, implementation rules, asset index.
+- Labs assets committed: docs/assets/labs/ (lockups, bionic mark, icon tile, 69 icon SVGs, 12 texture PNGs).
+- Labs tokens published: tokens/wellx-labs-tokens.json (semantic dual-theme --wl-* roles).
+- MCP: six new labs-* topics (auto-served by get_rules/search/get_component_spec), new get_labs_tokens tool, lint now accepts Figtree/IBM Plex Mono and Labs hexes, instructions explain the two separate brand systems.
+
 ## 2.6.0 — 2026-07-27
 - Toasts re-specced (from the Care Connect implementation): one card anatomy — radius-2xl 16, 20px padding, width 420, dialog shadow (0 16px 48px @16%), top-end stack (20px offset, 12px gap, dir-aware), 6s auto-dismiss, always-present 24px close button; title 15px SemiBold + description 13px muted; 20px Lucide tone icons (600, dark 400).
 - New notification-toast variant: whole card is the click target (role=button, Enter/Space), click dismisses then navigates, hover muted/40; no CTA buttons.
