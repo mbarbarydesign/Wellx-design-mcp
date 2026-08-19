@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.9.1 — 2026-08-19
+- Install docs (site + README): the connector placeholder replaced with the live endpoint https://wellx-design-mcp.vercel.app/api/mcp (verified against production).
+
 ## 2.9.0 — 2026-08-19
 - Remote MCP endpoint: api/mcp.mjs serves the full tool set over stateless Streamable HTTP on Vercel (/api/mcp) for use as a Claude custom connector — claude.ai web/mobile, desktop, and Claude Code, no local install.
 - Server refactored: mcp/create-server.mjs is the single shared core; mcp/server.mjs is now a thin stdio entry. Tools/content identical across both transports.

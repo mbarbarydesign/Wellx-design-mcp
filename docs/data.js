@@ -2,9 +2,15 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.9.0";
+var VERSION = "2.9.1";
 
 var WHATS_NEW = [
+  {
+    version: "2.9.1", date: "2026-08-19", kind: "patch",
+    items: [
+      "How-to-install now shows the live connector URL: https://wellx-design-mcp.vercel.app/api/mcp \u2014 paste it into Claude \u2192 Settings \u2192 Connectors \u2192 Add custom connector (no auth fields needed).",
+    ],
+  },
   {
     version: "2.9.0", date: "2026-08-19", kind: "minor",
     items: [

@@ -168,7 +168,7 @@
       codeblock("/* app entry css */\n@import '@wellx/design-tokens/wellx-tokens.css';") + "</section>";
     h += '<section class="doc"><h2>2 · MCP server — for AI agents</h2><p class="hint">Gives every agent live access to the rules, component recipes, token values, and a guardrail linter. Two ways in — both stay current automatically on every push to main.</p>' +
       '<p class="hint"><strong>A · Claude connector (remote — nothing to install).</strong> In Claude, go to Settings → Connectors → Add custom connector and paste the endpoint. Works on claude.ai, the desktop app, and Claude Code.</p>' +
-      codeblock('https://<your-vercel-deployment>/api/mcp') +
+      codeblock('https://wellx-design-mcp.vercel.app/api/mcp') +
       '<p class="hint" style="margin-top:14px"><strong>B · Local (stdio via npx)</strong> — for Claude Code without the connector; needs Node 18+.</p>' +
       codeblock('// .mcp.json (per project)  — or register once for your whole machine:\n// claude mcp add --scope user wellx-design-system -- npx -y github:mbarbarydesign/Wellx-design-mcp\n{\n  "mcpServers": {\n    "wellx-design-system": {\n      "command": "npx",\n      "args": ["-y", "github:mbarbarydesign/Wellx-design-mcp"]\n    }\n  }\n}') +
       '<p class="hint" style="margin-top:10px">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_changelog</code></p></section>';
