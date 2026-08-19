@@ -21,6 +21,21 @@
   });
   try { var saved = localStorage.getItem(KEY); if (saved === "light" || saved === "dark") applyTheme(saved); } catch (e) {}
 
+  /* ---------- sidebar: collapse (64px icon rail, per the sidebar spec) ---------- */
+  var sidebar = $("#sidebar");
+  var collapseBtn = $("#collapseBtn");
+  var COLLAPSE_KEY = "wx-docs-collapsed";
+  function setCollapsed(collapsed) {
+    sidebar.classList.toggle("collapsed", collapsed);
+    collapseBtn.setAttribute("aria-expanded", String(!collapsed));
+    var label = collapsed ? "Expand sidebar" : "Collapse sidebar";
+    collapseBtn.setAttribute("aria-label", label);
+    collapseBtn.title = label;
+    try { localStorage.setItem(COLLAPSE_KEY, collapsed ? "1" : "0"); } catch (e) {}
+  }
+  collapseBtn.addEventListener("click", function () { setCollapsed(!sidebar.classList.contains("collapsed")); });
+  try { if (localStorage.getItem(COLLAPSE_KEY) === "1") setCollapsed(true); } catch (e) {}
+
   /* ---------- sidebar: library submenus + mobile ---------- */
   function wireToggle(toggle, sub) {
     function set(open) {
@@ -28,7 +43,11 @@
       toggle.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", String(open));
     }
-    toggle.addEventListener("click", function () { set(!sub.classList.contains("open")); });
+    toggle.addEventListener("click", function () {
+      // opening a section from the collapsed rail expands the sidebar first
+      if (sidebar.classList.contains("collapsed")) { setCollapsed(false); set(true); return; }
+      set(!sub.classList.contains("open"));
+    });
     toggle.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle.click(); } });
     return set;
   }
@@ -54,6 +73,10 @@
   $("#menuBtn").addEventListener("click", function () { $("#sidebar").classList.toggle("open"); });
   $("#nav").addEventListener("click", function (e) { if (e.target.closest("a")) $("#sidebar").classList.remove("open"); });
   $("#versionChip").textContent = "v" + VERSION;
+  // icon-rail tooltips
+  document.querySelectorAll(".sb-nav > .sb-group > .nav-item").forEach(function (el) {
+    el.title = el.textContent.trim();
+  });
 
   /* ---------- shared render helpers ---------- */
   function head(eyebrow, title, lede) {

@@ -2,9 +2,16 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.7.1";
+var VERSION = "2.8.0";
 
 var WHATS_NEW = [
+  {
+    version: "2.8.0", date: "2026-08-19", kind: "minor",
+    items: [
+      "Docs sidebar gains a collapse button, built to the system's own sidebar spec: panel icon in the 64px header that mirrors when collapsed, 64px icon-only rail with no logo, 200ms ease-out, state remembered.",
+      "Opening a section from the collapsed rail expands the sidebar and unfolds that section in one click.",
+    ],
+  },
   {
     version: "2.7.1", date: "2026-08-19", kind: "patch",
     items: [

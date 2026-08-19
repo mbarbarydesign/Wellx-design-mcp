@@ -2,6 +2,10 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.8.0 — 2026-08-19
+- Docs site: sidebar collapse button following the system's sidebar spec — 64px header button (panel icon, mirrors when collapsed, RTL-aware), collapsed = 64px icon-only rail with no logo and hidden group labels/sub-menus, 200ms width transition, state persisted in localStorage.
+- Collapsed-rail interactions: icon tooltips; clicking Wellx / Wellx Labs / Components from the rail expands the sidebar and opens that section. Mobile keeps the overlay drawer (collapse hidden under 860px).
+
 ## 2.7.1 — 2026-08-19
 - Docs (Labs pages): added missing padding to bare cards — the four fixed-points rule grid, the implementation-rules list, and the asset-index file trees.
 
