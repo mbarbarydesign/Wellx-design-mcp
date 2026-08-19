@@ -2,9 +2,15 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.7.0";
+var VERSION = "2.7.1";
 
 var WHATS_NEW = [
+  {
+    version: "2.7.1", date: "2026-08-19", kind: "patch",
+    items: [
+      "Labs docs polish: rule cards, the implementation-rules list, and the asset-index trees now have proper card padding.",
+    ],
+  },
   {
     version: "2.7.0", date: "2026-08-19", kind: "minor",
     items: [

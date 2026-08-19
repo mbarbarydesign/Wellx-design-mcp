@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.7.1 — 2026-08-19
+- Docs (Labs pages): added missing padding to bare cards — the four fixed-points rule grid, the implementation-rules list, and the asset-index file trees.
+
 ## 2.7.0 — 2026-08-19
 - Library reorganized: docs sidebar now groups the portal system under **Wellx** (Color tokens + Components) and adds a **Wellx Labs** section.
 - Wellx Labs brand system added as 12 documentation pages mirroring the brand book: architecture, lockup, color, typography, glow principle, iconography (69 icons), textures (6 spectral fields, dark + light), applications, semantic tokens, components, implementation rules, asset index.
