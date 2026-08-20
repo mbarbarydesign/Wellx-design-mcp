@@ -332,7 +332,7 @@ section.doc > .hint { font-size: 13px; color: var(--muted-fg); max-width: 76ch; 
 /* creator */
 .creator-grid { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; margin-top: 8px; }
 @media (max-width: 900px) { .creator-grid { grid-template-columns: 1fr; } }
-.creator-form { padding: 20px; display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px; }
+.creator-form { padding: 20px; display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px; z-index: 10; }
 .color-row { display: flex; gap: 10px; align-items: center; }
 .color-row input[type="color"] { width: 44px; height: 40px; padding: 3px; border: 1px solid var(--border-input); border-radius: 8px; background: var(--card); cursor: pointer; }
 .creator-preview { display: flex; flex-direction: column; gap: 16px; }
