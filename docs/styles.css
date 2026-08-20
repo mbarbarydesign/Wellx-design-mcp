@@ -426,3 +426,4 @@ section.doc > .hint { font-size: 13px; color: var(--muted-fg); max-width: 76ch; 
   border-radius: 10px; background: var(--muted-soft);
   font-size: 12.5px; color: var(--muted-fg); line-height: 1.55;
 }
+.version-chip.beta-chip { background: var(--t-warn-bg); color: var(--t-warn-fg); border-color: transparent; font-weight: 700; }

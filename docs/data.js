@@ -2,7 +2,7 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.9.4";
+var VERSION = "2.9.5";
 
 /* The MCP server's own maturity — independent of the design-system content
    version above. Mirrors MCP_VERSION in mcp/create-server.mjs. */
@@ -10,15 +10,21 @@ var MCP_VERSION = "1.0.0-beta";
 
 var WHATS_NEW = [
   {
+    version: "2.9.5", date: "2026-08-19", kind: "patch",
+    items: [
+      "All visible version numbers replaced with Beta: the sidebar chip, release headings, the Creator export text, and the MCP instructions now present the system as beta. Internal build numbers remain in the changelog and tooltips.",
+    ],
+  },
+  {
     version: "2.9.4", date: "2026-08-19", kind: "patch",
     items: [
-      "Beta status surfaced in the docs: the sidebar version chip now carries an MCP BETA badge, and What\u2019s new opens with a note separating the content version (2.x) from the MCP server version (1.0.0-beta).",
+      "Beta status surfaced in the docs: the sidebar chip and a note atop What\u2019s new both flag the system as beta.",
     ],
   },
   {
     version: "2.9.3", date: "2026-08-19", kind: "patch",
     items: [
-      "The MCP server now versions itself independently as 1.0.0-beta (title: \u201cWellx Design System (Beta)\u201d) \u2014 the 2.x line stays the design-system content version, reported inside the server instructions.",
+      "The MCP server now reports itself as 1.0.0-beta with the title \u201cWellx Design System (Beta)\u201d.",
     ],
   },
   {

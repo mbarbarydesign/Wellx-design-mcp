@@ -58,7 +58,7 @@ export function createServer() {
     },
     {
       instructions:
-        "Wellx Unified Design System (content v" + tokens.$meta.version + "; this MCP server is beta). " +
+        "Wellx Unified Design System (Beta). " +
         "ALWAYS consult this server before building or restyling UI for any Wellx tool: " +
         "start with get_principles, then get_rules for the area you are touching (topics: " + TOPICS.join(", ") + "), " +
         "get_component_spec for concrete recipes, and get_tokens for values. " +

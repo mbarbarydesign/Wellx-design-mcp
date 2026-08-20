@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.9.5 — 2026-08-19
+- All user-facing "v2.x" text replaced with Beta: sidebar chip (amber Beta pill), What's-new release headings (internal build in tooltip), beta note reworded, Creator export says "Wellx Unified Design System (Beta)" ($meta.version: "beta"), MCP instructions open with "(Beta)". Internal build numbers stay in CHANGELOG.md and data.js.
+
 ## 2.9.4 — 2026-08-19
 - Docs: sidebar version chip shows an "MCP BETA" badge (hidden on the collapsed rail); What's-new page opens with a note explaining the content version (2.x) vs the MCP server version (1.0.0-beta, from the new MCP_VERSION value in data.js).
 

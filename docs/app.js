@@ -72,7 +72,9 @@
   });
   $("#menuBtn").addEventListener("click", function () { $("#sidebar").classList.toggle("open"); });
   $("#nav").addEventListener("click", function (e) { if (e.target.closest("a")) $("#sidebar").classList.remove("open"); });
-  $("#versionChip").innerHTML = "v" + VERSION + ' <b class="beta" title="MCP server ' + MCP_VERSION + '">BETA</b>';
+  $("#versionChip").textContent = "Beta";
+  $("#versionChip").classList.add("beta-chip");
+  $("#versionChip").title = "Internal build " + VERSION + " · MCP server " + MCP_VERSION;
   // icon-rail tooltips
   document.querySelectorAll(".sb-nav > .sb-group > .nav-item").forEach(function (el) {
     el.title = el.textContent.trim();
@@ -110,9 +112,9 @@
   /* ---------- pages ---------- */
   function renderWhatsNew() {
     return head("Overview", "What’s new", "Every shipped change to the design system, newest first. Patch = value change · minor = new token/component/rule · major = rename or removal (with migration notes).") +
-      '<div class="beta-note">Versions below track the <strong>design-system content</strong> (v' + VERSION + '). The MCP server ships separately as <code>' + MCP_VERSION + '</code> — still beta.</div>' +
+      '<div class="beta-note">The Wellx design system and its MCP server are in <strong>beta</strong> — every update ships here, newest first. The connector reports itself as <code>' + MCP_VERSION + '</code>.</div>' +
       WHATS_NEW.map(function (r) {
-        return '<div class="card release"><div class="release-head"><h3>v' + r.version + '</h3><span class="tag ' + r.kind + '">' + r.kind + "</span><time>" + r.date + "</time></div><ul>" +
+        return '<div class="card release"><div class="release-head"><h3 title="Internal build ' + r.version + '">Beta</h3><span class="tag ' + r.kind + '">' + r.kind + "</span><time>" + r.date + "</time></div><ul>" +
           r.items.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul></div>";
       }).join("");
   }
@@ -226,7 +228,7 @@
 
   function buildTokensJson(name, brand, secondary) {
     return {
-      $meta: { name: name + " Design System", version: VERSION, generatedFrom: "Wellx Unified Design System v" + VERSION + " — Design System Creator", fonts: { latin: "Manrope", arabic: "Alexandria", weights: [400, 500, 600, 700] } },
+      $meta: { name: name + " Design System", version: "beta", generatedFrom: "Wellx Unified Design System (Beta) — Design System Creator", fonts: { latin: "Manrope", arabic: "Alexandria", weights: [400, 500, 600, 700] } },
       primitives: Object.assign({}, SCALES, { brand: brand, secondary: secondary, Brand: undefined, Secondary: undefined,
         gray: SCALES.Gray, error: SCALES.Error, warning: SCALES.Warning, success: SCALES.Success,
         grayblue: SCALES.Grayblue, teal: SCALES.Teal, violet: SCALES.Violet, gold: SCALES.Gold, silver: SCALES.Silver, bronze: SCALES.Bronze,
@@ -265,7 +267,7 @@
     return [
       "# " + name + " Design System",
       "",
-      "> Generated from the **Wellx Unified Design System v" + VERSION + "** by the Design System Creator.",
+      "> Generated from the **Wellx Unified Design System (Beta)** by the Design System Creator.",
       "> Brand and Secondary scales are generated from the entered colors; every other rule and token is inherited.",
       "> This file is written for AI agents and developers: follow it exactly; never invent values.",
       "",
