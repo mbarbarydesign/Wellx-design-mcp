@@ -2,9 +2,15 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.9.2";
+var VERSION = "2.9.3";
 
 var WHATS_NEW = [
+  {
+    version: "2.9.3", date: "2026-08-19", kind: "patch",
+    items: [
+      "The MCP server now versions itself independently as 1.0.0-beta (title: \u201cWellx Design System (Beta)\u201d) \u2014 the 2.x line stays the design-system content version, reported inside the server instructions.",
+    ],
+  },
   {
     version: "2.9.2", date: "2026-08-19", kind: "patch",
     items: [

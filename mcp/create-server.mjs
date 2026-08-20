@@ -40,12 +40,16 @@ const KNOWN_HEX = new Set();
   else if (v && typeof v === "object") Object.values(v).forEach(collectLabs);
 })(labsTokens);
 
+// The MCP server's own maturity — independent of the design-system content
+// version (tokens.$meta.version), which keeps evolving on its 2.x line.
+const MCP_VERSION = "1.0.0-beta";
+
 export function createServer() {
   const server = new McpServer(
     {
       name: "wellx-design-system",
-      title: "Wellx Design System",
-      version: tokens.$meta.version,
+      title: "Wellx Design System (Beta)",
+      version: MCP_VERSION,
       websiteUrl: "https://wellx-design-mcp.vercel.app",
       icons: [
         { src: "https://wellx-design-mcp.vercel.app/assets/wellx-logo-mark-512.png", mimeType: "image/png", sizes: ["512x512"] },
@@ -54,7 +58,8 @@ export function createServer() {
     },
     {
       instructions:
-        "Wellx Unified Design System. ALWAYS consult this server before building or restyling UI for any Wellx tool: " +
+        "Wellx Unified Design System (content v" + tokens.$meta.version + "; this MCP server is beta). " +
+        "ALWAYS consult this server before building or restyling UI for any Wellx tool: " +
         "start with get_principles, then get_rules for the area you are touching (topics: " + TOPICS.join(", ") + "), " +
         "get_component_spec for concrete recipes, and get_tokens for values. " +
         "TWO SEPARATE BRAND SYSTEMS live here: the Wellx portal system (violet accent, Manrope, --wx-* tokens; the non-prefixed topics) " +

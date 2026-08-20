@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.9.3 — 2026-08-19
+- MCP server version decoupled from the design-system content version: serverInfo now reports 1.0.0-beta with title "Wellx Design System (Beta)"; the content version (2.x) is stated in the server instructions and remains available via get_changelog.
+
 ## 2.9.2 — 2026-08-19
 - MCP branding: serverInfo now includes the Wellx logo mark as MCP icons metadata (512×512 PNG rendered from the mark SVG + the SVG itself), title "Wellx Design System", and websiteUrl — connector UIs that support icons display the mark.
 - Docs site: favicon switched from the placeholder W tile to the real mark (SVG + 512 PNG + apple-touch-icon).
