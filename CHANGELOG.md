@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.9.6 — 2026-08-20
+- Agent guardrail: if the user hasn't specified which brand system their product uses (Wellx portal vs Wellx Labs), the agent must ask before fetching rules or writing UI — never assume or silently default. Added to the MCP server instructions, the top of spec/principles.md (served by get_principles), and skill/SKILL.md.
+
 ## 2.9.5 — 2026-08-19
 - All user-facing "v2.x" text replaced with Beta: sidebar chip (amber Beta pill), What's-new release headings (internal build in tooltip), beta note reworded, Creator export says "Wellx Unified Design System (Beta)" ($meta.version: "beta"), MCP instructions open with "(Beta)". Internal build numbers stay in CHANGELOG.md and data.js.
 

@@ -65,6 +65,7 @@ export function createServer() {
         "TWO SEPARATE BRAND SYSTEMS live here: the Wellx portal system (violet accent, Manrope, --wx-* tokens; the non-prefixed topics) " +
         "and the Wellx Labs brand system (spectral identity, Figtree + IBM Plex Mono, --wl-* tokens; the labs-* topics + get_labs_tokens). " +
         "Pick one per product and never mix them. " +
+        "IF THE USER HAS NOT SPECIFIED which system their product uses, ASK THEM FIRST (\"Should this use the Wellx portal system or Wellx Labs?\") before fetching rules or writing any UI — never assume or silently default. " +
         "In code, import @wellx/design-tokens (CSS variables + Tailwind preset) instead of typing values. " +
         "Before finishing, run validate on your markup/styles to catch guardrail violations.",
     },

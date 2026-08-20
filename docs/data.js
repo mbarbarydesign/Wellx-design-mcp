@@ -2,13 +2,19 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.9.5";
+var VERSION = "2.9.6";
 
 /* The MCP server's own maturity — independent of the design-system content
    version above. Mirrors MCP_VERSION in mcp/create-server.mjs. */
 var MCP_VERSION = "1.0.0-beta";
 
 var WHATS_NEW = [
+  {
+    version: "2.9.6", date: "2026-08-20", kind: "minor",
+    items: [
+      "New agent rule: when the user has not specified which library to use (Wellx portal vs Wellx Labs), the agent must ask before building \u2014 enforced in the MCP instructions, get_principles, and the pointer skill.",
+    ],
+  },
   {
     version: "2.9.5", date: "2026-08-19", kind: "patch",
     items: [

@@ -7,6 +7,8 @@ description: Wellx Unified Design System — MANDATORY before building or restyl
 
 **Primary source: the `wellx-design-system` MCP server.** Before building UI, call `get_principles`, then `get_rules(<topic>)` for the area you're touching, `get_component_spec(<name>)` for recipes, and `get_tokens(...)` for values. Run `validate(code)` on your output before finishing. If the server is unavailable, the ten rules below keep you safe; do not guess beyond them.
 
+**Two brand systems live on the server** — the Wellx portal system (these rules) and Wellx Labs (`labs-*` topics: spectral identity, Figtree, `--wl-*` tokens). If the user hasn't said which library their product uses, **ask them first** — never assume.
+
 ## The ten rules (offline fallback)
 1. Never hardcode hex. Import `@wellx/design-tokens` (CSS vars + Tailwind preset); brand is tenant-injected.
 2. Flat surfaces: 1px `border` hairlines define panels — shadows only on dialogs, drawers, toasts, auth.
