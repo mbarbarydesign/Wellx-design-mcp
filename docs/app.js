@@ -72,7 +72,7 @@
   });
   $("#menuBtn").addEventListener("click", function () { $("#sidebar").classList.toggle("open"); });
   $("#nav").addEventListener("click", function (e) { if (e.target.closest("a")) $("#sidebar").classList.remove("open"); });
-  $("#versionChip").textContent = "v" + VERSION;
+  $("#versionChip").innerHTML = "v" + VERSION + ' <b class="beta" title="MCP server ' + MCP_VERSION + '">BETA</b>';
   // icon-rail tooltips
   document.querySelectorAll(".sb-nav > .sb-group > .nav-item").forEach(function (el) {
     el.title = el.textContent.trim();
@@ -110,6 +110,7 @@
   /* ---------- pages ---------- */
   function renderWhatsNew() {
     return head("Overview", "What’s new", "Every shipped change to the design system, newest first. Patch = value change · minor = new token/component/rule · major = rename or removal (with migration notes).") +
+      '<div class="beta-note">Versions below track the <strong>design-system content</strong> (v' + VERSION + '). The MCP server ships separately as <code>' + MCP_VERSION + '</code> — still beta.</div>' +
       WHATS_NEW.map(function (r) {
         return '<div class="card release"><div class="release-head"><h3>v' + r.version + '</h3><span class="tag ' + r.kind + '">' + r.kind + "</span><time>" + r.date + "</time></div><ul>" +
           r.items.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul></div>";

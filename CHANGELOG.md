@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.9.4 — 2026-08-19
+- Docs: sidebar version chip shows an "MCP BETA" badge (hidden on the collapsed rail); What's-new page opens with a note explaining the content version (2.x) vs the MCP server version (1.0.0-beta, from the new MCP_VERSION value in data.js).
+
 ## 2.9.3 — 2026-08-19
 - MCP server version decoupled from the design-system content version: serverInfo now reports 1.0.0-beta with title "Wellx Design System (Beta)"; the content version (2.x) is stated in the server instructions and remains available via get_changelog.
 

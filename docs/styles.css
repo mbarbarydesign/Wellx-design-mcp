@@ -147,7 +147,7 @@ code { background: var(--code-bg); border-radius: 5px; padding: 1.5px 5px; }
 .nav-sub .nav-item { height: 34px; font-size: 13.5px; }
 
 .sb-foot { border-top: 1px solid var(--border); padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.version-chip { font-size: 11.5px; color: var(--muted-fg-soft); padding: 3px 9px; border: 1px solid var(--border); border-radius: 9999px; }
+.version-chip { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 11.5px; color: var(--muted-fg-soft); padding: 3px 8px; border: 1px solid var(--border); border-radius: 9999px; }
 .theme-toggle { display: inline-flex; gap: 2px; padding: 3px; border-radius: 9999px; background: var(--muted); }
 .theme-toggle button {
   font-family: inherit; font-size: 11px; font-weight: 600; color: var(--muted-fg-soft);
@@ -412,4 +412,17 @@ section.doc > .hint { font-size: 13px; color: var(--muted-fg); max-width: 76ch; 
 @media (max-width: 860px) {
   .labs-pair, .labs-rule-grid, .labs-glow-grid { grid-template-columns: 1fr; }
   .labs-tex-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* beta labeling */
+.version-chip .beta {
+  font-size: 9px; font-weight: 700; letter-spacing: .06em; font-style: normal;
+  padding: 1.5px 6px; border-radius: 9999px; margin-inline-start: 2px;
+  background: var(--t-warn-bg); color: var(--t-warn-fg);
+}
+.sidebar.collapsed .version-chip .beta { display: none; }
+.beta-note {
+  margin: -10px 0 18px; padding: 10px 14px; border: 1px solid var(--border);
+  border-radius: 10px; background: var(--muted-soft);
+  font-size: 12.5px; color: var(--muted-fg); line-height: 1.55;
 }
