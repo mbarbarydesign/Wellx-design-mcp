@@ -2,13 +2,19 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.9.6";
+var VERSION = "2.9.7";
 
 /* The MCP server's own maturity — independent of the design-system content
    version above. Mirrors MCP_VERSION in mcp/create-server.mjs. */
 var MCP_VERSION = "1.0.0-beta";
 
 var WHATS_NEW = [
+  {
+    version: "2.9.7", date: "2026-08-20", kind: "minor",
+    items: [
+      "Light is the default theme in both systems: agents build and present UIs in light mode unless the user asks for dark \u2014 dark stays an explicit opt-in (.dark in the portal, data-theme=\"dark\" in Labs) with token twins still defined.",
+    ],
+  },
   {
     version: "2.9.6", date: "2026-08-20", kind: "minor",
     items: [

@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.9.7 — 2026-08-20
+- Default theme rule: light is the default in both brand systems — agents build and present UIs in light mode unless the user asks for dark; dark is an explicit opt-in (.dark / data-theme="dark") with token twins still required. Added to the MCP instructions, spec/color.md, and skill/SKILL.md (Labs tokens already declared light default).
+
 ## 2.9.6 — 2026-08-20
 - Agent guardrail: if the user hasn't specified which brand system their product uses (Wellx portal vs Wellx Labs), the agent must ask before fetching rules or writing UI — never assume or silently default. Added to the MCP server instructions, the top of spec/principles.md (served by get_principles), and skill/SKILL.md.
 

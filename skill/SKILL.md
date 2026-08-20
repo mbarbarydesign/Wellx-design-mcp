@@ -9,6 +9,8 @@ description: Wellx Unified Design System — MANDATORY before building or restyl
 
 **Two brand systems live on the server** — the Wellx portal system (these rules) and Wellx Labs (`labs-*` topics: spectral identity, Figtree, `--wl-*` tokens). If the user hasn't said which library their product uses, **ask them first** — never assume.
 
+**Default theme is light** in both systems: build and present UIs in light mode unless the user asks for dark. Dark is an explicit opt-in (`.dark` class in the portal, `data-theme="dark"` in Labs) — define its token twins, don't ship it as the default.
+
 ## The ten rules (offline fallback)
 1. Never hardcode hex. Import `@wellx/design-tokens` (CSS vars + Tailwind preset); brand is tenant-injected.
 2. Flat surfaces: 1px `border` hairlines define panels — shadows only on dialogs, drawers, toasts, auth.

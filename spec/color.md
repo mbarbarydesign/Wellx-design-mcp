@@ -7,6 +7,8 @@
 - Tenants re-theme via parallel Foundations libraries (Dubai Sports, Healthx, Elitex, HayatX 2.0) — same token names, different values.
 
 ## Core semantics (light → dark)
+**Default theme is light.** Build and present every UI in light mode unless the user asks for dark; dark mode is an explicit opt-in via the `.dark` class on `<html>`. Always define the dark twins of the tokens you use — just never ship dark as the default.
+
 | Token | Light | Dark | Use |
 |---|---|---|---|
 | backgrounds/screen-bg | #FFFFFF | Gray/950 #0A0D12 | page canvas |
