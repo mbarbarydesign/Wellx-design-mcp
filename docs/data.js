@@ -2,9 +2,16 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.9.1";
+var VERSION = "2.9.2";
 
 var WHATS_NEW = [
+  {
+    version: "2.9.2", date: "2026-08-19", kind: "patch",
+    items: [
+      "The MCP now presents the Wellx logo mark: serverInfo carries icons (512px PNG + SVG), the display title \u201cWellx Design System\u201d, and the site URL \u2014 clients that render connector icons show the mark.",
+      "Docs site favicon is now the Wellx mark (SVG + PNG), replacing the placeholder W tile.",
+    ],
+  },
   {
     version: "2.9.1", date: "2026-08-19", kind: "patch",
     items: [

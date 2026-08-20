@@ -42,7 +42,16 @@ const KNOWN_HEX = new Set();
 
 export function createServer() {
   const server = new McpServer(
-    { name: "wellx-design-system", version: tokens.$meta.version },
+    {
+      name: "wellx-design-system",
+      title: "Wellx Design System",
+      version: tokens.$meta.version,
+      websiteUrl: "https://wellx-design-mcp.vercel.app",
+      icons: [
+        { src: "https://wellx-design-mcp.vercel.app/assets/wellx-logo-mark-512.png", mimeType: "image/png", sizes: ["512x512"] },
+        { src: "https://wellx-design-mcp.vercel.app/assets/wellx-logo-mark.svg", mimeType: "image/svg+xml", sizes: ["any"] },
+      ],
+    },
     {
       instructions:
         "Wellx Unified Design System. ALWAYS consult this server before building or restyling UI for any Wellx tool: " +
