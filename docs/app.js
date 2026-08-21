@@ -164,22 +164,14 @@
 
   function renderInstall() {
     var h = head("Resources", "How to install",
-      "Three pieces, one source of truth: tokens for your build, the MCP server for your AI agents, and the Figma libraries for design. All ship from the wellx-design-system repo.");
-    h += '<section class="doc"><h2>1 · Tokens — CSS variables + Tailwind preset</h2><p class="hint">Never retype a value. The preset maps semantic classes (<code>bg-primary</code>, <code>rounded-button</code>, <code>max-w-content</code>) onto the CSS variables; dark mode is the <code>.dark</code> class on <code>&lt;html&gt;</code>.</p>' +
-      codeblock("npm install @wellx/design-tokens   # or copy tokens/ from the repo during the testing phase") +
-      codeblock("// tailwind.config.js\nmodule.exports = {\n  presets: [require('@wellx/design-tokens/wellx-tailwind-preset.cjs')],\n  darkMode: ['class'],\n  content: ['./src/**/*.{ts,tsx,html}'],\n};") +
-      codeblock("/* app entry css */\n@import '@wellx/design-tokens/wellx-tokens.css';") + "</section>";
-    h += '<section class="doc"><h2>2 · MCP server — for AI agents</h2><p class="hint">Gives every agent live access to the rules, component recipes, token values, and a guardrail linter. Two ways in — both stay current automatically on every push to main.</p>' +
-      '<p class="hint"><strong>A · Claude connector (remote — nothing to install).</strong> In Claude, go to Settings → Connectors → Add custom connector and paste the endpoint. Works on claude.ai, the desktop app, and Claude Code.</p>' +
-      codeblock('https://wellx-design-mcp.vercel.app/api/mcp') +
-      '<p class="hint" style="margin-top:14px"><strong>B · Local (stdio via npx)</strong> — for Claude Code without the connector; needs Node 18+.</p>' +
-      codeblock('// .mcp.json (per project)  — or register once for your whole machine:\n// claude mcp add --scope user wellx-design-system -- npx -y github:mbarbarydesign/Wellx-design-mcp\n{\n  "mcpServers": {\n    "wellx-design-system": {\n      "command": "npx",\n      "args": ["-y", "github:mbarbarydesign/Wellx-design-mcp"]\n    }\n  }\n}') +
-      '<p class="hint" style="margin-top:10px">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_audit_checklist</code> · <code>get_changelog</code></p>' +
-      '<p class="hint" style="margin-top:6px">Agents are instructed to run the design audit (<code>get_audit_checklist</code>) on everything they build and to withhold hand-off while any Blocker is open.</p></section>';
-    h += '<section class="doc"><h2>3 · Fonts</h2>' +
-      codeblock("<link href=\"https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Alexandria:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">") +
-      '<p class="hint" style="margin-top:10px">Manrope for Latin UI; Alexandria for Arabic (RTL flips via <code>document.dir</code> — use logical utilities only).</p></section>';
-    h += '<section class="doc"><h2>4 · Figma</h2><p class="hint">Designers enable the <strong>Foundations</strong> library (tokens/variables) and the <strong>Wellx Unified Design System</strong> file (sheet + components) as team libraries. White-labels use the parallel Foundations libraries — same token names, different values.</p></section>';
+      "Connect Claude and your AI agents to the design system. Both routes stay current automatically — every push to the repo updates them.");
+    h += '<section class="doc"><h2>1 · Claude connector — recommended</h2><p class="hint">Nothing to install. In Claude, go to <strong>Settings → Connectors → Add custom connector</strong> and paste the endpoint (leave the auth fields empty). Team/Enterprise admins can add it once in Admin settings and every workspace member gets it. Works on claude.ai, the desktop app, and Claude Code.</p>' +
+      codeblock('https://wellx-design-mcp.vercel.app/api/mcp') + "</section>";
+    h += '<section class="doc"><h2>2 · Local MCP (stdio via npx)</h2><p class="hint">For Claude Code without the connector; needs Node 18+. Every new session runs the latest version straight from GitHub.</p>' +
+      codeblock('// .mcp.json (per project)  — or register once for your whole machine:\n// claude mcp add --scope user wellx-design-system -- npx -y github:mbarbarydesign/Wellx-design-mcp\n{\n  "mcpServers": {\n    "wellx-design-system": {\n      "command": "npx",\n      "args": ["-y", "github:mbarbarydesign/Wellx-design-mcp"]\n    }\n  }\n}') + "</section>";
+    h += '<section class="doc"><h2>What agents get</h2>' +
+      '<p class="hint">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_audit_checklist</code> · <code>get_changelog</code></p>' +
+      '<p class="hint" style="margin-top:6px">Built-in behaviour: agents ask which library to use (Wellx or Wellx Labs) when it isn’t specified, default to the light theme, run the design audit on everything they build, and withhold hand-off while any Blocker is open.</p></section>';
     return h;
   }
 

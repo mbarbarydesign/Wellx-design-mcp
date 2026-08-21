@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.10.1 — 2026-08-20
+- How-to-install page pared down to Claude + agents only: connector endpoint (recommended, with admin rollout note), local npx MCP, and a "What agents get" section (tools + built-in behaviours). Tokens, fonts, and Figma sections removed (still documented in the repo README).
+
 ## 2.10.0 — 2026-08-20
 - Design audit gate added to the MCP: spec/audit.md (full checklist from the wellx-design-audit skill, "Caroline" generalised to "the handoff reviewer") served by a new get_audit_checklist tool and as a get_rules topic; searchable like every spec.
 - Server instructions now require agents to run the audit on any UI they build before presenting it — verdict first (Not ready / Ready with warnings / Passed), no hand-off with open Blockers — alongside the existing validate() lint.

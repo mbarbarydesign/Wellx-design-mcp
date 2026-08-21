@@ -2,13 +2,19 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.10.0";
+var VERSION = "2.10.1";
 
 /* The MCP server's own maturity — independent of the design-system content
    version above. Mirrors MCP_VERSION in mcp/create-server.mjs. */
 var MCP_VERSION = "1.0.0-beta";
 
 var WHATS_NEW = [
+  {
+    version: "2.10.1", date: "2026-08-20", kind: "patch",
+    items: [
+      "How to install simplified to just the Claude routes: the connector URL (recommended) and the local npx MCP, plus what agents get \u2014 the tokens/fonts/Figma sections moved out.",
+    ],
+  },
   {
     version: "2.10.0", date: "2026-08-20", kind: "minor",
     items: [
