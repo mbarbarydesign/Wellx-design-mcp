@@ -174,7 +174,8 @@
       codeblock('https://wellx-design-mcp.vercel.app/api/mcp') +
       '<p class="hint" style="margin-top:14px"><strong>B · Local (stdio via npx)</strong> — for Claude Code without the connector; needs Node 18+.</p>' +
       codeblock('// .mcp.json (per project)  — or register once for your whole machine:\n// claude mcp add --scope user wellx-design-system -- npx -y github:mbarbarydesign/Wellx-design-mcp\n{\n  "mcpServers": {\n    "wellx-design-system": {\n      "command": "npx",\n      "args": ["-y", "github:mbarbarydesign/Wellx-design-mcp"]\n    }\n  }\n}') +
-      '<p class="hint" style="margin-top:10px">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_changelog</code></p></section>';
+      '<p class="hint" style="margin-top:10px">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_audit_checklist</code> · <code>get_changelog</code></p>' +
+      '<p class="hint" style="margin-top:6px">Agents are instructed to run the design audit (<code>get_audit_checklist</code>) on everything they build and to withhold hand-off while any Blocker is open.</p></section>';
     h += '<section class="doc"><h2>3 · Fonts</h2>' +
       codeblock("<link href=\"https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Alexandria:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">") +
       '<p class="hint" style="margin-top:10px">Manrope for Latin UI; Alexandria for Arabic (RTL flips via <code>document.dir</code> — use logical utilities only).</p></section>';

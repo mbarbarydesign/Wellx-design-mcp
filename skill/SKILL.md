@@ -11,6 +11,8 @@ description: Wellx Unified Design System — MANDATORY before building or restyl
 
 **Default theme is light** in both systems: build and present UIs in light mode unless the user asks for dark. Dark is an explicit opt-in (`.dark` class in the portal, `data-theme="dark"` in Labs) — define its token twins, don't ship it as the default.
 
+**Audit before presenting.** Every UI you build passes the design audit gate before you present or hand it over: call `get_audit_checklist` (or read `spec/audit.md`), walk every category, and lead with the verdict — `Not ready — N blockers open` / `Ready with warnings` / `Passed`. A design with open Blockers is not done.
+
 ## The ten rules (offline fallback)
 1. Never hardcode hex. Import `@wellx/design-tokens` (CSS vars + Tailwind preset); brand is tenant-injected.
 2. Flat surfaces: 1px `border` hairlines define panels — shadows only on dialogs, drawers, toasts, auth.

@@ -2,6 +2,11 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.10.0 — 2026-08-20
+- Design audit gate added to the MCP: spec/audit.md (full checklist from the wellx-design-audit skill, "Caroline" generalised to "the handoff reviewer") served by a new get_audit_checklist tool and as a get_rules topic; searchable like every spec.
+- Server instructions now require agents to run the audit on any UI they build before presenting it — verdict first (Not ready / Ready with warnings / Passed), no hand-off with open Blockers — alongside the existing validate() lint.
+- skill/SKILL.md and the install page document the gate.
+
 ## 2.9.7 — 2026-08-20
 - Default theme rule: light is the default in both brand systems — agents build and present UIs in light mode unless the user asks for dark; dark is an explicit opt-in (.dark / data-theme="dark") with token twins still required. Added to the MCP instructions, spec/color.md, and skill/SKILL.md (Labs tokens already declared light default).
 

@@ -2,13 +2,20 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.9.7";
+var VERSION = "2.10.0";
 
 /* The MCP server's own maturity — independent of the design-system content
    version above. Mirrors MCP_VERSION in mcp/create-server.mjs. */
 var MCP_VERSION = "1.0.0-beta";
 
 var WHATS_NEW = [
+  {
+    version: "2.10.0", date: "2026-08-20", kind: "minor",
+    items: [
+      "Design audit gate built into the MCP: new get_audit_checklist tool (also served as the audit rules topic) carrying the full Wellx audit checklist \u2014 brand/tokens, themes, copy & tone, RTL, completeness, states, composition, accessibility \u2014 with Blocker / Warning / Polish severities.",
+      "Agents are now instructed to audit everything they build before presenting it and to withhold hand-off while any Blocker is open, reporting a verdict: Not ready / Ready with warnings / Passed.",
+    ],
+  },
   {
     version: "2.9.7", date: "2026-08-20", kind: "minor",
     items: [
