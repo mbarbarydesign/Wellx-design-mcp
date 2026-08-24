@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.10.2 — 2026-08-20
+- The ask-which-library rule now names the options exactly: "Wellx design system" and "Wellx Labs design system" — in the MCP instructions, spec/principles.md, skill/SKILL.md, and the install page.
+
 ## 2.10.1 — 2026-08-20
 - How-to-install page pared down to Claude + agents only: connector endpoint (recommended, with admin rollout note), local npx MCP, and a "What agents get" section (tools + built-in behaviours). Tokens, fonts, and Figma sections removed (still documented in the repo README).
 

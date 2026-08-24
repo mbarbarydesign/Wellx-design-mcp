@@ -65,7 +65,7 @@ export function createServer() {
         "TWO SEPARATE BRAND SYSTEMS live here: the Wellx portal system (violet accent, Manrope, --wx-* tokens; the non-prefixed topics) " +
         "and the Wellx Labs brand system (spectral identity, Figtree + IBM Plex Mono, --wl-* tokens; the labs-* topics + get_labs_tokens). " +
         "Pick one per product and never mix them. " +
-        "IF THE USER HAS NOT SPECIFIED which system their product uses, ASK THEM FIRST (\"Should this use the Wellx portal system or Wellx Labs?\") before fetching rules or writing any UI — never assume or silently default. " +
+        "IF THE USER HAS NOT SPECIFIED which system their product uses, ASK THEM FIRST — offer exactly these two options: \"Wellx design system\" or \"Wellx Labs design system\" — before fetching rules or writing any UI. Never assume or silently default. " +
         "DEFAULT THEME IS LIGHT in both systems: build and present UIs in light mode unless the user asks for dark. Dark mode is an explicit opt-in (.dark class in the portal system, data-theme=\"dark\" in Labs) — still define its token twins, just don't ship it as the default. " +
         "In code, import @wellx/design-tokens (CSS variables + Tailwind preset) instead of typing values. " +
         "BEFORE PRESENTING ANY UI YOU BUILD, run the design audit: call get_audit_checklist, walk every category, and report the verdict (blockers / warnings / polish). A design with open Blockers is not done — fix them first. " +

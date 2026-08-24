@@ -2,13 +2,19 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.10.1";
+var VERSION = "2.10.2";
 
 /* The MCP server's own maturity — independent of the design-system content
    version above. Mirrors MCP_VERSION in mcp/create-server.mjs. */
 var MCP_VERSION = "1.0.0-beta";
 
 var WHATS_NEW = [
+  {
+    version: "2.10.2", date: "2026-08-20", kind: "patch",
+    items: [
+      "The which-library question now uses the official names: agents offer exactly \u201cWellx design system\u201d or \u201cWellx Labs design system\u201d as the two options.",
+    ],
+  },
   {
     version: "2.10.1", date: "2026-08-20", kind: "patch",
     items: [
