@@ -57,6 +57,9 @@ Member (dark warm, editorial, `#F7941D`, Care Connect) · Corporate (light neutr
   handshakes/lawns/models-pointing-at-screens; no superlatives; no scarcity framing; no emoji.
 - **Merchandise**: objects a person would own anyway; single colour, mark only (stickers are
   the one item permitted the spectrum symbol); no stress balls, fidget toys or branded sweets.
-- **Co-branding**: three patterns (endorsement, partnership, powered-by); separator 1px
-  hairline at 20% ink; clear space between marks 2×X; **the LABS chip is dropped in every
-  co-branded lockup**; never place a partner mark inside the loop.
+- **Co-branding**: endorsement (Wellx leads, partner follows at equal cap height after a
+  hairline) · partnership (equal weight, hairline separator, alphabetical order) · powered-by
+  (partner leads; Wellx wordmark only, preceded by "Powered by" in mono). Separator 1px
+  hairline at 20% ink; clear space between marks 2×X — the partner never enters ours; **the
+  LABS chip is dropped in every co-branded lockup**; never place a partner mark inside the
+  loop or lock the two marks into one shape.

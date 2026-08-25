@@ -67,3 +67,10 @@ drop shadow, no 3D, no donut with a figure in the hole. Axes start at zero or th
 is stated on the chart. Any machine-produced figure shows its confidence and its source. A
 series is never identified by colour alone. The gradient is identity; a chart is evidence —
 they never overlap.
+
+**Signal to possibility (WX-N-40…42):** intelligence is not finished when it produces a
+number. Data progression: FACT → CONTEXT → SIGNAL → INSIGHT → POSSIBILITY. Interface
+progression: SIGNAL → INSIGHT → IMPLICATION → POSSIBILITY → ACTION. A number is never shown
+without the context that makes it readable; an insight never without its implication; an
+implication never without the action it permits. ·DENY: possibility is stated as an option
+with its evidence — never as a promise, a projection or a headline.

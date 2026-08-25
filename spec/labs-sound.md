@@ -1,5 +1,11 @@
 # Wellx Labs — Sound
 
+**Status: PROPOSED · R01 CANDIDATE.** All WX-S rules except WX-S-00 are proposed — recommended
+and buildable, but they do not govern until validated in production and promoted by Design.
+**Canonical (WX-S-00)**: silence by default · sound carries meaning, never delight · no
+punishment sounds or failure stings · sound never replaces visible information · every sound
+user-controllable and accessible · restraint · a sound is a signal, not a brand impression.
+
 The sonic identity. Key: **D minor** (no modulation). The default state of the system is
 silent — sound is opt-in on every surface (WX-S-28), muted by default on web (WX-S-10).
 
@@ -45,6 +51,14 @@ Fixed pairings, fire whether or not sound is enabled: notify = light 10ms · not
 medium ×2 90ms apart · arrive = soft 14ms · confirm = light-then-medium 60ms apart · warning =
 rigid ×2 110ms apart · error = rigid 18ms · dismiss = tick 6ms · signature = never haptic.
 Never on scroll, hover, keyboard or passive state change; honour the OS haptic setting absolutely.
+
+## Voice & hold (telephony / IVR)
+Answer: no music — 2s of room tone, then the human; greeting one sentence, no signature.
+Hold: the ambient bed at −30 LUFS with the descent every 45s at −24 LUFS — no message loop,
+no music, no advertising. Transfer: F4→D4, then silence. IVR: spoken options only — no tone
+per option, no keypress confirmation. Voicemail: the signature once at 40%, before the
+recorded message. Voice: one recorded voice per language, neutral, no upward inflection.
+TTS: one named voice per language, fixed, at 0.95 rate.
 
 ## Silence (WX-S-28/29)
 Sound is forbidden in: every table and list, all navigation, all input, charts and dashboards

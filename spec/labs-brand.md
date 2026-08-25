@@ -30,7 +30,7 @@ One arrangement, two colour modes (dark / light) — no fourth form (no tint, kn
 - **Clear space** = 1× LABS-chip height all sides, measured from the cage; neighbours' glow
   and shadow count as intrusion.
 - **Minimum sizes**: full lockup 180px / 45mm · mark + chip 96px / 24mm · mark alone 28px /
-  7mm · loop only 16px / 4mm. Reduce by dropping components (chip → divider → wordmark →
+  7mm · loop only 16px / 4mm. Below 20px the crossings fill in — use the terminal loop alone. Reduce by dropping components (chip → divider → wordmark →
   ribbon), never by shrinking. Never scale non-uniformly.
 - Colour modes: dark files on fields below 30% luminance (fields `#050509`→`#101119`); light
   files above (`#FFFFFF`→`#F6F7FB`). On imagery, always on a solid plate. The spectrum symbol
@@ -51,6 +51,10 @@ from the person: warm nearest to life, cool nearest to the model.
 | Corporate | Light, neutral | Balanced | `#F0366B` | Workforce Console | Outcomes and cost; population, not individuals |
 | Insurer | Dark, structured | Operating | `#7A2BE2` | Command Center | Evidence first; confidence and provenance visible |
 | Broker | Light, structured | Operating | `#2D9CFD` | Broker Desk | Position, movement, next action |
+
+The Operating Core itself carries no accent — it is the field. "Workforce Console" and
+"Broker Desk" are working names: the slot is fixed, the name is not. Future slots: reseller,
+regulator, provider, government.
 
 ## The naming lockup (product surfaces)
 On a product surface the master signature's spectrum divider becomes a **single 1px accent

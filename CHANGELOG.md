@@ -2,6 +2,12 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.12.0 — 2026-08-20
+- Labs updated from the System Manual (Release 01 · 2026, 133pp): new Soul & constitution tab (Brand Soul WX-L-00, Constitution WX-L-01…13 incl. the Value Loop, six-layer authority); 19 → 20 tabs.
+- Position: WX-P-08, precedence rules, practitioners. Sound: Proposed · R01-candidate status (WX-S-00 canonical) + telephony/IVR/hold spec. Glow: WX-C-26…28 living-surface direction rules incl. RTL reversal. Data viz: Signal→Possibility progressions (WX-N-40…42). Rules: levels of authority + register record.
+- Refinements: below-20px loop fallback, Operating Core carries no accent (Workforce Console / Broker Desk are working names), card 700gsm duplexed + 1mm spectrum edge, co-branding ordering, no error animation.
+- Spec: labs-position.md carries the doctrine layer; labs-sound.md, labs-glow-motion.md, labs-color.md, labs-brand.md, labs-components.md updated to match.
+
 ## 2.11.0 — 2026-08-20
 - Wellx Labs library rebuilt against the Brand Book Release 01 · 2026 (four volumes, 164 pages): 12 → 19 docs tabs.
 - New tabs: Position, Fragments, Grid & spacing, Motion, Sound, Data visualisation, Voice & tone. Updated: architecture (four audiences, naming lockup, segment registration), lockup (construction, size ladder, misuse), color (ink/paper ramps, tint scale, 4% ceiling, contrast, retired #A0175E and #3D7BFD), typography (8-step scale, print minimums), glow (exact spec), icons, textures & material (loop field rename), components (interface laws, AI surface with confidence), applications (stationery/deck/document/signage/social/advertising/merch/co-branding), tokens, rules (+ governance), asset index.

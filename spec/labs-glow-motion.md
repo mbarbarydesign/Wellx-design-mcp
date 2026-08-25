@@ -9,6 +9,13 @@ AI-generated content is glow-framed and badged (see labs-components: the AI surf
 On identity moments (splash, login) the glow anchors the mark instead — never both uses in
 one screen.
 
+Direction determines geometry (WX-C-26…28): on living surfaces the spectrum may follow
+meaning — flow follows direction, convergence follows a focal point, orbit follows
+relationship, horizon follows opportunity — and **RTL surfaces may reverse directional
+behaviour where meaning requires it**. Reproducible static assets (the master lockup, static
+identity exports, controlled print) keep the fixed recipes (90° rules · 180° dividers ·
+135° fills).
+
 ## Motion (WX-N-01…03)
 Five durations, nothing between: **instant 0ms** (state change on a control being touched) ·
 **quick 120ms** (hover, focus, tooltip, checkbox) · **standard 200ms** (panel, drawer,
