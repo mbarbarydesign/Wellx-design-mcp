@@ -68,9 +68,19 @@ is stated on the chart. Any machine-produced figure shows its confidence and its
 series is never identified by colour alone. The gradient is identity; a chart is evidence —
 they never overlap.
 
-**Signal to possibility (WX-N-40…42):** intelligence is not finished when it produces a
+**Signal to possibility (WX-N-19…21):** intelligence is not finished when it produces a
 number. Data progression: FACT → CONTEXT → SIGNAL → INSIGHT → POSSIBILITY. Interface
 progression: SIGNAL → INSIGHT → IMPLICATION → POSSIBILITY → ACTION. A number is never shown
 without the context that makes it readable; an insight never without its implication; an
 implication never without the action it permits. ·DENY: possibility is stated as an option
 with its evidence — never as a promise, a projection or a headline.
+
+## Provenance before confidence (WX-N-13)
+Operating surfaces that show machine or actuarial figures use two fixed vocabularies:
+- **Confidence**: measured · modelled · judgment · insufficient.
+- **Underwriting state**: renewing · open · referred · declined.
+"A row that cannot state its provenance does not get to state its confidence. A declined
+cohort is a finding, not a failure." Provenance is named alongside every confidence value
+(e.g. claims·telematics, clinical·actuarial, engineering·survey). Brand-book illustrations
+may render data abstractly in spectral art; product charts never do — the chart palette rules
+above always govern product UI.

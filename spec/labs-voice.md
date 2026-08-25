@@ -29,3 +29,22 @@ seamless · effortless · revolutionary · world-class · leverage · synergy ·
 empower · delight · simply · just · easy · robust · best-in-class · game-changing · disrupt · holistic.
 Advertising additionally denies: "world-leading", timers, "last chance", any scarcity framing
 (regulated category), and stock photography.
+
+## Narrative devices (from "The Possibility Within" — companion book, not governing)
+Reference copy patterns for brand and marketing surfaces:
+- **Better / Earlier / In context** — "The same exposure, understood with more of what actually
+  drives it" / "Understanding that arrives while a decision is still open" / "A number read
+  against the conditions that produced it." ("In context" may carry the spectrum underline.)
+- **The nine forces** of insurance, each with a one-liner (Risk "priced before it is known" ·
+  Capital "held against what has not happened" · Regulation "slower than the market, on
+  purpose" · Claims "the promise, tested" · Behaviour "never quite the model" · Care
+  "clinical, costly, human" · Distribution "where trust is actually earned" · Time "decades
+  between cause and cost" · Trust "slow to build, fast to lose").
+- **We bring / You bring / Together** — practiced products / portfolio, distribution,
+  regulation, institutional memory / "build what neither could create alone."
+- **The value cascade** (law 8): insurer prices with more confidence → partner reaches a new
+  market → customer is protected before the loss → a population becomes reachable → the next
+  cohort begins with what this one learned. "Value that stops at one balance sheet was mispriced."
+- **The timing line**: exposure begins → signal available → decision still open — "everything
+  to the right of the third mark is a claim; everything to the left of it is a choice."
+- Long-form books may run the eight laws as edge marginalia, indexed at the close.

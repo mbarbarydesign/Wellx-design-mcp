@@ -1,6 +1,6 @@
 # Wellx Labs — Sound
 
-**Status: PROPOSED · R01 CANDIDATE.** All WX-S rules except WX-S-00 are proposed — recommended
+**Status: proposed · R01 candidate (level: design-grammar; validation: pending production).** All WX-S rules from WX-S-01 onward are proposed — recommended
 and buildable, but they do not govern until validated in production and promoted by Design.
 **Canonical (WX-S-00)**: silence by default · sound carries meaning, never delight · no
 punishment sounds or failure stings · sound never replaces visible information · every sound

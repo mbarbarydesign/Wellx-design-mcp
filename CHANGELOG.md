@@ -2,6 +2,10 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.13.0 — 2026-08-20
+- Frozen System Manual (WellxLabs_Manual_Final_v1) integrated: text-diffed against the prior edition — substantive deltas only were renumbering (WX-N-40…42 → WX-N-19…21), the six-level authority register with new level/status/owner enums, Sound reclassified proposed·design-grammar (WX-S-00 philosophy canonical), and frozen status language. Applied to spec/labs-position.md, labs-color.md, labs-sound.md and the Rules/Data-viz/Asset-index tabs.
+- Companion book "The Possibility Within" (Draft03, non-governing) mined: provenance-before-confidence taxonomies added to Data visualisation + labs-color.md; the book application pattern added to Applications + labs-components.md; narrative devices added to Voice & tone + labs-voice.md; asset index lists the companion.
+
 ## 2.12.0 — 2026-08-20
 - Labs updated from the System Manual (Release 01 · 2026, 133pp): new Soul & constitution tab (Brand Soul WX-L-00, Constitution WX-L-01…13 incl. the Value Loop, six-layer authority); 19 → 20 tabs.
 - Position: WX-P-08, precedence rules, practitioners. Sound: Proposed · R01-candidate status (WX-S-00 canonical) + telephony/IVR/hold spec. Glow: WX-C-26…28 living-surface direction rules incl. RTL reversal. Data viz: Signal→Possibility progressions (WX-N-40…42). Rules: levels of authority + register record.

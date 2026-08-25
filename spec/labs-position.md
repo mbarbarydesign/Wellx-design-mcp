@@ -1,6 +1,6 @@
 # Wellx Labs — Position: soul, constitution, laws & governance
 
-From the System Manual, Release 01 · 2026 — "Governing. Supersedes all prior guidance."
+From the Wellx Labs System Manual, Release 01 · 2026 — **frozen**. "Frozen at Release 01. Governs at the levels set out in 9.5. Supersedes all prior guidance."
 Every rule carries an identifier (WX-L constitution · WX-P principles · WX-M mark · WX-C colour
 · WX-T typography · WX-S sound · WX-N motion/icons/material · WX-I interface · WX-A
 applications; suffix ·DENY marks a prohibition). An identifier never changes meaning; withdrawn
@@ -87,14 +87,20 @@ amended next release. Where two principles disagree, the lower number wins. Cita
 Release 01 · 2026; reviewed twice yearly; amendments as 01.1, 01.2. Release 02 arrives when a
 fifth segment or a second typeface case arises.
 
-## Levels of authority & the register
-- **Constitution** (Part 00 + the eight laws): changes extremely rarely, by the founders — never amended to accommodate a design decision.
-- **Principles · laws**: evolve through major releases, owned by Design.
-- **Specifications** (tokens, components, geometry, grids, denials): evolve through minor releases (01.1, 01.2).
-- **Proposed**: specified during design but not yet validated in production — does not govern until promoted by Design. **At Release 01, Part 05 (Sound) is proposed; everything else is canonical or specification.**
-Register record per rule: id WX-{L|P|M|C|T|S|N|I|A}-{nn} · level · status
-(canonical|specification|proposed) · owner (founders|design|product) · version · scope ·
-rationale · inherits · validation (none|production|measured). Retired at Release 01: none.
+## Levels of authority & the register (frozen edition, 9.5)
+- **00 · Soul** — why Wellx Labs exists. Owner: founders. Canonical; changes rarely.
+- **01 · Constitution** — the eight laws. Founders. Canonical; never amended for design.
+- **02 · Doctrine** — principles and System Laws. Design. Canonical design doctrine.
+- **03 · Grammar** — colour, type, signal, motion, data. Design. Specification.
+- **04 · Implementation** — tokens, geometry, components, denials. Design/Product. Specification.
+- **05 · Governance** — ownership, versioning, change. Founders. Canonical.
+A rule marked **proposed** sits outside these six levels and does not govern until Design
+promotes it. **At Release 01, Sound (WX-S-01 onward) is proposed at level design-grammar,
+validation pending production; its WX-S-00 philosophy is canonical.**
+Register record per rule: id WX-{L|P|M|C|T|S|N|I|A}-{nn} · level
+(soul|constitution|design-doctrine|design-grammar|implementation|governance) · status
+(canonical|system-specification|proposed|retired) · owner (founders|design|product|design/product)
+· version · scope · rationale · inherits · validation. Retired at Release 01: none.
 
 ## Practitioners
 "Practitioners first. Curious always. Partners by design." Labs' foundations are products

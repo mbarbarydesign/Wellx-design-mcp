@@ -57,6 +57,10 @@ Member (dark warm, editorial, `#F7941D`, Care Connect) · Corporate (light neutr
   handshakes/lawns/models-pointing-at-screens; no superlatives; no scarcity framing; no emoji.
 - **Merchandise**: objects a person would own anyway; single colour, mark only (stickers are
   the one item permitted the spectrum symbol); no stress balls, fidget toys or branded sweets.
+- **The book** ("The Possibility Within" pattern — companion artifact, not governing):
+  297×210mm landscape spreads; dark spectral cover with a Figtree Extrabold question + mono
+  metadata line; the eight laws as edge marginalia indexed at the close; the System Manual
+  governs wherever the book and it disagree.
 - **Co-branding**: endorsement (Wellx leads, partner follows at equal cap height after a
   hairline) · partnership (equal weight, hairline separator, alphabetical order) · powered-by
   (partner leads; Wellx wordmark only, preceded by "Powered by" in mono). Separator 1px
