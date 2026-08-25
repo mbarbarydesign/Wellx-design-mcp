@@ -2,6 +2,12 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.11.0 — 2026-08-20
+- Wellx Labs library rebuilt against the Brand Book Release 01 · 2026 (four volumes, 164 pages): 12 → 19 docs tabs.
+- New tabs: Position, Fragments, Grid & spacing, Motion, Sound, Data visualisation, Voice & tone. Updated: architecture (four audiences, naming lockup, segment registration), lockup (construction, size ladder, misuse), color (ink/paper ramps, tint scale, 4% ceiling, contrast, retired #A0175E and #3D7BFD), typography (8-step scale, print minimums), glow (exact spec), icons, textures & material (loop field rename), components (interface laws, AI surface with confidence), applications (stationery/deck/document/signage/social/advertising/merch/co-branding), tokens, rules (+ governance), asset index.
+- Spec: labs-position.md, labs-fragments.md, labs-sound.md, labs-voice.md added; the six existing labs topics rewritten to Release 01. Ten labs topics total.
+- tokens/wellx-labs-tokens.json v1.1.0: chart palette, motion, space, grid, density, typeScale registers; get_labs_tokens enum extended.
+
 ## 2.10.2 — 2026-08-20
 - The ask-which-library rule now names the options exactly: "Wellx design system" and "Wellx Labs design system" — in the MCP instructions, spec/principles.md, skill/SKILL.md, and the install page.
 

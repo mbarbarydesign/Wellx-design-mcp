@@ -1,45 +1,143 @@
 {
   "$name": "Wellx Labs Design Tokens",
-  "$version": "1.0.0",
-  "$updated": "2026-07-09",
-  "$notes": "Semantic dual-theme tokens. Build against roles, not raw hex. Default theme = light; set data-theme='dark' to switch. Spectrum gradient and 'signal' magenta are reserved for identity + AI only.",
+  "$version": "1.1.0",
+  "$updated": "2026-08-20",
+  "$notes": "Semantic dual-theme tokens per Brand Book Release 01. Build against roles, not raw hex. Default theme = light; set data-theme='dark' to switch. Spectrum gradient and 'signal' magenta are reserved for identity + AI only. Data visualisation uses the chart palette, never the spectrum or accent.",
   "color": {
-    "canvas":         { "light": "#F6F7FB", "dark": "#07070C" },
-    "surface":        { "light": "#FFFFFF", "dark": "#101119" },
-    "surfaceRaised":  { "light": "#FFFFFF", "dark": "#191A28" },
-    "surfaceSunken":  { "light": "#EEF1F6", "dark": "#0B0B12" },
-    "border":         { "light": "#E4E7EE", "dark": "#262837" },
-    "borderStrong":   { "light": "#CBD1DC", "dark": "#3A3C51" },
-    "textPrimary":    { "light": "#0B0B12", "dark": "#F5F6FA" },
-    "textSecondary":  { "light": "#454B59", "dark": "#B7BDCC" },
-    "textMuted":      { "light": "#868D9D", "dark": "#7E8698" },
-    "textOnAccent":   { "light": "#FFFFFF", "dark": "#1A0812" },
-    "accent":         { "light": "#C42663", "dark": "#FF5C86" },
-    "accentHover":    { "light": "#A71E53", "dark": "#FF789B" },
-    "accentActive":   { "light": "#8C1745", "dark": "#EA466F" },
-    "accentSubtle":   { "light": "#FBE7F0", "dark": "#2A121E" },
-    "accentText":     { "light": "#A71E53", "dark": "#FF89A6" },
-    "signal":         { "light": "#F0366B", "dark": "#F0366B" },
-    "success":        { "light": "#1F8A5B", "dark": "#3FD38C" },
-    "successSubtle":  { "light": "#E5F4EC", "dark": "#10231A" },
-    "warning":        { "light": "#B7791F", "dark": "#F0B44E" },
-    "warningSubtle":  { "light": "#FBF0D9", "dark": "#2A2011" },
-    "danger":         { "light": "#C4283C", "dark": "#FF6B7D" },
-    "dangerSubtle":   { "light": "#FBE6E9", "dark": "#2A1216" },
-    "info":           { "light": "#2563D6", "dark": "#5B9BFF" },
-    "infoSubtle":     { "light": "#E7EFFC", "dark": "#0F1D33" }
+    "canvas": {
+      "light": "#F6F7FB",
+      "dark": "#07070C"
+    },
+    "surface": {
+      "light": "#FFFFFF",
+      "dark": "#101119"
+    },
+    "surfaceRaised": {
+      "light": "#FFFFFF",
+      "dark": "#191A28"
+    },
+    "surfaceSunken": {
+      "light": "#EEF1F6",
+      "dark": "#0B0B12"
+    },
+    "border": {
+      "light": "#E4E7EE",
+      "dark": "#262837"
+    },
+    "borderStrong": {
+      "light": "#CBD1DC",
+      "dark": "#3A3C51"
+    },
+    "textPrimary": {
+      "light": "#0B0B12",
+      "dark": "#F5F6FA"
+    },
+    "textSecondary": {
+      "light": "#454B59",
+      "dark": "#B7BDCC"
+    },
+    "textMuted": {
+      "light": "#868D9D",
+      "dark": "#7E8698"
+    },
+    "textOnAccent": {
+      "light": "#FFFFFF",
+      "dark": "#1A0812"
+    },
+    "accent": {
+      "light": "#C42663",
+      "dark": "#FF5C86"
+    },
+    "accentHover": {
+      "light": "#A71E53",
+      "dark": "#FF789B"
+    },
+    "accentActive": {
+      "light": "#8C1745",
+      "dark": "#EA466F"
+    },
+    "accentSubtle": {
+      "light": "#FBE7F0",
+      "dark": "#2A121E"
+    },
+    "accentText": {
+      "light": "#A71E53",
+      "dark": "#FF89A6"
+    },
+    "signal": {
+      "light": "#F0366B",
+      "dark": "#F0366B"
+    },
+    "success": {
+      "light": "#1F8A5B",
+      "dark": "#3FD38C"
+    },
+    "successSubtle": {
+      "light": "#E5F4EC",
+      "dark": "#10231A"
+    },
+    "warning": {
+      "light": "#B7791F",
+      "dark": "#F0B44E"
+    },
+    "warningSubtle": {
+      "light": "#FBF0D9",
+      "dark": "#2A2011"
+    },
+    "danger": {
+      "light": "#C4283C",
+      "dark": "#FF6B7D"
+    },
+    "dangerSubtle": {
+      "light": "#FBE6E9",
+      "dark": "#2A1216"
+    },
+    "info": {
+      "light": "#2563D6",
+      "dark": "#5B9BFF"
+    },
+    "infoSubtle": {
+      "light": "#E7EFFC",
+      "dark": "#0F1D33"
+    }
   },
   "gradient": {
     "spectrum": "linear-gradient(135deg,#F7941D,#F0366B,#7A2BE2,#2D9CFD)",
-    "stops": ["#F7941D", "#F0366B", "#7A2BE2", "#2D9CFD"]
+    "stops": [
+      "#F7941D",
+      "#F0366B",
+      "#7A2BE2",
+      "#2D9CFD"
+    ]
   },
-  "focusRing": { "light": "rgba(240,54,107,0.45)", "dark": "rgba(255,92,134,0.50)" },
-  "radius": { "xs": "4px", "sm": "6px", "md": "9px", "lg": "14px", "pill": "999px" },
+  "focusRing": {
+    "light": "rgba(240,54,107,0.45)",
+    "dark": "rgba(255,92,134,0.50)"
+  },
+  "radius": {
+    "xs": "4px",
+    "sm": "6px",
+    "md": "9px",
+    "lg": "14px",
+    "pill": "999px"
+  },
   "shadow": {
-    "sm":  { "light": "0 1px 2px rgba(11,11,18,0.06), 0 1px 3px rgba(11,11,18,0.04)", "dark": "0 1px 2px rgba(0,0,0,0.4)" },
-    "md":  { "light": "0 4px 12px rgba(11,11,18,0.08), 0 2px 4px rgba(11,11,18,0.04)", "dark": "0 4px 14px rgba(0,0,0,0.5)" },
-    "lg":  { "light": "0 12px 32px rgba(11,11,18,0.12)", "dark": "0 14px 36px rgba(0,0,0,0.6)" },
-    "glow": { "light": "0 0 22px rgba(196,38,99,0.45)", "dark": "0 0 24px rgba(255,92,134,0.45)" }
+    "sm": {
+      "light": "0 1px 2px rgba(11,11,18,0.06), 0 1px 3px rgba(11,11,18,0.04)",
+      "dark": "0 1px 2px rgba(0,0,0,0.4)"
+    },
+    "md": {
+      "light": "0 4px 12px rgba(11,11,18,0.08), 0 2px 4px rgba(11,11,18,0.04)",
+      "dark": "0 4px 14px rgba(0,0,0,0.5)"
+    },
+    "lg": {
+      "light": "0 12px 32px rgba(11,11,18,0.12)",
+      "dark": "0 14px 36px rgba(0,0,0,0.6)"
+    },
+    "glow": {
+      "light": "0 0 22px rgba(196,38,99,0.45)",
+      "dark": "0 0 24px rgba(255,92,134,0.45)"
+    }
   },
   "font": {
     "display": "'Figtree', system-ui, sans-serif",
@@ -48,12 +146,144 @@
   },
   "type": {
     "scale": {
-      "display": { "size": "34px", "weight": 800, "tracking": "-0.5px", "line": 1.1 },
-      "h1": { "size": "24px", "weight": 800, "tracking": "-0.3px", "line": 1.2 },
-      "h2": { "size": "18px", "weight": 700, "tracking": "-0.2px", "line": 1.3 },
-      "body": { "size": "14px", "weight": 400, "line": 1.6 },
-      "small": { "size": "12px", "weight": 400, "line": 1.5 },
-      "mono-label": { "size": "10px", "weight": 500, "tracking": "2px", "transform": "uppercase" }
+      "display": {
+        "size": "34px",
+        "weight": 800,
+        "tracking": "-0.5px",
+        "line": 1.1
+      },
+      "h1": {
+        "size": "24px",
+        "weight": 800,
+        "tracking": "-0.3px",
+        "line": 1.2
+      },
+      "h2": {
+        "size": "18px",
+        "weight": 700,
+        "tracking": "-0.2px",
+        "line": 1.3
+      },
+      "body": {
+        "size": "14px",
+        "weight": 400,
+        "line": 1.6
+      },
+      "small": {
+        "size": "12px",
+        "weight": 400,
+        "line": 1.5
+      },
+      "mono-label": {
+        "size": "10px",
+        "weight": 500,
+        "tracking": "2px",
+        "transform": "uppercase"
+      }
+    }
+  },
+  "chart": {
+    "1": "#2E6BE6",
+    "2": "#00A88F",
+    "3": "#8A5CF6",
+    "4": "#E0821A",
+    "5": "#0E8AA8",
+    "6": "#B7477A",
+    "other": "#9AA1B0",
+    "series": "#2E6BE6",
+    "$notes": "Assigned in order 1-6 then other. Single-series charts always use 'series' blue. Status series reuse semantic tokens. Axes/legends/values in IBM Plex Mono."
+  },
+  "motion": {
+    "durations": {
+      "instant": "0ms",
+      "quick": "120ms",
+      "standard": "200ms",
+      "deliberate": "320ms",
+      "ambient": "1100ms"
+    },
+    "easeEnter": "cubic-bezier(0.2, 0, 0, 1)",
+    "easeExit": "cubic-bezier(0.4, 0, 1, 1)",
+    "maxTravel": "24px",
+    "$notes": "Five durations, two easings, nothing between. prefers-reduced-motion renders the final frame."
+  },
+  "space": {
+    "baseline": "8px",
+    "scale": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48,
+      64,
+      96,
+      128
+    ]
+  },
+  "grid": {
+    "columns": 12,
+    "gutter": "12px",
+    "margin": "34-44px"
+  },
+  "density": {
+    "editorial": {
+      "rhythm": "32px",
+      "row": "56px",
+      "body": "19px"
+    },
+    "balanced": {
+      "rhythm": "24px",
+      "row": "44px",
+      "body": "16px"
+    },
+    "operating": {
+      "rhythm": "16px",
+      "row": "36px",
+      "body": "14px"
+    },
+    "$notes": "Chosen from session length, not taste. A surface picks one density and holds it; rows never below 32px."
+  },
+  "typeScale": {
+    "displayXL": {
+      "size": "96px",
+      "weight": 800,
+      "tracking": "-0.045em"
+    },
+    "display": {
+      "size": "64px",
+      "weight": 700,
+      "tracking": "-0.038em"
+    },
+    "title": {
+      "size": "44px",
+      "weight": 700,
+      "tracking": "-0.03em"
+    },
+    "heading": {
+      "size": "30px",
+      "weight": 700,
+      "tracking": "-0.024em"
+    },
+    "subhead": {
+      "size": "22px",
+      "weight": 600,
+      "tracking": "-0.018em"
+    },
+    "lead": {
+      "size": "19px",
+      "weight": 400,
+      "tracking": "-0.008em"
+    },
+    "body": {
+      "size": "16px",
+      "weight": 400,
+      "tracking": "0"
+    },
+    "small": {
+      "size": "14px",
+      "weight": 400,
+      "tracking": "0"
     }
   }
 }

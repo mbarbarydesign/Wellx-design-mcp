@@ -126,8 +126,8 @@ export function createServer() {
 
   server.tool(
     "get_labs_tokens",
-    "Wellx Labs design token values (--wl-*; semantic dual-theme roles for the Labs brand system — NOT the portal --wx-* set). category: color | gradient | radius | shadow | font | type | focusRing | all.",
-    { category: z.enum(["color", "gradient", "radius", "shadow", "font", "type", "focusRing", "all"]) },
+    "Wellx Labs design token values (--wl-*; semantic dual-theme roles for the Labs brand system — NOT the portal --wx-* set). category: color | gradient | radius | shadow | font | type | typeScale | focusRing | chart | motion | space | grid | density | all.",
+    { category: z.enum(["color", "gradient", "radius", "shadow", "font", "type", "typeScale", "focusRing", "chart", "motion", "space", "grid", "density", "all"]) },
     async ({ category }) => text(JSON.stringify(category === "all" ? labsTokens : labsTokens[category], null, 2)),
   );
 

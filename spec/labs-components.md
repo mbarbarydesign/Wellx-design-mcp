@@ -1,46 +1,62 @@
-# Wellx Labs — Components & implementation rules
+# Wellx Labs — Interface: components, density & applications
 
-Core components exist in both themes and are built only from the semantic tokens
+Core components exist in both themes, built only from the semantic tokens
 (`tokens/wellx-labs-tokens.json`). Default = light; `data-theme="dark"` flips.
 
+## Interface laws (WX-I-01…06)
+1. **One primary action per view.** Everything else is bordered or plain.
+2. Radius from the scale only: **4 · 6 · 9 · 14 · 999**.
+3. **Light separates with shadow; dark separates with border. Never both.**
+4. **AI surfaces carry a 1px spectrum frame and a confidence figure. No frame without a figure.**
+5. A surface picks one density and holds it — no mixed density in one route.
+6. Focus ring 2px at 45% accent, offset 2px. Never removed.
+
 ## Component recipes
-- **Primary button**: `--wl-accent` fill, `--wl-text-on-accent` text, radius md (9px), height 36px,
-  Figtree 600 13px. Hover `--wl-accent-hover`, active `--wl-accent-active`. The ONE next-best
-  action per view may carry `--wl-glow`.
-- **Secondary button**: transparent fill, 1px `--wl-border-strong` border, `--wl-text-primary` text.
-- **Link**: `--wl-accent`, Figtree 600.
-- **Command/search input**: height 36px, radius md, `--wl-surface` fill, 1px `--wl-border`,
-  placeholder `--wl-text-muted`. Focus = `--wl-focus-ring`, always visible.
-- **Status tags**: mono caps (IBM Plex Mono 500, ~9.5px, +1.5px tracking), pill radius,
-  subtle-tint background + strong text: APPROVED = success/successSubtle · IN REVIEW =
-  warning/warningSubtle · FLAGGED = danger/dangerSubtle.
-- **Entity card** (claim/policy): `--wl-surface` on 1px `--wl-border`, radius lg (14px);
-  title Figtree 700 14px; the ID line is always mono caps muted (e.g. `MOTOR · 0.94 CONF`).
-- **AI block (Copilot)**: framed with a signal-tinted border + `--wl-glow`, badged
-  "◆ LABS COPILOT" in mono caps with the spectrum gradient clipped to text. AI output is
-  always visually distinct from system-of-record data.
+- **Primary button**: `--wl-accent` fill, white text, radius md (9px), height 36px, Figtree 600
+  13–14px. Hover `--wl-accent-hover`, active `--wl-accent-active`. The ONE next-best action per
+  view may carry `--wl-glow`.
+- **Secondary button**: transparent, 1px `--wl-border-strong`, `--wl-text-primary` text.
+  **Text button**: plain, accent-coloured. **Disabled**: neutral grey.
+- **Status tags**: mono caps (IBM Plex Mono 500, ~9.5px, tracked), pill radius, subtle-tint
+  background + strong text, always with a word: BOUND=success · PENDING=warning ·
+  DECLINED=danger · IN REVIEW=info.
+- **Input**: sunken field (`--wl-surface-sunken`), mono for identifier values; focus = white
+  field + 2px accent ring.
+- **Entity card** (claim/policy): `--wl-surface` on 1px `--wl-border`, radius lg (14px); title
+  Figtree 700 14px; ID line always mono caps muted (e.g. `MOTOR · 0.94 CONF`).
+- **AI surface**: 1px spectrum-gradient frame + `--wl-glow`, spark icon + mono header with the
+  confidence figure (e.g. `✦ SUGGESTED · 0.91`), fact-first body, one action. AI output is
+  always visually distinct from system-of-record data, and always shows provenance.
 
-## Implementation rules (the contract)
-1. Load the tokens once, globally. Never hard-code hex — reference `var(--wl-*)`.
-2. **Accent = action.** Primary buttons, active nav, selected rows use `--wl-accent`.
-   Secondary actions are bordered/neutral.
-3. **Spectrum + `--wl-signal` are identity & AI only** — Copilot spark, AI-generated blocks,
-   brand art. Never on data, charts, chrome, or body text.
-4. **Glow = direction, one per view** (`--wl-glow`) — the single next-best action or active
-   AI surface. Never decorative.
-5. **Icons** inherit currentColor — `--wl-text-secondary` at rest, `--wl-accent` active.
-6. **Textures** — one per view, 6–12% presence, theme-matched set.
-7. **Type** — Figtree for UI/display, IBM Plex Mono for IDs, data, timestamps, labels.
-   Never retypeset the wordmark; "Labs" is always the mono chip.
-8. **Radius & elevation** come from tokens (`--wl-radius-*`, `--wl-shadow-*`). Dark theme
-   uses borders over shadows for separation.
-9. **Focus** is always `--wl-focus-ring` — visible, never removed.
+## Density (choose from session length)
+Editorial 32px rhythm / 56px rows / 19px copy — member surfaces, marketing. Balanced 24/44/16
+— corporate and broker. Operating 16/36/14 — insurer console, claims queues. Rows never below 32px.
 
-## Deployment formats
-Demo splash 1440×900 · event backdrop 1920×1080 · OG 1200×630 · LinkedIn banner 1584×396 ·
-avatar 400 · icon tile 360 · favicon 64. Marketing surfaces run dark; the product runs light.
+## The four audiences & naming (see labs-brand for the register)
+Member (dark warm, editorial, `#F7941D`, Care Connect) · Corporate (light neutral, balanced,
+`#F0366B`, Workforce Console) · Insurer (dark structured, operating, `#7A2BE2`, Command Center)
+· Broker (light structured, operating, `#2D9CFD`, Broker Desk).
 
-## Delivered files
-In this repo: `docs/assets/labs/` (lockups, bionic mark, icon tile, 69 icons, 12 textures) ·
-`tokens/wellx-labs-tokens.json`. Full kit source: the `wellx-brand-kit` folder (brand guide,
-logo masters, lockups, social, brand art, designs, handoff kits).
+## Applications (WX-A-01…34, summary)
+- **Letterhead**: A4, 20mm margins, lockup 40mm top-left, watermark loop 5% bleeding off the
+  lower-right, uncoated 120gsm, single colour black. **Card**: 85×55mm, ink front / paper
+  reverse with the mark alone at 22mm on the ribbon axis.
+- **Deck**: 1920×1080, 96px margin, 12-col grid 24px gutter; title slides dark with one
+  texture, content slides light, never mixed within a section; min type 24px, titles 60–96px;
+  one spectrum rule per deck section. **Document**: A4, 22mm margins, body 11pt Figtree 1.55;
+  wordmark only in the running head; all figures mono; footer = classification + page number,
+  never a tagline.
+- **Signage**: lockup once per space at eye height (1.5m to mark centre); room names in mono
+  caps with the loop glyph; crest as 12mm wayfinding line; backdrops one texture anchored low,
+  lockup bottom-left; glazing = 16-unit tile at 40% frost. No branded floor vinyl,
+  step-and-repeat, or pull-up banners.
+- **Social**: square 1080, OG 1200×630, LinkedIn 1584×396; wordmark only on posts, full lockup
+  on banners and OG; dark posts carry one texture, light posts none.
+- **Advertising**: one sentence, one number, one action; figures real, sourced and dated; no
+  stock photography; lockup bottom-left on a solid plate; legal in mono 8pt+ at 60% ink. No
+  handshakes/lawns/models-pointing-at-screens; no superlatives; no scarcity framing; no emoji.
+- **Merchandise**: objects a person would own anyway; single colour, mark only (stickers are
+  the one item permitted the spectrum symbol); no stress balls, fidget toys or branded sweets.
+- **Co-branding**: three patterns (endorsement, partnership, powered-by); separator 1px
+  hairline at 20% ink; clear space between marks 2×X; **the LABS chip is dropped in every
+  co-branded lockup**; never place a partner mark inside the loop.
