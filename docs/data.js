@@ -2,13 +2,20 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.13.0";
+var VERSION = "2.14.0";
 
 /* The MCP server's own maturity — independent of the design-system content
    version above. Mirrors MCP_VERSION in mcp/create-server.mjs. */
 var MCP_VERSION = "1.0.0-beta";
 
 var WHATS_NEW = [
+  {
+    version: "2.14.0", date: "2026-08-25", kind: "minor",
+    items: [
+      "The site now opens on an Introduction page \u2014 what the design system MCP is, its three surfaces, the two libraries, and how agents work with it \u2014 implemented from the approved design canvas (the Get-connected section was cut per review; install steps stay on How to install).",
+      "What\u2019s new left the sidebar; the full release history remains at #/whats-new and in the changelog.",
+    ],
+  },
   {
     version: "2.13.0", date: "2026-08-20", kind: "minor",
     items: [

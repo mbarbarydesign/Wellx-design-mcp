@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.14.0 — 2026-08-25
+- Docs: new Introduction page replaces What's new as the landing/default route — implemented 1:1 from the reviewed design canvas (three-surfaces cards, the two libraries with ramp/spectrum strips, the four agent-behaviour steps; the Get-connected section was removed in review). Sidebar Overview now shows Introduction; the release history stays reachable at #/whats-new.
+
 ## 2.13.0 — 2026-08-20
 - Frozen System Manual (WellxLabs_Manual_Final_v1) integrated: text-diffed against the prior edition — substantive deltas only were renumbering (WX-N-40…42 → WX-N-19…21), the six-level authority register with new level/status/owner enums, Sound reclassified proposed·design-grammar (WX-S-00 philosophy canonical), and frozen status language. Applied to spec/labs-position.md, labs-color.md, labs-sound.md and the Rules/Data-viz/Asset-index tabs.
 - Companion book "The Possibility Within" (Draft03, non-governing) mined: provenance-before-confidence taxonomies added to Data visualisation + labs-color.md; the book application pattern added to Applications + labs-components.md; narrative devices added to Voice & tone + labs-voice.md; asset index lists the companion.

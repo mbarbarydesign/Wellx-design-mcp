@@ -110,6 +110,38 @@
   }
 
   /* ---------- pages ---------- */
+  function renderIntro() {
+    var card = function (title, body) {
+      return '<div class="intro-card"><h3>' + title + "</h3><p>" + body + "</p></div>";
+    };
+    var h = head("Overview", "The design system, served by MCP",
+      "One source of truth for every Wellx interface — the rules, the tokens, the component recipes and the design-audit gate — served live to Claude and to AI agents through a single connector. Push an update once; every agent and teammate has it on their next session.");
+    h += '<section class="doc"><h2>One source, three surfaces</h2><div class="intro-grid cols-3">' +
+      card("This site — for people", "Browse the rules, components and tokens of both libraries, follow every change on the changelog, and generate new branded systems with the Creator.") +
+      card("The MCP — for agents", "Nine tools serve the principles, rules by topic, component recipes, token values, full-text search, a guardrail linter, and the audit checklist — always current.") +
+      card("The tokens — for builds", "CSS variables and a Tailwind preset. Semantic roles only — <code>--wx-*</code> for Wellx, <code>--wl-*</code> for Wellx Labs — never a raw hex.") +
+      "</div></section>";
+    h += '<section class="doc"><h2>Two design systems, one server</h2><p class="hint">Pick one per product — and when a request does not say which, the agent asks before building.</p><div class="intro-grid cols-2">' +
+      '<div class="intro-card"><div class="intro-sys"><span class="intro-dot" style="background:#5043ed"></span><h3>Wellx design system</h3></div>' +
+      '<div class="intro-ramp"><span style="background:#eeecfd"></span><span style="background:#c7c2fa"></span><span style="background:#968ef4"></span><span style="background:#5043ed"></span><span style="background:#483cd5"></span><span style="background:#100d2f"></span></div>' +
+      '<p>The portal language: flat bordered surfaces, monochrome chrome, one violet accent. Manrope, radius-16 cards, gray-pill navigation.</p></div>' +
+      '<div class="intro-card"><div class="intro-sys"><span class="intro-dot" style="background:' + LABS_SPECTRUM + '"></span><h3>Wellx Labs design system</h3></div>' +
+      '<div class="intro-ramp"><span style="background:' + LABS_SPECTRUM + '"></span></div>' +
+      '<p>The spectral identity: calm dark chrome, one glow per view, rationed colour. Figtree with IBM Plex Mono for everything measured.</p></div>' +
+      "</div></section>";
+    var steps = [
+      ["Connect once", "Add the connector in Claude; a workspace admin can roll it out to the whole team in one step."],
+      ["Ask which library", "Wellx or Wellx Labs — when the request does not specify, the agent asks first, never assumes."],
+      ["Build from tokens", "Light theme by default, semantic tokens only, and the built-in linter catches hardcoded values."],
+      ["Audit before hand-off", "Every UI passes the design-audit gate — a design with open blockers is not done."],
+    ];
+    h += '<section class="doc"><h2>How agents work with it</h2><div class="intro-grid cols-4">' +
+      steps.map(function (s, i) {
+        return '<div class="intro-card step"><span class="intro-num">' + (i + 1) + "</span><h3>" + s[0] + "</h3><p>" + s[1] + "</p></div>";
+      }).join("") + "</div></section>";
+    return h;
+  }
+
   function renderWhatsNew() {
     return head("Overview", "What’s new", "Every shipped change to the design system, newest first. Patch = value change · minor = new token/component/rule · major = rename or removal (with migration notes).") +
       '<div class="beta-note">The Wellx design system and its MCP server are in <strong>beta</strong> — every update ships here, newest first. The connector reports itself as <code>' + MCP_VERSION + '</code>.</div>' +
@@ -478,9 +510,10 @@
 
   /* ---------- router ---------- */
   function route() {
-    var hash = location.hash.replace(/^#\//, "") || "whats-new";
+    var hash = location.hash.replace(/^#\//, "") || "intro";
     var html, isComponent = hash.indexOf("components/") === 0, isLabs = hash.indexOf("labs/") === 0;
-    if (hash === "whats-new") html = renderWhatsNew();
+    if (hash === "intro") html = renderIntro();
+    else if (hash === "whats-new") html = renderWhatsNew();
     else if (hash === "colors") html = renderColors();
     else if (hash === "install") html = renderInstall();
     else if (hash === "creator") html = renderCreator();
@@ -492,7 +525,7 @@
       var lslug = hash.split("/")[1];
       var s = LABS.filter(function (x) { return x.slug === lslug; })[0];
       html = s ? renderLabs(s) : head("Wellx Labs", "Not found", "No section named “" + esc(lslug) + "”.");
-    } else html = renderWhatsNew();
+    } else html = renderIntro();
 
     page.innerHTML = html;
     if (hash === "creator") wireCreator();

@@ -1,6 +1,6 @@
 {
   "name": "wellx-design-system",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "description": "Wellx Unified Design System hub \u2014 spec, tokens, docs, and the MCP server for AI agents. Run via: npx -y github:mbarbarydesign/Wellx-design-mcp",
   "type": "module",
   "bin": {
