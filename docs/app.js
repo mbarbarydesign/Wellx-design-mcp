@@ -202,8 +202,8 @@
     h += '<section class="doc"><h2>2 · Local MCP (stdio via npx)</h2><p class="hint">For Claude Code without the connector; needs Node 18+. Every new session runs the latest version straight from GitHub.</p>' +
       codeblock('// .mcp.json (per project)  — or register once for your whole machine:\n// claude mcp add --scope user wellx-design-system -- npx -y github:mbarbarydesign/Wellx-design-mcp\n{\n  "mcpServers": {\n    "wellx-design-system": {\n      "command": "npx",\n      "args": ["-y", "github:mbarbarydesign/Wellx-design-mcp"]\n    }\n  }\n}') + "</section>";
     h += '<section class="doc"><h2>What agents get</h2>' +
-      '<p class="hint">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_audit_checklist</code> · <code>get_changelog</code></p>' +
-      '<p class="hint" style="margin-top:6px">Built-in behaviour: agents ask which library to use (“Wellx design system” or “Wellx Labs design system”) when it isn’t specified, default to the light theme, run the design audit on everything they build, and withhold hand-off while any Blocker is open.</p></section>';
+      '<p class="hint">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>get_logo(system)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_audit_checklist</code> · <code>get_changelog</code></p>' +
+      '<p class="hint" style="margin-top:6px">Built-in behaviour: agents ask which library to use (“Wellx design system” or “Wellx Labs design system”) when it isn’t specified, default to the light theme, always pull the official logo into what they build (<code>get_logo</code>), run the design audit on everything they build, and withhold hand-off while any Blocker is open.</p></section>';
     return h;
   }
 

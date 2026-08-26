@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.15.0 — 2026-08-25
+- New MCP tool get_logo(system): returns the publicly served official logo assets (Wellx: light/dark SVG + mark cuts; Labs: lockups, bionic marks, icon tile — all verified serving from the Vercel domain) with per-system placement rules. Server instructions now require every created product/screen/document to carry the official logo via these files — never redrawn, never retypeset, never a placeholder. Documented in skill/SKILL.md and the install page.
+
 ## 2.14.0 — 2026-08-25
 - Docs: new Introduction page replaces What's new as the landing/default route — implemented 1:1 from the reviewed design canvas (three-surfaces cards, the two libraries with ramp/spectrum strips, the four agent-behaviour steps; the Get-connected section was removed in review). Sidebar Overview now shows Introduction; the release history stays reachable at #/whats-new.
 

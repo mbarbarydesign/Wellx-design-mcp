@@ -68,6 +68,7 @@ export function createServer() {
         "IF THE USER HAS NOT SPECIFIED which system their product uses, ASK THEM FIRST — offer exactly these two options: \"Wellx design system\" or \"Wellx Labs design system\" — before fetching rules or writing any UI. Never assume or silently default. " +
         "DEFAULT THEME IS LIGHT in both systems: build and present UIs in light mode unless the user asks for dark. Dark mode is an explicit opt-in (.dark class in the portal system, data-theme=\"dark\" in Labs) — still define its token twins, just don't ship it as the default. " +
         "In code, import @wellx/design-tokens (CSS variables + Tailwind preset) instead of typing values. " +
+        "ALWAYS PULL THE LOGO: any product, screen, prototype or document you create carries the official Wellx logo — call get_logo for the real asset URLs and placement rules, and embed those files. Never redraw the mark, never typeset the wordmark in a font, never ship a placeholder logo. " +
         "BEFORE PRESENTING ANY UI YOU BUILD, run the design audit: call get_audit_checklist, walk every category, and report the verdict (blockers / warnings / polish). A design with open Blockers is not done — fix them first. " +
         "Also run validate on your markup/styles to catch guardrail violations.",
     },
@@ -179,6 +180,49 @@ export function createServer() {
 
       if (!findings.length) return text("PASS — no guardrail violations detected. (Static lint only: also verify accent scope, dark-mode twins, and 1440px content cap by eye.)");
       return text(JSON.stringify({ verdict: "FAIL", count: findings.length, findings }, null, 2));
+    },
+  );
+
+  server.tool(
+    "get_logo",
+    "The official Wellx logo assets — REQUIRED in every product UI you create. Returns real, publicly served file URLs plus placement rules for the chosen system. Embed these files; never redraw the mark, never typeset the wordmark, never substitute a placeholder.",
+    { system: z.enum(["wellx", "wellx-labs"]) },
+    async ({ system }) => {
+      const SITE = "https://wellx-design-mcp.vercel.app";
+      const out = system === "wellx"
+        ? {
+            system: "Wellx design system",
+            files: {
+              "logo-for-light-backgrounds": `${SITE}/assets/wellx-logo-light.svg`,
+              "logo-for-dark-backgrounds": `${SITE}/assets/wellx-logo-dark.svg`,
+              "mark-only-svg": `${SITE}/assets/wellx-logo-mark.svg`,
+              "mark-only-png-512": `${SITE}/assets/wellx-logo-mark-512.png`,
+            },
+            rules: [
+              "Every product UI carries the logo — sidebar header by default: 24px tall, top-left, next to the product name.",
+              "Minimum lockup size is 24px; below that use the mark alone. The collapsed sidebar rail shows no logo at all.",
+              "Switch files with the theme: the light file on light backgrounds, the dark file on dark.",
+              "Never redraw, recolor, stretch, or add effects; never typeset 'wellx' in a font — always use these files.",
+            ],
+          }
+        : {
+            system: "Wellx Labs design system",
+            files: {
+              "lockup-for-dark-fields": `${SITE}/assets/labs/wellx-labs-lockup-dark.png`,
+              "lockup-for-light-fields": `${SITE}/assets/labs/wellx-labs-lockup-light.png`,
+              "bionic-mark-dark": `${SITE}/assets/labs/wellx-bionic-dark.png`,
+              "bionic-mark-light": `${SITE}/assets/labs/wellx-bionic-light.png`,
+              "icon-tile": `${SITE}/assets/labs/wellx-labs-icon-tile.png`,
+            },
+            rules: [
+              "Every surface carries the lockup — top-left default in product chrome; ship the PNG files (the SVG is editable source only).",
+              "Minimum sizes: full lockup 180px · mark + chip 96px · mark alone 28px · below 20px the terminal loop alone.",
+              "Dark files on fields below 30% luminance, light files above. On imagery, always on a solid plate.",
+              "Clear space = 1x LABS-chip height on all sides. Never redraw the ribbon, never stroke it at even weight, never retypeset the wordmark.",
+              "Product surfaces use the naming lockup: mark + wellx + 1px accent rule + TOOL NAME in mono caps (see labs-brand).",
+            ],
+          };
+      return text(JSON.stringify(out, null, 2));
     },
   );
 

@@ -2,13 +2,19 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.14.0";
+var VERSION = "2.15.0";
 
 /* The MCP server's own maturity — independent of the design-system content
    version above. Mirrors MCP_VERSION in mcp/create-server.mjs. */
 var MCP_VERSION = "1.0.0-beta";
 
 var WHATS_NEW = [
+  {
+    version: "2.15.0", date: "2026-08-25", kind: "minor",
+    items: [
+      "Agents now always pull the official logo into anything they create: a new get_logo tool serves the real asset URLs (both systems, light/dark, mark-only cuts) with placement rules, and the MCP instructions require embedding them \u2014 never a redrawn mark, retypeset wordmark, or placeholder.",
+    ],
+  },
   {
     version: "2.14.0", date: "2026-08-25", kind: "minor",
     items: [
