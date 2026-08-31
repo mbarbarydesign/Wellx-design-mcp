@@ -11,6 +11,8 @@ description: Wellx Unified Design System — MANDATORY before building or restyl
 
 **Default theme is light** in both systems: build and present UIs in light mode unless the user asks for dark. Dark is an explicit opt-in (`.dark` class in the portal, `data-theme="dark"` in Labs) — define its token twins, don't ship it as the default.
 
+**All user-facing text follows the voice guidelines.** Before writing any copy — UI labels, notifications, errors, emails, health content — read `get_rules("copy-voice")` (Wellx products) or `get_rules("labs-voice")` (Wellx Labs): four traits (warm, clear, honest, empowering), tone by context, fixed terminology ("wellness" not "wellbeing", "contact support" not "reach out"), sentence case, no hollow praise, no unearned exclamation marks, no em dashes in UI copy, GCC/Philippines/Canada awareness.
+
 **Always pull the logo.** Any product, screen or document you create carries the official Wellx logo — call `get_logo` for the asset URLs and placement rules, and embed those files. Never redraw the mark, never typeset the wordmark, never ship a placeholder.
 
 **Audit before presenting.** Every UI you build passes the design audit gate before you present or hand it over: call `get_audit_checklist` (or read `spec/audit.md`), walk every category, and lead with the verdict — `Not ready — N blockers open` / `Ready with warnings` / `Passed`. A design with open Blockers is not done.

@@ -2,13 +2,20 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.15.0";
+var VERSION = "2.16.0";
 
 /* The MCP server's own maturity — independent of the design-system content
    version above. Mirrors MCP_VERSION in mcp/create-server.mjs. */
 var MCP_VERSION = "1.0.0-beta";
 
 var WHATS_NEW = [
+  {
+    version: "2.16.0", date: "2026-08-25", kind: "minor",
+    items: [
+      "The Wellx Copy & Tone of Voice guidelines (v1.0) now live in the system as the copy-voice topic: four voice traits, tone by context with rewrites, fixed terminology, GCC / Philippines / Canada guidance, and the punctuation rules.",
+      "Agents must follow them for every piece of user-facing text they write, and validate() now catches the mechanical violations \u2014 \u201cOops\u201d errors, hollow praise, \u201creach out\u201d, \u201cwellbeing\u201d, em dashes in copy.",
+    ],
+  },
   {
     version: "2.15.0", date: "2026-08-25", kind: "minor",
     items: [

@@ -2,6 +2,11 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.16.0 — 2026-08-25
+- Wellx Copy & Tone of Voice v1.0 integrated as spec/copy-voice.md (served by get_rules, searchable): four traits (warm/clear/honest/empowering), tone by context with before/after rewrites, terminology table, multi-market guidance (GCC/Philippines/Canada), punctuation & formatting rules, what-Wellx-is-not, quick reference.
+- MCP instructions now require every piece of user-facing copy to follow copy-voice (Wellx products) or labs-voice (Labs). validate() gains five voice lints: voice-error-copy (Oops/uh-oh), voice-terminology (reach out, wellbeing), voice-hollow-praise (Amazing!/superstar/🎉), voice-em-dash (em dashes in copy).
+- skill/SKILL.md and the install page document the behaviour.
+
 ## 2.15.0 — 2026-08-25
 - New MCP tool get_logo(system): returns the publicly served official logo assets (Wellx: light/dark SVG + mark cuts; Labs: lockups, bionic marks, icon tile — all verified serving from the Vercel domain) with per-system placement rules. Server instructions now require every created product/screen/document to carry the official logo via these files — never redrawn, never retypeset, never a placeholder. Documented in skill/SKILL.md and the install page.
 

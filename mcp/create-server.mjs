@@ -68,6 +68,7 @@ export function createServer() {
         "IF THE USER HAS NOT SPECIFIED which system their product uses, ASK THEM FIRST — offer exactly these two options: \"Wellx design system\" or \"Wellx Labs design system\" — before fetching rules or writing any UI. Never assume or silently default. " +
         "DEFAULT THEME IS LIGHT in both systems: build and present UIs in light mode unless the user asks for dark. Dark mode is an explicit opt-in (.dark class in the portal system, data-theme=\"dark\" in Labs) — still define its token twins, just don't ship it as the default. " +
         "In code, import @wellx/design-tokens (CSS variables + Tailwind preset) instead of typing values. " +
+        "ALL USER-FACING TEXT FOLLOWS THE VOICE GUIDELINES: before writing any copy — UI labels, notifications, onboarding, errors, emails, health content — read get_rules(\"copy-voice\") (Wellx products) or get_rules(\"labs-voice\") (Wellx Labs) and follow it exactly. " +
         "ALWAYS PULL THE LOGO: any product, screen, prototype or document you create carries the official Wellx logo — call get_logo for the real asset URLs and placement rules, and embed those files. Never redraw the mark, never typeset the wordmark in a font, never ship a placeholder logo. " +
         "BEFORE PRESENTING ANY UI YOU BUILD, run the design audit: call get_audit_checklist, walk every category, and report the verdict (blockers / warnings / polish). A design with open Blockers is not done — fix them first. " +
         "Also run validate on your markup/styles to catch guardrail violations.",
@@ -177,6 +178,16 @@ export function createServer() {
         push("fonts", m[0], "Portal UI uses Manrope (Latin) / Alexandria (Arabic); Wellx Labs uses Figtree / IBM Plex Mono. Other families are off-system.");
       if (/hover:(?:bg|text|border)-(?:primary|brand|violet|indigo)/.test(code))
         push("monochrome-chrome", "accent color on hover", "Hovers are neutral gray (hover:bg-muted). Accent appears only on actions, links, focus, and active pills/tabs.");
+      for (const m of code.matchAll(/\b(?:[Oo]ops|[Uu]h-oh)\b/g))
+        push("voice-error-copy", m[0], "Errors say what happened in plain terms — 'We couldn't load this…' — never 'Oops'. See get_rules('copy-voice').");
+      for (const m of code.matchAll(/\breach(?:ing)? out\b/gi))
+        push("voice-terminology", m[0], "'Reach out' reads informal in GCC contexts — use 'contact support' / 'get in touch'.");
+      for (const m of code.matchAll(/\bwell-?being\b/gi))
+        push("voice-terminology", m[0], "The term is 'wellness' — single, ownable, consistent across markets.");
+      for (const m of code.matchAll(/\b(?:Amazing|Awesome|Incredible)[!.]|crushing it|superstar|You did it!|🎉/g))
+        push("voice-hollow-praise", m[0], "No hollow praise; celebrate quietly and match the scale of the action — 'Done. Your details have been saved.'");
+      for (const m of code.matchAll(/[\w"”’)]\s?—\s?[\w"“‘(]/g))
+        push("voice-em-dash", m[0], "Avoid em dashes in UI copy and notifications — replace with a comma or split the sentence (editorial long-form only).");
 
       if (!findings.length) return text("PASS — no guardrail violations detected. (Static lint only: also verify accent scope, dark-mode twins, and 1440px content cap by eye.)");
       return text(JSON.stringify({ verdict: "FAIL", count: findings.length, findings }, null, 2));
