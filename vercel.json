@@ -6,7 +6,7 @@
   "cleanUrls": true,
   "functions": {
     "api/mcp.mjs": {
-      "includeFiles": "{spec/**,tokens/**,CHANGELOG.md}",
+      "includeFiles": "{spec/**,tokens/**,CHANGELOG.md,docs/assets/wellx-logo-*.svg,docs/assets/embed/**,docs/assets/labs/embed/**,docs/assets/labs/wellx-bionic-light.png,docs/assets/labs/wellx-labs-icon-tile.png}",
       "maxDuration": 30
     }
   }

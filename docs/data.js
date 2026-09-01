@@ -2,13 +2,19 @@
    To ship an update: add an entry to WHATS_NEW (newest first) and bump VERSION.
    Token values mirror tokens/wellx-tokens.json — regenerate together. */
 
-var VERSION = "2.16.0";
+var VERSION = "2.17.0";
 
 /* The MCP server's own maturity — independent of the design-system content
    version above. Mirrors MCP_VERSION in mcp/create-server.mjs. */
 var MCP_VERSION = "1.0.0-beta";
 
 var WHATS_NEW = [
+  {
+    version: "2.17.0", date: "2026-08-26", kind: "minor",
+    items: [
+      "get_logo can now deliver the logo files inline over MCP: pass file=\u2026 to receive SVG markup or base64 PNG directly \u2014 for agent environments whose sandbox blocks fetching the asset URLs (claude.ai code execution, host allowlists). Slim embed-sized PNGs added for this path.",
+    ],
+  },
   {
     version: "2.16.0", date: "2026-08-25", kind: "minor",
     items: [

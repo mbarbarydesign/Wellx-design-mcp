@@ -2,6 +2,9 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.17.0 — 2026-08-26
+- get_logo gains an optional file parameter delivering assets inline over the MCP channel (SVG as markup, PNG as base64 with data:-URI guidance) — fixes claude.ai sandbox environments that 403 on fetching the Vercel asset URLs ("Host not in allowlist"). URL responses now point to this fallback. Slim embed PNGs (lockups 16K at 480px, mark 256px) added; vercel.json bundles the asset files with the function.
+
 ## 2.16.0 — 2026-08-25
 - Wellx Copy & Tone of Voice v1.0 integrated as spec/copy-voice.md (served by get_rules, searchable): four traits (warm/clear/honest/empowering), tone by context with before/after rewrites, terminology table, multi-market guidance (GCC/Philippines/Canada), punctuation & formatting rules, what-Wellx-is-not, quick reference.
 - MCP instructions now require every piece of user-facing copy to follow copy-voice (Wellx products) or labs-voice (Labs). validate() gains five voice lints: voice-error-copy (Oops/uh-oh), voice-terminology (reach out, wellbeing), voice-hollow-praise (Amazing!/superstar/🎉), voice-em-dash (em dashes in copy).

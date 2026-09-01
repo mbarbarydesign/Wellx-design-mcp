@@ -194,11 +194,34 @@ export function createServer() {
     },
   );
 
+  const LOGO_FILES = {
+    "logo-light-svg": ["docs/assets/wellx-logo-light.svg", "image/svg+xml"],
+    "logo-dark-svg": ["docs/assets/wellx-logo-dark.svg", "image/svg+xml"],
+    "logo-mark-svg": ["docs/assets/wellx-logo-mark.svg", "image/svg+xml"],
+    "logo-mark-png": ["docs/assets/embed/wellx-logo-mark-256.png", "image/png"],
+    "labs-lockup-dark": ["docs/assets/labs/embed/wellx-labs-lockup-dark.png", "image/png"],
+    "labs-lockup-light": ["docs/assets/labs/embed/wellx-labs-lockup-light.png", "image/png"],
+    "labs-bionic-dark": ["docs/assets/labs/embed/wellx-bionic-dark.png", "image/png"],
+    "labs-bionic-light": ["docs/assets/labs/wellx-bionic-light.png", "image/png"],
+    "labs-icon-tile": ["docs/assets/labs/wellx-labs-icon-tile.png", "image/png"],
+  };
+
   server.tool(
     "get_logo",
-    "The official Wellx logo assets — REQUIRED in every product UI you create. Returns real, publicly served file URLs plus placement rules for the chosen system. Embed these files; never redraw the mark, never typeset the wordmark, never substitute a placeholder.",
-    { system: z.enum(["wellx", "wellx-labs"]) },
-    async ({ system }) => {
+    "The official Wellx logo assets — REQUIRED in every product UI you create. Without `file`: returns publicly served URLs plus placement rules for the chosen system. If your environment cannot fetch those URLs (sandboxed network, host allowlist), call again with `file` to receive the asset INLINE over MCP — SVGs as markup to paste, PNGs as base64 to decode or use as a data: URI. Never redraw the mark, never typeset the wordmark, never substitute a placeholder.",
+    {
+      system: z.enum(["wellx", "wellx-labs"]),
+      file: z.enum(["logo-light-svg", "logo-dark-svg", "logo-mark-svg", "logo-mark-png", "labs-lockup-dark", "labs-lockup-light", "labs-bionic-dark", "labs-bionic-light", "labs-icon-tile"]).optional(),
+    },
+    async ({ system, file }) => {
+      if (file) {
+        const [rel, mimeType] = LOGO_FILES[file];
+        const buf = readFileSync(join(ROOT, rel));
+        if (mimeType === "image/svg+xml") {
+          return text(JSON.stringify({ file, mimeType, usage: "Paste this SVG markup inline, or save it as a .svg file. Do not modify the drawing.", svg: buf.toString("utf8") }));
+        }
+        return text(JSON.stringify({ file, mimeType, encoding: "base64", usage: "Decode to a .png file, or embed directly as data:" + mimeType + ";base64,<data>. Do not modify the image.", data: buf.toString("base64") }));
+      }
       const SITE = "https://wellx-design-mcp.vercel.app";
       const out = system === "wellx"
         ? {
@@ -214,6 +237,7 @@ export function createServer() {
               "Minimum lockup size is 24px; below that use the mark alone. The collapsed sidebar rail shows no logo at all.",
               "Switch files with the theme: the light file on light backgrounds, the dark file on dark.",
               "Never redraw, recolor, stretch, or add effects; never typeset 'wellx' in a font — always use these files.",
+              "Cannot fetch these URLs from your environment? Call get_logo again with file=logo-light-svg | logo-dark-svg | logo-mark-svg | logo-mark-png to receive the asset inline over MCP.",
             ],
           }
         : {
@@ -231,6 +255,7 @@ export function createServer() {
               "Dark files on fields below 30% luminance, light files above. On imagery, always on a solid plate.",
               "Clear space = 1x LABS-chip height on all sides. Never redraw the ribbon, never stroke it at even weight, never retypeset the wordmark.",
               "Product surfaces use the naming lockup: mark + wellx + 1px accent rule + TOOL NAME in mono caps (see labs-brand).",
+              "Cannot fetch these URLs from your environment? Call get_logo again with file=labs-lockup-dark | labs-lockup-light | labs-bionic-dark | labs-bionic-light | labs-icon-tile to receive the asset inline over MCP.",
             ],
           };
       return text(JSON.stringify(out, null, 2));
