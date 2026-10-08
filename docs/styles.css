@@ -192,6 +192,18 @@ section.doc > .hint { font-size: 13px; color: var(--muted-fg); max-width: 76ch; 
 }
 .copy-btn:hover { background: var(--muted); }
 
+/* install steps */
+.steps { list-style: none; margin: 16px 0 0; padding: 0; max-width: 760px; }
+.step { position: relative; display: flex; gap: 16px; padding-bottom: 24px; }
+.step:not(:last-child)::before { content: ""; position: absolute; top: 32px; bottom: 4px; inset-inline-start: 13px; width: 1px; background: var(--border); }
+.step-num {
+  flex: none; width: 28px; height: 28px; border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent-tint); color: var(--accent-tint-fg); font-size: 12.5px; font-weight: 700;
+}
+.step-body { flex: 1; min-width: 0; padding-top: 3px; }
+.step-body h3 { font-size: 14.5px; font-weight: 700; margin: 0 0 4px; }
+.step-body p { font-size: 13px; line-height: 20px; color: var(--muted-fg); margin: 0; }
+
 /* spec + guidance */
 .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-top: 12px; }
 .spec-item { padding: 11px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 14px; font-size: 13px; background: var(--card); }

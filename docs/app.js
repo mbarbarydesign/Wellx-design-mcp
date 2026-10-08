@@ -196,11 +196,19 @@
 
   function renderInstall() {
     var h = head("Resources", "How to install",
-      "Connect Claude and your AI agents to the design system. Both routes stay current automatically — every push to the repo updates them.");
-    h += '<section class="doc"><h2>1 · Claude connector — recommended</h2><p class="hint">Nothing to install. In Claude, go to <strong>Settings → Connectors → Add custom connector</strong> and paste the endpoint (leave the auth fields empty). Team/Enterprise admins can add it once in Admin settings and every workspace member gets it. Works on claude.ai, the desktop app, and Claude Code.</p>' +
-      codeblock('https://wellx-design-mcp.vercel.app/api/mcp') + "</section>";
-    h += '<section class="doc"><h2>2 · Local MCP (stdio via npx)</h2><p class="hint">For Claude Code without the connector; needs Node 18+. Every new session runs the latest version straight from GitHub.</p>' +
-      codeblock('// .mcp.json (per project)  — or register once for your whole machine:\n// claude mcp add --scope user wellx-design-system -- npx -y github:mbarbarydesign/Wellx-design-mcp\n{\n  "mcpServers": {\n    "wellx-design-system": {\n      "command": "npx",\n      "args": ["-y", "github:mbarbarydesign/Wellx-design-mcp"]\n    }\n  }\n}') + "</section>";
+      "Connect Claude to the design system in a few minutes. Nothing to download, and it stays current automatically: every push to the repo updates it.");
+    var steps = [
+      ["Copy the endpoint", "This is the address Claude uses to reach the design system.", codeblock('https://wellx-design-mcp.vercel.app/api/mcp')],
+      ["Open Connectors in Claude", "In claude.ai or the desktop app, go to <strong>Settings → Connectors</strong>."],
+      ["Add a custom connector", "Click <strong>Add custom connector</strong>, name it <strong>Wellx design system</strong> and paste the endpoint. Leave the auth fields under Advanced settings empty, then click <strong>Add</strong>."],
+      ["Turn it on in a chat", "Start a new chat, open the <strong>+</strong> menu → <strong>Connectors</strong> and make sure Wellx design system is switched on."],
+      ["Check it works", "Ask Claude to build something with the Wellx design system. It should ask which library you want (Wellx or Wellx Labs) before it starts."]
+    ];
+    h += '<section class="doc"><h2>Set up the Claude connector</h2><ol class="steps">' +
+      steps.map(function (s, i) {
+        return '<li class="step"><span class="step-num">' + (i + 1) + '</span><div class="step-body"><h3>' + s[0] + '</h3><p>' + s[1] + "</p>" + (s[2] || "") + "</div></li>";
+      }).join("") + "</ol>" +
+      '<p class="hint" style="margin-top:16px">Works on claude.ai, the desktop app and Claude Code. Team and Enterprise admins can add it once in <strong>Admin settings → Connectors</strong> and every workspace member gets it.</p></section>';
     h += '<section class="doc"><h2>What agents get</h2>' +
       '<p class="hint">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>get_logo(system)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_audit_checklist</code> · <code>get_changelog</code></p>' +
       '<p class="hint" style="margin-top:6px">Built-in behaviour: agents ask which library to use (“Wellx design system” or “Wellx Labs design system”) when it isn’t specified, default to the light theme, always pull the official logo into what they build (<code>get_logo</code>), write every piece of user-facing copy to the voice guidelines (<code>copy-voice</code> / <code>labs-voice</code>), run the design audit on everything they build, and withhold hand-off while any Blocker is open.</p></section>';
