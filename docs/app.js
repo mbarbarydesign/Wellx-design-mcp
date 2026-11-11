@@ -54,6 +54,7 @@
   var setWellxOpen = wireToggle($("#wellxToggle"), $("#wellxSub"));
   var setComponentsOpen = wireToggle($("#componentsToggle"), $("#componentsSub"));
   var setLabsOpen = wireToggle($("#labsToggle"), $("#labsSub"));
+  var setLabsV2Open = wireToggle($("#labsV2Toggle"), $("#labsV2Sub"));
   COMPONENTS.forEach(function (c) {
     var a = document.createElement("a");
     a.className = "nav-item";
@@ -69,6 +70,14 @@
     a.dataset.route = "labs/" + s.slug;
     a.textContent = s.name;
     $("#labsSub").appendChild(a);
+  });
+  LABS_V2.forEach(function (s) {
+    var a = document.createElement("a");
+    a.className = "nav-item";
+    a.href = "#/labs-v2/" + s.slug;
+    a.dataset.route = "labs-v2/" + s.slug;
+    a.textContent = s.name;
+    $("#labsV2Sub").appendChild(a);
   });
   $("#menuBtn").addEventListener("click", function () { $("#sidebar").classList.toggle("open"); });
   $("#nav").addEventListener("click", function (e) { if (e.target.closest("a")) $("#sidebar").classList.remove("open"); });
@@ -119,20 +128,23 @@
     h += '<section class="doc"><h2>One source, three surfaces</h2><div class="intro-grid cols-3">' +
       card("This site — for people", "Browse the rules, components and tokens of both libraries, follow every change on the changelog, and generate new branded systems with the Creator.") +
       card("The MCP — for agents", "Nine tools serve the principles, rules by topic, component recipes, token values, full-text search, a guardrail linter, and the audit checklist — always current.") +
-      card("The tokens — for builds", "CSS variables and a Tailwind preset. Semantic roles only — <code>--wx-*</code> for Wellx, <code>--wl-*</code> for Wellx Labs — never a raw hex.") +
+      card("The tokens — for builds", "CSS variables and a Tailwind preset. Semantic roles only — <code>--wx-*</code> for Wellx, <code>--wl-*</code> for Wellx Labs, <code>--wl2-*</code> for Labs V2 — never a raw hex.") +
       "</div></section>";
-    h += '<section class="doc"><h2>Two design systems, one server</h2><p class="hint">Pick one per product — and when a request does not say which, the agent asks before building.</p><div class="intro-grid cols-2">' +
+    h += '<section class="doc"><h2>Three design systems, one server</h2><p class="hint">Pick one per product — and when a request does not say which, the agent asks before building.</p><div class="intro-grid cols-3">' +
       '<div class="intro-card"><div class="intro-sys"><span class="intro-dot" style="background:#5043ed"></span><h3>Wellx design system</h3></div>' +
       '<div class="intro-ramp"><span style="background:#eeecfd"></span><span style="background:#c7c2fa"></span><span style="background:#968ef4"></span><span style="background:#5043ed"></span><span style="background:#483cd5"></span><span style="background:#100d2f"></span></div>' +
       '<p>The portal language: flat bordered surfaces, monochrome chrome, one violet accent. Manrope, radius-16 cards, gray-pill navigation.</p></div>' +
       '<div class="intro-card"><div class="intro-sys"><span class="intro-dot" style="background:' + LABS_SPECTRUM + '"></span><h3>Wellx Labs design system</h3></div>' +
       '<div class="intro-ramp"><span style="background:' + LABS_SPECTRUM + '"></span></div>' +
       '<p>The spectral identity: calm dark chrome, one glow per view, rationed colour. Figtree with IBM Plex Mono for everything measured.</p></div>' +
+      '<div class="intro-card"><div class="intro-sys"><span class="intro-dot" style="background:' + LABS_V2_ROSE + '"></span><h3>Labs Design System V2</h3></div>' +
+      '<div class="intro-ramp"><span style="background:#FBE7F0"></span><span style="background:#F2A8C6"></span><span style="background:#E0528B"></span><span style="background:#C42663"></span><span style="background:#8C1745"></span><span style="background:#4A0B24"></span></div>' +
+      '<p>The agent-first rebuild: dark-first elevated surfaces, rose accent, Figtree with IBM Plex Mono for numbers only, atomic component recipes with hard validation.</p></div>' +
       "</div></section>";
     var steps = [
       ["Connect once", "Add the connector in Claude; a workspace admin can roll it out to the whole team in one step."],
-      ["Ask which library", "Wellx or Wellx Labs — when the request does not specify, the agent asks first, never assumes."],
-      ["Build from tokens", "Light theme by default, semantic tokens only, and the built-in linter catches hardcoded values."],
+      ["Ask which library", "Wellx, Wellx Labs or Labs V2 — when the request does not specify, the agent asks first, never assumes."],
+      ["Build from tokens", "Semantic tokens only — light-first in Wellx and Labs, dark-first in Labs V2 — and the built-in linter catches hardcoded values."],
       ["Audit before hand-off", "Every UI passes the design-audit gate — a design with open blockers is not done."],
     ];
     h += '<section class="doc"><h2>How agents work with it</h2><div class="intro-grid cols-4">' +
@@ -186,6 +198,10 @@
     return head("Wellx Labs · " + s.num, s.name, s.lede) + s.body;
   }
 
+  function renderLabsV2(s) {
+    return head("Labs Design System V2 · " + s.num, s.name, s.lede) + s.body;
+  }
+
   function renderComponent(c) {
     return head("Components", c.name, c.lede) +
       '<section class="doc"><h2>Example</h2><div class="demo">' + c.demo + "</div></section>" +
@@ -210,8 +226,8 @@
       }).join("") + "</ol>" +
       '<p class="hint" style="margin-top:16px">Works on claude.ai, the desktop app and Claude Code. Team and Enterprise admins can add it once in <strong>Admin settings → Connectors</strong> and every workspace member gets it.</p></section>';
     h += '<section class="doc"><h2>What agents get</h2>' +
-      '<p class="hint">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>get_logo(system)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_audit_checklist</code> · <code>get_changelog</code></p>' +
-      '<p class="hint" style="margin-top:6px">Built-in behaviour: agents ask which library to use (“Wellx design system” or “Wellx Labs design system”) when it isn’t specified, default to the light theme, always pull the official logo into what they build (<code>get_logo</code>), write every piece of user-facing copy to the voice guidelines (<code>copy-voice</code> / <code>labs-voice</code>), run the design audit on everything they build, and withhold hand-off while any Blocker is open.</p></section>';
+      '<p class="hint">Tools: <code>get_principles</code> · <code>get_rules(topic)</code> · <code>get_component_spec(name)</code> · <code>get_tokens(category, mode)</code> · <code>get_labs_tokens(category)</code> · <code>get_labs_v2_tokens(category)</code> · <code>get_labs_v2_component_spec(name)</code> · <code>get_logo(system)</code> · <code>search(query)</code> · <code>validate(code)</code> · <code>get_audit_checklist</code> · <code>get_changelog</code></p>' +
+      '<p class="hint" style="margin-top:6px">Built-in behaviour: agents ask which library to use (“Wellx design system”, “Wellx Labs design system” or “Labs Design System V2”) when it isn’t specified, default to the light theme (Labs V2 is the exception: dark-first), always pull the official logo into what they build (<code>get_logo</code>), write every piece of user-facing copy to the voice guidelines (<code>copy-voice</code> / <code>labs-voice</code>), run the design audit on everything they build, and withhold hand-off while any Blocker is open.</p></section>';
     return h;
   }
 
@@ -519,7 +535,7 @@
   /* ---------- router ---------- */
   function route() {
     var hash = location.hash.replace(/^#\//, "") || "intro";
-    var html, isComponent = hash.indexOf("components/") === 0, isLabs = hash.indexOf("labs/") === 0;
+    var html, isComponent = hash.indexOf("components/") === 0, isLabsV2 = hash.indexOf("labs-v2/") === 0, isLabs = !isLabsV2 && hash.indexOf("labs/") === 0;
     if (hash === "intro") html = renderIntro();
     else if (hash === "whats-new") html = renderWhatsNew();
     else if (hash === "colors") html = renderColors();
@@ -529,6 +545,10 @@
       var slug = hash.split("/")[1];
       var c = COMPONENTS.filter(function (x) { return x.slug === slug; })[0];
       html = c ? renderComponent(c) : head("Components", "Not found", "No component named “" + esc(slug) + "”.");
+    } else if (isLabsV2) {
+      var vslug = hash.split("/")[1];
+      var v2 = LABS_V2.filter(function (x) { return x.slug === vslug; })[0];
+      html = v2 ? renderLabsV2(v2) : head("Labs Design System V2", "Not found", "No section named “" + esc(vslug) + "”.");
     } else if (isLabs) {
       var lslug = hash.split("/")[1];
       var s = LABS.filter(function (x) { return x.slug === lslug; })[0];
@@ -540,6 +560,7 @@
     if (isComponent || hash === "colors") setWellxOpen(true);
     if (isComponent) setComponentsOpen(true);
     if (isLabs) setLabsOpen(true);
+    if (isLabsV2) setLabsV2Open(true);
 
     document.querySelectorAll(".nav-item[data-route]").forEach(function (a) {
       a.classList.toggle("active", a.dataset.route === hash);
