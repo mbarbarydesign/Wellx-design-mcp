@@ -1,0 +1,114 @@
+/* Labs Design System V2 — CSS variables (v1.0.0, generated from tokens/labs-v2-tokens.json)
+ * DARK-FIRST: :root carries the dark theme (elevated surfaces). Opt into light with [data-theme="light"].
+ * Prefix --wl2- keeps this system separate from the portal (--wx-*) and Labs v1 (--wl-*).
+ * Fonts: self-host Figtree (400/600/700/800) + IBM Plex Mono (400/500) + Noto Sans Arabic. */
+
+:root {
+  /* type */
+  --wl2-font-sans: "Figtree", "Noto Sans Arabic", system-ui, sans-serif;
+  --wl2-font-mono: "IBM Plex Mono", ui-monospace, monospace; /* NUMBERS ONLY */
+  --wl2-text-2xs: 11px; --wl2-text-xs: 12px; --wl2-text-sm: 14px; --wl2-text-md: 16px;
+  --wl2-text-lg: 18px; --wl2-text-xl: 20px;
+  --wl2-display-xs: 24px; --wl2-display-sm: 30px; --wl2-display-md: 36px; --wl2-display-lg: 48px;
+  --wl2-leading-text: 1.2; --wl2-leading-lg: 1.15; --wl2-leading-kpi: 1.1;
+  --wl2-tracking-display: -0.01em; --wl2-tracking-display-lg: -0.015em;
+
+  /* spacing (4px grid) */
+  --wl2-space-1: 4px; --wl2-space-2: 8px; --wl2-space-3: 12px; --wl2-space-4: 16px;
+  --wl2-space-5: 20px; --wl2-space-6: 24px; --wl2-space-8: 32px; --wl2-space-10: 40px;
+  --wl2-space-12: 48px; --wl2-space-16: 64px;
+
+  /* radius */
+  --wl2-radius-sm: 6px; --wl2-radius-md: 8px; --wl2-radius-lg: 12px; --wl2-radius-xl: 16px;
+  --wl2-radius-full: 999px;
+
+  /* layout */
+  --wl2-content-max: 1440px; --wl2-sidebar: 256px; --wl2-topbar: 56px;
+  --wl2-control-sm: 32px; --wl2-control-md: 36px; --wl2-control-lg: 40px;
+
+  /* elevation */
+  --wl2-shadow-resting: 0 1px 2px rgb(11 11 12 / 0.06), 0 3px 8px rgb(11 11 12 / 0.05); /* LIGHT mode only, optional */
+  --wl2-shadow-float: 0 4px 16px rgb(11 11 12 / 0.08), 0 1px 2px rgb(11 11 12 / 0.05);
+  --wl2-shadow-overlay: 0 16px 40px rgb(11 11 12 / 0.12);
+  --wl2-scrim: rgb(0 0 0 / 0.6);
+
+  /* color — DARK (default): elevated surfaces */
+  --wl2-background: #0B0B0C;
+  --wl2-card: #18181B;
+  --wl2-popover: #18181B;
+  --wl2-muted: #2C2C31;
+  --wl2-muted-soft: #232327;
+  --wl2-foreground: #FFFFFF;
+  --wl2-text-secondary: #D6D7DB;
+  --wl2-muted-foreground: #A6A8AF;
+  --wl2-text-tertiary: #A6A8AF;
+  --wl2-border: #26272B;
+  --wl2-border-secondary: #414449;
+  --wl2-input: #414449;
+  --wl2-primary: #C42663;
+  --wl2-primary-hover: #D23A77;
+  --wl2-primary-active: #E0528B;
+  --wl2-primary-foreground: #FFFFFF;
+  --wl2-link: #E0528B;
+  --wl2-ring: #E0528B;
+  --wl2-accent: #4A0B24;
+  --wl2-accent-foreground: #EA7BA7;
+  --wl2-signal-ai: #F0366B; /* AI + identity only — never a button */
+  --wl2-destructive: #DC2626;
+  --wl2-destructive-hover: #B91C1C;
+  --wl2-destructive-foreground: #FFFFFF;
+  --wl2-success: #4ADE80;
+  --wl2-warning: #FBBF24;
+  --wl2-error: #F87171;
+  --wl2-info: #60A5FA;
+}
+
+[data-theme="light"] {
+  --wl2-background: #FFFFFF;
+  --wl2-card: #FFFFFF;
+  --wl2-popover: #FFFFFF;
+  --wl2-muted: #F4F4F5;
+  --wl2-muted-soft: #FAFAFA;
+  --wl2-foreground: #0B0B0C;
+  --wl2-text-secondary: #414449;
+  --wl2-muted-foreground: #A6A8AF;
+  --wl2-text-tertiary: #71747C;
+  --wl2-border: #E9EAEC;
+  --wl2-border-secondary: #D6D7DB;
+  --wl2-input: #D6D7DB;
+  --wl2-primary: #C42663;
+  --wl2-primary-hover: #A71E53;
+  --wl2-primary-active: #8C1745;
+  --wl2-primary-foreground: #FFFFFF;
+  --wl2-link: #C42663;
+  --wl2-ring: #E0528B;
+  --wl2-accent: #FBE7F0;
+  --wl2-accent-foreground: #8C1745;
+  --wl2-signal-ai: #F0366B;
+  --wl2-destructive: #DC2626;
+  --wl2-destructive-hover: #B91C1C;
+  --wl2-destructive-foreground: #FFFFFF;
+  --wl2-success: #16A34A;
+  --wl2-warning: #D97706;
+  --wl2-error: #DC2626;
+  --wl2-info: #2563EB;
+  --wl2-scrim: rgb(11 11 12 / 0.4);
+}
+
+/* status tag pills — borderless tint, -surface + -foreground pairs (identical in both modes; tags sit on cards) */
+:root, [data-theme="light"] {
+  --wl2-tag-neutral-surface: #EFF0F2;  --wl2-tag-neutral-foreground: #565962;
+  --wl2-tag-success-surface: #E2FAE9;  --wl2-tag-success-foreground: #15803D;
+  --wl2-tag-warning-surface: #FBEFC9;  --wl2-tag-warning-foreground: #92610A;
+  --wl2-tag-error-surface:   #FDDFDD;  --wl2-tag-error-foreground:   #B91C1C;
+  --wl2-tag-info-surface:    #DBE7FE;  --wl2-tag-info-foreground:    #1D4ED8;
+  --wl2-tag-teal-surface:    #D3F7F5;  --wl2-tag-teal-foreground:    #0F766E;
+  --wl2-tag-magenta-surface: #F9DCFC;  --wl2-tag-magenta-foreground: #A21CAF;
+  --wl2-tag-orange-surface:  #FFEDE5;  --wl2-tag-orange-foreground:  #C2410C;
+}
+
+/* RTL: +20 percentage points of leading on every step; tracking always 0 in Arabic */
+[dir="rtl"] {
+  --wl2-leading-text: 1.4; --wl2-leading-lg: 1.35; --wl2-leading-kpi: 1.3;
+  --wl2-tracking-display: 0; --wl2-tracking-display-lg: 0;
+}

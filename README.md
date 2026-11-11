@@ -26,7 +26,9 @@ Every new session installs and runs the latest commit of `main` — push an upda
 
 **Production phase — remote connector (live).** The same tool core is deployed as a stateless Streamable HTTP endpoint at `api/mcp.mjs` — Vercel serves it at `https://wellx-design-mcp.vercel.app/api/mcp` alongside the docs site. Add that URL once in Claude → Settings → Connectors → Add custom connector; it covers claude.ai web/mobile, the desktop app, and Claude Code, and every push to `main` redeploys it. The npx entry remains as the offline/local fallback.
 
-Tools: `get_principles` · `get_rules(topic)` · `get_component_spec(name)` · `get_tokens(category, mode)` · `search(query)` · `validate(code)` · `get_changelog`.
+Tools: `get_principles` · `get_rules(topic)` · `get_component_spec(name)` · `get_tokens(category, mode)` · `get_labs_tokens(category)` · `get_labs_v2_tokens(category)` · `get_labs_v2_component_spec(name)` · `search(query)` · `validate(code)` · `get_changelog`.
+
+**Three brand systems live here — pick one per product, never mix:** the Wellx portal system (violet `#5043ED`, Manrope, `--wx-*`), Wellx Labs v1 (spectral identity, `--wl-*`), and **Labs Design System V2** (rose `#C42663`, Figtree + IBM Plex Mono for numbers only, dark-first elevated surfaces, 2px Lucide icons, `--wl2-*` — see `tokens/labs-v2-tokens.json`, `tokens/labs-v2.css`, `tokens/labs-v2-tailwind-preset.cjs`, and `tokens/labs-v2-components.json`; Figma source `Rr0XYMsa9OYmLmjxMCbiMz`).
 
 Each portal repo should also keep the thin pointer skill (`skill/SKILL.md`) in `.claude/skills/wellx-design-system/` so agents know to call the server.
 

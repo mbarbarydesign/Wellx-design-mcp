@@ -1,0 +1,3783 @@
+{
+  "$name": "Wellx Labs V2 — component specs (T1 + T2 + T3 utilities)",
+  "$version": "0.5.0",
+  "$updated": "2026-11-11",
+  "$notes": "Component recipes for Labs Design System V2 (rose #C42663 · Figtree + IBM Plex Mono numbers-only · DARK-FIRST elevated surfaces · 2px Lucide icons). Source of truth: Figma file Rr0XYMsa9OYmLmjxMCbiMz ('Wellx Labs Design System'), pages 'V2 · Components · 1 Atoms / 2 Molecules / 3 Organisms'. Every spec declares level + composes; assemble strictly bottom-up.",
+  "conventions": {
+    "controlHeights": "32 sm · 36 md (default) · 40 lg",
+    "radius": "sm 6 (checkbox) · md 8 (buttons, inputs, menu items) · lg 12 (cards, menus, popovers) · xl 16 (dialogs, sheets) · full (pills, avatars)",
+    "focus": "2px ring in interactive/ring (violet-400, both modes) at 2px offset; inputs use ring-colored border + 3px 16% halo. KEYBOARD/AT ONLY: rings render exclusively on :focus-visible (keyboard tab, screen-reader navigation) — never on mouse/touch click, and never removed without a replacement (validate() enforces both). The Figma Focus variants document this keyboard-focus appearance. Container-carried input focus (:focus-within treatments) is keyboard/AT-modality only — pointer focus shows the caret alone.",
+    "elevation": "resting = flat (hairline borders only, shadows never) · floating (menus, popovers, toasts, tooltips) = shadow/float · overlay (dialogs, sheets) = shadow/overlay + ink/40% scrim (black/60% dark) · DARK: resting surfaces sit on the elevated card tone #18181B over the #0B0B0C canvas (border #303136) — surface + border carry grouping; still no shadows (decided 2026-09-23)",
+    "icons": "Lucide, 2px absolute stroke, currentColor; 16 default · 20 topbar/icon-buttons · 24 empty states",
+    "motion": "durations 100/150/200/300max · ease-out enter, ease-in exit · transform+opacity only · prefers-reduced-motion = instant",
+    "textLadder": "text/foreground > text/secondary (gray-700) > text/tertiary (gray-500, 4.6:1 — minimum for readable text) > text/muted-foreground (gray-400, placeholder tier only)",
+    "typeStyles": "All component text carries a Type/* style. Weight variants: text-xs-medium (table headers, Delta, chart-tooltip figures) · text-xs-semibold (Tag labels) · text-sm-medium · text-md-semibold. Documented exceptions with no style: avatar initials (10–14 Medium, glyphs) and chart axis/tick micro-type (11 Regular, owned by the Recharts wrappers).",
+    "formControls": "Inputs and textareas must inherit color (color:inherit) — the UA default is black and silently breaks dark mode. Placeholders stay on the muted-foreground tier."
+  },
+  "atoms": {
+    "button": {
+      "name": "Button",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "sets": {
+          "primary": "183:92",
+          "secondary": "184:95",
+          "ghost": "184:189",
+          "destructive": "184:283"
+        }
+      },
+      "summary": "The workhorse action control, split into four sibling sets by emphasis. One Primary per view; Secondary for supporting actions; Ghost for toolbars and quiet utilities; Destructive only for dangerous actions (pair with a confirm Dialog).",
+      "code": "<Button variant=\"primary|secondary|ghost|destructive\" size=\"sm|md|lg\" iconLeft? iconRight? loading? disabled?>",
+      "variants": {
+        "Size": [
+          "sm 32",
+          "md 36 (default)",
+          "lg 40"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Active",
+          "Focus",
+          "Disabled",
+          "Loading"
+        ]
+      },
+      "props": [
+        {
+          "name": "Label",
+          "type": "text",
+          "default": "Button",
+          "notes": "verb-first, sentence case"
+        },
+        {
+          "name": "Icon left / Icon right",
+          "type": "boolean",
+          "default": false,
+          "notes": "16px exposed swappable Lucide instances"
+        }
+      ],
+      "anatomy": [
+        "container: auto-layout hug×fixed-height, fill = variant token, radius button/radius, gap button/gap, padding-x button/padding-x-{size}",
+        "icon-left (optional 16px)",
+        "loader (Loading state only, replaces icon slot, label stays)",
+        "label: text-sm Medium",
+        "icon-right (optional 16px, directional cues only)"
+      ],
+      "tokens": [
+        "button/primary/bg(-hover/-active)",
+        "button/primary/fg",
+        "button/secondary/bg(-hover/-active)",
+        "button/secondary/fg",
+        "button/secondary/border",
+        "button/ghost/fg",
+        "button/ghost/bg-hover(-active)",
+        "button/destructive/bg(-hover)",
+        "button/destructive/fg",
+        "button/disabled/bg",
+        "button/disabled/fg",
+        "button/radius",
+        "button/gap",
+        "button/padding-x-sm|md|lg",
+        "focus/ring"
+      ],
+      "a11y": "Label ≥4.5:1 on every fill · focus ring on :focus-visible only · min hit target 24×24 · loading keeps label (aria-busy)",
+      "dos": [
+        "One Primary per view",
+        "Verb-first labels ('Create record')",
+        "Destructive + confirm Dialog for irreversible actions",
+        "Loading state on the pressed button"
+      ],
+      "donts": [
+        "Two Primaries side by side",
+        "Ghost as main CTA",
+        "Destructive as default-focused dialog action",
+        "Icon-only without a label (that's an icon button)",
+        "Disabling without a nearby explanation"
+      ]
+    },
+    "tag": {
+      "name": "Tag",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "191:88"
+      },
+      "summary": "Status/category label: borderless fully-rounded tint pill, soft -surface fill + vivid -foreground text/icon (every pair ≥4.5:1). Semantic core Neutral/Success/Warning/Error/Info; expressive Teal/Magenta/Orange (revisit-later).",
+      "code": "<Tag hue=\"neutral|success|warning|error|info|teal|magenta|orange\" icon?>",
+      "variants": {
+        "Hue": [
+          "Neutral",
+          "Success",
+          "Warning",
+          "Error",
+          "Info",
+          "Teal",
+          "Magenta",
+          "Orange"
+        ]
+      },
+      "props": [
+        {
+          "name": "Label",
+          "type": "text",
+          "default": "Label",
+          "notes": "1–2 words"
+        },
+        {
+          "name": "Icon",
+          "type": "boolean",
+          "default": true,
+          "notes": "14px, always the text color"
+        }
+      ],
+      "anatomy": [
+        "pill: radius tag/radius (full), padding 8×4, gap 4",
+        "icon 14px = foreground color",
+        "label 12px Semi Bold"
+      ],
+      "tokens": [
+        "tag/<hue>/bg",
+        "tag/<hue>/fg",
+        "tag/radius"
+      ],
+      "a11y": "Foreground on tint ≥4.5:1 per hue · never color-only (icon + label)",
+      "dos": [
+        "Short labels",
+        "Semantic hues carry meaning",
+        "Keep the icon for CVD users"
+      ],
+      "donts": [
+        "Borders on tags",
+        "Tags as buttons/filter chips",
+        "Expressive hues for semantic status",
+        "Sentences inside tags"
+      ],
+      "aliases": [
+        "badge",
+        "chip",
+        "status-tag"
+      ]
+    },
+    "avatar": {
+      "name": "Avatar",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "193:116"
+      },
+      "summary": "Identity mark. Fully-round, sizes 24 (cells/chips) / 32 (nav/lists) / 40 (record headers). Initials on accent tint or icon fallback on muted; Image type lands in code with the same circle mask.",
+      "code": "<Avatar size=\"24|32|40\" src? initials? /> — falls back image → initials → icon",
+      "variants": {
+        "Size": [
+          "24",
+          "32",
+          "40"
+        ],
+        "Type": [
+          "Initials",
+          "Icon"
+        ]
+      },
+      "props": [
+        {
+          "name": "Initials",
+          "type": "text",
+          "default": "AB",
+          "notes": "2 chars max"
+        }
+      ],
+      "tokens": [
+        "avatar/bg",
+        "avatar/fg",
+        "avatar/bg-muted",
+        "avatar/fg-muted"
+      ],
+      "a11y": "Carries alt/aria-label with the full name · initials aria-hidden · never the only identifier",
+      "dos": [
+        "Pair with the name in lists",
+        "Run the fallback chain"
+      ],
+      "donts": [
+        "Square avatars",
+        "Hand-picked tints per person",
+        "Sizes off the 24/32/40 ladder"
+      ]
+    },
+    "spinner": {
+      "name": "Spinner",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "195:126"
+      },
+      "summary": "Indeterminate loading — Lucide loader rotating 1s linear in code. 16 in buttons, 20 in controls, 24 for panel loads. text/tertiary or inherits button label color.",
+      "code": "<Spinner size=\"16|20|24\" /> — role=status, aria-label Loading",
+      "variants": {
+        "Size": [
+          "16",
+          "20",
+          "24"
+        ]
+      },
+      "tokens": [
+        "text/tertiary (semantic; inherits parent color in buttons)"
+      ],
+      "a11y": "role=status + visually-hidden text · reduced-motion: rotation → opacity pulse",
+      "dos": [
+        "Inside the pressed button",
+        "Prefer Skeleton when incoming layout is known"
+      ],
+      "donts": [
+        "Multiple spinners per region",
+        "Determinate progress (Progress bar, T2)",
+        "No timeout/error path"
+      ]
+    },
+    "skeleton": {
+      "name": "Skeleton",
+      "level": "atom",
+      "composes": [],
+      "figma": {
+        "set": "195:130"
+      },
+      "summary": "Loading placeholder mirroring incoming content. background/muted fill, 1.5s shimmer in code. Text 12h radius-sm · Circle radius-full · Rect radius-md; resize instances to match the real layout.",
+      "code": "<Skeleton variant=\"text|circle|rect\" />",
+      "variants": {
+        "Shape": [
+          "Text",
+          "Circle",
+          "Rect"
+        ]
+      },
+      "tokens": [
+        "background/muted (semantic)",
+        "radius/sm|md|full"
+      ],
+      "a11y": "aria-hidden; region carries one aria-busy · shimmer pauses under reduced-motion",
+      "dos": [
+        "Match real content's shape and count",
+        "Reserve exact space so data doesn't reflow"
+      ],
+      "donts": [
+        "Mixing skeletons and spinners in one region",
+        "Skeleton the whole page"
+      ]
+    },
+    "separator": {
+      "name": "Separator",
+      "level": "atom",
+      "composes": [],
+      "figma": {
+        "set": "195:133"
+      },
+      "summary": "The hairline — borders do all separation in this flat system. 1px border/default, stretches to its container.",
+      "code": "<Separator orientation=\"horizontal|vertical\" />",
+      "variants": {
+        "Orientation": [
+          "Horizontal",
+          "Vertical"
+        ]
+      },
+      "tokens": [
+        "border/default (semantic)"
+      ],
+      "a11y": "Decorative (aria-hidden) unless separating landmarks",
+      "dos": [
+        "Between menu groups, table rows, sections",
+        "Full-bleed in tables and menus"
+      ],
+      "donts": [
+        "Thicker than 1px",
+        "Shadows as separators",
+        "Double separation (separator + panel change)"
+      ]
+    },
+    "label": {
+      "name": "Label",
+      "level": "atom",
+      "composes": [],
+      "figma": {
+        "set": "197:134"
+      },
+      "summary": "Form field label — text-sm Medium foreground, exactly 8px above its control. Optional required asterisk in form/required.",
+      "code": "<Label htmlFor required?>",
+      "variants": {
+        "State": [
+          "Default",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Text",
+          "type": "text",
+          "default": "Field label"
+        },
+        {
+          "name": "Required",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "tokens": [
+        "form/label",
+        "form/label-disabled",
+        "form/required"
+      ],
+      "a11y": "htmlFor/id wired — clicking focuses the control · required via aria-required, not the asterisk alone",
+      "dos": [
+        "Above inputs, 8px gap",
+        "Sentence-case noun phrases",
+        "Mark required consistently"
+      ],
+      "donts": [
+        "Placeholder-as-label",
+        "Colons or all-caps",
+        "Marking every field required"
+      ]
+    },
+    "helper-text": {
+      "name": "Helper text",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "197:143"
+      },
+      "summary": "Caption under a control, 4px below (half the label gap — HIG proximity). Default text-xs form/helper; Error swaps to form/helper-error with a 12px alert icon and replaces the default helper.",
+      "code": "<HelperText error?> — wired via aria-describedby",
+      "variants": {
+        "Variant": [
+          "Default",
+          "Error"
+        ]
+      },
+      "props": [
+        {
+          "name": "Text",
+          "type": "text",
+          "default": "Helper text"
+        }
+      ],
+      "tokens": [
+        "form/helper",
+        "form/helper-error"
+      ],
+      "a11y": "Errors announced aria-live=polite · icon + text, never color alone",
+      "dos": [
+        "Say how to fix it",
+        "Errors after blur/submit"
+      ],
+      "donts": [
+        "Default helper + error stacked together",
+        "Critical instructions in helper (put in label)"
+      ],
+      "aliases": [
+        "hint",
+        "caption",
+        "error-message"
+      ]
+    },
+    "checkbox": {
+      "name": "Checkbox",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "198:181"
+      },
+      "summary": "Multi-select control. 16px box radius control/radius; checked/indeterminate fill control/bg-on with white 12px glyph. Label optional and clickable. Indeterminate only for parent rows of partly-selected sets.",
+      "code": "<Checkbox checked|indeterminate disabled? label?>",
+      "variants": {
+        "Value": [
+          "Unchecked",
+          "Checked",
+          "Indeterminate"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Label",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "Label text",
+          "type": "text",
+          "default": "Checkbox label"
+        }
+      ],
+      "tokens": [
+        "control/bg-on(-hover)",
+        "control/fg-on",
+        "control/bg-off",
+        "control/border-off(-hover/-disabled)",
+        "control/bg-disabled",
+        "control/fg-disabled",
+        "control/label",
+        "control/radius",
+        "focus/ring"
+      ],
+      "a11y": "Native input semantics · aria-checked=mixed for indeterminate · hit target ≥24 via padding",
+      "dos": [
+        "Zero-to-many selections",
+        "Indeterminate only on select-all parents",
+        "Vertical stacks at space/2"
+      ],
+      "donts": [
+        "Either/or choices (Radio)",
+        "Instant on/off settings (Switch)",
+        "Indeterminate as a pickable third value"
+      ]
+    },
+    "radio": {
+      "name": "Radio",
+      "level": "atom",
+      "composes": [],
+      "figma": {
+        "set": "198:210"
+      },
+      "summary": "Single choice among 2–5 visible options. 16px circle; selected = control/bg-on fill with 6px white dot. Radios only exist in groups.",
+      "code": "<RadioGroup value onChange> <Radio value label/> </RadioGroup>",
+      "variants": {
+        "Value": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Label",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "Label text",
+          "type": "text",
+          "default": "Radio label"
+        }
+      ],
+      "tokens": [
+        "control/* family",
+        "focus/ring"
+      ],
+      "a11y": "One tab stop per group, arrows move selection · visible group label",
+      "dos": [
+        "2–5 options, all visible",
+        "Vertical stacks at space/2"
+      ],
+      "donts": [
+        "More than ~5 options (Select)",
+        "Mixing radios and checkboxes in a group",
+        "A single lone radio"
+      ]
+    },
+    "switch": {
+      "name": "Switch",
+      "level": "atom",
+      "composes": [],
+      "figma": {
+        "set": "198:243"
+      },
+      "summary": "Instant on/off — applies immediately, no save step. 36×20 track radius-full, 16px white thumb; On = control/bg-on. Label states the ON meaning and never changes with state.",
+      "code": "<Switch checked onChange disabled? label?> — role=switch",
+      "variants": {
+        "Value": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Label",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "Label text",
+          "type": "text",
+          "default": "Switch label"
+        }
+      ],
+      "tokens": [
+        "switch/track-off(-hover)",
+        "switch/thumb(-disabled)",
+        "control/bg-on(-hover)",
+        "control/label",
+        "control/fg-disabled",
+        "focus/ring"
+      ],
+      "a11y": "role=switch + aria-checked · thumb slides 150ms ease-out, none under reduced-motion",
+      "dos": [
+        "Immediate effect",
+        "Binary settings with obvious on/off"
+      ],
+      "donts": [
+        "Inside submit forms (Checkbox)",
+        "Changing label text on toggle",
+        "Destructive toggles without confirm"
+      ]
+    },
+    "input": {
+      "name": "Input",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "201:264"
+      },
+      "summary": "Single-line text entry. 36h, radius input/radius, input/bg fill, input/border hairline; states told entirely through border + halo. Optional 16px leading/trailing icons. Compose with Label + Helper via Field.",
+      "code": "<Input placeholder value error? disabled? iconLeft? iconRight? />",
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Filled",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Text",
+          "type": "text",
+          "default": "Placeholder"
+        },
+        {
+          "name": "Icon left / right",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "tokens": [
+        "input/bg(-disabled)",
+        "input/border(-hover/-focus/-error/-disabled)",
+        "input/fg",
+        "input/placeholder",
+        "input/fg-disabled",
+        "input/icon",
+        "input/radius",
+        "input/padding-x",
+        "input/gap",
+        "focus/ring"
+      ],
+      "a11y": "Visible Label always · aria-describedby + aria-invalid on error · halo meets 3:1 non-text",
+      "dos": [
+        "Label above 8px, Helper below 4px",
+        "Error border + error helper together",
+        "Right input types for the right keyboard"
+      ],
+      "donts": [
+        "Placeholder as the only label",
+        "Aggressive first-keystroke validation",
+        "Heights other than 36"
+      ],
+      "aliases": [
+        "text-field",
+        "text-input"
+      ]
+    },
+    "textarea": {
+      "name": "Textarea",
+      "level": "atom",
+      "composes": [],
+      "figma": {
+        "set": "201:273"
+      },
+      "summary": "Multi-line entry, min 80h, top-aligned, vertically resizable in code. Same border grammar as Input; no internal icons.",
+      "code": "<Textarea rows=3 placeholder error? disabled? />",
+      "variants": {
+        "State": [
+          "Default",
+          "Focus",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Text",
+          "type": "text",
+          "default": "Placeholder"
+        }
+      ],
+      "tokens": [
+        "input/* family",
+        "focus/ring"
+      ],
+      "a11y": "Visible label · announce remaining chars at limits",
+      "dos": [
+        "Rows sized to expected content",
+        "Counter for hard limits"
+      ],
+      "donts": [
+        "Single-line values",
+        "Icons inside",
+        "Auto-grow without max height"
+      ]
+    },
+    "tooltip": {
+      "name": "Tooltip",
+      "level": "atom",
+      "composes": [],
+      "figma": {
+        "set": "202:216"
+      },
+      "summary": "Hover/focus hint — tooltip/bg (gray-900) pill, tooltip/fg white text-xs, radius 6, shadow/float, deliberately dark in both themes. Optional ⌘-shortcut chip. Floating tier: 100ms enter with 4px drift, instant exit, 500ms open delay.",
+      "code": "<Tooltip content shortcut? side=\"top|right|bottom|left\">",
+      "variants": {
+        "Content": [
+          "Label",
+          "Shortcut"
+        ]
+      },
+      "props": [
+        {
+          "name": "Text",
+          "type": "text",
+          "default": "Tooltip label"
+        },
+        {
+          "name": "Shortcut",
+          "type": "text",
+          "default": "⌘K"
+        }
+      ],
+      "tokens": [
+        "tooltip/bg",
+        "tooltip/fg"
+      ],
+      "a11y": "Shows on keyboard focus · Esc-dismissible (WCAG 1.4.13) · never essential-only content · no interactive children (Popover)",
+      "dos": [
+        "Name every icon-only button",
+        "Show shortcuts where they exist"
+      ],
+      "donts": [
+        "Links/buttons inside",
+        "Tooltips on disabled elements without a focusable wrapper"
+      ]
+    },
+    "delta": {
+      "name": "Delta",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "202:231"
+      },
+      "summary": "KPI change chip — trend icon + signed tnum value on a soft status tint. Up/Down/Flat → success/error/neutral pairs. Direction reflects movement, not sentiment: invert in code for down-is-good metrics.",
+      "code": "<Delta value direction invert?>",
+      "variants": {
+        "Direction": [
+          "Up",
+          "Down",
+          "Flat"
+        ]
+      },
+      "props": [
+        {
+          "name": "Value",
+          "type": "text",
+          "default": "+12.5%",
+          "notes": "always signed"
+        }
+      ],
+      "tokens": [
+        "delta/up|down|flat/bg",
+        "delta/up|down|flat/fg"
+      ],
+      "a11y": "Icon + sign carry direction, not color alone · aria-label includes the comparison period",
+      "dos": [
+        "Always show the sign",
+        "invert for churn/cost metrics"
+      ],
+      "donts": [
+        "Coloring the KPI numeral itself",
+        "Deltas without a baseline period",
+        "Using as a generic Tag"
+      ],
+      "aliases": [
+        "change-chip",
+        "trend-chip"
+      ]
+    },
+    "kbd": {
+      "name": "Kbd",
+      "level": "atom",
+      "composes": [],
+      "figma": {
+        "component": "261:271"
+      },
+      "summary": "Keyboard-key cap: 20px-min chip on kbd/bg with 1px kbd/border, radius-sm, text-2xs label on kbd/fg. Purely informative — never interactive. Combos are sibling Kbds (gap 4), one key per cap; prefer symbols (⌘ ⇧ ↵ esc) over words.",
+      "code": "<Kbd>⌘K</Kbd>",
+      "props": [
+        {
+          "name": "key",
+          "type": "text",
+          "default": "⌘K",
+          "notes": "one key/symbol per cap"
+        }
+      ],
+      "tokens": [
+        "kbd/bg",
+        "kbd/fg",
+        "kbd/border",
+        "kbd/radius"
+      ],
+      "a11y": "Renders <kbd>; pair with aria-keyshortcuts on the target control",
+      "dos": [
+        "One Kbd per key — ⌘K is two caps",
+        "Keep beside the action it triggers"
+      ],
+      "donts": [
+        "Hover states or click handlers",
+        "Spelling words when a symbol exists",
+        "Using as a Tag substitute"
+      ],
+      "aliases": [
+        "keyboard-key",
+        "shortcut-key",
+        "keycap"
+      ]
+    },
+    "progress-bar": {
+      "name": "Progress bar",
+      "level": "atom",
+      "composes": [],
+      "figma": {
+        "set": "261:284"
+      },
+      "summary": "Determinate 8px rail: progress/track muted, radius-full, violet progress/fill sized by value %. Fill is SCALE-constrained in Figma — stretching preserves the percentage. Always violet; status never recolors it. Indeterminate sweep is code-side.",
+      "code": "<Progress value max?>",
+      "variants": {
+        "Value": [
+          "25",
+          "50",
+          "75",
+          "100"
+        ]
+      },
+      "props": [],
+      "tokens": [
+        "progress/track",
+        "progress/fill",
+        "progress/radius"
+      ],
+      "a11y": "role=progressbar + aria-valuenow/min/max; pair with a visible tnum % label when the number matters",
+      "dos": [
+        "Pair with a text-xs tnum % label",
+        "Stretch freely — ratio is preserved",
+        "Keep 8px height in every density"
+      ],
+      "donts": [
+        "Recoloring the fill per status",
+        "Using as a good/bad threshold meter",
+        "Animated stripes or shimmer"
+      ],
+      "aliases": [
+        "progress",
+        "meter",
+        "upload-progress"
+      ]
+    },
+    "suggestion-chip": {
+      "name": "Suggestion chip",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "262:287"
+      },
+      "summary": "AI suggestion pill (Sana grammar): chip/bg card surface, 1px chip/border, radius-full, optional 16px sparkle icon, text-sm label on chip/fg. Sits above the Prompt input; selecting inserts the text into the prompt. 2–4 chips max, verb-first labels ≤ ~4 words.",
+      "code": "<SuggestionChip icon?>label</SuggestionChip>",
+      "variants": {
+        "State": [
+          "Default",
+          "Hover"
+        ]
+      },
+      "props": [
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Summarize this week"
+        },
+        {
+          "name": "icon",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "tokens": [
+        "chip/bg",
+        "chip/bg-hover",
+        "chip/fg",
+        "chip/border",
+        "chip/radius"
+      ],
+      "a11y": "Real <button>; label is the accessible name; standard focus-visible ring",
+      "dos": [
+        "Verb-first, actionable labels",
+        "Rotate by context",
+        "Dismiss the row once a prompt is sent"
+      ],
+      "donts": [
+        "Wrapping to two lines",
+        "Navigation use (use links/menu)",
+        "Per-topic chip colors"
+      ],
+      "aliases": [
+        "ai-chip",
+        "prompt-suggestion",
+        "quick-prompt"
+      ]
+    },
+    "thinking-indicator": {
+      "name": "Thinking indicator",
+      "level": "atom",
+      "composes": [],
+      "figma": {
+        "component": "262:294",
+        "note": "Figma frame still shows the retired three-dot static frame; needs a 3×3 violet-300 blocks static frame (diagonal 0.9→0.18 opacities) + text/tertiary label."
+      },
+      "summary": "AI activity signal: 3×3 grid of violet-300 #BE94F3 blocks (one value, BOTH modes; blocks 25% of size, gaps 12.5%, radius ≈5.5% of size) sweeping a continuous 3.6s linear cycle — random shimmer 0–1.2s (fixed shuffle [4,0,7,2,8,3,1,6,5], 70ms stagger, 0.5s pulse) → row sweep 1.2–2.4s → column sweep 2.4–3.6s (whole line per step, 180ms stagger, 0.6s pulse). Pulse = opacity 0.18→1→0.18, rise cubic-bezier(.35,0,.25,1), fall cubic-bezier(.45,0,.55,1) — opacity only. Beside it, the operation label: text-sm Medium (14/500) live string that changes with what the model is doing ('Thinking…', 'Reading your data…', 'Writing…'), swapping via 150ms fade + 2px rise, with a continuous neutral glow sweep via background-clip:text (250% gradient, 2s linear loop) — a lighter gray band over a text/tertiary base: light gray-300 #D6D7DB over gray-500 #71747C (4.6:1), dark gray-200 #E9EAEC over #8A8F98. Color lives in the blocks only; the label stays neutral (sanctioned background-position animation; tiny paint area, progress exemption). Violet-300 is 2.41:1 on white — blocks are decorative; meaning is always carried by the label + role=status. Standalone, no avatar or mark beside it. Replaced by content on the first streamed token. Reference build + full keyframes: docs/labs-v2-thinking-blocks.html.",
+      "code": "<ThinkingBlocks size=\"16|20|24|48\" sweep=\"cycle|random|rows|columns\" label? />",
+      "props": [
+        {
+          "name": "size",
+          "type": "16|20|24|48",
+          "default": "20"
+        },
+        {
+          "name": "sweep",
+          "type": "cycle|random|rows|columns",
+          "default": "cycle"
+        },
+        {
+          "name": "label",
+          "type": "string (current operation)",
+          "default": "unset; use 'Thinking…' when shown"
+        }
+      ],
+      "tokens": [
+        "violet-300 #BE94F3 (blocks, both modes)",
+        "text/tertiary gray-500 #71747C (label base light; #8A8F98 dark)",
+        "gray-300 #D6D7DB / gray-200 #E9EAEC (glow band light / dark)"
+      ],
+      "a11y": "role=status + sr-only mirror of the current operation; announced on label change, not per pulse; blocks and visual label are aria-hidden. Reduced motion: blocks animation:none with static diagonal frame (0.9→0.18); label loses the sweep (plain text/tertiary) but operation text still updates instantly — that change is functional.",
+      "dos": [
+        "Swap for content at first token",
+        "Place where the text will appear — alone, no avatar/mark",
+        "Drive the label from the real operation; announce changes via role=status",
+        "16 inline/buttons · 20 chat (default) · 24 panel loads · 48 empty states",
+        "Loops while waiting — the progress exemption to the no-loop rule"
+      ],
+      "donts": [
+        "Spinner + blocks together",
+        "Non-AI loading (use Spinner/Skeleton)",
+        "Status hues or violet-600 on blocks — violet-300, both modes",
+        "Meaning carried by blocks alone (2.41:1 on white — label/status text is the signal)",
+        "Isolated sweeps (random/rows/columns) as the resting default — cycle is the signature",
+        "Glow sweep on any other text — it belongs to this component only · never brand/status hues on the label"
+      ],
+      "aliases": [
+        "typing-indicator",
+        "ai-loading",
+        "streaming-indicator",
+        "thinking-blocks",
+        "blocks-loader"
+      ]
+    },
+    "citation-chip": {
+      "name": "Citation chip",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "componentSet": "339:329",
+        "doc": "342:311"
+      },
+      "summary": "Inline source reference for AI answers. Number type marks a citation point in assistant prose ([1] on an 18px round chip); Source type shows a 12px favicon dot + bare domain in a text-2xs pill. Rides the muted-soft→muted hover ladder; clicking opens the source, hovering may raise a Hover card. Composes into Chat message assistant turns.",
+      "code": "<CitationChip n={1} href/> · <CitationChip source=\"attio.com\" href/>",
+      "variants": [
+        {
+          "axis": "Type",
+          "values": [
+            "Number",
+            "Source"
+          ],
+          "default": "Number"
+        },
+        {
+          "axis": "State",
+          "values": [
+            "Default",
+            "Hover"
+          ],
+          "default": "Default"
+        }
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "text",
+          "default": "1 / attio.com",
+          "notes": "index digit or bare domain — no protocol, no path; one line, never wraps"
+        }
+      ],
+      "tokens": [
+        "citation/bg",
+        "citation/bg-hover",
+        "citation/fg",
+        "citation/fg-hover"
+      ],
+      "a11y": "Renders <a>; accessible name \"Source 1: attio.com\"; ring on :focus-visible only (keyboard/AT), never on click",
+      "dos": [
+        "Cite every external claim — numbers stay in reading order",
+        "Reuse one number for repeat citations of the same source",
+        "Keep domains bare"
+      ],
+      "donts": [
+        "Wrapping to two lines",
+        "Using chips for navigation — they only reference sources",
+        "Recoloring per source — chips stay monochrome"
+      ],
+      "aliases": [
+        "citation",
+        "source-chip",
+        "reference-chip",
+        "footnote-chip"
+      ]
+    },
+    "copy-button": {
+      "name": "Copy button",
+      "level": "atom",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "380:372"
+      },
+      "summary": "Copy-to-clipboard toggle: 24px hit cell, 16px copy glyph on the muted tier (hover foreground + muted wash). On click it flips to State=Copied — a check on status/success-foreground — for ~2s, then reverts. Consumed by the Chat message answer footer; reuse beside IDs, code blocks and share links.",
+      "code": "<CopyButton value>",
+      "variants": {
+        "State": [
+          "Default",
+          "Copied"
+        ]
+      },
+      "props": [],
+      "tokens": [
+        "text/tertiary (default)",
+        "status/success-foreground (copied)"
+      ],
+      "a11y": "Labelled \"Copy answer\"/context label; aria-live announces \"Copied\"; state reverts after ~2s; keyboard focus ring per policy",
+      "dos": [
+        "Revert to the copy glyph after ~2s",
+        "Announce Copied via aria-live"
+      ],
+      "donts": [
+        "Leaving the check permanently",
+        "Using a toast for copy confirmation — the inline check is the feedback"
+      ],
+      "aliases": [
+        "copy",
+        "clipboard-button",
+        "copy-to-clipboard"
+      ]
+    }
+  },
+  "molecules": {
+    "menu-item": {
+      "name": "Menu item",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "buildingBlock": true,
+      "figma": {
+        "set": "204:59"
+      },
+      "summary": "Row of every menu surface. 224×32, radius menu/item-radius, transparent at rest; hover menu/item-bg-hover, danger rows hover menu/item-bg-danger-hover. Optional leading icon, trailing shortcut, trailing check (single-select menus).",
+      "code": "<MenuItem icon? shortcut? checked? danger? disabled?>",
+      "variants": {
+        "Type": [
+          "Default",
+          "Danger"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Label",
+          "type": "text",
+          "default": "Menu item"
+        },
+        {
+          "name": "Icon",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "Shortcut",
+          "type": "boolean + text",
+          "default": "false / ⌘D"
+        },
+        {
+          "name": "Checked",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "tokens": [
+        "menu/item-fg(-danger/-disabled)",
+        "menu/item-bg-hover",
+        "menu/item-bg-danger-hover",
+        "menu/shortcut",
+        "menu/item-radius"
+      ],
+      "a11y": "role=menuitem(/checkbox) · full-row hit target · arrows/Enter/Esc",
+      "dos": [
+        "Verb-first labels",
+        "Danger rows last after a separator"
+      ],
+      "donts": [
+        "Mixed icon/no-icon rows in one group",
+        "Submenus beyond one level"
+      ]
+    },
+    "menu": {
+      "name": "Menu",
+      "level": "molecule",
+      "composes": [
+        "menu-item",
+        "separator"
+      ],
+      "figma": {
+        "component": "205:23"
+      },
+      "summary": "The floating panel behind Dropdown menu (trigger-anchored) AND Context menu (cursor-anchored) — one anatomy, two invocations. 240w, menu/bg, menu/border hairline, radius menu/radius, shadow/float, 8px padding, 2px row rhythm, muted group labels.",
+      "code": "<DropdownMenu trigger> / <ContextMenu target>",
+      "tokens": [
+        "menu/bg",
+        "menu/border",
+        "menu/radius",
+        "menu/group-label",
+        "shadow/float"
+      ],
+      "a11y": "Focus in on open, returns on close · Esc · typeahead",
+      "dos": [
+        "Group with labels + separators",
+        "Dropdowns below-start, context at cursor",
+        "≤8 visible items"
+      ],
+      "donts": [
+        "Form controls inside (Popover)",
+        "Only path to an action in a context menu"
+      ],
+      "aliases": [
+        "dropdown",
+        "dropdown-menu",
+        "context-menu"
+      ]
+    },
+    "tab-item": {
+      "name": "Tab item",
+      "level": "molecule",
+      "composes": [],
+      "buildingBlock": true,
+      "figma": {
+        "set": "204:76"
+      },
+      "summary": "Underline tab: text-sm (Medium active) + 2px tabs/indicator when active. Sits on the Tabs baseline.",
+      "variants": {
+        "State": [
+          "Active",
+          "Inactive",
+          "Hover",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Label",
+          "type": "text",
+          "default": "Tab label"
+        }
+      ],
+      "tokens": [
+        "tabs/indicator",
+        "tabs/fg(-active/-disabled)"
+      ]
+    },
+    "tabs": {
+      "name": "Tabs",
+      "level": "molecule",
+      "composes": [
+        "tab-item"
+      ],
+      "figma": {
+        "component": "205:66"
+      },
+      "summary": "Underline tab bar for sibling views (record sub-pages, settings). Items share a hairline baseline (tabs/border), gap 16, one Active always; indicator animates 150ms.",
+      "code": "<Tabs value onChange> <Tab value label/> </Tabs>",
+      "tokens": [
+        "tabs/*"
+      ],
+      "a11y": "role=tablist/tab/tabpanel · roving tabindex, arrows move",
+      "dos": [
+        "2–6 tabs, one active",
+        "Order by usage"
+      ],
+      "donts": [
+        "Sequential steps (Wizard, T2)",
+        "Nested tab bars",
+        "Pill-style tabs — underline only"
+      ]
+    },
+    "select": {
+      "name": "Select",
+      "level": "molecule",
+      "composes": [
+        "menu",
+        "menu-item",
+        "icon"
+      ],
+      "figma": {
+        "set": "206:92"
+      },
+      "summary": "Single choice from 6+ options (fewer → Radio). Input-grammar trigger with chevrons-up-down; opens a Menu with a trailing check on the selected row. Open state = focus grammar.",
+      "code": "<Select options value placeholder error? disabled? />",
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Open",
+          "Filled",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Text",
+          "type": "text",
+          "default": "Select an option"
+        }
+      ],
+      "tokens": [
+        "input/* family",
+        "menu/*",
+        "focus/ring"
+      ],
+      "a11y": "Combobox pattern (aria-expanded, aria-activedescendant) · typeahead · Esc closes without change",
+      "dos": [
+        "6+ options or constrained vocabularies",
+        "Sensible default",
+        "Logical option order"
+      ],
+      "donts": [
+        "2–5 options (Radio)",
+        "Huge unsearchable lists (Combobox)",
+        "Placeholder as label"
+      ]
+    },
+    "combobox": {
+      "name": "Combobox",
+      "level": "molecule",
+      "composes": [
+        "menu",
+        "menu-item",
+        "input",
+        "icon"
+      ],
+      "figma": {
+        "set": "206:109"
+      },
+      "summary": "Searchable select for long/user-generated lists. Panel adds an auto-focused search input over the option list; multi-select uses Checked menu items; empty filter shows a 'No results' row.",
+      "code": "<Combobox options value multiple? onSearch />",
+      "variants": {
+        "State": [
+          "Default",
+          "Open",
+          "Filled",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Text",
+          "type": "text",
+          "default": "Search or select…"
+        }
+      ],
+      "tokens": [
+        "input/* family",
+        "menu/*",
+        "focus/ring"
+      ],
+      "dos": [
+        "15+ or user-generated options",
+        "Debounce remote search with a Spinner row",
+        "Summarize multi-select as 'N selected'"
+      ],
+      "donts": [
+        "Short fixed lists (Select)",
+        "Clearing search on each selection",
+        "Blocking typing while loading"
+      ],
+      "aliases": [
+        "autocomplete",
+        "multi-select"
+      ]
+    },
+    "field": {
+      "name": "Field",
+      "level": "molecule",
+      "composes": [
+        "label",
+        "input",
+        "helper-text"
+      ],
+      "figma": {
+        "set": "207:148"
+      },
+      "summary": "The canonical form unit: Label 8px above, control, Helper 4px below (HIG proximity ratios). Swap the Input for Select/Combobox/Date picker/Textarea — the wrapper grammar is identical. Error swaps input border AND helper together.",
+      "code": "<Field label helper error required> {control} </Field>",
+      "variants": {
+        "State": [
+          "Default",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Helper",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "Label/Input/Helper",
+          "type": "exposed instances"
+        }
+      ],
+      "tokens": [
+        "form/*",
+        "input/*",
+        "space/2 label gap",
+        "space/1 helper gap"
+      ],
+      "layout": "field→field 16 · section→section 32",
+      "donts": [
+        "Two controls under one label",
+        "Hiding labels to save space"
+      ]
+    },
+    "search-input": {
+      "name": "Search input",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "207:170"
+      },
+      "summary": "Search entry with leading search icon. Shortcut=⌘K variant is RESERVED for the sidebar quick-actions search (where ⌘K is registered); Shortcut=None is the plain search for table toolbars and filter bars.",
+      "code": "<SearchInput placeholder shortcut? onSearch />",
+      "variants": {
+        "State": [
+          "Default",
+          "Focus",
+          "Filled"
+        ],
+        "Shortcut": [
+          "⌘K (sidebar only)",
+          "None (tables, filters)"
+        ]
+      },
+      "props": [
+        {
+          "name": "Text",
+          "type": "text",
+          "default": "Search…"
+        }
+      ],
+      "tokens": [
+        "input/* family",
+        "focus/ring"
+      ],
+      "dos": [
+        "Filter as-you-type locally",
+        "⌘K chip only where ⌘K works",
+        "One search per surface"
+      ],
+      "donts": [
+        "As a generic text input",
+        "Requiring Enter for local filtering",
+        "Dropping the search icon"
+      ],
+      "aliases": [
+        "search-bar",
+        "search-field"
+      ]
+    },
+    "alert": {
+      "name": "Alert",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "208:152"
+      },
+      "summary": "Persistent inline banner (forms, dialogs, sections): alert/<tone>/bg soft tint, colored 16px alert/<tone>/icon, alert/title Medium + alert/body. Stays until resolved — transient feedback is Toast.",
+      "code": "<Alert tone title body? dismissible? />",
+      "variants": {
+        "Tone": [
+          "Info",
+          "Success",
+          "Warning",
+          "Error"
+        ]
+      },
+      "props": [
+        {
+          "name": "Title / Body",
+          "type": "text"
+        },
+        {
+          "name": "Show body",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "Dismissible",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "tokens": [
+        "alert/<tone>/bg",
+        "alert/<tone>/icon",
+        "alert/title",
+        "alert/body",
+        "alert/radius"
+      ],
+      "a11y": "role=status (info/success) or alert (warning/error) · icon+title carry meaning",
+      "dos": [
+        "Directly above the content it describes",
+        "What happened + what to do",
+        "Error tone only for blockers"
+      ],
+      "donts": [
+        "Stacked alerts",
+        "Transient confirmations (Toast)",
+        "Primary page actions inside alerts"
+      ]
+    },
+    "toast": {
+      "name": "Toast",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "208:197"
+      },
+      "summary": "Transient feedback, bottom-right stack, auto-dismiss 5s (errors persist). toast/bg + toast/border + radius toast/radius + shadow/float; tone icon; optional action as a sm Secondary button (exposed nested instance). Enter 150ms rising 8px, exit 100ms, max 3 visible.",
+      "code": "toast({ tone, title, description?, action? })",
+      "variants": {
+        "Tone": [
+          "Neutral",
+          "Info",
+          "Success",
+          "Warning",
+          "Error"
+        ]
+      },
+      "props": [
+        {
+          "name": "Title / Description",
+          "type": "text"
+        },
+        {
+          "name": "Action",
+          "type": "boolean",
+          "default": "false",
+          "notes": "shows a sm Secondary button; edit its Label on the nested instance (the old Action-label text prop was removed)"
+        }
+      ],
+      "tokens": [
+        "toast/*",
+        "alert/<tone>/icon (tone icons)",
+        "button/secondary/*",
+        "shadow/float"
+      ],
+      "a11y": "aria-live polite (assertive errors) · pause on hover/focus · action keyboard-reachable",
+      "dos": [
+        "Confirm in 2–4 words",
+        "Undo over confirm dialogs where safe",
+        "Persistent errors with a next step"
+      ],
+      "donts": [
+        "Validation errors as toasts",
+        ">3 stacked",
+        "Critical info only in a toast"
+      ],
+      "aliases": [
+        "notification",
+        "snackbar"
+      ]
+    },
+    "card": {
+      "name": "Card",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "component": "209:134"
+      },
+      "summary": "Resting-tier container: card/bg, card/border hairline, radius card/radius — no shadow, ever. Header (title text-md Semi Bold + optional overflow action); Content is a Figma slot.",
+      "code": "<Card title action?> {children} </Card>",
+      "props": [
+        {
+          "name": "Title",
+          "type": "text"
+        },
+        {
+          "name": "Action",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "Content",
+          "type": "slot"
+        }
+      ],
+      "tokens": [
+        "card/bg",
+        "card/border",
+        "card/radius",
+        "card/title"
+      ],
+      "dos": [
+        "One topic per card",
+        "4px-grid card grids with 16/24 gutters"
+      ],
+      "donts": [
+        "Drop shadows on resting cards",
+        "Nesting cards >1 level",
+        "Cards faking tables"
+      ]
+    },
+    "kpi-tile": {
+      "name": "KPI tile",
+      "level": "molecule",
+      "composes": [
+        "delta"
+      ],
+      "figma": {
+        "set": "209:177"
+      },
+      "summary": "Dashboard stat card (Cal.com pattern): kpi/label secondary, display-sm tnum numeral in kpi/value, Delta chip + kpi/period context. The numeral never carries color — only the Delta does. Loading = Skeleton rect.",
+      "code": "<KpiTile label value delta period invert? />",
+      "variants": {
+        "Trend": [
+          "Up",
+          "Down",
+          "Flat"
+        ]
+      },
+      "props": [
+        {
+          "name": "Metric label / Value / Period",
+          "type": "text"
+        },
+        {
+          "name": "Delta",
+          "type": "exposed instance"
+        }
+      ],
+      "tokens": [
+        "kpi/label",
+        "kpi/value",
+        "kpi/period",
+        "card/bg",
+        "card/border",
+        "card/radius",
+        "delta/*"
+      ],
+      "dos": [
+        "3–4 equal tiles per row",
+        "Always give the period",
+        "tnum everywhere"
+      ],
+      "donts": [
+        "Coloring the numeral by performance",
+        "Deltas without baseline"
+      ],
+      "aliases": [
+        "stat-tile",
+        "stat-card",
+        "metric-card"
+      ]
+    },
+    "popover": {
+      "name": "Popover",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "component": "209:178"
+      },
+      "summary": "Anchored floating container for interactive content (filters, quick forms, pickers) — everything Tooltip must never hold. popover/bg, hairline, radius popover/radius, shadow/float, 8px from trigger, flips on collision.",
+      "code": "<Popover trigger side align> {content} </Popover>",
+      "props": [
+        {
+          "name": "Title",
+          "type": "text"
+        },
+        {
+          "name": "Close",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "Content",
+          "type": "slot"
+        }
+      ],
+      "tokens": [
+        "popover/*",
+        "shadow/float"
+      ],
+      "a11y": "Focus moves in/returns · Esc + outside click close · no focus trap (that's Dialog)",
+      "donts": [
+        "Plain text hints (Tooltip)",
+        "Popover from popover",
+        "Destructive flows (Dialog)"
+      ]
+    },
+    "description-list": {
+      "name": "Description list",
+      "level": "molecule",
+      "composes": [
+        "description-list-item"
+      ],
+      "figma": {
+        "component": "210:158",
+        "item": "210:155"
+      },
+      "summary": "Key-value fact sheet for record detail (Attio record layout): dl/term muted 120px fixed + dl/value foreground, 12px rhythm, no separators. Empty values render '—'.",
+      "code": "<DescriptionList items=[{term, value}] /> → <dl>",
+      "tokens": [
+        "dl/term",
+        "dl/value"
+      ],
+      "dos": [
+        "Short consistent terms",
+        "'—' for empty"
+      ],
+      "donts": [
+        ">8 rows without grouping",
+        "Right-aligned values",
+        "Editable fields (that's a form)"
+      ]
+    },
+    "empty-state": {
+      "name": "Empty state",
+      "level": "molecule",
+      "composes": [
+        "icon",
+        "button"
+      ],
+      "figma": {
+        "set": "210:215"
+      },
+      "summary": "Zero-data view: 40px empty/icon-bg circle with 24px empty/icon-fg Lucide, md Semi Bold title, secondary one-liner, optional Secondary+Primary pair. States the situation, never apologizes.",
+      "code": "<EmptyState icon title description actions? />",
+      "variants": {
+        "Action": [
+          "None",
+          "Button"
+        ]
+      },
+      "props": [
+        {
+          "name": "Title / Description",
+          "type": "text"
+        },
+        {
+          "name": "Icon",
+          "type": "exposed instance"
+        }
+      ],
+      "tokens": [
+        "empty/icon-bg",
+        "empty/icon-fg"
+      ],
+      "dos": [
+        "First-run ≠ filtered-empty ('clear filters')",
+        "Primary = the creating action"
+      ],
+      "donts": [
+        "Apologies/blame",
+        "Spinner as empty state",
+        "Blank zero-data regions"
+      ],
+      "aliases": [
+        "zero-state",
+        "no-data"
+      ]
+    },
+    "legend": {
+      "name": "Legend",
+      "level": "molecule",
+      "composes": [
+        "legend-item"
+      ],
+      "figma": {
+        "component": "211:188",
+        "itemSet": "211:187"
+      },
+      "summary": "Chart series key: 16px-gap row of items (8px dot + text-xs secondary label), top-right of the Chart container. Items toggle series (aria-pressed); toggled-off series drop to 40% in code.",
+      "variants": {
+        "Series (item)": [
+          "1 chart/series-1",
+          "2 chart/series-2",
+          "3 chart/series-3",
+          "4 chart/series-4"
+        ]
+      },
+      "tokens": [
+        "chart/series-1..4"
+      ],
+      "donts": [
+        ">6 items (group 'Other')",
+        "Ad-hoc series recoloring"
+      ]
+    },
+    "chart-tooltip": {
+      "name": "Chart tooltip",
+      "level": "molecule",
+      "composes": [],
+      "figma": {
+        "component": "211:198"
+      },
+      "summary": "Chart hover card: 12px Medium date header, then per-series rows of color dot · xs secondary label · 12px Medium tnum value. popover/bg + border, radius-md, shadow/float; follows cursor at 8px, no animation. Rendered by the Recharts wrapper.",
+      "tokens": [
+        "popover/bg",
+        "popover/border",
+        "chart/series-*",
+        "shadow/float"
+      ],
+      "dos": [
+        "Rows ordered by value",
+        "Dots exactly match series strokes"
+      ],
+      "donts": [
+        ">6 rows (aggregate)",
+        "Actions inside chart tooltips"
+      ]
+    },
+    "avatar-group": {
+      "name": "Avatar group",
+      "level": "molecule",
+      "composes": [
+        "avatar"
+      ],
+      "figma": {
+        "component": "211:212"
+      },
+      "summary": "Stacked collaborators: up to 3 × 24px avatars overlapping −6px with a 2px canvas ring + '+N' overflow chip (avatar/bg-muted). Click opens the full list; hover shows names via Tooltip.",
+      "props": [
+        {
+          "name": "Overflow",
+          "type": "text",
+          "default": "+3"
+        }
+      ],
+      "tokens": [
+        "avatar/*",
+        "background/default ring (semantic)"
+      ],
+      "donts": [
+        "Overlap >6px",
+        "Truncating without the +N count"
+      ],
+      "aliases": [
+        "facepile"
+      ]
+    },
+    "calendar-day": {
+      "name": "Calendar day",
+      "level": "molecule",
+      "composes": [],
+      "buildingBlock": true,
+      "figma": {
+        "set": "212:196"
+      },
+      "summary": "One day cell, 32×32 radius-md. Selected = calendar/day-selected-bg; Today = calendar/day-today-fg Medium; Outside month = calendar/day-muted-fg; range mode adds a muted-soft band in code.",
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Selected",
+          "Today",
+          "Outside",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Day",
+          "type": "text",
+          "default": "14"
+        }
+      ],
+      "tokens": [
+        "calendar/day-*"
+      ]
+    },
+    "calendar": {
+      "name": "Calendar",
+      "level": "molecule",
+      "composes": [
+        "calendar-day",
+        "icon"
+      ],
+      "figma": {
+        "component": "213:204"
+      },
+      "summary": "The Date picker popover panel: chevron month nav + text-sm Medium title, 11px Medium weekday row, 7×5 grid of Calendar day cells (4px gaps). popover tokens + shadow/float. Range mode renders two months.",
+      "tokens": [
+        "popover/*",
+        "calendar/day-*",
+        "shadow/float"
+      ]
+    },
+    "date-picker": {
+      "name": "Date picker",
+      "level": "molecule",
+      "composes": [
+        "calendar",
+        "calendar-day",
+        "icon"
+      ],
+      "figma": {
+        "set": "212:232"
+      },
+      "summary": "Date entry: input-grammar trigger with a leading calendar icon opening the Calendar popover. Typing is always possible; min/max disable impossible dates.",
+      "code": "<DatePicker value range? min? max? format=\"MMM D, YYYY\" />",
+      "variants": {
+        "State": [
+          "Default",
+          "Open",
+          "Filled",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "Value",
+          "type": "text",
+          "default": "Pick a date"
+        }
+      ],
+      "tokens": [
+        "input/* family",
+        "calendar/day-*",
+        "focus/ring"
+      ],
+      "a11y": "Grid keyboard nav (arrows/PgUp/PgDn) · typed entry always possible",
+      "dos": [
+        "Let users type as well as pick",
+        "Disable impossible dates via min/max"
+      ],
+      "donts": [
+        "Calendar-only for well-known dates (birthdays)",
+        "Forcing one locale's format",
+        "Opening on focus alone"
+      ]
+    },
+    "number-input": {
+      "name": "Number input",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "267:810"
+      },
+      "summary": "Numeric field on the exact Input recipe (36px shell, input/* state grammar incl. the 3px 16% focus halo) plus a right stepper column: two 24×18 chevron cells over a hairline. Values text-sm tnum; ↑↓ steps, ⇧ steps 10×. Shell clips content except the Focus variant (halo must render). Wrap in Field.",
+      "code": "<NumberInput value step min max>",
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Filled",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "props": [
+        {
+          "name": "value",
+          "type": "text",
+          "default": "0",
+          "notes": "tnum numeric string"
+        }
+      ],
+      "tokens": [
+        "input/*",
+        "focus/ring"
+      ],
+      "a11y": "Native input[type=number] semantics; steppers aria-hidden (keyboard already steps)",
+      "dos": [
+        "True numbers only (seats, limits, amounts)",
+        "Right-align in stacked forms/tables",
+        "Set sensible step/min/max"
+      ],
+      "donts": [
+        "Phone numbers or IDs (use Input)",
+        "Hiding the steppers",
+        "Accepting non-numeric text"
+      ],
+      "aliases": [
+        "numeric-input",
+        "stepper-input",
+        "quantity-input"
+      ]
+    },
+    "tag-input": {
+      "name": "Tag input",
+      "level": "molecule",
+      "composes": [
+        "tag"
+      ],
+      "figma": {
+        "set": "267:1927"
+      },
+      "summary": "Multi-value field: committed values render as neutral Tag pills inside the Input shell; Enter/comma commits, Backspace removes the last, each pill gets a ✕ remove affordance in code. Pills stay neutral gray inside the field — color=meaning lives in tables. For fixed vocabularies prefer Combobox multi-select.",
+      "code": "<TagInput value=[] onAdd onRemove suggestions?>",
+      "variants": {
+        "State": [
+          "Default",
+          "Focus",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "props": [],
+      "tokens": [
+        "input/*",
+        "tag/neutral/bg",
+        "tag/neutral/fg",
+        "focus/ring"
+      ],
+      "a11y": "Chips are buttons labelled 'remove {tag}'; count announced via aria-describedby",
+      "dos": [
+        "Commit on Enter and comma",
+        "Autocomplete when a vocabulary exists",
+        "Wrap the field taller on overflow"
+      ],
+      "donts": [
+        "Colored pills inside the field",
+        "Truncating pills",
+        "Single-value picks (use Select)"
+      ],
+      "aliases": [
+        "chips-input",
+        "multi-value-input",
+        "token-input"
+      ]
+    },
+    "file-upload": {
+      "name": "File upload",
+      "level": "molecule",
+      "composes": [
+        "icon",
+        "file-upload-item"
+      ],
+      "figma": {
+        "set": "268:775"
+      },
+      "summary": "Dropzone: dashed (5-5) upload/border on upload/bg, radius-lg, centered 40px icon tile (bound upload/bg) + 'Click to upload' (upload/link-fg) 'or drag and drop' + constraints line (text-xs). Dragover flips border to upload/border-active violet + muted wash; Error swaps border and the helper message. One click target wrapping a native file input; File upload items stack below with 8px gap.",
+      "code": "<FileUpload accept maxSize multiple?>",
+      "variants": {
+        "State": [
+          "Default",
+          "Dragover",
+          "Error"
+        ]
+      },
+      "props": [],
+      "tokens": [
+        "upload/bg",
+        "upload/border",
+        "upload/border-active",
+        "upload/icon",
+        "upload/link-fg",
+        "upload/radius"
+      ],
+      "a11y": "Labelled button + input[type=file]; drag state via aria-live; errors inline, not toasts",
+      "dos": [
+        "State formats + size cap up front",
+        "Inline errors in the zone",
+        "Per-file cancel/remove"
+      ],
+      "donts": [
+        "Modal for drag-and-drop",
+        "Hiding per-file progress",
+        "Avatar swaps (use Avatar + menu)"
+      ],
+      "aliases": [
+        "dropzone",
+        "uploader",
+        "file-drop"
+      ]
+    },
+    "file-upload-item": {
+      "name": "File upload item",
+      "level": "molecule",
+      "composes": [
+        "icon",
+        "progress-bar"
+      ],
+      "figma": {
+        "set": "268:819"
+      },
+      "summary": "Per-file row under the dropzone: 32px muted file tile, text-sm-medium name, then a live Progress bar + tnum % while Uploading, or size + 'Uploaded' + green check when Complete. Trailing ✕ cancels / removes.",
+      "code": "<FileUploadItem file progress onRemove>",
+      "variants": {
+        "State": [
+          "Uploading",
+          "Complete"
+        ]
+      },
+      "props": [
+        {
+          "name": "file name",
+          "type": "text",
+          "default": "members-export.csv"
+        }
+      ],
+      "tokens": [
+        "upload/icon",
+        "progress/*",
+        "status/success/fg (check)"
+      ],
+      "a11y": "Row names file + % in text; remove button labelled per file",
+      "dos": [
+        "One row per file, 8px stack gap"
+      ],
+      "donts": [
+        "Hiding progress during upload"
+      ],
+      "aliases": [
+        "file-row",
+        "upload-row"
+      ]
+    },
+    "breadcrumbs": {
+      "name": "Breadcrumbs",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "component": "269:769"
+      },
+      "summary": "Topbar path trail: optional home icon, 14px chevron-right separators on breadcrumb/separator-fg, parent crumbs text-sm on breadcrumb/item-fg (hover → foreground + underline), current page text-sm-medium on breadcrumb/current-fg — text, never a link. >3 levels collapses middle crumbs to an ellipsis menu.",
+      "code": "<Breadcrumbs items=[{label, href}]>",
+      "props": [
+        {
+          "name": "parent",
+          "type": "text",
+          "default": "Settings"
+        },
+        {
+          "name": "current",
+          "type": "text",
+          "default": "Members"
+        },
+        {
+          "name": "home icon",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "tokens": [
+        "breadcrumb/item-fg",
+        "breadcrumb/current-fg",
+        "breadcrumb/separator-fg"
+      ],
+      "a11y": "nav aria-label=Breadcrumb + ol; separators aria-hidden; current gets aria-current=page",
+      "dos": [
+        "Truncate crumbs ~24ch with tooltip",
+        "Collapse beyond 3 levels",
+        "One line always"
+      ],
+      "donts": [
+        "Linking the current page",
+        "Slash/dot separators",
+        "Showing on top-level pages"
+      ],
+      "aliases": [
+        "breadcrumb",
+        "path",
+        "trail"
+      ]
+    },
+    "pagination-item": {
+      "name": "Pagination item",
+      "level": "molecule",
+      "composes": [],
+      "figma": {
+        "set": "269:776"
+      },
+      "summary": "32px square page cell, radius-md: text-sm on pagination/item-fg; Active = pagination/active-bg muted fill + text-sm-medium on pagination/active-fg. Hover shows the fill without the weight (code). Consumed by Pagination.",
+      "code": "(internal — rendered by <Pagination>)",
+      "variants": {
+        "State": [
+          "Default",
+          "Active"
+        ]
+      },
+      "props": [
+        {
+          "name": "page",
+          "type": "text",
+          "default": "1"
+        }
+      ],
+      "tokens": [
+        "pagination/item-fg",
+        "pagination/active-fg",
+        "pagination/active-bg",
+        "pagination/radius"
+      ],
+      "a11y": "Button labelled 'Page N'; active aria-current=page",
+      "dos": [],
+      "donts": [],
+      "aliases": [
+        "page-cell"
+      ]
+    },
+    "pagination": {
+      "name": "Pagination",
+      "level": "molecule",
+      "composes": [
+        "button",
+        "pagination-item"
+      ],
+      "figma": {
+        "component": "269:815"
+      },
+      "summary": "Table-footer pager: Previous/Next as sm Ghost buttons at the edges (disabled at range ends), page cells centered showing first 3 + last 3 with a non-interactive … between. Right-aligned under full-bleed tables beside the count summary. ←/→ move focus, Enter activates.",
+      "code": "<Pagination page count pageSize onChange>",
+      "props": [],
+      "tokens": [
+        "pagination/*",
+        "button/ghost/*"
+      ],
+      "a11y": "nav aria-label=Pagination; ellipsis is never a button",
+      "dos": [
+        "Count summary left of the pager",
+        "Page in the URL",
+        "First 3 + last 3 pattern"
+      ],
+      "donts": [
+        "Paginating under ~25 rows",
+        "Mixing with infinite scroll",
+        "Hiding disabled Previous/Next"
+      ],
+      "aliases": [
+        "pager",
+        "page-navigation"
+      ]
+    },
+    "accordion-item": {
+      "name": "Accordion item",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "270:787"
+      },
+      "summary": "Disclosure row: full-width trigger (text-sm-medium on accordion/trigger-fg, 12px vertical padding) + 16px chevron on accordion/icon rotating 180° over 150ms, body text-sm on accordion/body-fg, 1px accordion/border under every row. Hover tints the trigger background/muted (code).",
+      "code": "<AccordionItem title>children</AccordionItem>",
+      "variants": {
+        "State": [
+          "Closed",
+          "Open"
+        ]
+      },
+      "props": [
+        {
+          "name": "title",
+          "type": "text",
+          "default": "How does billing work?"
+        }
+      ],
+      "tokens": [
+        "accordion/border",
+        "accordion/trigger-fg",
+        "accordion/body-fg",
+        "accordion/icon"
+      ],
+      "a11y": "button[aria-expanded][aria-controls] + labelled region; chevron decorative",
+      "dos": [],
+      "donts": [],
+      "aliases": [
+        "disclosure-row"
+      ]
+    },
+    "accordion": {
+      "name": "Accordion",
+      "level": "molecule",
+      "composes": [
+        "accordion-item"
+      ],
+      "figma": {
+        "component": "270:806"
+      },
+      "summary": "Disclosure stack for FAQs, advanced settings, long detail panes: items flush with their own hairlines, no outer card, no zebra. Single-open by default (type=single collapsible); multi-open is a code flag. Height animation respects prefers-reduced-motion.",
+      "code": "<Accordion type=\"single\" collapsible> <AccordionItem…/> </Accordion>",
+      "props": [],
+      "tokens": [
+        "accordion/*"
+      ],
+      "a11y": "Radix Accordion semantics",
+      "dos": [
+        "Front-load trigger labels",
+        "Optional-to-read content only",
+        "Short bodies; link out for policy text"
+      ],
+      "donts": [
+        "Hiding required fields inside",
+        "Nesting accordions",
+        "Auto-opening more than the first row"
+      ],
+      "aliases": [
+        "disclosure",
+        "faq",
+        "collapse"
+      ]
+    },
+    "list-item": {
+      "name": "List item",
+      "level": "molecule",
+      "composes": [
+        "avatar"
+      ],
+      "figma": {
+        "set": "270:831"
+      },
+      "summary": "Generic vertical-list row (inboxes, member lists, notification panes — where Table is too heavy): optional 24px Avatar, title text-sm-medium on list/title-fg over supporting text-xs on list/meta-fg, trailing time/meta right-aligned. Hover/Selected wash list/bg-hover, radius-md, 8×12 padding; rows stack flush with no separators.",
+      "code": "<ListItem title supporting? trailing? avatar? selected?>",
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Selected"
+        ]
+      },
+      "props": [
+        {
+          "name": "title",
+          "type": "text",
+          "default": "Sarah Chen"
+        },
+        {
+          "name": "supporting",
+          "type": "text",
+          "default": "sarah@acme.com"
+        },
+        {
+          "name": "trailing",
+          "type": "text",
+          "default": "2h ago"
+        },
+        {
+          "name": "avatar",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "tokens": [
+        "list/title-fg",
+        "list/meta-fg",
+        "list/bg-hover",
+        "list/radius"
+      ],
+      "a11y": "Whole row one focusable control; selected uses aria-selected; keyboard focus adds a 2px inset ring",
+      "dos": [
+        "Truncate the title, never the trailing meta",
+        "48–56px rows, two text lines max",
+        "Reuse inside Command palette results"
+      ],
+      "donts": [
+        "Per-row action buttons (use a trailing … menu)",
+        "Mixing avatar and icon rows in one list",
+        "3+ column data (use Table)"
+      ],
+      "aliases": [
+        "row",
+        "inbox-row"
+      ]
+    },
+    "step-item": {
+      "name": "Step item",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "271:804"
+      },
+      "summary": "Wizard step: 24px radius-full dot + text-sm label. Todo = stepper/todo-bg muted dot, tertiary number + label; Active = violet stepper/active-bg dot, white number, text-sm-medium foreground label; Done = violet dot with 12px check, secondary label. Consumed by Stepper.",
+      "code": "(internal — rendered by <Stepper>)",
+      "variants": {
+        "State": [
+          "Todo",
+          "Active",
+          "Done"
+        ]
+      },
+      "props": [
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Workspace"
+        },
+        {
+          "name": "number",
+          "type": "text",
+          "default": "2"
+        }
+      ],
+      "tokens": [
+        "stepper/active-bg",
+        "stepper/active-fg",
+        "stepper/done-bg",
+        "stepper/todo-bg",
+        "stepper/todo-fg"
+      ],
+      "a11y": "aria-current=step on Active; Done steps are links, Todo disabled text",
+      "dos": [],
+      "donts": [],
+      "aliases": [
+        "wizard-step"
+      ]
+    },
+    "stepper": {
+      "name": "Stepper",
+      "level": "molecule",
+      "composes": [
+        "step-item"
+      ],
+      "figma": {
+        "component": "271:821"
+      },
+      "summary": "Horizontal wizard rail: Step items joined by 48×2 connectors — stepper/connector-done violet behind completed steps, stepper/connector muted ahead. Exactly one Active; Done steps navigate back on click, Todo steps inert. 3–5 steps; more (or long labels) → vertical variant (code-side). Tops Dialog flows and full-page setup.",
+      "code": "<Stepper steps=[{label}] current>",
+      "props": [],
+      "tokens": [
+        "stepper/*"
+      ],
+      "a11y": "nav + ol; aria-current=step",
+      "dos": [
+        "Noun step names",
+        "Click-back on Done steps",
+        "Merge micro-steps"
+      ],
+      "donts": [
+        "Using as tabs",
+        "Marking Done before data is saved",
+        "Hiding future steps"
+      ],
+      "aliases": [
+        "wizard",
+        "steps",
+        "progress-steps"
+      ]
+    },
+    "prompt-input": {
+      "name": "Prompt input",
+      "level": "molecule",
+      "composes": [
+        "icon",
+        "attachment-card",
+        "menu-item"
+      ],
+      "figma": {
+        "set": "271:1993"
+      },
+      "summary": "FLUID WIDTH — the composer fills its thread column (canonical 640px; column min 480 / max 768, centered in the content area); never render it as a fixed narrow bar on wide viewports. AI composer: Conductor-height radius-xl shell (min-height 140 — text at top, toolbar pinned to the bottom) on prompt/bg + prompt/border; the field grows with input to max-height 280, then the text SCROLLS inside (State=Long shows the cap + thin scrollbar thumb; the toolbar never moves) — left: PLUS (composer actions menu; never add more toolbar icons) then the MODEL PICKER (model prop: text-xs-medium label + chevron-down, opens a Menu of models) then the capability pill; right: MIC (voice input) beside the 28px radius-full send on button/primary/bg. The capability boolean shows an engaged-capability pill after the mic (tag/info tint, 12 Semi Bold label + dismiss X) — picked from the plus menu, one capability at a time, X disengages. Send idles at 40% opacity until text exists; swaps to a stop square while streaming. State=Recording (after the mic): red live dot + tnum timer + a full-width waveform replace the text area — 3px bars on a 4px gap (7px rhythm), bar count derived from width; bars animate from live input (the Figma Waveform part loops three smart-animate keyframes so prototypes move too); reduced-motion shows static level bars. Toolbar becomes cancel X (discard; esc too) and the send circle a confirm check. Confirm passes through a brief State=Transcribing — Thinking dots + Transcribing… on the placeholder tier, toolbar restored, send idle — then the text lands in State=Filled, editable, never auto-sent. Recording start/stop announced via aria-live. State=Command: typing \"/\" summons the skills & commands menu above the field — menu/* panel of Menu items with /slash shortcuts, filtered as you type; up/down navigate, enter runs, esc closes — the shell keeps its resting border while the menu is open (no focus stroke; rings are keyboard-only). State=Models: the model picker dropdown — a 240px Menu floating OVER the field (shadow/float separates it), bottom edge just above the picker trigger (Auto checked default, exactly one checked row); selecting updates the model label. Enter sends, Shift+Enter breaks. Attachments flow INLINE WITH THE PROMPT (Conductor grammar): linear Attachment chips sit inside the wrapping text region, mid-sentence between text runs, inserted at the caret via the plus menu or drag-in; chips wrap with the sentence. The attachments boolean reveals leading chips in Default/Focus; State=Attachments shows the interleaved specimen. Attachments are added via the plus menu or drag-in; an attachment alone makes send active. Suggestion chips sit above. UPDATES 2026-09-23: resting border rides gray-300 (prompt/border); Focus is a solid violet-400 edge (1px border + 3px full-opacity halo — no 16% tint), shown under keyboard/AT modality only. VOICE: the mic starts Recording — the shell swaps to a pulsing red dot + tnum timer + animated waveform with ✕ cancel (left) and a radius-full violet ✓ confirm replacing send (right); confirm runs Transcribing — thinking blocks + \"Transcribing…\" in the text slot — then the transcript lands in the composer for review; send never auto-fires. Esc cancels recording.",
+      "code": "<PromptInput value onSend attachments? voice?>",
+      "variants": {
+        "State": [
+          "Default",
+          "Focus",
+          "Filled",
+          "Recording",
+          "Transcribing",
+          "Long",
+          "Command",
+          "Models",
+          "Attachments"
+        ]
+      },
+      "props": [
+        {
+          "name": "prompt",
+          "type": "text",
+          "default": "Ask anything about your workspace…"
+        },
+        {
+          "name": "attachments",
+          "type": "boolean",
+          "default": "false",
+          "notes": "inline chips in the text region (leading in empty states); an attachment alone activates send"
+        },
+        {
+          "name": "capability",
+          "type": "boolean",
+          "default": "false",
+          "notes": "engaged-capability pill in the toolbar; one at a time; X disengages"
+        },
+        {
+          "name": "capability label",
+          "type": "text",
+          "default": "Create website"
+        },
+        {
+          "name": "model",
+          "type": "text",
+          "default": "Auto",
+          "notes": "model picker beside the plus — opens a Menu of models"
+        }
+      ],
+      "tokens": [
+        "prompt/bg",
+        "prompt/border",
+        "prompt/border-focus",
+        "prompt/icon",
+        "prompt/placeholder",
+        "prompt/radius",
+        "button/primary/bg",
+        "focus/ring",
+        "attachment/*",
+        "tag/info/bg + tag/info/fg (capability pill)",
+        "menu/* (command menu)"
+      ],
+      "a11y": "textarea labelled 'Message assistant'; send announces disabled; ⌘↵ alternate send · recording announced via aria-live (Recording started / stopped); timer readable as elapsed time",
+      "dos": [
+        "Pin to the thread bottom",
+        "Show attachments as chips inside the shell, removable per item",
+        "Attachment chips inside the shell",
+        "Send → stop while streaming",
+        "New composer features go in the plus menu"
+      ],
+      "donts": [
+        "Using as a search field",
+        "Blocking typing while streaming",
+        "More than the one violet accent (send)"
+      ],
+      "aliases": [
+        "composer",
+        "ai-input",
+        "message-input",
+        "chat-input"
+      ]
+    },
+    "attachment-card": {
+      "name": "Attachment card",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "312:1340"
+      },
+      "summary": "Linear attachment chip (Conductor grammar): one-line pill at TEXT SCALE (≈23px tall, 2×6 padding — sits on the prompt line, center-aligned with the text runs) — 14px colored type glyph (unclipped: the absolute 1.5 Lucide stroke needs breathing room, container never clips) (Document = red file-text via attachment/tile-doc, Image = green image glyph; glyph color follows file type in code), filename at text-sm (matches the prompt text) truncating, inline 12px ✕ remove on the tertiary tier. White chip (attachment/bg → background/card) with a 1px attachment/border hairline, radius-md (attachment/radius re-pointed). Flows inline in rows or within message text. Labels default to UNIVERSAL type names (File · Image) — real filenames per use via the prop. State=Hover: SAME FOOTPRINT as Default (the chip never reflows the sentence) — the chip takes the muted wash and the preview card (shadow/float, radius-lg) floats absolutely above it, outside the layout flow — placeholder glyph in Figma, the real thumbnail / first page in production; opens after ~400ms hover and on keyboard focus. Consumed by Prompt input (inline with the text); reusable in Chat message.",
+      "code": "<AttachmentCard type name onRemove thumb?>",
+      "variants": {
+        "Type": [
+          "Document",
+          "Image"
+        ],
+        "State": [
+          "Default",
+          "Hover"
+        ]
+      },
+      "props": [
+        {
+          "name": "file name",
+          "type": "text",
+          "default": "File",
+          "notes": "UNIVERSAL type name by default (File · Image); set the real filename per use"
+        }
+      ],
+      "tokens": [
+        "attachment/bg (→ background/card)",
+        "attachment/border",
+        "attachment/name-fg",
+        "attachment/tile-doc",
+        "attachment/radius (→ radius/md)",
+        "status/success (image glyph)"
+      ],
+      "a11y": "Card names file + kind; remove button labelled 'remove {file}'; keyboard-reachable",
+      "dos": [
+        "Truncate long names in the middle where possible",
+        "Tile color by file type",
+        "Real thumbnails for images"
+      ],
+      "donts": [
+        "Hover-only remove",
+        "Cards outside the composer/message context (use File upload item in forms)"
+      ],
+      "aliases": [
+        "attachment",
+        "attachment-chip",
+        "file-card"
+      ]
+    },
+    "slider": {
+      "name": "Slider",
+      "level": "molecule",
+      "composes": [],
+      "figma": {
+        "componentSet": "339:1692",
+        "doc": "343:1357"
+      },
+      "summary": "Continuous value selection on a horizontal track — Single value or Range pair. 4px radius-full rail on slider/track-bg; filled span on slider/range-bg (primary violet); 16px bordered disc thumbs on slider/thumb-bg. Hover darkens the thumb border; Focus draws the 2px focus/ring geometry around the active thumb; Disabled is 50% opacity. Optional value-label bubbles reuse tooltip/bg·fg and show while dragging. Track stretches with width; range and thumbs scale proportionally.",
+      "code": "<Slider value={60} min={0} max={100} step={5}/> · <Slider range value={[20,60]}/>",
+      "variants": [
+        {
+          "axis": "Type",
+          "values": [
+            "Single",
+            "Range"
+          ],
+          "default": "Single"
+        },
+        {
+          "axis": "State",
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Disabled"
+          ],
+          "default": "Default"
+        }
+      ],
+      "props": [
+        {
+          "name": "Value label",
+          "type": "boolean",
+          "default": false,
+          "notes": "tooltip-style current-value bubbles above thumbs; show while dragging in code"
+        }
+      ],
+      "tokens": [
+        "slider/track-bg",
+        "slider/range-bg",
+        "slider/thumb-bg",
+        "slider/thumb-border",
+        "slider/thumb-border-hover",
+        "focus/ring",
+        "tooltip/bg",
+        "tooltip/fg"
+      ],
+      "a11y": "role=slider per thumb; arrow keys step, Home/End jump; aria-valuetext carries units; ring on :focus-visible only (keyboard/AT) — never on pointer drag or click",
+      "dos": [
+        "Step in units users think in (5%, 1 day, 100 AED)",
+        "Show the value label while dragging",
+        "Keep min/max captions outside the track (text-xs tertiary)",
+        "Wrap in Field for label + helper"
+      ],
+      "donts": [
+        "Precise data entry — that's Number input",
+        "Recoloring the range per status — it stays primary",
+        "Vertical sliders — not in the system"
+      ],
+      "aliases": [
+        "range-slider",
+        "track",
+        "range-input"
+      ]
+    },
+    "otp-input": {
+      "name": "OTP input",
+      "level": "molecule",
+      "composes": [],
+      "figma": {
+        "componentSet": "340:1393",
+        "doc": "343:1488"
+      },
+      "summary": "One-time passcode entry — one digit per 36px cell (radius-md, input-family border), auto-advance on type, paste distributes. Digits are text-md with tnum. Six cells default, four for SMS short codes; gap is otp/gap (space-2). Focus gives the active cell input/border-focus + the 3px focus/ring halo at 16% (geometry; clipsContent stays false only on Focus variants). Error borders every cell in otp/cell-border-error and clears on the next keystroke; Disabled sits on otp/cell-bg-disabled while verifying.",
+      "code": "<OTPInput length={6} onComplete={verify}/>",
+      "variants": [
+        {
+          "axis": "Length",
+          "values": [
+            "6",
+            "4"
+          ],
+          "default": "6"
+        },
+        {
+          "axis": "State",
+          "values": [
+            "Default",
+            "Focus",
+            "Filled",
+            "Error",
+            "Disabled"
+          ],
+          "default": "Default"
+        }
+      ],
+      "props": [],
+      "tokens": [
+        "otp/cell-bg",
+        "otp/cell-bg-disabled",
+        "otp/cell-border",
+        "otp/cell-border-error",
+        "otp/digit-fg",
+        "otp/gap",
+        "otp/cell-radius",
+        "input/border-focus",
+        "focus/ring"
+      ],
+      "a11y": "autocomplete=one-time-code on the group; inputmode=numeric per cell; announced “digit N of 6”; errors via aria-live; border+halo on :focus-visible (native input behavior — typing context keeps it visible after click, per system rule)",
+      "dos": [
+        "Auto-submit when the last digit lands",
+        "Distribute a pasted code across cells",
+        "Clear the error state on the next keystroke",
+        "Wrap in Field for label + helper"
+      ],
+      "donts": [
+        "Masking digits — codes are short-lived, visibility beats secrecy",
+        "Passwords or persistent PINs",
+        "More than 6 cells — longer codes get a plain Input"
+      ],
+      "aliases": [
+        "otp",
+        "passcode-input",
+        "pin-input",
+        "verification-code"
+      ]
+    },
+    "hover-card": {
+      "name": "Hover card",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "componentSet": "341:1395",
+        "doc": "344:1448"
+      },
+      "summary": "Entity preview raised after ~500ms hover on links, chips, table cells and citation chips — the Attio-style record peek. 320px, padding 16, hovercard/radius (lg), hovercard/bg (popover) with hairline hovercard/border and shadow/float (always paired). Header: 40px avatar (Person = round on avatar/bg; Company = radius-sm primary mark) + text-sm-medium name + text-xs meta line; hairline separator; up to three 16px-icon + text-xs meta rows. Preview only — click goes to the entity; dismisses on mouse-out/Esc.",
+      "code": "<HoverCard entity={person} openDelay={500} closeDelay={150}/>",
+      "variants": [
+        {
+          "axis": "Type",
+          "values": [
+            "Person",
+            "Company"
+          ],
+          "default": "Person"
+        }
+      ],
+      "props": [
+        {
+          "name": "name / meta",
+          "type": "text",
+          "default": "Sara Kim …",
+          "notes": "entity fields — overridden per use"
+        }
+      ],
+      "tokens": [
+        "hovercard/bg",
+        "hovercard/border",
+        "hovercard/title-fg",
+        "hovercard/secondary-fg",
+        "hovercard/meta-fg",
+        "hovercard/radius",
+        "avatar/bg",
+        "avatar/fg"
+      ],
+      "a11y": "Pointer-only enhancement — the anchor link stays the keyboard path; card is aria-hidden, never focus-trapped; closes on Esc and mouse-out",
+      "dos": [
+        "Open after ~500ms — never on accidental pass-through",
+        "Keep to three meta rows; the record page holds the rest",
+        "Let click go to the entity"
+      ],
+      "donts": [
+        "Buttons or actions inside — previews only",
+        "Nesting hover cards from links inside a card",
+        "Making it the only path to info — touch has no hover"
+      ],
+      "aliases": [
+        "hovercard",
+        "entity-preview",
+        "record-peek",
+        "profile-card"
+      ]
+    },
+    "page-banner": {
+      "name": "Page banner",
+      "level": "molecule",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "componentSet": "341:1483",
+        "doc": "344:1612"
+      },
+      "summary": "Full-width announcement strip pinned above the page header — the page-level sibling of the inline Alert. Edge to edge, radius 0, padding 16/10, 40px min height. Tone pairs banner/<tone>-bg + banner/<tone>-fg map to the status surface/foreground trios; Brand uses the interactive/accent pair (same as sidebar-active). 16px tone icon (info / check-circle / alert-triangle / alert-circle / sparkle), text-sm message fills, optional underlined text-sm-medium action link, optional 16px dismiss ✕. One banner max per page; highest severity wins.",
+      "code": "<PageBanner status=\"warning\" action={{label, href}} onDismiss/>",
+      "variants": [
+        {
+          "axis": "Status",
+          "values": [
+            "Info",
+            "Success",
+            "Warning",
+            "Error",
+            "Brand"
+          ],
+          "default": "Info"
+        }
+      ],
+      "props": [
+        {
+          "name": "Action",
+          "type": "boolean",
+          "default": true,
+          "notes": "underlined action link in the tone foreground"
+        },
+        {
+          "name": "Dismissible",
+          "type": "boolean",
+          "default": true,
+          "notes": "dismiss ✕; Error banners are not dismissible in product use"
+        }
+      ],
+      "tokens": [
+        "banner/info-bg",
+        "banner/info-fg",
+        "banner/success-bg",
+        "banner/success-fg",
+        "banner/warning-bg",
+        "banner/warning-fg",
+        "banner/error-bg",
+        "banner/error-fg",
+        "banner/brand-bg",
+        "banner/brand-fg"
+      ],
+      "a11y": "role=status (info · success · brand) or role=alert (warning · error); dismiss is a labeled icon button and action a real link — both show the ring on :focus-visible only (keyboard/AT)",
+      "dos": [
+        "Keep the message to one line where possible",
+        "Pair every Error banner with a next step",
+        "Persist dismissal — never re-show on reload"
+      ],
+      "donts": [
+        "Stacking banners — highest severity wins",
+        "Form validation — that's Alert and field errors",
+        "Feature announcements in Error or Warning tones"
+      ],
+      "aliases": [
+        "banner",
+        "announcement-bar",
+        "system-banner",
+        "top-banner"
+      ]
+    },
+    "filter-chip": {
+      "name": "Filter chip",
+      "level": "molecule",
+      "composes": [
+        "tag",
+        "icon"
+      ],
+      "figma": {
+        "component": "2009:2289",
+        "file": "Rr0XYMsa9OYmLmjxMCbiMz"
+      },
+      "summary": "Per-field table filter trigger — one chip per filterable column, full-round, 36h, hairline border on card. States: Default ('Status' + chevron-down 16) · Hover (muted bg) · Open (1.5px ring-colored border while its dropdown is up) · Applied ('Status:' muted + value SemiBold foreground + chevron) · Applied hover (chevron swaps for the clear ×) · Add filter (dashed border, plus icon, muted — opens the field picker).",
+      "code": "<FilterChip field=\"Status\" values={['Active']} onOpen onClear />",
+      "tokens": [
+        "background/card",
+        "background/muted",
+        "border/default",
+        "interactive/ring",
+        "text/foreground",
+        "text/muted-foreground"
+      ],
+      "a11y": "Button semantics; aria-expanded while its dropdown is open; the clear × is its own labelled button",
+      "dos": [
+        "One chip per active field",
+        "Value in SemiBold, field name muted",
+        "Open state ring while the dropdown is visible"
+      ],
+      "donts": [
+        "A single generic 'Filter' builder chip (superseded pattern)",
+        "Funnel icons on field chips"
+      ],
+      "aliases": [
+        "filter",
+        "filter-pill"
+      ]
+    },
+    "filter-options-dropdown": {
+      "name": "Filter options dropdown",
+      "level": "molecule",
+      "composes": [
+        "checkbox",
+        "separator",
+        "popover"
+      ],
+      "figma": {
+        "component": "2011:2286",
+        "file": "Rr0XYMsa9OYmLmjxMCbiMz"
+      },
+      "summary": "The dropdown owned by ONE filter chip: a checkbox multi-select of that field's values (real Checkbox instances with label text), hairline divider, muted 'Clear filter' row. 220w, popover background, hairline border, shadow/float, radius 12. Option rows 32h, radius 6, hover muted wash.",
+      "code": "<FilterOptionsDropdown options selected onToggle onClear />",
+      "tokens": [
+        "background/popover",
+        "border/default",
+        "shadow/float",
+        "via checkbox"
+      ],
+      "a11y": "menu/listbox semantics with aria-multiselectable; checkbox options; Clear filter is a menuitem",
+      "dos": [
+        "Checkbox multi-select",
+        "Clear filter always last, below the divider"
+      ],
+      "donts": [
+        "Field/operator/value builder rows (that's a different, superseded pattern)",
+        "Resting shadows — this is the floating tier"
+      ],
+      "aliases": [
+        "filter-dropdown",
+        "filter-menu"
+      ]
+    },
+    "filter-bar": {
+      "name": "Filter bar",
+      "level": "molecule",
+      "composes": [
+        "filter-chip"
+      ],
+      "figma": {
+        "component": "2011:2307",
+        "file": "Rr0XYMsa9OYmLmjxMCbiMz"
+      },
+      "summary": "Chips-on-top-of-table pattern: one Applied/Default chip per active field + the dashed Add-filter chip, 8px gaps, left-aligned above the table-card. Each chip opens its own Filter options dropdown.",
+      "code": "<FilterBar filters={[{field:'Status', values:['Active']}]} onAddFilter />",
+      "tokens": [
+        "via filter-chip"
+      ],
+      "a11y": "Toolbar semantics; chips are buttons",
+      "dos": [
+        "Left-align",
+        "Dashed Add-filter chip always last"
+      ],
+      "donts": [
+        "Right-aligning the bar",
+        "Hiding applied filters behind a single count"
+      ],
+      "aliases": [
+        "filters-row"
+      ]
+    }
+  },
+  "organisms": {
+    "dialog": {
+      "name": "Dialog",
+      "level": "organism",
+      "composes": [
+        "button",
+        "alert",
+        "icon"
+      ],
+      "figma": {
+        "set": "218:165"
+      },
+      "summary": "Centered modal for focused decisions: 480w (640 max), radius dialog/radius (xl), dialog/bg, shadow/overlay on ink/40% scrim (black/60% dark). Header title+subtitle+X; Content slot; right-aligned footer (Secondary Cancel + confirm). Destructive variant embeds a warning Alert and confirms with Button/Destructive — never default-focused.",
+      "code": "<Dialog title subtitle destructive? onConfirm onCancel> {content} </Dialog>",
+      "variants": {
+        "Variant": [
+          "Default",
+          "Destructive"
+        ]
+      },
+      "props": [
+        {
+          "name": "Title / Subtitle",
+          "type": "text"
+        },
+        {
+          "name": "Content",
+          "type": "slot"
+        }
+      ],
+      "tokens": [
+        "dialog/*",
+        "shadow/overlay"
+      ],
+      "a11y": "Focus trapped + returned · Esc/scrim close (blocked in destructive) · initial focus on Cancel in destructive · aria-labelledby",
+      "motion": "enter 200ms ease-out scale 96→100 + fade (scrim 150ms), exit 150ms",
+      "dos": [
+        "One decision per dialog",
+        "Typed confirmation for bulk-irreversible"
+      ],
+      "donts": [
+        "Nested dialogs",
+        "Content browsing (Sheet)",
+        "Autofocusing the destructive action"
+      ],
+      "aliases": [
+        "modal",
+        "confirm"
+      ]
+    },
+    "sheet": {
+      "name": "Sheet",
+      "level": "organism",
+      "composes": [
+        "button",
+        "icon"
+      ],
+      "figma": {
+        "component": "219:33"
+      },
+      "summary": "Side panel from the right edge (left in RTL): 400w (480 max), full height, sheet/border hairline left, shadow/overlay, radius sheet/radius (xl) on the detached corners only. Header/footer hairline-separated; Content slot scrolls. Keeps list context visible.",
+      "code": "<Sheet title side=\"right\" onClose> {content} </Sheet>",
+      "tokens": [
+        "sheet/*",
+        "shadow/overlay"
+      ],
+      "motion": "enter 200ms ease-out slide, exit 150ms",
+      "dos": [
+        "Record preview from table rows",
+        "Pinned footer actions"
+      ],
+      "donts": [
+        "Sheets over sheets",
+        "Blocking decisions (Dialog)",
+        ">480w (make it a page)"
+      ],
+      "aliases": [
+        "side-panel",
+        "drawer",
+        "side-sheet"
+      ]
+    },
+    "table-header-cell": {
+      "name": "Table header cell",
+      "level": "organism",
+      "composes": [
+        "icon"
+      ],
+      "buildingBlock": true,
+      "figma": {
+        "component": "219:68"
+      },
+      "summary": "Sticky header cell: 36h, 12px Medium table/header-fg label with a leading column-type icon (Attio pattern) and optional sort indicator (aria-sort button in code).",
+      "props": [
+        {
+          "name": "Label",
+          "type": "text"
+        },
+        {
+          "name": "Icon",
+          "type": "boolean + exposed",
+          "default": true
+        },
+        {
+          "name": "Sortable",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "tokens": [
+        "table/header-fg"
+      ]
+    },
+    "table-cell": {
+      "name": "Table cell",
+      "level": "organism",
+      "composes": [
+        "avatar",
+        "tag",
+        "checkbox"
+      ],
+      "buildingBlock": true,
+      "figma": {
+        "set": "219:102"
+      },
+      "summary": "Body cell, 40h comfortable (36 compact / 48 relaxed). Types: Text · Entity (24px avatar + name) · Tag · Numeral (right-aligned tnum) · Link (underlined table/link) · Muted ('—') · Checkbox (48w selection column).",
+      "variants": {
+        "Type": [
+          "Text",
+          "Entity",
+          "Tag",
+          "Numeral",
+          "Link",
+          "Muted",
+          "Checkbox"
+        ]
+      },
+      "props": [
+        {
+          "name": "Value",
+          "type": "text"
+        }
+      ],
+      "tokens": [
+        "table/cell-fg",
+        "table/cell-muted",
+        "table/link"
+      ]
+    },
+    "table-toolbar": {
+      "name": "Table toolbar",
+      "level": "organism",
+      "composes": [
+        "filter-bar",
+        "search-input",
+        "button"
+      ],
+      "figma": {
+        "component": "220:54"
+      },
+      "summary": "Control strip above the table-card. Since 2026-10-20 the default Table context shows ONLY the filter bar (chips-on-top pattern), left-aligned; search, Sort and the primary action are slots that other contexts may reveal. 52h, transparent.",
+      "tokens": [
+        "via composed components"
+      ]
+    },
+    "table": {
+      "name": "Table",
+      "level": "organism",
+      "composes": [
+        "table-toolbar",
+        "filter-bar",
+        "table-header-cell",
+        "table-cell",
+        "separator"
+      ],
+      "figma": {
+        "component": "221:83"
+      },
+      "summary": "THE FLAGSHIP, Maze-style since 2026-10-20: the data region (header + rows + footer) lives in a rounded 'table-card' — radius 10, hairline border, card background, content clipped — with the filter bar above it. Header: 42h muted-gray band, UPPERCASE labels at +6% tracking, a 16px arrow-up-down sort icon per column, transparent header cells so the band reads continuously. Rows: 56h default (airy), hairline dividers only — no zebra. Checkbox selection column. Status cells may render as PLAIN COLORED TEXT (status/*-foreground) instead of tag pills. All numerals in IBM Plex Mono, right-aligned. Footer: quiet pagination — 'Showing 1 – N · Page X'. Row states in code: hover muted-soft wash, selected accent tint, loading skeleton rows, empty = Empty state spanning the body.",
+      "code": "<Table columns rows density=\"comfortable\" selectable sortable />",
+      "density": {
+        "compact": 36,
+        "comfortable": 40,
+        "default": 56,
+        "rule": "56 is the default (Maze-style airy); 40/36 are the comfortable/compact modes. Density is a system-wide mode, never per screen."
+      },
+      "tokens": [
+        "table/*"
+      ],
+      "a11y": "Real <table> semantics · sortable headers are buttons with aria-sort · selection announced",
+      "dos": [
+        "Wrap header+rows+footer in the rounded, clipped table-card (radius 10 + hairline + card bg)",
+        "Right-align numerals in IBM Plex Mono, left-align the rest",
+        "UPPERCASE +6% tracked header labels with the sort icon",
+        "'—' muted for empty cells"
+      ],
+      "donts": [
+        "Zebra striping",
+        "Center-aligned cells",
+        "Tag pills AND colored text mixed in one status column — pick one per table",
+        "Mixed densities on one screen",
+        "Semantic per-column header icons (replaced by the sort glyph)"
+      ],
+      "aliases": [
+        "data-table",
+        "grid"
+      ]
+    },
+    "sidebar-item": {
+      "name": "Sidebar item",
+      "level": "organism",
+      "composes": [
+        "icon"
+      ],
+      "buildingBlock": true,
+      "figma": {
+        "set": "222:261"
+      },
+      "summary": "Nav row: 232×32, radius sidebar/item-radius, 16px icon + text-sm label + optional count. Active = sidebar/item-bg-active (interactive/accent, violet-50 tint) with Medium sidebar/item-fg-active (accent-foreground, violet-800) label + icon; hover = sidebar/item-bg-hover (muted-soft). The accent belongs to the single active item only — hover and rest stay gray. Layout=Collapsed: 40×32 icon-only cell for the 64px rail — label moves to a tooltip, count becomes a status dot (both code-side); state washes unchanged.",
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Active"
+        ],
+        "Layout": [
+          "Expanded",
+          "Collapsed"
+        ]
+      },
+      "props": [
+        {
+          "name": "Label",
+          "type": "text"
+        },
+        {
+          "name": "Count + Count value",
+          "type": "boolean + text",
+          "default": "false / 24"
+        },
+        {
+          "name": "Icon",
+          "type": "exposed instance"
+        }
+      ],
+      "tokens": [
+        "sidebar/item-*",
+        "sidebar/count"
+      ]
+    },
+    "sidebar-group-label": {
+      "name": "Sidebar group label",
+      "level": "organism",
+      "composes": [
+        "icon"
+      ],
+      "buildingBlock": true,
+      "figma": {
+        "component": "222:262"
+      },
+      "summary": "Collapsible section header — text-xs sidebar/group-label with chevron. Groups sit 24px apart.",
+      "props": [
+        {
+          "name": "Label",
+          "type": "text",
+          "default": "Workspace"
+        }
+      ],
+      "tokens": [
+        "sidebar/group-label"
+      ]
+    },
+    "workspace-switcher": {
+      "name": "Workspace switcher",
+      "level": "organism",
+      "composes": [
+        "avatar",
+        "icon",
+        "menu"
+      ],
+      "buildingBlock": true,
+      "figma": {
+        "set": "234:440"
+      },
+      "summary": "Sidebar header row: 24px workspace mark + name + trailing slot. Logo=Round (avatar) / Square (radius-sm brand tile) show chevrons-up-down and open the workspace menu; Logo=Avatar-collapse / Logo-collapse (user-added) swap the trailing icon for the 16px sidebar collapse toggle — the Sidebar defaults to Avatar-collapse, the workspace menu opens from the row itself, and the collapse icon takes the rail to the 64px icon-only state (code-side). Collapsed-avatar / Collapsed-logo: 40×40 rail twins — centered mark only; the mark opens the workspace menu.",
+      "variants": {
+        "Logo": [
+          "Round",
+          "Square",
+          "Avatar-collapse",
+          "Logo-collapse",
+          "Collapsed-avatar",
+          "Collapsed-logo"
+        ]
+      },
+      "props": [
+        {
+          "name": "Workspace",
+          "type": "text",
+          "default": "Wellx Labs"
+        }
+      ],
+      "tokens": [
+        "sidebar/item-fg-active"
+      ],
+      "aliases": [
+        "tenant-switcher",
+        "org-switcher"
+      ]
+    },
+    "sidebar-footer": {
+      "name": "Sidebar footer",
+      "level": "organism",
+      "composes": [
+        "avatar",
+        "icon"
+      ],
+      "buildingBlock": true,
+      "figma": {
+        "component": "222:273"
+      },
+      "summary": "Sidebar user row: 24px Avatar + name text-sm-medium / email text-xs + trailing 16px ellipsis. The whole row is a menu trigger — profile, preferences, sign out AND Settings expand from here (Settings left the nav rail). Never a bare gear icon.",
+      "props": [
+        {
+          "name": "Name / Email",
+          "type": "text"
+        }
+      ],
+      "tokens": [
+        "sidebar/item-fg-active"
+      ]
+    },
+    "sidebar": {
+      "name": "Sidebar",
+      "level": "organism",
+      "composes": [
+        "workspace-switcher",
+        "search-input",
+        "sidebar-item",
+        "sidebar-group-label",
+        "sidebar-footer"
+      ],
+      "figma": {
+        "component": "224:234"
+      },
+      "summary": "The 256px PURE WHITE app sidebar (locked override on the Attio shell), sidebar/border hairline right. Top-down: workspace switcher, ⌘K Search (Shortcut=⌘K — the only place it appears), nav items at 4px rhythm, collapsible groups 24px apart, flex space, settings + user footer. One Active item always, matching the route (aria-current=page). Bottom of the rail: a “Powered by” credit — text-2xs beside the official Wellx Labs lockup inline at 80×16 (the served PNG via get_logo, never redrawn or retypeset), centered in a single 36px row — then the user footer row. The switcher rides its Avatar-collapse variant — trailing sidebar icon = collapse toggle (64px icon-only rail, code-side); workspace menu opens from the row itself. State=Collapsed (drawable): 64px icon-only rail — expand toggle at the TOP (replaces the workspace mark), search icon button in the search slot (opens ⌘K), Layout=Collapsed items, footer avatar (account + workspace menus).",
+      "code": "<Sidebar sections activeRoute user workspace />",
+      "tokens": [
+        "sidebar/*"
+      ],
+      "dos": [
+        "Pure white + hairline divider",
+        "Group beyond ~6 items",
+        "Counts only where actionable"
+      ],
+      "donts": [
+        "Gray-tinted sidebar",
+        "Two group levels",
+        "Extending the accent beyond the one active item (hover/rest stay gray)",
+        "Buttons between nav items"
+      ],
+      "variants": {
+        "State": [
+          "Expanded",
+          "Collapsed"
+        ]
+      }
+    },
+    "app-shell": {
+      "name": "App shell",
+      "level": "organism",
+      "composes": [
+        "sidebar",
+        "icon"
+      ],
+      "figma": {
+        "component": "224:348"
+      },
+      "summary": "Template root every product screen lives in: 256 Sidebar + 56h topbar (text-sm secondary breadcrumb left, ≤3 utility 20px icons right, hairline bottom) + Content with 24px gutters (32 wide; tables full-bleed). Entirely flat. Deliberately bound to SEMANTIC tokens (template chrome, not a themeable component).",
+      "code": "<AppShell sidebar topbar> {page} </AppShell>",
+      "tokens": [
+        "background/default",
+        "border/default (semantic by design)"
+      ],
+      "a11y": "nav/header/main landmarks · skip-to-content first in tab order",
+      "donts": [
+        "Second sidebar level (rail) in T1",
+        "Shadowed topbar",
+        "Page titles in the topbar (they belong to content, display-xs)"
+      ],
+      "aliases": [
+        "shell",
+        "layout",
+        "frame"
+      ]
+    },
+    "chart-container": {
+      "name": "Chart container",
+      "level": "organism",
+      "composes": [
+        "legend",
+        "line-chart",
+        "bar-chart",
+        "pie-chart",
+        "radar-chart",
+        "area-chart",
+        "sparkline",
+        "chart-tooltip"
+      ],
+      "figma": {
+        "component": "225:452"
+      },
+      "summary": "The chart card: card tokens, radius-lg, flat. Header = md Semi Bold title + Legend top-right; the chart slot is FILL-width so hosted charts stretch. Swap bodies per use: Line · Bar · Pie (donut) · Radar · Area · Sparkline. Loading = Skeleton rect; empty = Empty state; error = inline Alert.",
+      "code": "<ChartCard title> <LineChart series/> </ChartCard>",
+      "tokens": [
+        "card/*",
+        "chart/*"
+      ]
+    },
+    "line-chart": {
+      "name": "Line chart",
+      "level": "organism",
+      "composes": [],
+      "chartBody": true,
+      "figma": {
+        "component": "225:394"
+      },
+      "summary": "RESPONSIVE body (stretches to its card): 2px rounded series strokes (chart/series-1/2), horizontal dotted chart/grid gridlines only, unboxed axes with 11px chart/axis labels in a space-between row. Stretch is horizontal-only — same contract as the responsive Recharts wrapper.",
+      "tokens": [
+        "chart/series-1..4",
+        "chart/grid",
+        "chart/axis"
+      ],
+      "dos": [
+        "Violet-600 leads as series 1",
+        "Horizontal gridlines only, dotted"
+      ],
+      "donts": [
+        "Boxed plot areas or vertical gridlines",
+        ">4 series without aggregating"
+      ]
+    },
+    "bar-chart": {
+      "name": "Bar chart",
+      "level": "organism",
+      "composes": [],
+      "chartBody": true,
+      "figma": {
+        "component": "225:417"
+      },
+      "summary": "RESPONSIVE grouped bars: 20w bars, 3px top radius, chart/series-1/2 pairs in a bottom-aligned space-between row (gaps grow with width), dotted gridlines.",
+      "tokens": [
+        "chart/series-1..4",
+        "chart/grid",
+        "chart/axis"
+      ],
+      "donts": [
+        "Truncated y-axis (start at zero)"
+      ]
+    },
+    "pie-chart": {
+      "name": "Pie chart",
+      "level": "organism",
+      "composes": [],
+      "chartBody": true,
+      "figma": {
+        "set": "250:524"
+      },
+      "summary": "Untitled UI-style donut: 58% inner radius, contiguous slices (no gaps), largest first from 12 o'clock, right-side dot legend. MONOCHROME ordered ramp chart/mono-1..6 (violet 600→100); fewer slices pick spaced steps for contrast. Fixed aspect — instances center, never stretch.",
+      "variants": {
+        "Slices": [
+          "2",
+          "3",
+          "4",
+          "5",
+          "6"
+        ]
+      },
+      "tokens": [
+        "chart/mono-1..6"
+      ],
+      "dos": [
+        "≤6 slices",
+        "Merge <5% into 'Other'",
+        "Always pair with the legend"
+      ],
+      "donts": [
+        "Multicolor slices — the donut ramp is monochrome violet",
+        "Solid pie in Figma (innerRadius is a code parameter)"
+      ],
+      "aliases": [
+        "donut",
+        "donut-chart"
+      ]
+    },
+    "radar-chart": {
+      "name": "Radar chart",
+      "level": "organism",
+      "composes": [],
+      "chartBody": true,
+      "figma": {
+        "set": "251:552"
+      },
+      "summary": "Untitled UI-style radar, 1–3 series on a whisper-light chart/grid-soft heptagon (fainter than line/bar gridlines) with muted value-tick pill chips up the top axis and secondary day labels. Series 1 = chart/mono-1 stroke over chart/mono-5 fill (55% solo / 30% overlaid); Series 2 = chart/accent-pink, Series 3 = chart/accent-blue, both 16% fills. Fixed aspect — center, never stretch.",
+      "variants": {
+        "Series": [
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      "tokens": [
+        "chart/mono-1",
+        "chart/mono-5",
+        "chart/accent-pink",
+        "chart/accent-blue",
+        "chart/grid-soft"
+      ],
+      "dos": [
+        "3–8 axes sharing a comparable scale",
+        "≤3 series"
+      ],
+      "donts": [
+        "Incomparable axis scales (use grouped bars)",
+        "More than 3 overlaid series"
+      ]
+    },
+    "sparkline": {
+      "name": "Sparkline",
+      "level": "organism",
+      "composes": [],
+      "figma": {
+        "set": "277:438"
+      },
+      "summary": "Inline trend miniature: 96×32, one 2px rounded polyline on chart/mono-1 violet — no axes, gridlines or dots. SCALE constraints preserve the shape when stretched. Lives in KPI tiles and table cells for 30-day movement; color never changes per trend — the Delta chip carries good/bad. Production surface: coded Recharts wrapper.",
+      "code": "<Sparkline data/>",
+      "variants": {
+        "Trend": [
+          "Up",
+          "Down"
+        ]
+      },
+      "props": [],
+      "tokens": [
+        "chart/mono-1"
+      ],
+      "a11y": "aria-hidden decoration beside the real numbers (KPI value + Delta)",
+      "dos": [],
+      "donts": [],
+      "aliases": [
+        "trend-line",
+        "mini-chart",
+        "microchart"
+      ]
+    },
+    "area-chart": {
+      "name": "Area chart",
+      "level": "organism",
+      "composes": [],
+      "figma": {
+        "component": "277:439"
+      },
+      "summary": "Volume twin of the Line chart: identical responsive grid grammar (dotted chart/grid hairlines, unboxed axes, 11px Regular axis labels (chart-grammar exception — lighter than text-2xs Medium; owned by the Recharts wrapper in production), STRETCH gridlines + SCALE series) with each 2px series stroke over a 12% same-hue closed area fill (chart/series-1/2). Use when filled magnitude matters (revenue volume, cumulative signups); >2-series stacking is code-side. Hosted by Chart container. Production surface: coded Recharts wrapper.",
+      "code": "<ChartCard title><AreaChart series/></ChartCard>",
+      "props": [],
+      "tokens": [
+        "chart/grid",
+        "chart/axis",
+        "chart/series-1",
+        "chart/series-2"
+      ],
+      "a11y": "Charts pair with a data table or summary for screen readers (dataviz audit pending)",
+      "dos": [],
+      "donts": [],
+      "aliases": [
+        "area",
+        "volume-chart"
+      ]
+    },
+    "command-palette": {
+      "name": "Command palette",
+      "level": "organism",
+      "composes": [
+        "icon",
+        "kbd",
+        "menu-item"
+      ],
+      "figma": {
+        "component": "278:524"
+      },
+      "summary": "The ⌘K surface: 560px overlay at 20vh over the ink scrim — command/bg, radius-xl, 1px command/border, shadow/overlay. Search row (16px icon + text-sm query + esc Kbd, hairline below) · grouped Menu-item results under text-2xs command/section-fg labels (Navigation · Actions · Records, ~7 rows then scroll, first row pre-selected) · footer Kbd hints (↑↓ · ↵ · esc, hairline above). Fuzzy-matches commands, navigation and records. Opened from the sidebar search or ⌘K anywhere.",
+      "code": "<CommandPalette groups results onRun>",
+      "props": [
+        {
+          "name": "query",
+          "type": "text",
+          "default": "Type a command or search…"
+        }
+      ],
+      "tokens": [
+        "command/bg",
+        "command/border",
+        "command/section-fg",
+        "command/radius",
+        "menu/*",
+        "kbd/*"
+      ],
+      "a11y": "cmdk combobox: focus trap, aria-activedescendant on ↑↓, results aria-live, esc returns focus to the trigger",
+      "dos": [
+        "Shortcut column wherever one exists",
+        "Groups by frequency: Navigation, Actions, Records",
+        "Return focus on close"
+      ],
+      "donts": [
+        "More than ~7 visible rows before scroll",
+        "Destructive commands without danger styling",
+        "Palette as the only path to a feature"
+      ],
+      "aliases": [
+        "cmdk",
+        "command-menu",
+        "quick-actions",
+        "command-bar"
+      ]
+    },
+    "timeline-item": {
+      "name": "Timeline item",
+      "level": "organism",
+      "composes": [
+        "avatar",
+        "icon"
+      ],
+      "figma": {
+        "set": "279:516"
+      },
+      "summary": "One activity event: 24px marker (Avatar for people · timeline/dot-bg circle + 12px icon for system events · 8px dot for minor ones) over a 2px timeline/line connector that stretches to the next marker (hidden on the last item), beside actor (text-sm-medium on timeline/title-fg) + action (text-sm on timeline/body-fg) + time (text-xs on timeline/time-fg). Consumed by Activity feed.",
+      "code": "(internal — rendered by <ActivityFeed>)",
+      "variants": {
+        "Marker": [
+          "Avatar",
+          "Icon",
+          "Dot"
+        ]
+      },
+      "props": [
+        {
+          "name": "actor",
+          "type": "text"
+        },
+        {
+          "name": "action",
+          "type": "text"
+        },
+        {
+          "name": "time",
+          "type": "text"
+        },
+        {
+          "name": "connector",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "tokens": [
+        "timeline/line",
+        "timeline/dot-bg",
+        "timeline/dot-fg",
+        "timeline/title-fg",
+        "timeline/body-fg",
+        "timeline/time-fg"
+      ],
+      "a11y": "Reads as a sentence; full datetime in aria-label",
+      "dos": [],
+      "donts": [],
+      "aliases": [
+        "activity-item",
+        "event-row"
+      ]
+    },
+    "activity-feed": {
+      "name": "Activity feed",
+      "level": "organism",
+      "composes": [
+        "timeline-item"
+      ],
+      "figma": {
+        "component": "279:550"
+      },
+      "summary": "Chronological event stream for record-detail panes and audit views: Timeline items stacked flush (their bottom padding sets the rhythm), newest first, connector hidden on the last item. Past ~10 items group under sticky day headers and lazy-load (code-side). Markers by event kind, never decoration.",
+      "code": "<ActivityFeed events groupByDay?>",
+      "props": [],
+      "tokens": [
+        "timeline/*"
+      ],
+      "a11y": "ol of events; markers aria-hidden",
+      "dos": [
+        "Write events as sentences (who did what)",
+        "Collapse runs of similar events"
+      ],
+      "donts": [
+        "Mixing with comment threads (separate tabs)",
+        "Colored markers per event type",
+        "Raw field diffs inline"
+      ],
+      "aliases": [
+        "timeline",
+        "audit-log",
+        "history-feed"
+      ]
+    },
+    "chat-message": {
+      "name": "Chat message",
+      "level": "organism",
+      "composes": [
+        "icon",
+        "thinking-indicator",
+        "copy-button"
+      ],
+      "figma": {
+        "set": "280:541"
+      },
+      "summary": "One conversation turn (Sana grammar): User = right-aligned chat/user-bg bubble, radius-lg, 14×10 padding, max 320px; Assistant = NO bubble, NO mark or avatar (mark removed 2026-09-23) — fill-width plain text-sm on chat/assistant-fg + text-xs source/time meta on chat/meta-fg; Thinking = Thinking indicator alone while streaming — no mark, no avatar; blocks + operation label sit where the response text will appear. Consumed by Chat thread. UPDATES 2026-09-23: every assistant answer carries a message-actions row — copy (icon flips to a green check ~1.6s on success), thumbs up/down as a mutually exclusive aria-pressed pair, regenerate (re-runs the same question) — with a sources cluster right-aligned: overlapping 20px chips + \"N sources · HH:MM\" in text-xs tertiary.",
+      "code": "(internal — rendered by <ChatThread>)",
+      "variants": {
+        "Role": [
+          "User",
+          "Assistant",
+          "Thinking"
+        ]
+      },
+      "props": [
+        {
+          "name": "message",
+          "type": "text",
+          "notes": "markdown in code"
+        },
+        {
+          "name": "actions",
+          "type": "boolean",
+          "default": "true",
+          "notes": "copy/like/dislike/regenerate row on finished answers"
+        },
+        {
+          "name": "sources",
+          "type": "boolean",
+          "default": "true",
+          "notes": "source-icon stack + \"N sources · time\"; hide when the answer used no sources"
+        }
+      ],
+      "tokens": [
+        "chat/user-bg",
+        "chat/user-fg",
+        "chat/assistant-fg",
+        "chat/meta-fg",
+        "chat/radius",
+        "agent/accent"
+      ],
+      "a11y": "Turns are articles; role identified in the accessible name · action icons are labelled buttons (Copy answer, Good answer, Bad answer, Regenerate); feedback state announced",
+      "dos": [],
+      "donts": [],
+      "aliases": [
+        "message",
+        "chat-turn",
+        "chat-bubble"
+      ]
+    },
+    "chat-thread": {
+      "name": "Chat thread",
+      "level": "organism",
+      "composes": [
+        "chat-message"
+      ],
+      "figma": {
+        "component": "280:567"
+      },
+      "summary": "The conversation surface: Chat messages stacked with 20px gaps on the plain canvas — no thread card, no alternating tints, a centered column — min 480, max 768 on wide viewports; the Prompt input fills the same column. While streaming the last turn is Role=Thinking, replaced as tokens arrive. Agent runs render inline as Agent activity cards between turns. Prompt input docks below; Suggestion chips above it on empty threads. Auto-scroll pins to newest unless the user scrolled up.",
+      "code": "<ChatThread messages streaming?>",
+      "props": [],
+      "tokens": [
+        "chat/*"
+      ],
+      "a11y": "role=log aria-live=polite; new assistant turns announced",
+      "dos": [
+        "Assistant turns unboxed — bubbles are user-only",
+        "Sources under answers that used them",
+        "Replace Thinking at first token"
+      ],
+      "donts": [
+        "Letting the column exceed 768px — readability caps the measure",
+        "Violet assistant text (accent lives in the mark)",
+        "Collapsing older turns mid-conversation"
+      ],
+      "aliases": [
+        "conversation",
+        "thread",
+        "chat"
+      ]
+    },
+    "agent-activity-card": {
+      "name": "Agent activity card",
+      "level": "organism",
+      "composes": [
+        "icon",
+        "thinking-indicator",
+        "button"
+      ],
+      "figma": {
+        "set": "281:684"
+      },
+      "summary": "Inline agent-run record (Zapier Central grammar): agent/bg card, 1px agent/border, radius-lg — 28px zap tile on agent/icon-bg, run title (text-sm-medium, verb-first outcome) + timing (text-xs agent/meta-fg), live status corner (Thinking indicator (blocks, 16) Running · green check-circle Complete · red alert-circle Failed), then per-step rows (14px check/loader/x-circle + text-xs) that stream in. Failed shows the failing step verbatim + a sm Ghost 'Retry run'. Renders in Chat threads and activity panes; completed cards are immutable — reruns create new cards.",
+      "code": "<AgentActivityCard run steps status onRetry?>",
+      "variants": {
+        "State": [
+          "Running",
+          "Complete",
+          "Failed"
+        ]
+      },
+      "props": [
+        {
+          "name": "title",
+          "type": "text",
+          "default": "Enriched 3 new leads"
+        },
+        {
+          "name": "time",
+          "type": "text",
+          "default": "Today · 14:02 · 41s"
+        }
+      ],
+      "tokens": [
+        "agent/bg",
+        "agent/border",
+        "agent/icon-bg",
+        "agent/icon-fg",
+        "agent/title-fg",
+        "agent/meta-fg",
+        "agent/radius",
+        "status/success/fg",
+        "status/error/fg"
+      ],
+      "a11y": "aria-busy while Running; status changes aria-live; steps are an ordered list; Retry is a real button",
+      "dos": [
+        "Name runs by outcome",
+        "Show the failing step verbatim",
+        "Collapse to ~5 steps, expandable"
+      ],
+      "donts": [
+        "Auto-retrying without the user",
+        "Agent errors in toasts",
+        "Non-agent events in this card (use Activity feed)"
+      ],
+      "aliases": [
+        "agent-card",
+        "agent-run",
+        "workflow-card"
+      ]
+    },
+    "chat-history-item": {
+      "name": "Chat history item",
+      "level": "organism",
+      "composes": [
+        "icon"
+      ],
+      "figma": {
+        "set": "303:1178"
+      },
+      "summary": "One previous-conversation row: 232×32, radius-md — text-sm title on history/title-fg truncating to one line, relative time text-xs on history/time-fg. Hover swaps the time for a 16px ellipsis menu (rename · pin · delete, a Menu instance) over the history/bg-hover wash; Active = the open chat: wash + text-sm-medium on history/title-active-fg, time visible. One Active max. Consumed by Chat history.",
+      "code": "(internal — rendered by <ChatHistory>)",
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Active"
+        ]
+      },
+      "props": [
+        {
+          "name": "title",
+          "type": "text",
+          "default": "Churn analysis — Q3 plans"
+        },
+        {
+          "name": "time",
+          "type": "text",
+          "default": "2h"
+        }
+      ],
+      "tokens": [
+        "history/title-fg",
+        "history/title-active-fg",
+        "history/bg-hover",
+        "history/time-fg",
+        "history/radius"
+      ],
+      "a11y": "Row is a link; active aria-current=page; row menu reachable by keyboard focus, not hover-only",
+      "dos": [],
+      "donts": [],
+      "aliases": [
+        "conversation-row"
+      ]
+    },
+    "chat-history": {
+      "name": "Chat history",
+      "level": "organism",
+      "composes": [
+        "chat-history-item"
+      ],
+      "figma": {
+        "component": "303:1220"
+      },
+      "summary": "'Previous chats' panel of the Assistant surface: a FLAT list of conversation rows, newest first, 2px gaps, no group headers and no topic folders (deliberate user decision). Sized for the 256px sidebar (232 inner); also lives in a Popover or Sheet on smaller shells. A 'New chat' Secondary button (or ⌘K) sits above; rows past ~30 lazy-load; delete confirms via the destructive Dialog. Chats auto-name from the first prompt, renameable.",
+      "code": "<ChatHistory chats onSelect onRename onDelete>",
+      "props": [],
+      "tokens": [
+        "history/*"
+      ],
+      "a11y": "nav aria-label='Chat history'; times carry full datetime in aria-label",
+      "dos": [
+        "Auto-name from the first prompt",
+        "Relative times in rows",
+        "Confirm deletes with the destructive Dialog"
+      ],
+      "donts": [
+        "Group headers or topic folders — flat list only",
+        "Two Active rows",
+        "Hover-only row menus"
+      ],
+      "aliases": [
+        "previous-chats",
+        "chat-list",
+        "conversations",
+        "chat-sidebar"
+      ]
+    }
+  }
+}

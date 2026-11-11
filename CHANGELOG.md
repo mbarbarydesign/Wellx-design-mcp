@@ -2,6 +2,45 @@
 
 Semver: **patch** = token value change · **minor** = new token/component/rule · **major** = rename or removal (requires migration note).
 
+## 2.22.0 — 2026-11-11
+
+- **Labs Design System V2 lands as the third standalone system** (alongside the portal `--wx-*` and Labs v1 `--wl-*`, both untouched). Final identity, mirrored from the live Figma file (`Rr0XYMsa9OYmLmjxMCbiMz`): **rose `#C42663` accent** (original Labs rose, restored; signal magenta `#F0366B` = AI/identity only), **Figtree + IBM Plex Mono for numbers only**, **DARK-FIRST** with elevated dark surfaces (`card #18181B` ladder), optional `shadow-resting` in light, **2px Lucide icons**, content capped at 1440.
+- `tokens/labs-v2-tokens.json` → **1.0.0**: full categories (color primitives + dark/light semantics + status-tag trios, typography, rtl, spacing incl. HIG pair gaps, radius, elevation, focus, motion, icons, layout) with the audited contrast numbers embedded as rules.
+- **New code layer:** `tokens/labs-v2.css` (`--wl2-*`, `:root` = dark, `[data-theme="light"]` twin, `[dir="rtl"]` leading shift) + `tokens/labs-v2-tailwind-preset.cjs`.
+- `get_labs_v2_tokens` now serves every category; server instructions describe **three** systems and V2's dark-first exception.
+- `labs-v2-components.json` → **0.5.0**: Table rewritten for the Maze-style anatomy (rounded clipped table-card, muted uppercase header band with sort icons, 56px default rows, mono numerals, plain-text status option, quiet pagination footer); new **filter family** — `filter-chip` (6 states), `filter-options-dropdown` (checkbox multi-select), `filter-bar` (chips-on-top pattern); icon convention moved to 2px.
+- Foundations spec updated to the final identity with supersession history kept honest (violet era documented, not erased).
+
+## 2.21.0 — 2026-09-23
+
+- **Labs V2 dark mode decided: elevated surfaces.** Foundations spec §3 revised — dark component surfaces at `#18181B` over the `#0B0B0C` canvas, border `#303136`; surface + border carry grouping (the dark hairline alone is ~1.3:1). Tables and shell chrome stay on the canvas. §6 elevation/focus updated to match.
+- **labs-v2-components 0.4.0:** prompt-input gains Recording/Transcribing voice states, gray-300 resting border, solid violet-400 focus edge (keyboard/AT-only); chat-message drops the assistant mark and documents the actions row (copy/vote/regenerate) + sources cluster; new conventions — dark elevated surfaces, focus modality, form-control color inheritance.
+- Proving ground: `docs/labs-v2-demo-insurance.html` (insurance renewals demo) exercises all of the above in both themes.
+
+## 2.20.0 — 2026-09-22
+- get_labs_v2_component_spec serves the T3 utility tier (+5 specs, 86 total): Citation chip atom (Number/Source, AI-answer source references, composes into Chat message) · Slider (Single/Range, tooltip-style value labels, proportional-scaling track) · OTP input (6/4 cells, auto-advance grammar, input-family focus halo) · Hover card (Person/Company Attio-style entity peek, shadow/float + hairline pairing) · Page banner (5 tones incl. Brand accent pair, page-level sibling of Alert, radius 0). New '6 · Components' token families: slider, otp, hovercard, banner, citation (32 aliases).
+- All five built in Figma (file qUAr2DSU9Mofp7e3rzpCHf) with the full T1/T2 delivery contract: variant sets + documentation frames + component-token bindings + dark-mode QA frame ('T3 · Dark-mode QA' on the Molecules page). The T3 marketing family (nav header, hero, feature grid, pricing, testimonial, logo strip, CTA, footer) remains deferred pending its inspo round.
+
+## 2.19.0 — 2026-09-21
+- get_labs_v2_component_spec now serves the full T2 tier (+27 specs, 80 total): atoms Kbd / Progress bar / Suggestion chip / Thinking indicator · molecules Number input / Tag input / File upload (+item) / Breadcrumbs / Pagination (+item) / Accordion (+item) / List item / Stepper (+Step item) / Prompt input · organisms Sparkline / Area chart / Command palette / Activity feed (+Timeline item) / Chat thread (+Chat message) / Agent activity card / Chat history (+item). AI family follows the locked references (Sana AI chat grammar, Zapier Central agent activity). New '6 · Components' token families: kbd, progress, chip, thinking, breadcrumb, pagination, accordion, upload, stepper, list, command, timeline, chat, prompt, agent, history.
+- T1 spec updates: Toast action is now a sm Secondary button (exposed nested instance; Action-label text prop removed) · Chart container swap list gains Area chart and Sparkline (donut remains the Pie set).
+- New Attachment card molecule (Langdock grammar): muted card, 36px file-type tile (red doc / image thumb), name + kind line, dark corner ✕ badge — attachment/* token family. Prompt input's `attachments` boolean reveals a row of these cards at the top of the shell, above the text (attachment alone activates send); reusable in Chat message for sent attachments.
+- Prompt input gains a capability boolean: engaged-capability pill (tag/info tint + dismiss X) in the toolbar, picked from the plus menu, one at a time.
+- Sidebar: the bottom Settings item is replaced by a Powered by Wellx Labs credit (official lockup PNG via get_logo); the footer user row trades the gear for an ellipsis and is the account-menu trigger (Settings moved into that menu).
+- Chat surface width contract (from prototype testing): Prompt input is fluid — it fills the thread column; the column centers at min 480 / max 768 (was fixed-ish 480, left-anchored). Canonical Figma size now 640.
+- Focus policy hardened (user decision): rings are for keyboard/screen-reader navigation ONLY — :focus-visible, never bare :focus, never on mouse/touch click. Encoded in conventions.focus, the foundations spec, the Figma focus board, and three new validate() lints (focus-visible-only ×2, focus-ring-removed).
+- Workspace switcher gains Avatar-collapse / Logo-collapse variants (trailing collapse icon replaces the chevrons); the Sidebar header uses Avatar-collapse — the collapse toggle lives in the switcher row, the workspace menu opens from the row itself. Collapsed 64px icon-only rail contract documented (code-side).
+- Collapsed rail is now drawable: Sidebar becomes a State=Expanded|Collapsed set (64px icon-only rail), Sidebar item gains a Layout=Expanded|Collapsed axis (40×32 icon cell), Workspace switcher gains Collapsed-avatar/Collapsed-logo rail twins.
+- Assistant answers gain a footer row: copy / like / dislike / regenerate quiet icon actions + right-aligned sources meta (actions + sources booleans on Chat message).
+- New Copy button atom (State=Default|Copied — copy glyph flips to a success-green check ~2s, aria-live "Copied"); the chat answer footer composes it.
+- Prompt input gains State=Recording (post-mic): live dot + timer + waveform, cancel X, confirm check — transcribes into the field on confirm.
+- Prompt input, Conductor pass: min-height 140 shell (toolbar pinned bottom), mic moves right beside send, model picker (model prop) joins the plus, State=Long (max-height 280 then inner scroll) and State=Command (typing / summons the skills & commands Menu).
+- Attachment card restyled to linear chips (Conductor grammar): one-line pill, 16px colored type glyph, filename, inline ✕; attachment/bg → background/card, attachment/radius → radius/md, new attachment/border; kind prop removed.
+- Figma proof pages: 'V2 · Demo · Dashboard' (T1) and new 'V2 · Demo · AI Chat' (300:2) — shell, chat thread, inline agent run, suggestion chips, composer, previous-chats panel, all library instances.
+
+## 2.18.0 — 2026-09-21
+- New MCP tool get_labs_v2_component_spec: the full Wellx Labs V2 T1 component library (53 specs) served from tokens/labs-v2-components.json — atoms (15) / molecules (21) / organisms (17), each with atomic level, composes list, variant axes, properties, component tokens ('6 · Components' layer), a11y contract, do/don't rules, and Figma node IDs (file qUAr2DSU9Mofp7e3rzpCHf). No name → inventory grouped by level + shared conventions (control heights 32/36/40, radius ladder, focus grammar, Attio-flat elevation, Lucide icons, motion, 4-tier text ladder). Fuzzy matching with aliases (dropdown/modal/badge/donut/stat card/data table…). V2 remains a third, standalone system — separate from --wx-* and --wl-*.
+
 ## 2.17.0 — 2026-08-26
 - get_logo gains an optional file parameter delivering assets inline over the MCP channel (SVG as markup, PNG as base64 with data:-URI guidance) — fixes claude.ai sandbox environments that 403 on fetching the Vercel asset URLs ("Host not in allowlist"). URL responses now point to this fallback. Slim embed PNGs (lockups 16K at 480px, mark 256px) added; vercel.json bundles the asset files with the function.
 

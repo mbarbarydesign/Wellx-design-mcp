@@ -1,0 +1,152 @@
+{
+  "$name": "Labs Design System V2 — foundations tokens",
+  "$version": "1.0.0",
+  "$updated": "2026-11-11",
+  "$notes": "The THIRD standalone Wellx system (alongside the portal --wx-* set and Labs v1 --wl-*; neither is modified by this system). Identity: rose #C42663 accent (original Labs rose, restored), Figtree + IBM Plex Mono (numbers only), DARK-FIRST with elevated dark surfaces, 2px Lucide icons, optional resting shadows in light. Source of truth: Figma file Rr0XYMsa9OYmLmjxMCbiMz ('Wellx Labs Design System') — every value below was read from its live variables and styles on 2026-11-11. CSS layer: tokens/labs-v2.css (--wl2-* prefix, :root = dark) + tokens/labs-v2-tailwind-preset.cjs. Component recipes: tokens/labs-v2-components.json via get_labs_v2_component_spec.",
+  "meta": {
+    "defaultTheme": "dark",
+    "themeAttribute": "data-theme=\"light\" opts into the light twin; :root carries dark",
+    "cssPrefix": "--wl2-",
+    "figmaFile": "Rr0XYMsa9OYmLmjxMCbiMz"
+  },
+  "color": {
+    "primitives": {
+      "gray": { "0": "#FFFFFF", "25": "#FCFCFD", "50": "#FAFAFA", "100": "#F4F4F5", "150": "#EFF0F2", "200": "#E9EAEC", "300": "#D6D7DB", "400": "#A6A8AF", "500": "#71747C", "600": "#565962", "700": "#414449", "750": "#303136", "775": "#2C2C31", "800": "#26272B", "850": "#232327", "875": "#18181B", "900": "#151518", "950": "#0B0B0C" },
+      "rose": { "50": "#FBE7F0", "100": "#F8D3E2", "200": "#F2A8C6", "300": "#EA7BA7", "400": "#E0528B", "500": "#D23A77", "600": "#C42663", "700": "#A71E53", "800": "#8C1745", "900": "#6E1136", "950": "#4A0B24", "signal": "#F0366B" },
+      "green": { "100": "#E2FAE9", "400": "#4ADE80", "600": "#16A34A", "700": "#15803D" },
+      "amber": { "100": "#FBEFC9", "400": "#FBBF24", "600": "#D97706", "700": "#92610A" },
+      "red": { "100": "#FDDFDD", "400": "#F87171", "500": "#F04438", "600": "#DC2626", "700": "#B91C1C" },
+      "blue": { "100": "#DBE7FE", "400": "#60A5FA", "600": "#2563EB", "700": "#1D4ED8" },
+      "teal": { "100": "#D3F7F5", "700": "#0F766E" },
+      "magenta": { "100": "#F9DCFC", "700": "#A21CAF" },
+      "orange": { "100": "#FFEDE5", "700": "#C2410C" },
+      "$notes": "Private layer — components and agents consume semantics only. gray/750–875 form the elevated-dark surface ladder."
+    },
+    "semantics": {
+      "dark": {
+        "background": "#0B0B0C", "card": "#18181B", "popover": "#18181B", "muted": "#2C2C31", "muted-soft": "#232327",
+        "foreground": "#FFFFFF", "text-secondary": "#D6D7DB", "muted-foreground": "#A6A8AF", "text-tertiary": "#A6A8AF",
+        "border": "#26272B", "border-secondary": "#414449", "input": "#414449",
+        "primary": "#C42663", "primary-hover": "#D23A77", "primary-active": "#E0528B", "primary-foreground": "#FFFFFF",
+        "link": "#E0528B", "ring": "#E0528B", "accent": "#4A0B24", "accent-foreground": "#EA7BA7",
+        "signal-ai": "#F0366B",
+        "destructive": "#DC2626", "destructive-hover": "#B91C1C", "destructive-foreground": "#FFFFFF",
+        "success": "#4ADE80", "warning": "#FBBF24", "error": "#F87171", "info": "#60A5FA"
+      },
+      "light": {
+        "background": "#FFFFFF", "card": "#FFFFFF", "popover": "#FFFFFF", "muted": "#F4F4F5", "muted-soft": "#FAFAFA",
+        "foreground": "#0B0B0C", "text-secondary": "#414449", "muted-foreground": "#A6A8AF", "text-tertiary": "#71747C",
+        "border": "#E9EAEC", "border-secondary": "#D6D7DB", "input": "#D6D7DB",
+        "primary": "#C42663", "primary-hover": "#A71E53", "primary-active": "#8C1745", "primary-foreground": "#FFFFFF",
+        "link": "#C42663", "ring": "#E0528B", "accent": "#FBE7F0", "accent-foreground": "#8C1745",
+        "signal-ai": "#F0366B",
+        "destructive": "#DC2626", "destructive-hover": "#B91C1C", "destructive-foreground": "#FFFFFF",
+        "success": "#16A34A", "warning": "#D97706", "error": "#DC2626", "info": "#2563EB"
+      },
+      "statusTags": {
+        "$notes": "Borderless tint pills: -surface + -foreground pairs, icon always included, every pair >=4.5:1. Identical in both modes (tags sit on cards).",
+        "neutral": { "surface": "#EFF0F2", "foreground": "#565962" },
+        "success": { "surface": "#E2FAE9", "foreground": "#15803D" },
+        "warning": { "surface": "#FBEFC9", "foreground": "#92610A" },
+        "error": { "surface": "#FDDFDD", "foreground": "#B91C1C" },
+        "info": { "surface": "#DBE7FE", "foreground": "#1D4ED8" },
+        "teal": { "surface": "#D3F7F5", "foreground": "#0F766E" },
+        "magenta": { "surface": "#F9DCFC", "foreground": "#A21CAF" },
+        "orange": { "surface": "#FFEDE5", "foreground": "#C2410C" }
+      }
+    },
+    "rules": [
+      "Accent #C42663 (rose-600): white label = 5.52:1 (hover 7.11, active 9.04) — AA everywhere; accent keeps its hue in dark (3.56:1 vs canvas, >=3:1 non-text).",
+      "Rose as TEXT on dark canvases must be rose-400+ (#E0528B, 5.39:1); darker rose steps are forbidden for dark text.",
+      "Focus ring: rose-400 #E0528B in BOTH modes (3.65:1 light / 5.39:1 dark, >=3:1 non-text).",
+      "Signal magenta #F0366B is AI and identity ONLY — never a button, never body text on white (3.86:1).",
+      "Status color is never the only signal — every status pairs with an icon or label. This rule is load-bearing: the rose accent reads close to danger red under tritanopia (known, accepted trade-off for brand continuity).",
+      "Components and agents consume semantic tokens only; primitives are private to the theme."
+    ]
+  },
+  "typography": {
+    "family": { "sans": "Figtree", "mono": "IBM Plex Mono", "arabic": "Noto Sans Arabic" },
+    "familyNotes": "Figtree — display, headings, UI copy. Weights 400/600/700/800 only (no 300, 500, 900), never italic, never used to typeset 'wellx'. IBM Plex Mono (400/500) for NUMBERS ONLY: money, IDs, ratios, confidence values, timestamps, chart axes — never running copy, headings, or non-numeric labels; alignment is inherent to mono (tnum retired). Arabic renders via Noto Sans Arabic — stack: Figtree, 'Noto Sans Arabic', sans-serif (per-glyph fallback; Figtree has zero Arabic coverage).",
+    "weights": { "regular": 400, "semibold": 600, "bold": 700, "extrabold": 800 },
+    "scale": {
+      "text-2xs":   { "size": 11, "lineHeight": "120%", "letterSpacing": "0",       "weight": 600, "usage": "micro labels, group labels" },
+      "text-xs":    { "size": 12, "lineHeight": "120%", "letterSpacing": "0",       "weight": 400, "usage": "captions, muted metadata — the floor, muted only" },
+      "text-sm":    { "size": 14, "lineHeight": "120%", "letterSpacing": "0",       "weight": 400, "weightLabels": 600, "usage": "DEFAULT UI — tables, nav, inputs, buttons, forms" },
+      "text-md":    { "size": 16, "lineHeight": "120%", "letterSpacing": "0",       "weight": 400, "weightTitles": 600, "usage": "card & dialog titles (600), large reading (400)" },
+      "text-lg":    { "size": 18, "lineHeight": "115%", "letterSpacing": "0",       "weight": 600, "usage": "large card titles, empty-state headings" },
+      "text-xl":    { "size": 20, "lineHeight": "115%", "letterSpacing": "0",       "weight": 600, "usage": "section titles" },
+      "display-xs": { "size": 24, "lineHeight": "120%", "letterSpacing": "-0.24px", "weight": 600, "usage": "page titles" },
+      "display-sm": { "size": 30, "lineHeight": "110%", "letterSpacing": "-0.30px", "weight": 500, "family": "IBM Plex Mono", "usage": "large KPI numerals — the numbers-only mono style; deliberately tighter leading" },
+      "display-md": { "size": 36, "lineHeight": "120%", "letterSpacing": "-0.54px", "weight": 600, "usage": "marketing hero, greetings" },
+      "display-lg": { "size": 48, "lineHeight": "120%", "letterSpacing": "-0.72px", "weight": 600, "usage": "marketing only (larger steps deferred)" }
+    },
+    "tracking": { "normal": "0%", "display": "-1%", "display-lg": "-1.5%", "notes": "px letter-spacings in the scale are these percentages applied per size." },
+    "rules": [
+      "Line heights are percentages, constrained to 100–120% for Latin (display-sm 110% is the deliberate tight step).",
+      "12px (text-xs) is the size floor, reserved for muted metadata; 11px only as micro labels. No uppercase baked into any scale step.",
+      "All numerals render in IBM Plex Mono; letter-spacing is always 0 in mono and in Arabic (tracking breaks Arabic letter joining — display tracking is Latin-only)."
+    ]
+  },
+  "rtl": {
+    "family": "Noto Sans Arabic",
+    "lineHeightShift": "+20 percentage points on every scale step (text 120→140%, text-lg/xl 115→135%, display-sm 110→130%)",
+    "letterSpacing": "always 0 — tracking breaks Arabic letter joining",
+    "notes": "Applied via [dir=rtl] token twins. Mirroring rules, Arabic digits policy and Arabic type QA are a separate workstream."
+  },
+  "spacing": {
+    "scale": { "1": 4, "2": 8, "3": 12, "4": 16, "5": 20, "6": 24, "8": 32, "10": 40, "12": 48, "16": 64 },
+    "grid": "4px, absolute — off-grid values do not exist in the system",
+    "pairs": {
+      "$notes": "HIG-informed pair-wise gaps; related elements sit >=2x closer than unrelated.",
+      "icon-label": 8, "title-subtitle": 4, "input-helper": 4, "label-input": 8, "field-field": 16, "formSection-formSection": 32,
+      "button-button": 8, "dialogContent-footer": 24, "cardTitle-body": 8, "cardBody-actions": 16,
+      "pageTitle-content": 24, "sectionTitle-content": 16, "section-section": 40,
+      "tableCellPaddingX": 16, "minColumnGap": 24, "sidebarItem-item": 4, "sidebarGroup-group": 24
+    }
+  },
+  "radius": { "sm": 6, "md": 8, "lg": 12, "xl": 16, "full": 999, "hairline": 1,
+    "usage": "sm: checkboxes/swatches · md: buttons/inputs/menu items · lg: cards/KPI tiles/popovers · xl: dialogs/sheets · full: pills/tags/avatars · hairline: the 1px border weight" },
+  "elevation": {
+    "model": "Resting surfaces separate with hairline borders; LIGHT mode may add the optional shadow-resting; DARK mode expresses elevation through surface color (the gray/750–875 elevated ladder, cards #18181B on canvas #0B0B0C) and never uses resting shadows. Floating layers always pair shadow with the hairline border.",
+    "shadows": {
+      "resting": { "optional": true, "lightOnly": true, "layers": ["0 1 2 #0B0B0C 6%", "0 3 8 #0B0B0C 5%"] },
+      "float":   { "usage": "menus, popovers, tooltips, command bar", "layers": ["0 4 16 #0B0B0C 8%", "0 1 2 #0B0B0C 5%"] },
+      "overlay": { "usage": "dialogs, sheets", "layers": ["0 16 40 #0B0B0C 12%"] }
+    },
+    "scrim": { "light": "#0B0B0C at 40%", "dark": "#000000 at 60%" }
+  },
+  "focus": {
+    "ring": "2px #E0528B (rose-400) with 2px offset, on :focus-visible only",
+    "input": "border becomes ring color + 3px spread halo at 20%",
+    "flushItems": "inset 2px ring (list/menu rows)",
+    "rules": ["The ring is never removed, only restyled — outline:none without a replacement fails validation.", "Dialogs trap focus and return it on close.", "Focus order follows DOM order."]
+  },
+  "motion": {
+    "durations": { "fast": 100, "base": 150, "slow": 200, "max": 300 },
+    "easings": { "enter": "cubic-bezier(0, 0, 0.2, 1)", "exit": "cubic-bezier(0.4, 0, 1, 1)", "move": "cubic-bezier(0.4, 0, 0.2, 1)" },
+    "patterns": {
+      "tooltip": "fade 100ms enter / 100ms exit", "popover": "fade + scale 0.98→1, 150ms enter",
+      "dialog": "fade + scale 0.96→1, 200ms; scrim fades with it", "toast": "slide-up 8px + fade 200ms, exit fade 150ms",
+      "collapse": "height + opacity 200ms move", "hover-press": "background & border color only, 100ms"
+    },
+    "rules": ["Motion is feedback for a state change — never decoration in product UI.", "Animate transform and opacity only (collapse excepted).", "Exits are faster than enters.", "prefers-reduced-motion: non-essential motion off, state changes instant.", "Nothing loops except progress indicators.", "300ms is a hard ceiling for product UI."]
+  },
+  "icons": {
+    "set": "Lucide",
+    "stroke": "2px ABSOLUTE at every size (Lucide default weight, held absolute — at 16px that is stroke-width 3 in viewBox units)",
+    "sizes": { "16": "default — inline, tags, tables, inputs, sidebar", "20": "icon-only buttons, topbar", "24": "empty states, feature spots" },
+    "color": "always currentColor — icons inherit the adjacent text token; status icons get -foreground",
+    "custom": "drawn on the 24-grid, 2px stroke, rounded caps/joins, optically weight-checked against three Lucide neighbors"
+  },
+  "layout": {
+    "contentMaxWidth": 1440,
+    "shell": { "sidebar": 256, "topbar": 56, "contentGutter": "24 default / 32 dashboards", "sidebarItem": 32, "dialogMaxWidth": "480 sm / 640 md" },
+    "table": { "headerRow": 42, "dataRow": "56 default (Maze-style airy) · 40 comfortable · 36 compact", "footerRow": 34 },
+    "controls": { "sm": 32, "md": 36, "lg": 40 },
+    "hitTargets": ">=24x24 pointer (WCAG 2.5.8); 40px+ on touch surfaces",
+    "rules": [
+      "Content is ALWAYS capped at 1440px and centered on wider screens — the app content column (after the sidebar) and marketing pages alike; fluid below the cap; gutters apply inside it.",
+      "Tables run full-bleed to the gutter, never to the viewport."
+    ]
+  }
+}

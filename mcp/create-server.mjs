@@ -20,6 +20,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SPEC = join(ROOT, "spec");
 const tokens = JSON.parse(readFileSync(join(ROOT, "tokens", "wellx-tokens.json"), "utf8"));
 const labsTokens = JSON.parse(readFileSync(join(ROOT, "tokens", "wellx-labs-tokens.json"), "utf8"));
+const labsV2Tokens = JSON.parse(readFileSync(join(ROOT, "tokens", "labs-v2-tokens.json"), "utf8"));
+const labsV2Components = JSON.parse(readFileSync(join(ROOT, "tokens", "labs-v2-components.json"), "utf8"));
 
 const TOPICS = readdirSync(SPEC)
   .filter((f) => f.endsWith(".md"))
@@ -62,11 +64,12 @@ export function createServer() {
         "ALWAYS consult this server before building or restyling UI for any Wellx tool: " +
         "start with get_principles, then get_rules for the area you are touching (topics: " + TOPICS.join(", ") + "), " +
         "get_component_spec for concrete recipes, and get_tokens for values. " +
-        "TWO SEPARATE BRAND SYSTEMS live here: the Wellx portal system (violet accent, Manrope, --wx-* tokens; the non-prefixed topics) " +
-        "and the Wellx Labs brand system (spectral identity, Figtree + IBM Plex Mono, --wl-* tokens; the labs-* topics + get_labs_tokens). " +
+        "THREE SEPARATE BRAND SYSTEMS live here: the Wellx portal system (violet accent, Manrope, --wx-* tokens; the non-prefixed topics), " +
+        "the Wellx Labs v1 brand system (spectral identity, Figtree + IBM Plex Mono, --wl-* tokens; the labs-* topics + get_labs_tokens), " +
+        "and LABS DESIGN SYSTEM V2 (rose #C42663 accent, Figtree + IBM Plex Mono for NUMBERS ONLY, DARK-FIRST with elevated surfaces, 2px Lucide icons, --wl2-* tokens; get_labs_v2_tokens + get_labs_v2_component_spec). " +
         "Pick one per product and never mix them. " +
-        "IF THE USER HAS NOT SPECIFIED which system their product uses, ASK THEM FIRST — offer exactly these two options: \"Wellx design system\" or \"Wellx Labs design system\" — before fetching rules or writing any UI. Never assume or silently default. " +
-        "DEFAULT THEME IS LIGHT in both systems: build and present UIs in light mode unless the user asks for dark. Dark mode is an explicit opt-in (.dark class in the portal system, data-theme=\"dark\" in Labs) — still define its token twins, just don't ship it as the default. " +
+        "IF THE USER HAS NOT SPECIFIED which system their product uses, ASK THEM FIRST — offer exactly these three options: \"Wellx design system\", \"Wellx Labs design system\" or \"Labs Design System V2\" — before fetching rules or writing any UI. Never assume or silently default. " +
+        "DEFAULT THEME: light in the portal and Labs v1 systems (dark is opt-in: .dark class / data-theme=\"dark\"), but Labs Design System V2 is DARK-FIRST — :root carries the dark elevated theme and data-theme=\"light\" opts into the light twin. " +
         "In code, import @wellx/design-tokens (CSS variables + Tailwind preset) instead of typing values. " +
         "ALL USER-FACING TEXT FOLLOWS THE VOICE GUIDELINES: before writing any copy — UI labels, notifications, onboarding, errors, emails, health content — read get_rules(\"copy-voice\") (Wellx products) or get_rules(\"labs-voice\") (Wellx Labs) and follow it exactly. " +
         "ALWAYS PULL THE LOGO: any product, screen, prototype or document you create carries the official Wellx logo — call get_logo for the real asset URLs and placement rules, and embed those files. Never redraw the mark, never typeset the wordmark in a font, never ship a placeholder logo. " +
@@ -134,6 +137,49 @@ export function createServer() {
   );
 
   server.tool(
+    "get_labs_v2_tokens",
+    "Labs Design System V2 foundations tokens (the THIRD standalone system — separate from --wx-* and --wl-*). Identity: rose #C42663 accent, Figtree + IBM Plex Mono (numbers only), DARK-FIRST with elevated dark surfaces, 2px Lucide icons, content capped at 1440. Code layer: tokens/labs-v2.css (--wl2-*, :root = dark) + labs-v2-tailwind-preset.cjs. category: color | typography | rtl | spacing | radius | elevation | focus | motion | icons | layout | meta | all.",
+    { category: z.enum(["color", "typography", "rtl", "spacing", "radius", "elevation", "focus", "motion", "icons", "layout", "meta", "all"]) },
+    async ({ category }) => text(JSON.stringify(category === "all" ? labsV2Tokens : labsV2Tokens[category], null, 2)),
+  );
+
+  // Flat slug → spec index across the three atomic levels of the V2 library.
+  const V2_LEVELS = ["atoms", "molecules", "organisms"];
+  const V2_INDEX = {};
+  for (const level of V2_LEVELS) {
+    for (const [slug, spec] of Object.entries(labsV2Components[level])) V2_INDEX[slug] = spec;
+  }
+
+  server.tool(
+    "get_labs_v2_component_spec",
+    "Component spec for the Wellx Labs V2 library (the standalone 2026-09 rebuild — NOT the portal or Labs v1 systems). " +
+      "Every spec declares its atomic level, composes: list, variants, properties, component tokens (the '6 · Components' layer), a11y contract, and do/don't rules. " +
+      "Call without `name` for the full inventory grouped by level plus the shared conventions (control heights, radius ladder, focus, elevation, icons, motion). " +
+      "Components: " + Object.keys(V2_INDEX).join(", ") + ".",
+    { name: z.string().min(2).optional() },
+    async ({ name }) => {
+      if (!name) {
+        const index = Object.fromEntries(
+          V2_LEVELS.map((lvl) => [lvl, Object.keys(labsV2Components[lvl])]),
+        );
+        return text(JSON.stringify({ $notes: labsV2Components.$notes, conventions: labsV2Components.conventions, components: index }, null, 2));
+      }
+      const q = name.toLowerCase().trim().replace(/\s+/g, "-");
+      const slug =
+        (q in V2_INDEX && q) ||
+        Object.keys(V2_INDEX).find((s) => s === q.replace(/s$/, "")) ||
+        Object.keys(V2_INDEX).find((s) => (V2_INDEX[s].aliases || []).some((a) => a === q || a === q.replace(/s$/, ""))) ||
+        Object.keys(V2_INDEX).find((s) => s.includes(q) || q.includes(s)) ||
+        Object.keys(V2_INDEX).find((s) => (V2_INDEX[s].aliases || []).some((a) => a.includes(q) || q.includes(a))) ||
+        Object.keys(V2_INDEX).find((s) => V2_INDEX[s].name.toLowerCase().includes(name.toLowerCase().trim()));
+      if (!slug) {
+        return text(`No V2 component matches "${name}". Available: ${Object.keys(V2_INDEX).join(", ")}.`);
+      }
+      return text(JSON.stringify({ slug, conventions: labsV2Components.conventions, spec: V2_INDEX[slug] }, null, 2));
+    },
+  );
+
+  server.tool(
     "search",
     "Full-text search across the entire design system spec. Returns matching lines with their topic.",
     { query: z.string().min(2) },
@@ -176,6 +222,12 @@ export function createServer() {
         push("logical-properties-only", m[0], "Use logical utilities for RTL: ps-*/pe-*, ms-*/me-*, start-*/end-*, border-s/border-e, text-start/text-end.");
       for (const m of code.matchAll(/font-family:\s*(?!['"]?(?:Manrope|Alexandria|Figtree|IBM Plex Mono))['"]?([A-Za-z ]+)/g))
         push("fonts", m[0], "Portal UI uses Manrope (Latin) / Alexandria (Arabic); Wellx Labs uses Figtree / IBM Plex Mono. Other families are off-system.");
+      for (const mt of code.matchAll(/\bfocus:(?:ring|outline|border|shadow)[\w[\]/-]*/g))
+        push("focus-visible-only", mt[0], "Focus styling fires only for keyboard/AT navigation — use focus-visible: variants, never focus: (no ring on mouse click).");
+      for (const mt of code.matchAll(/:focus(?!-visible|-within)\b[^{}]*\{[^}]*(?:outline|box-shadow|border)[^}]*\}/g))
+        push("focus-visible-only", mt[0].slice(0, 60), "Style :focus-visible, not :focus — rings are for keyboard and screen-reader users only.");
+      if ((/outline:\s*none|\boutline-none\b/.test(code)) && !/focus-visible/.test(code))
+        push("focus-ring-removed", "outline removed without focus-visible replacement", "Never remove the ring without restyling it on :focus-visible — keyboard users lose their position.");
       if (/hover:(?:bg|text|border)-(?:primary|brand|violet|indigo)/.test(code))
         push("monochrome-chrome", "accent color on hover", "Hovers are neutral gray (hover:bg-muted). Accent appears only on actions, links, focus, and active pills/tabs.");
       for (const m of code.matchAll(/\b(?:[Oo]ops|[Uu]h-oh)\b/g))
