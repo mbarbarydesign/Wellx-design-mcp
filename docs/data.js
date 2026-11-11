@@ -554,194 +554,1113 @@ var V2_SEMANTICS_ROWS = [
   ["success / warning / error / info", "#4ADE80","400s", "#16A34A","600s", "Status accents (dark uses 400s)"]
 ];
 
-/* Labs V2 component demos \u2014 dark-first fields, Figtree + Plex Mono (both loaded in <head>). */
+/* ---------- Labs V2 component demos — dark-first, Figtree + Plex Mono (both loaded in <head>) ---------- */
 var V2F = "background:#0B0B0C;border:1px solid #26272B;border-radius:12px;padding:22px;font-family:Figtree,system-ui,sans-serif;width:100%;display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:#FFFFFF";
 var V2BTN = "display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 16px;border-radius:8px;font:600 14px Figtree,sans-serif;border:0";
 var V2TAG = "display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font:600 13px Figtree,sans-serif";
 var V2DOT = '<span style="width:8px;height:8px;border-radius:99px;background:currentColor;display:inline-block"></span>';
+var V2POP = "background:#18181B;border:1px solid #414449;border-radius:12px;box-shadow:0 4px 16px rgba(11,11,12,.5)";
+var V2IN = "height:36px;background:#18181B;border:1px solid #414449;border-radius:8px;display:flex;align-items:center;gap:8px;padding:0 12px;font:400 14px Figtree";
+var V2MONO = "'IBM Plex Mono',monospace";
+var V2ROW = "height:32px;display:flex;align-items:center;gap:10px;padding:0 10px;border-radius:8px;font:400 14px Figtree";
 
-var LABS_V2_COMPONENTS = [
-{
-  slug: "button", name: "Button",
-  lede: "Four emphasis levels on the rose accent. Heights 32 / 36 / 40 with md default; labels Figtree 600 at 14; icons 16px Lucide at 2px stroke inherit the label colour.",
-  demo: '<div style="' + V2F + '">' +
-    '<button style="' + V2BTN + ';background:#C42663;color:#fff">Primary</button>' +
-    '<button style="' + V2BTN + ';background:#D23A77;color:#fff">Hover</button>' +
-    '<button style="' + V2BTN + ';background:#E0528B;color:#fff">Active</button>' +
-    '<button style="' + V2BTN + ';background:#18181B;color:#fff;border:1px solid #414449">Secondary</button>' +
-    '<button style="' + V2BTN + ';background:transparent;color:#D6D7DB">Ghost</button>' +
-    '<button style="' + V2BTN + ';background:#DC2626;color:#fff">Destructive</button>' +
-    '<button style="' + V2BTN + ';background:#18181B;color:#565962;border:1px solid #26272B" disabled>Disabled</button></div>',
-  spec: [["Heights","32 / 36 (default) / 40 \u2014 radius-md 8"],["Label","text-sm 14 \u00b7 Figtree 600 \u00b7 sentence case, verb first"],["Primary","rose/600 \u2192 hover rose/500 (dark) / rose/700 (light) \u2192 active rose/400 / rose/800"],["Focus","2px #E0528B ring, 2px offset, :focus-visible only"],["Loading","spinner replaces the left icon; label stays for screen readers"]],
-  dos: ["One primary per view","Pair icons only when they add meaning","Keep loading state on the button"],
-  donts: ["Two primaries side by side","Ghost for the main CTA","Signal magenta #F0366B as a button \u2014 ever","Disabling without explaining why nearby"],
-  code: '<Button variant="primary|secondary|ghost|destructive" size="sm|md|lg" />'
-},
-{
-  slug: "tag", name: "Status tag",
-  lede: "Borderless tint pills \u2014 a -surface + -foreground pair per family, icon always included, every pair \u2265 4.5:1. Identical values in both modes: tags sit on cards.",
-  demo: '<div style="' + V2F + ';background:#18181B">' +
-    '<span style="' + V2TAG + ';background:#EFF0F2;color:#565962">' + V2DOT + 'Neutral</span>' +
-    '<span style="' + V2TAG + ';background:#E2FAE9;color:#15803D">' + V2DOT + 'Success</span>' +
-    '<span style="' + V2TAG + ';background:#FBEFC9;color:#92610A">' + V2DOT + 'Warning</span>' +
-    '<span style="' + V2TAG + ';background:#FDDFDD;color:#B91C1C">' + V2DOT + 'Error</span>' +
-    '<span style="' + V2TAG + ';background:#DBE7FE;color:#1D4ED8">' + V2DOT + 'Info</span>' +
-    '<span style="' + V2TAG + ';background:#D3F7F5;color:#0F766E">' + V2DOT + 'Viewed</span>' +
-    '<span style="' + V2TAG + ';background:#F9DCFC;color:#A21CAF">' + V2DOT + 'Hot lead</span>' +
-    '<span style="' + V2TAG + ';background:#FFEDE5;color:#C2410C">' + V2DOT + 'Bounced</span></div>',
-  spec: [["Anatomy","16px icon + Figtree 600 label, both in -foreground \u00b7 full-round \u00b7 no border"],["Families","neutral \u00b7 success \u00b7 warning \u00b7 error \u00b7 info + teal / magenta / orange expressive"],["Contrast","every foreground \u2265 4.5:1 on its surface"]],
-  dos: ["Icon or label always \u2014 colour is never the only signal"],
-  donts: ["Borders on tags","Inventing new families \u2014 extend the token set first"],
-  code: '<Tag tone="success" icon={CircleCheck}>Success</Tag>'
-},
-{
-  slug: "kpi-tile", name: "KPI tile",
-  lede: "Label, a display-sm numeral in IBM Plex Mono, and a delta pill. The numbers-only mono rule made visible.",
-  demo: '<div style="' + V2F + '"><div style="background:#18181B;border:1px solid #26272B;border-radius:12px;padding:20px;min-width:240px">' +
-    '<div style="font:400 14px Figtree;color:#A6A8AF">Events Created</div>' +
-    '<div style="font:500 30px \'IBM Plex Mono\',monospace;letter-spacing:-0.3px;line-height:1.1;margin:6px 0">4,275,190.63</div>' +
-    '<span style="' + V2TAG + ';padding:3px 10px;font-size:12px;background:#E2FAE9;color:#15803D">\u2191 12% from last period</span></div>' +
-    '<div style="background:#18181B;border:1px solid #26272B;border-radius:12px;padding:20px;min-width:200px">' +
-    '<div style="font:400 14px Figtree;color:#A6A8AF">Loss ratio</div>' +
-    '<div style="font:500 30px \'IBM Plex Mono\',monospace;line-height:1.1;margin:6px 0">0.91</div>' +
-    '<span style="' + V2TAG + ';padding:3px 10px;font-size:12px;background:#FDDFDD;color:#B91C1C">\u2193 3% from last period</span></div></div>',
-  spec: [["Card","card surface \u00b7 hairline \u00b7 radius-lg 12 \u00b7 padding 20"],["Numeral","display-sm 30 \u00b7 IBM Plex Mono 500 \u00b7 110% leading"],["Delta","status tag recipe at 12px"],["Gaps","label \u2192 numeral \u2192 delta: 8 (space-2)"]],
-  dos: ["Mono for every digit","One KPI per tile"],
-  donts: ["Figtree numerals","Sparklines inside the tile without an axis note"],
-  code: '<KpiTile label="Events Created" value={4275190.63} delta={+0.12} />'
-},
-{
-  slug: "field", name: "Field & input",
-  lede: "Label \u2192 input \u2192 helper with the HIG gaps baked in (8 above, 4 below). Inputs are 36h on the card surface with the gray/700 control border.",
-  demo: '<div style="' + V2F + '"><div style="min-width:280px">' +
-    '<div style="font:600 14px Figtree;margin-bottom:8px">Amount</div>' +
-    '<div style="height:36px;background:#18181B;border:1px solid #414449;border-radius:8px;display:flex;align-items:center;padding:0 12px;font:500 14px \'IBM Plex Mono\',monospace">MVR 12,000.00</div>' +
-    '<div style="font:400 12px Figtree;color:#A6A8AF;margin-top:4px">Safe to apply: MVR 12,000.00</div></div>' +
-    '<div style="min-width:280px"><div style="font:600 14px Figtree;margin-bottom:8px">Focused</div>' +
-    '<div style="height:36px;background:#18181B;border:1px solid #E0528B;box-shadow:0 0 0 3px rgba(224,82,139,.2);border-radius:8px;display:flex;align-items:center;padding:0 12px;font:400 14px Figtree;color:#A6A8AF">Enter value\u2026</div></div>' +
-    '<div style="min-width:280px"><div style="font:600 14px Figtree;margin-bottom:8px">Error</div>' +
-    '<div style="height:36px;background:#18181B;border:1px solid #DC2626;border-radius:8px;display:flex;align-items:center;padding:0 12px;font:400 14px Figtree">14,200.00</div>' +
-    '<div style="font:400 12px Figtree;color:#F87171;margin-top:4px">Exceeds the safe amount</div></div></div>',
-  spec: [["Gaps","label \u2192 input 8 \u00b7 input \u2192 helper 4 \u00b7 field \u2192 field 16 \u00b7 section \u2192 section 32"],["Control","36h \u00b7 radius-md \u00b7 border input (gray/700 dark, gray/300 light)"],["Focus","border \u2192 ring colour + 3px halo at 20%"],["Numeric values","IBM Plex Mono"],["Dark rule","form controls must inherit color \u2014 UA black breaks dark mode"]],
-  dos: ["Helper hugs its input (4) \u2014 closer than the next field"],
-  donts: ["Placeholder as the only label","Red helper text without the border change"],
-  code: '<Field label="Amount" helper="Safe to apply" error={err}><Input /></Field>'
-},
-{
-  slug: "tabs", name: "Tabs",
-  lede: "Underline tabs \u2014 the active item carries a 2px rose underline and the foreground colour; everything else is muted.",
-  demo: '<div style="' + V2F + '"><div style="display:flex;gap:4px;border-bottom:1px solid #26272B;width:100%">' +
-    ['Overview|1','Claims|0','Members|0','Settings|0'].map(function(t){var p=t.split('|');var on=p[1]==='1';return '<span style="padding:10px 14px;font:600 14px Figtree;color:'+(on?'#FFFFFF':'#A6A8AF')+';border-bottom:2px solid '+(on?'#C42663':'transparent')+';margin-bottom:-1px">'+p[0]+'</span>';}).join('') + '</div></div>',
-  spec: [["Anatomy","text-sm 600 \u00b7 pad 10/14 \u00b7 2px underline on active"],["States","active foreground+rose \u00b7 rest muted \u00b7 hover foreground"],["Keyboard","arrow keys move, Home/End jump; roving tabindex"]],
-  dos: ["Underline style only \u2014 no pill tabs in product UI"],
-  donts: ["More than 6 tabs \u2014 use a select","Nesting tab sets"],
-  code: '<Tabs items={[...]} value={tab} onChange={setTab} />'
-},
-{
-  slug: "menu", name: "Menu",
-  lede: "The floating tier: popover surface, hairline border, shadow-float. Items are 32h radius-md; destructive items use the error foreground.",
-  demo: '<div style="' + V2F + '"><div style="background:#18181B;border:1px solid #414449;border-radius:12px;padding:6px;min-width:220px;box-shadow:0 4px 16px rgba(11,11,12,.5)">' +
-    '<div style="height:32px;display:flex;align-items:center;padding:0 10px;border-radius:8px;font:400 14px Figtree">View settings</div>' +
-    '<div style="height:32px;display:flex;align-items:center;padding:0 10px;border-radius:8px;background:#2C2C31;font:400 14px Figtree">Import / Export</div>' +
-    '<div style="height:1px;background:#26272B;margin:6px 4px"></div>' +
-    '<div style="height:32px;display:flex;align-items:center;padding:0 10px;border-radius:8px;font:400 14px Figtree;color:#F87171">Delete view</div></div></div>',
-  spec: [["Surface","popover + hairline + shadow-float \u00b7 radius-lg \u00b7 pad 6"],["Items","32h \u00b7 radius-md \u00b7 hover muted wash"],["Enter","fade + scale 0.98\u21921 \u00b7 150ms ease-out"]],
-  dos: ["Destructive last, after a separator"],
-  donts: ["Icons on some items but not others","Scroll inside menus \u2014 cap at ~8 items"],
-  code: '<Menu items={[...]} onSelect={fn} />'
-},
-{
-  slug: "card", name: "Card",
-  lede: "Resting surfaces: hairline border always; dark cards are the elevated #18181B step (never a shadow); light cards may add the optional resting shadow.",
-  demo: '<div style="' + V2F + '"><div style="flex:1;min-width:220px;background:#18181B;border:1px solid #26272B;border-radius:12px;padding:20px">' +
-    '<div style="font:600 16px Figtree;margin-bottom:8px">Dark \u2014 elevated surface</div><div style="font:400 14px Figtree;color:#A6A8AF">card #18181B on canvas #0B0B0C. The surface step carries the depth \u2014 no shadow.</div></div>' +
-    '<div style="flex:1;min-width:220px;background:#FFFFFF;border:1px solid #E9EAEC;border-radius:12px;padding:20px;box-shadow:0 1px 2px rgba(11,11,12,.06),0 3px 8px rgba(11,11,12,.05)">' +
-    '<div style="font:600 16px Figtree;color:#0B0B0C;margin-bottom:8px">Light \u2014 optional resting shadow</div><div style="font:400 14px Figtree;color:#71747C">shadow-resting over the hairline. Optional, never required.</div></div></div>',
-  spec: [["Radius","lg 12 \u00b7 padding 20 (16 compact)"],["Dark","#18181B + border gray/800 \u2014 no resting shadows in dark, ever"],["Light","white + hairline + optional shadow-resting"],["Gaps","title \u2192 body 8 \u00b7 body \u2192 actions 16"]],
-  dos: ["Max one nested panel level"],
-  donts: ["Boxes-in-boxes","Shadow instead of a border"],
-  code: '<Card title>\u2026</Card>'
-},
-{
-  slug: "alert", name: "Alert",
-  lede: "Soft-tint inline panels per status family \u2014 icon, 600 title, regular body, all in the family foreground.",
-  demo: '<div style="' + V2F + ';flex-direction:column;align-items:stretch">' +
-    '<div style="background:#FBEFC9;border-radius:10px;padding:14px 16px;color:#92610A"><div style="font:600 14px Figtree">This creates a credit</div><div style="font:400 13px Figtree;margin-top:2px">Applying more than the safe amount creates a credit that finance must reverse.</div></div>' +
-    '<div style="background:#E2FAE9;border-radius:10px;padding:14px 16px;color:#15803D"><div style="font:600 14px Figtree">Posted to reservation RL-2091</div><div style="font:400 13px Figtree;margin-top:2px">Nothing remains on account.</div></div></div>',
-  spec: [["Anatomy","icon 16 + title 600 + body \u00b7 radius 10 \u00b7 pad 14/16"],["Tint","status -surface; all text in -foreground"],["Placement","inline, above the content it describes"]],
-  dos: ["One alert per concern"],
-  donts: ["Stacking three alerts \u2014 consolidate","Alerts for success that a toast should carry"],
-  code: '<Alert tone="warning" title="This creates a credit">\u2026</Alert>'
-},
-{
-  slug: "toast", name: "Toast",
-  lede: "Transient confirmation on the floating tier \u2014 slides up 8px, auto-dismisses, never blocks.",
-  demo: '<div style="' + V2F + '"><div style="background:#18181B;border:1px solid #414449;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 16px rgba(11,11,12,.5)">' +
-    '<span style="width:18px;height:18px;border-radius:99px;background:#E2FAE9;color:#15803D;display:inline-flex;align-items:center;justify-content:center;font:700 11px Figtree">\u2713</span>' +
-    '<span style="font:400 14px Figtree">Renewal issued \u00b7 policy <span style="font:500 13px \'IBM Plex Mono\',monospace">POL/2026/88431</span></span>' +
-    '<span style="font:600 13px Figtree;color:#E0528B;margin-left:8px">Undo</span></div></div>',
-  spec: [["Surface","popover + hairline + shadow-float \u00b7 radius-lg"],["Motion","slide-up 8px + fade \u00b7 200ms enter, 150ms exit"],["Duration","4s default \u00b7 persistent only with an action"],["IDs","always IBM Plex Mono"]],
-  dos: ["One action max (Undo)"],
-  donts: ["Toasts for errors needing decisions \u2014 use a dialog","Stacking more than 3"],
-  code: 'toast.success("Renewal issued", { action: undo })'
-},
-{
-  slug: "dialog", name: "Dialog",
-  lede: "The overlay tier: 480/640 widths, radius-xl, shadow-overlay on the scrim. Destructive confirms restate the object and use the destructive button.",
-  demo: '<div style="' + V2F + ';justify-content:center;background:rgba(0,0,0,.6);padding:32px"><div style="background:#18181B;border:1px solid #414449;border-radius:16px;padding:24px;max-width:420px;box-shadow:0 16px 40px rgba(0,0,0,.5)">' +
-    '<div style="font:600 16px Figtree">Allocate guest deposit</div>' +
-    '<div style="font:400 14px Figtree;color:#A6A8AF;margin-top:4px">Split <span style="font:500 13px \'IBM Plex Mono\',monospace;color:#D6D7DB">MVR 15,000.00</span> across the two open folios.</div>' +
-    '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:24px">' +
-    '<button style="' + V2BTN + ';background:transparent;color:#D6D7DB;border:1px solid #414449">Cancel</button>' +
-    '<button style="' + V2BTN + ';background:#C42663;color:#fff">Apply allocation</button></div></div></div>',
-  spec: [["Widths","sm 480 \u00b7 md 640 \u00b7 padding 24 \u00b7 radius-xl 16"],["Scrim","ink/40% light \u00b7 black/60% dark"],["Gaps","content \u2192 footer 24 \u00b7 buttons 8, right-aligned"],["Focus","trapped; returned on close; Esc cancels"]],
-  dos: ["Verb-first confirm labels (\u201CApply allocation\u201D, never \u201COK\u201D)"],
-  donts: ["Nesting dialogs","Destructive confirm with a primary-rose button \u2014 use destructive red"],
-  code: '<Dialog title size="sm" footer={\u2026} />'
-},
-{
-  slug: "empty-state", name: "Empty state",
-  lede: "A 24px icon, an 18px title, one sentence of help, one action. Lives where the content would be \u2014 never a dialog.",
-  demo: '<div style="' + V2F + ';justify-content:center"><div style="text-align:center;padding:24px">' +
-    '<div style="width:44px;height:44px;border:1.5px solid #414449;border-radius:12px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#A6A8AF;font:400 20px Figtree">\u2295</div>' +
-    '<div style="font:600 18px Figtree">No segments yet</div>' +
-    '<div style="font:400 14px Figtree;color:#A6A8AF;margin:6px 0 16px">Create a segment to target testers by any field.</div>' +
-    '<button style="' + V2BTN + ';background:#C42663;color:#fff">Create segment</button></div></div>',
-  spec: [["Anatomy","icon 24 (in a 44 tile) \u00b7 title text-lg \u00b7 body text-sm muted \u00b7 one action"],["Gaps","icon \u2192 title 12 \u00b7 title \u2192 body 6 \u00b7 body \u2192 action 16"]],
-  dos: ["Say what the thing is for, not just that it\u2019s empty"],
-  donts: ["Illustrations that fight the quiet chrome","Two actions"],
-  code: '<EmptyState icon={Plus} title action />'
-},
-{
-  slug: "table", name: "Table",
-  lede: "The flagship, Maze-style: the data region lives in a rounded clipped table-card; muted uppercase header band with a sort icon per column; 56px rows; mono numerals; quiet pagination footer.",
-  demo: '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:12px">' +
-    '<div style="display:flex;gap:8px"><span style="' + V2TAG + ';background:transparent;border:1px solid #414449;color:#fff;font-weight:600">Status: <b style="font-weight:700">Active</b> \u25BE</span><span style="' + V2TAG + ';background:transparent;border:1px dashed #414449;color:#A6A8AF;font-weight:600">+ Add filter</span></div>' +
-    '<div style="border:1px solid #26272B;border-radius:10px;overflow:hidden;background:#18181B">' +
-    '<div style="display:flex;background:#2C2C31;padding:0 16px;height:40px;align-items:center;font:600 11px Figtree;letter-spacing:.06em;color:#A6A8AF"><span style="flex:2">\u2195 COMPANY</span><span style="flex:1.4">\u2195 OWNER</span><span style="flex:1">\u2195 STATUS</span><span style="flex:1;text-align:right">\u2195 MEMBERS</span></div>' +
-    [["Acme Corp","Sarah Chen","#4ADE80","Active","4,820"],["Northwind","Ali Hassan","#4ADE80","Active","1,204"],["Globex","Maya Patel","#F87171","Churned","86"]].map(function(r){return '<div style="display:flex;padding:0 16px;height:56px;align-items:center;border-top:1px solid #26272B;font:400 14px Figtree"><span style="flex:2">'+r[0]+'</span><span style="flex:1.4;color:#A6A8AF">'+r[1]+'</span><span style="flex:1;color:'+r[2]+'">'+r[3]+'</span><span style="flex:1;text-align:right;font:400 14px \'IBM Plex Mono\',monospace">'+r[4]+'</span></div>';}).join('') +
-    '<div style="padding:10px 16px;border-top:1px solid #26272B;font:400 12px Figtree;color:#A6A8AF">Showing 1 \u2013 3&nbsp;&nbsp;\u00b7&nbsp;&nbsp;Page 1</div></div></div>',
-  spec: [["Card","radius 10 \u00b7 hairline \u00b7 card bg \u00b7 clipped corners"],["Header","40\u201342h muted band \u00b7 UPPERCASE +6% \u00b7 sort icon per column"],["Rows","56 default \u00b7 40 comfortable \u00b7 36 compact \u00b7 hairline dividers, no zebra"],["Status","pills or plain coloured text \u2014 one style per table"],["Numerals","IBM Plex Mono, right-aligned"],["Footer","\u201CShowing 1 \u2013 N \u00b7 Page X\u201D"]],
-  dos: ["Filter chips above the card, left-aligned","\u2018\u2014\u2019 muted for empty cells"],
-  donts: ["Zebra striping","Mixing pill and text status in one column","Semantic header icons \u2014 the sort glyph only"],
-  code: '<Table columns rows density="default" selectable />'
-},
-{
-  slug: "filter-family", name: "Filter family",
-  lede: "Chips-on-top-of-table: one filter chip per field, each opening its own checkbox options dropdown, assembled in the filter bar.",
-  demo: '<div style="' + V2F + ';align-items:flex-start">' +
-    '<div style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:8px;flex-wrap:wrap">' +
-    '<span style="' + V2TAG + ';background:transparent;border:1px solid #414449;color:#fff">Status: <b>Active</b> \u25BE</span>' +
-    '<span style="' + V2TAG + ';background:transparent;border:1px solid #414449;color:#D6D7DB">Owner \u25BE</span>' +
-    '<span style="' + V2TAG + ';background:transparent;border:1.5px solid #E0528B;color:#fff">Members \u25BE</span>' +
-    '<span style="' + V2TAG + ';background:transparent;border:1px dashed #414449;color:#A6A8AF">+ Add filter</span></div>' +
-    '<div style="font:400 12px Figtree;color:#71747C">default \u00b7 applied \u00b7 open (ring) \u00b7 add</div></div>' +
-    '<div style="background:#18181B;border:1px solid #414449;border-radius:12px;padding:6px;min-width:190px;box-shadow:0 4px 16px rgba(11,11,12,.5)">' +
-    [["Active",1],["Churned",0],["Trial",0]].map(function(o){return '<div style="height:32px;display:flex;align-items:center;gap:10px;padding:0 10px;border-radius:6px;font:400 14px Figtree"><span style="width:16px;height:16px;border-radius:4px;'+(o[1]?'background:#C42663':'border:1px solid #565962')+';display:inline-flex;align-items:center;justify-content:center;color:#fff;font:700 10px Figtree">'+(o[1]?'\u2713':'')+'</span>'+o[0]+'</div>';}).join('') +
-    '<div style="height:1px;background:#26272B;margin:6px 4px"></div><div style="height:32px;display:flex;align-items:center;padding:0 10px;font:400 13px Figtree;color:#A6A8AF">Clear filter</div></div></div>',
-  spec: [["Chip states","Default \u00b7 Hover \u00b7 Open (ring border) \u00b7 Applied (field muted, value 600) \u00b7 Applied hover (\u00d7) \u00b7 Add filter (dashed)"],["Dropdown","checkbox multi-select of the field\u2019s values + Clear filter \u00b7 shadow-float"],["Bar","8px gaps \u00b7 left-aligned \u00b7 Add-filter chip always last"]],
-  dos: ["One chip per field, each with its own dropdown"],
-  donts: ["A single generic filter-builder popover (superseded)","Hiding applied filters behind a count"],
-  code: '<FilterBar filters onAdd /> \u00b7 get_labs_v2_component_spec("filter-chip")'
+/* 2px-stroke Lucide-style inline icons */
+function v2ic(d, sz, col) {
+  return '<svg width="' + sz + '" height="' + sz + '" viewBox="0 0 24 24" fill="none" stroke="' + col + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none">' + d + "</svg>";
 }
+var V2I = {
+  search: '<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+  calendar: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  chevDown: '<path d="m6 9 6 6 6-6"/>',
+  chevRight: '<path d="m9 6 6 6-6 6"/>',
+  chevsUpDown: '<path d="m7 15 5 5 5-5M7 9l5-5 5 5"/>',
+  sort: '<path d="m21 16-4 4-4-4M17 20V4M3 8l4-4 4 4M7 4v16"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  plus: '<path d="M5 12h14M12 5v14"/>',
+  x: '<path d="M18 6 6 18M6 6l12 12"/>',
+  copy: '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+  sparkle: '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>',
+  home: '<path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>',
+  file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/>',
+  image: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4-4L5 22"/>',
+  zap: '<path d="M13 2 3 14h7l-1 8 11-13h-8l1-7z"/>',
+  dots: '<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+  upload: '<path d="M12 15V3m0 0L7 8m5-5 5 5"/><path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  up: '<path d="M12 19V5m0 0-6 6m6-6 6 6"/>'
+};
+function v2av(n, sz) {
+  return '<span style="width:' + sz + "px;height:" + sz + 'px;border-radius:999px;background:#4A0B24;color:#EA7BA7;display:inline-flex;align-items:center;justify-content:center;font:600 ' + Math.round(sz * 0.4) + 'px Figtree;flex:none">' + n + "</span>";
+}
+function v2chk(on) {
+  return '<span style="width:16px;height:16px;border-radius:4px;' + (on ? "background:#C42663" : "border:1px solid #565962") + ';display:inline-flex;align-items:center;justify-content:center;flex:none">' + (on ? v2ic(V2I.check, 11, "#fff") : "") + "</span>";
+}
+function v2kbd(k) {
+  return '<span style="display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;background:#232327;border:1px solid #414449;border-radius:6px;font:500 11px Figtree;color:#A6A8AF">' + k + "</span>";
+}
+function v2spin(sz, col) {
+  return '<span style="width:' + sz + "px;height:" + sz + "px;border:2px solid #2C2C31;border-top-color:" + col + ';border-radius:999px;display:inline-block;animation:wl2spin 1s linear infinite;flex:none"></span>';
+}
+function v2steprow(state, n, label) {
+  var dot, lab;
+  if (state === "done") { dot = '<span style="width:24px;height:24px;border-radius:999px;background:#C42663;display:inline-flex;align-items:center;justify-content:center">' + v2ic(V2I.check, 12, "#fff") + "</span>"; lab = '<span style="font:400 14px Figtree;color:#D6D7DB">' + label + "</span>"; }
+  else if (state === "active") { dot = '<span style="width:24px;height:24px;border-radius:999px;background:#C42663;color:#fff;display:inline-flex;align-items:center;justify-content:center;font:600 12px Figtree">' + n + "</span>"; lab = '<span style="font:600 14px Figtree;color:#FFFFFF">' + label + "</span>"; }
+  else { dot = '<span style="width:24px;height:24px;border-radius:999px;background:#2C2C31;color:#71747C;display:inline-flex;align-items:center;justify-content:center;font:600 12px Figtree">' + n + "</span>"; lab = '<span style="font:400 14px Figtree;color:#71747C">' + label + "</span>"; }
+  return '<span style="display:inline-flex;align-items:center;gap:8px">' + dot + lab + "</span>";
+}
+function v2tlItem(marker, title, body, time, last) {
+  return '<div style="display:flex;gap:12px"><div style="display:flex;flex-direction:column;align-items:center;gap:4px">' + marker +
+    (last ? "" : '<div style="width:2px;flex:1;background:#26272B;min-height:18px"></div>') +
+    '</div><div style="padding-bottom:' + (last ? 0 : 18) + 'px"><span style="font:600 14px Figtree">' + title + '</span> <span style="font:400 14px Figtree;color:#A6A8AF">' + body + '</span><div style="font:400 12px Figtree;color:#71747C;margin-top:2px">' + time + "</div></div></div>";
+}
+function v2histrow(state, title, time) {
+  var wash = state === "rest" ? "" : "background:#232327;";
+  var t = state === "active" ? "font:600 14px Figtree" : "font:400 14px Figtree;color:#D6D7DB";
+  var trail = state === "hover" ? v2ic(V2I.dots, 16, "#A6A8AF") : '<span style="font:400 12px Figtree;color:#71747C">' + time + "</span>";
+  return '<div style="' + V2ROW + ";width:232px;justify-content:space-between;" + wash + '"><span style="' + t + ';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + title + "</span>" + trail + "</div>";
+}
+
+var V2_DEMOS = {};
+
+/* ---- atoms ---- */
+V2_DEMOS["button"] = '<div style="' + V2F + '">' +
+  '<button style="' + V2BTN + ';background:#C42663;color:#fff">Primary</button>' +
+  '<button style="' + V2BTN + ';background:#D23A77;color:#fff">Hover</button>' +
+  '<button style="' + V2BTN + ';background:#E0528B;color:#fff">Active</button>' +
+  '<button style="' + V2BTN + ';background:#18181B;color:#fff;border:1px solid #414449">Secondary</button>' +
+  '<button style="' + V2BTN + ';background:transparent;color:#D6D7DB">Ghost</button>' +
+  '<button style="' + V2BTN + ';background:#DC2626;color:#fff">Destructive</button>' +
+  '<button style="' + V2BTN + ';background:#18181B;color:#565962;border:1px solid #26272B" disabled>Disabled</button></div>';
+
+V2_DEMOS["tag"] = '<div style="' + V2F + ';background:#18181B">' +
+  '<span style="' + V2TAG + ';background:#EFF0F2;color:#565962">' + V2DOT + "Neutral</span>" +
+  '<span style="' + V2TAG + ';background:#E2FAE9;color:#15803D">' + V2DOT + "Success</span>" +
+  '<span style="' + V2TAG + ';background:#FBEFC9;color:#92610A">' + V2DOT + "Warning</span>" +
+  '<span style="' + V2TAG + ';background:#FDDFDD;color:#B91C1C">' + V2DOT + "Error</span>" +
+  '<span style="' + V2TAG + ';background:#DBE7FE;color:#1D4ED8">' + V2DOT + "Info</span>" +
+  '<span style="' + V2TAG + ';background:#D3F7F5;color:#0F766E">' + V2DOT + "Viewed</span>" +
+  '<span style="' + V2TAG + ';background:#F9DCFC;color:#A21CAF">' + V2DOT + "Hot lead</span>" +
+  '<span style="' + V2TAG + ';background:#FFEDE5;color:#C2410C">' + V2DOT + "Bounced</span></div>";
+
+V2_DEMOS["avatar"] = '<div style="' + V2F + '">' +
+  v2av("SC", 24) + v2av("AH", 32) + v2av("MP", 40) +
+  '<span style="width:32px;height:32px;border-radius:999px;background:#2C2C31;display:inline-flex;align-items:center;justify-content:center">' + v2ic(V2I.user, 16, "#A6A8AF") + "</span>" +
+  '<span style="font:400 12px Figtree;color:#71747C">24 cells &amp; chips · 32 nav &amp; lists · 40 record headers · icon fallback</span></div>';
+
+V2_DEMOS["spinner"] = '<div style="' + V2F + '">' + v2spin(16, "#A6A8AF") + v2spin(20, "#A6A8AF") + v2spin(24, "#A6A8AF") +
+  '<button style="' + V2BTN + ';background:#C42663;color:#fff;gap:8px">' + v2spin(16, "#fff") + "Saving…</button>" +
+  '<span style="font:400 12px Figtree;color:#71747C">16 buttons · 20 controls · 24 panel loads · 1s linear</span></div>';
+
+V2_DEMOS["skeleton"] = '<div style="' + V2F + ';align-items:flex-start"><div style="display:flex;gap:12px;align-items:flex-start;width:100%;max-width:380px">' +
+  '<span style="width:40px;height:40px;border-radius:999px;background:#2C2C31;animation:wl2pulse 1.5s ease-in-out infinite;flex:none"></span>' +
+  '<div style="flex:1;display:flex;flex-direction:column;gap:8px">' +
+  '<span style="height:12px;border-radius:6px;background:#2C2C31;width:60%;animation:wl2pulse 1.5s ease-in-out infinite"></span>' +
+  '<span style="height:12px;border-radius:6px;background:#2C2C31;width:90%;animation:wl2pulse 1.5s ease-in-out infinite"></span>' +
+  '<span style="height:48px;border-radius:8px;background:#2C2C31;animation:wl2pulse 1.5s ease-in-out infinite"></span></div></div></div>';
+
+V2_DEMOS["separator"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:16px">' +
+  '<div><div style="font:400 14px Figtree;color:#D6D7DB;margin-bottom:12px">Section above</div><div style="height:1px;background:#26272B"></div><div style="font:400 14px Figtree;color:#D6D7DB;margin-top:12px">Section below</div></div>' +
+  '<div style="display:flex;align-items:center;gap:12px;font:400 14px Figtree;color:#A6A8AF">Docs<span style="width:1px;height:16px;background:#26272B"></span>API<span style="width:1px;height:16px;background:#26272B"></span>Support</div></div>';
+
+V2_DEMOS["label"] = '<div style="' + V2F + ';align-items:flex-start"><div style="min-width:240px">' +
+  '<div style="font:600 14px Figtree;margin-bottom:8px">Email address</div><div style="' + V2IN + ';color:#71747C">you@company.com</div></div>' +
+  '<div style="min-width:240px"><div style="font:600 14px Figtree;margin-bottom:8px">Policy number <span style="color:#F87171">*</span></div><div style="' + V2IN + ';color:#71747C">Required field</div></div></div>';
+
+V2_DEMOS["helper-text"] = '<div style="' + V2F + ';align-items:flex-start"><div style="min-width:260px"><div style="' + V2IN + '" >sarah@wellx.ai</div>' +
+  '<div style="font:400 12px Figtree;color:#A6A8AF;margin-top:4px">We never share your email.</div></div>' +
+  '<div style="min-width:260px"><div style="' + V2IN + ';border-color:#DC2626">sarah@wellx</div>' +
+  '<div style="font:400 12px Figtree;color:#F87171;margin-top:4px;display:flex;align-items:center;gap:4px">' + v2ic(V2I.x, 12, "#F87171") + "Enter a full email address.</div></div></div>";
+
+V2_DEMOS["checkbox"] = '<div style="' + V2F + '">' +
+  '<span style="display:inline-flex;align-items:center;gap:8px;font:400 14px Figtree">' + v2chk(false) + "Unchecked</span>" +
+  '<span style="display:inline-flex;align-items:center;gap:8px;font:400 14px Figtree">' + v2chk(true) + "Checked</span>" +
+  '<span style="display:inline-flex;align-items:center;gap:8px;font:400 14px Figtree"><span style="width:16px;height:16px;border-radius:4px;background:#C42663;display:inline-flex;align-items:center;justify-content:center"><span style="width:8px;height:2px;background:#fff;border-radius:1px"></span></span>Indeterminate</span>' +
+  '<span style="display:inline-flex;align-items:center;gap:8px;font:400 14px Figtree;color:#565962;opacity:.7"><span style="width:16px;height:16px;border-radius:4px;border:1px solid #414449"></span>Disabled</span></div>';
+
+V2_DEMOS["radio"] = '<div style="' + V2F + '">' +
+  '<span style="display:inline-flex;align-items:center;gap:8px;font:400 14px Figtree"><span style="width:16px;height:16px;border-radius:999px;border:1px solid #565962"></span>Monthly</span>' +
+  '<span style="display:inline-flex;align-items:center;gap:8px;font:600 14px Figtree"><span style="width:16px;height:16px;border-radius:999px;background:#C42663;display:inline-flex;align-items:center;justify-content:center"><span style="width:6px;height:6px;border-radius:999px;background:#fff"></span></span>Annual</span>' +
+  '<span style="display:inline-flex;align-items:center;gap:8px;font:400 14px Figtree;color:#565962;opacity:.7"><span style="width:16px;height:16px;border-radius:999px;border:1px solid #414449"></span>Custom</span></div>';
+
+V2_DEMOS["switch"] = '<div style="' + V2F + '">' +
+  '<span style="display:inline-flex;align-items:center;gap:10px;font:400 14px Figtree"><span style="width:36px;height:20px;border-radius:999px;background:#414449;display:inline-flex;align-items:center;padding:2px"><span style="width:16px;height:16px;border-radius:999px;background:#fff"></span></span>Notifications off</span>' +
+  '<span style="display:inline-flex;align-items:center;gap:10px;font:400 14px Figtree"><span style="width:36px;height:20px;border-radius:999px;background:#C42663;display:inline-flex;align-items:center;justify-content:flex-end;padding:2px"><span style="width:16px;height:16px;border-radius:999px;background:#fff"></span></span>Auto-renew on</span></div>';
+
+V2_DEMOS["input"] = '<div style="' + V2F + '">' +
+  '<div style="' + V2IN + ';min-width:200px;color:#71747C">Placeholder…</div>' +
+  '<div style="' + V2IN + ';min-width:200px">' + v2ic(V2I.search, 16, "#A6A8AF") + "With leading icon</div>" +
+  '<div style="' + V2IN + ';min-width:200px;border-color:#E0528B;box-shadow:0 0 0 3px rgba(224,82,139,.2)">Focused</div>' +
+  '<div style="' + V2IN + ';min-width:200px;color:#565962;background:#151518">Disabled</div></div>';
+
+V2_DEMOS["textarea"] = '<div style="' + V2F + '"><div style="background:#18181B;border:1px solid #414449;border-radius:8px;padding:10px 12px;min-height:80px;width:100%;max-width:420px;font:400 14px Figtree;color:#D6D7DB;line-height:1.5">The repair shop on this claim matches two prior claims from different policyholders.<br><span style="color:#71747C">Min-height 80 · top-aligned · resizable in code</span></div></div>';
+
+V2_DEMOS["tooltip"] = '<div style="' + V2F + ';padding-top:34px"><div style="position:relative;display:inline-block">' +
+  '<div style="position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#151518;border:1px solid #414449;border-radius:6px;padding:5px 8px;display:flex;align-items:center;gap:6px;white-space:nowrap;box-shadow:0 4px 16px rgba(11,11,12,.5)"><span style="font:400 12px Figtree;color:#fff">Duplicate</span>' + v2kbd("⌘D") + "</div>" +
+  '<button style="' + V2BTN + ';background:#18181B;color:#fff;border:1px solid #414449">Hover target</button></div>' +
+  '<span style="font:400 12px Figtree;color:#71747C">gray-900 pill in BOTH themes · 500ms open delay · never interactive content</span></div>';
+
+V2_DEMOS["delta"] = '<div style="' + V2F + '">' +
+  '<span style="' + V2TAG + ';padding:3px 10px;font-size:12px;background:#E2FAE9;color:#15803D">↑ +12.4%</span>' +
+  '<span style="' + V2TAG + ';padding:3px 10px;font-size:12px;background:#FDDFDD;color:#B91C1C">↓ −3.2%</span>' +
+  '<span style="' + V2TAG + ';padding:3px 10px;font-size:12px;background:#EFF0F2;color:#565962">→ 0.0%</span>' +
+  '<span style="font:400 12px Figtree;color:#71747C">direction = movement, not sentiment — invert in code for down-is-good metrics</span></div>';
+
+V2_DEMOS["kbd"] = '<div style="' + V2F + '">' +
+  '<span style="display:inline-flex;gap:4px">' + v2kbd("⌘") + v2kbd("K") + "</span>" +
+  '<span style="display:inline-flex;gap:4px">' + v2kbd("⇧") + v2kbd("↵") + "</span>" + v2kbd("esc") +
+  '<span style="font:400 12px Figtree;color:#71747C">one key per cap · combos are sibling caps at gap 4 · never interactive</span></div>';
+
+V2_DEMOS["progress-bar"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:16px;max-width:460px">' +
+  '<div><div style="display:flex;justify-content:space-between;font:400 12px Figtree;color:#A6A8AF;margin-bottom:6px"><span>Uploading claims batch</span><span style="font-family:' + V2MONO + '">64%</span></div><div style="height:8px;border-radius:999px;background:#2C2C31"><div style="width:64%;height:8px;border-radius:999px;background:#C42663"></div></div></div>' +
+  '<div style="height:8px;border-radius:999px;background:#2C2C31"><div style="width:25%;height:8px;border-radius:999px;background:#C42663"></div></div></div>';
+
+V2_DEMOS["suggestion-chip"] = '<div style="' + V2F + '">' +
+  '<span style="' + V2TAG + ';background:#18181B;border:1px solid #414449;color:#D6D7DB;font-weight:400;font-size:14px">' + v2ic(V2I.sparkle, 16, "#F0366B") + "Summarize this portfolio</span>" +
+  '<span style="' + V2TAG + ';background:#18181B;border:1px solid #414449;color:#D6D7DB;font-weight:400;font-size:14px">' + v2ic(V2I.sparkle, 16, "#F0366B") + "Flag unusual claims</span>" +
+  '<span style="font:400 12px Figtree;color:#71747C">2–4 chips above the prompt · verb-first · ≤ 4 words</span></div>';
+
+V2_DEMOS["thinking-indicator"] = '<div style="' + V2F + '"><span style="display:grid;grid-template-columns:repeat(3,4px);gap:2px">' +
+  [1, 0.4, 0.75, 0.55, 1, 0.3, 0.85, 0.5, 0.65].map(function (o, i) {
+    return '<span style="width:4px;height:4px;border-radius:1px;background:#EA7BA7;opacity:' + o + ";animation:wl2pulse 1.2s ease-in-out " + (i * 0.07).toFixed(2) + 's infinite"></span>';
+  }).join("") + "</span>" +
+  '<span style="font:400 14px Figtree;color:#A6A8AF">Reading 1,204 claims…</span>' +
+  '<span style="font:400 12px Figtree;color:#71747C">3×3 rose-300 blocks · 3.6s sweep cycle · shimmer → rows → columns</span></div>';
+
+V2_DEMOS["citation-chip"] = '<div style="' + V2F + '"><span style="font:400 14px Figtree;color:#D6D7DB;line-height:1.6;max-width:520px">Loss frequency rose 14% in Q3' +
+  '<span style="display:inline-flex;width:18px;height:18px;border-radius:999px;background:#2C2C31;color:#A6A8AF;font:600 11px Figtree;align-items:center;justify-content:center;vertical-align:text-bottom;margin:0 3px">1</span>' +
+  "driven by the two coastal schemes" +
+  '<span style="display:inline-flex;width:18px;height:18px;border-radius:999px;background:#2C2C31;color:#A6A8AF;font:600 11px Figtree;align-items:center;justify-content:center;vertical-align:text-bottom;margin:0 3px">2</span>.' +
+  '</span><span style="' + V2TAG + ';background:#232327;color:#A6A8AF;font-weight:500;font-size:11px;padding:3px 8px"><span style="width:12px;height:12px;border-radius:999px;background:#414449;display:inline-block"></span>wellx.ai</span></div>';
+
+V2_DEMOS["copy-button"] = '<div style="' + V2F + '">' +
+  '<span style="font:500 13px ' + V2MONO + ';color:#D6D7DB">POL/2026/88431</span>' +
+  '<span style="width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center">' + v2ic(V2I.copy, 16, "#A6A8AF") + "</span>" +
+  '<span style="width:24px;height:24px;border-radius:6px;background:#2C2C31;display:inline-flex;align-items:center;justify-content:center">' + v2ic(V2I.copy, 16, "#fff") + "</span>" +
+  '<span style="width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center">' + v2ic(V2I.check, 16, "#4ADE80") + "</span>" +
+  '<span style="font:400 12px Figtree;color:#71747C">rest · hover · copied (~2s, then reverts)</span></div>';
+
+/* ---- molecules ---- */
+V2_DEMOS["menu-item"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:2px;max-width:280px">' +
+  '<div style="' + V2ROW + '">' + v2ic(V2I.grid, 16, "#A6A8AF") + 'View settings<span style="margin-left:auto;display:inline-flex;gap:4px">' + v2kbd("⌘") + v2kbd(",") + "</span></div>" +
+  '<div style="' + V2ROW + ';background:#2C2C31">' + v2ic(V2I.copy, 16, "#A6A8AF") + "Duplicate view</div>" +
+  '<div style="' + V2ROW + '">Set as default<span style="margin-left:auto">' + v2ic(V2I.check, 16, "#C42663") + "</span></div>" +
+  '<div style="' + V2ROW + ';background:rgba(248,113,113,.1);color:#F87171">' + v2ic(V2I.x, 16, "#F87171") + "Delete view</div></div>";
+
+V2_DEMOS["menu"] = '<div style="' + V2F + '"><div style="' + V2POP + ';padding:6px;min-width:220px">' +
+  '<div style="' + V2ROW + '">View settings</div>' +
+  '<div style="' + V2ROW + ';background:#2C2C31">Import / Export</div>' +
+  '<div style="height:1px;background:#26272B;margin:6px 4px"></div>' +
+  '<div style="' + V2ROW + ';color:#F87171">Delete view</div></div></div>';
+
+V2_DEMOS["tab-item"] = '<div style="' + V2F + '">' +
+  '<span style="padding:10px 14px;font:600 14px Figtree;border-bottom:2px solid #C42663">Active</span>' +
+  '<span style="padding:10px 14px;font:400 14px Figtree;color:#A6A8AF;border-bottom:2px solid transparent">Rest</span>' +
+  '<span style="padding:10px 14px;font:400 14px Figtree;color:#FFFFFF;border-bottom:2px solid transparent">Hover</span></div>';
+
+V2_DEMOS["tabs"] = '<div style="' + V2F + '"><div style="display:flex;gap:4px;border-bottom:1px solid #26272B;width:100%">' +
+  ["Overview|1", "Claims|0", "Members|0", "Settings|0"].map(function (t) { var p = t.split("|"); var on = p[1] === "1"; return '<span style="padding:10px 14px;font:600 14px Figtree;color:' + (on ? "#FFFFFF" : "#A6A8AF") + ";border-bottom:2px solid " + (on ? "#C42663" : "transparent") + ';margin-bottom:-1px">' + p[0] + "</span>"; }).join("") + "</div></div>";
+
+V2_DEMOS["select"] = '<div style="' + V2F + ';align-items:flex-start">' +
+  '<div style="' + V2IN + ';min-width:220px;justify-content:space-between">Annual renewal' + v2ic(V2I.chevsUpDown, 16, "#A6A8AF") + "</div>" +
+  '<div><div style="' + V2IN + ';min-width:220px;justify-content:space-between;border-color:#E0528B;box-shadow:0 0 0 3px rgba(224,82,139,.2)">Annual renewal' + v2ic(V2I.chevsUpDown, 16, "#A6A8AF") + "</div>" +
+  '<div style="' + V2POP + ';padding:6px;min-width:220px;margin-top:6px">' +
+  '<div style="' + V2ROW + ';justify-content:space-between">Annual renewal' + v2ic(V2I.check, 16, "#C42663") + "</div>" +
+  '<div style="' + V2ROW + ';background:#2C2C31">Monthly</div>' +
+  '<div style="' + V2ROW + '">One-off</div></div></div></div>';
+
+V2_DEMOS["combobox"] = '<div style="' + V2F + '"><div style="' + V2POP + ';min-width:260px;overflow:hidden">' +
+  '<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #26272B">' + v2ic(V2I.search, 16, "#A6A8AF") + '<span style="font:400 14px Figtree;color:#71747C">Search brokers…</span></div>' +
+  '<div style="padding:6px">' +
+  '<div style="' + V2ROW + ';background:#2C2C31">' + v2av("AC", 20) + "Acme Insurance Brokers</div>" +
+  '<div style="' + V2ROW + '">' + v2av("NB", 20) + "Northwind Brokerage</div>" +
+  '<div style="' + V2ROW + ';color:#71747C;font-size:13px">No more results</div></div></div></div>';
+
+V2_DEMOS["field"] = '<div style="' + V2F + '"><div style="min-width:280px">' +
+  '<div style="font:600 14px Figtree;margin-bottom:8px">Amount</div>' +
+  '<div style="height:36px;background:#18181B;border:1px solid #414449;border-radius:8px;display:flex;align-items:center;padding:0 12px;font:500 14px ' + V2MONO + '">MVR 12,000.00</div>' +
+  '<div style="font:400 12px Figtree;color:#A6A8AF;margin-top:4px">Safe to apply: MVR 12,000.00</div></div>' +
+  '<div style="min-width:280px"><div style="font:600 14px Figtree;margin-bottom:8px">Focused</div>' +
+  '<div style="height:36px;background:#18181B;border:1px solid #E0528B;box-shadow:0 0 0 3px rgba(224,82,139,.2);border-radius:8px;display:flex;align-items:center;padding:0 12px;font:400 14px Figtree;color:#A6A8AF">Enter value…</div></div>' +
+  '<div style="min-width:280px"><div style="font:600 14px Figtree;margin-bottom:8px">Error</div>' +
+  '<div style="height:36px;background:#18181B;border:1px solid #DC2626;border-radius:8px;display:flex;align-items:center;padding:0 12px;font:400 14px Figtree">14,200.00</div>' +
+  '<div style="font:400 12px Figtree;color:#F87171;margin-top:4px">Exceeds the safe amount</div></div></div>';
+
+V2_DEMOS["search-input"] = '<div style="' + V2F + '">' +
+  '<div style="' + V2IN + ';min-width:260px;justify-content:space-between"><span style="display:inline-flex;align-items:center;gap:8px">' + v2ic(V2I.search, 16, "#A6A8AF") + '<span style="color:#71747C">Search</span></span><span style="display:inline-flex;gap:4px">' + v2kbd("⌘") + v2kbd("K") + "</span></div>" +
+  '<div style="' + V2IN + ';min-width:220px">' + v2ic(V2I.search, 16, "#A6A8AF") + '<span style="color:#71747C">Filter companies…</span></div>' +
+  '<span style="font:400 12px Figtree;color:#71747C">⌘K variant is reserved for the sidebar quick-actions search</span></div>';
+
+V2_DEMOS["alert"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch">' +
+  '<div style="background:#FBEFC9;border-radius:10px;padding:14px 16px;color:#92610A"><div style="font:600 14px Figtree">This creates a credit</div><div style="font:400 13px Figtree;margin-top:2px">Applying more than the safe amount creates a credit that finance must reverse.</div></div>' +
+  '<div style="background:#E2FAE9;border-radius:10px;padding:14px 16px;color:#15803D"><div style="font:600 14px Figtree">Posted to reservation RL-2091</div><div style="font:400 13px Figtree;margin-top:2px">Nothing remains on account.</div></div></div>';
+
+V2_DEMOS["toast"] = '<div style="' + V2F + '"><div style="' + V2POP + ';padding:12px 16px;display:flex;align-items:center;gap:10px">' +
+  '<span style="width:18px;height:18px;border-radius:99px;background:#E2FAE9;color:#15803D;display:inline-flex;align-items:center;justify-content:center;font:700 11px Figtree">✓</span>' +
+  '<span style="font:400 14px Figtree">Renewal issued · policy <span style="font:500 13px ' + V2MONO + '">POL/2026/88431</span></span>' +
+  '<span style="font:600 13px Figtree;color:#E0528B;margin-left:8px">Undo</span></div></div>';
+
+V2_DEMOS["card"] = '<div style="' + V2F + '"><div style="flex:1;min-width:220px;background:#18181B;border:1px solid #26272B;border-radius:12px;padding:20px">' +
+  '<div style="font:600 16px Figtree;margin-bottom:8px">Dark — elevated surface</div><div style="font:400 14px Figtree;color:#A6A8AF">card #18181B on canvas #0B0B0C. The surface step carries the depth — no shadow.</div></div>' +
+  '<div style="flex:1;min-width:220px;background:#FFFFFF;border:1px solid #E9EAEC;border-radius:12px;padding:20px;box-shadow:0 1px 2px rgba(11,11,12,.06),0 3px 8px rgba(11,11,12,.05)">' +
+  '<div style="font:600 16px Figtree;color:#0B0B0C;margin-bottom:8px">Light — optional resting shadow</div><div style="font:400 14px Figtree;color:#71747C">shadow-resting over the hairline. Optional, never required.</div></div></div>';
+
+V2_DEMOS["kpi-tile"] = '<div style="' + V2F + '"><div style="background:#18181B;border:1px solid #26272B;border-radius:12px;padding:20px;min-width:240px">' +
+  '<div style="font:400 14px Figtree;color:#A6A8AF">Events Created</div>' +
+  '<div style="font:500 30px ' + V2MONO + ';letter-spacing:-0.3px;line-height:1.1;margin:6px 0">4,275,190.63</div>' +
+  '<span style="' + V2TAG + ';padding:3px 10px;font-size:12px;background:#E2FAE9;color:#15803D">↑ 12% from last period</span></div>' +
+  '<div style="background:#18181B;border:1px solid #26272B;border-radius:12px;padding:20px;min-width:200px">' +
+  '<div style="font:400 14px Figtree;color:#A6A8AF">Loss ratio</div>' +
+  '<div style="font:500 30px ' + V2MONO + ';line-height:1.1;margin:6px 0">0.91</div>' +
+  '<span style="' + V2TAG + ';padding:3px 10px;font-size:12px;background:#FDDFDD;color:#B91C1C">↓ 3% from last period</span></div></div>';
+
+V2_DEMOS["popover"] = '<div style="' + V2F + '"><div style="' + V2POP + ';padding:16px;min-width:260px">' +
+  '<div style="font:600 14px Figtree;margin-bottom:4px">Share this view</div>' +
+  '<div style="font:400 13px Figtree;color:#A6A8AF;margin-bottom:12px">Everyone in the workspace can open shared views.</div>' +
+  '<div style="display:flex;gap:8px"><div style="' + V2IN + ';flex:1;height:32px;font-size:13px;color:#71747C">sarah@wellx.ai</div>' +
+  '<button style="' + V2BTN + ';height:32px;background:#C42663;color:#fff;font-size:13px">Invite</button></div></div>' +
+  '<span style="font:400 12px Figtree;color:#71747C">interactive content — everything a Tooltip must never hold</span></div>';
+
+V2_DEMOS["description-list"] = '<div style="' + V2F + '"><div style="min-width:320px;display:flex;flex-direction:column;gap:12px">' +
+  [["Policy", 'POL/2026/88431', 1], ["Broker", "Northwind Brokerage", 0], ["Premium", "MVR 48,200.00", 1], ["Last claim", "—", 0]].map(function (r) {
+    return '<div style="display:flex;gap:16px"><span style="width:120px;flex:none;font:400 14px Figtree;color:#A6A8AF">' + r[0] + '</span><span style="font:' + (r[2] ? "500 13px " + V2MONO : "400 14px Figtree") + ';color:' + (r[1] === "—" ? "#71747C" : "#FFFFFF") + '">' + r[1] + "</span></div>";
+  }).join("") + "</div></div>";
+
+V2_DEMOS["empty-state"] = '<div style="' + V2F + ';justify-content:center"><div style="text-align:center;padding:24px">' +
+  '<div style="width:44px;height:44px;border:1.5px solid #414449;border-radius:12px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#A6A8AF;font:400 20px Figtree">⊕</div>' +
+  '<div style="font:600 18px Figtree">No segments yet</div>' +
+  '<div style="font:400 14px Figtree;color:#A6A8AF;margin:6px 0 16px">Create a segment to target testers by any field.</div>' +
+  '<button style="' + V2BTN + ';background:#C42663;color:#fff">Create segment</button></div></div>';
+
+V2_DEMOS["legend"] = '<div style="' + V2F + '">' +
+  '<span style="display:inline-flex;align-items:center;gap:8px;font:400 12px Figtree;color:#D6D7DB"><span style="width:8px;height:8px;border-radius:999px;background:#C42663"></span>Gross written</span>' +
+  '<span style="display:inline-flex;align-items:center;gap:8px;font:400 12px Figtree;color:#D6D7DB"><span style="width:8px;height:8px;border-radius:999px;background:#60A5FA"></span>Net earned</span>' +
+  '<span style="display:inline-flex;align-items:center;gap:8px;font:400 12px Figtree;color:#D6D7DB;opacity:.4"><span style="width:8px;height:8px;border-radius:999px;background:#4ADE80"></span>Ceded (toggled off)</span></div>';
+
+V2_DEMOS["chart-tooltip"] = '<div style="' + V2F + '"><div style="' + V2POP + ';border-radius:8px;padding:10px 12px;min-width:180px">' +
+  '<div style="font:600 12px Figtree;margin-bottom:8px">Mar 14, 2026</div>' +
+  '<div style="display:flex;align-items:center;gap:8px;font:400 12px Figtree;color:#A6A8AF;margin-bottom:4px"><span style="width:8px;height:8px;border-radius:999px;background:#C42663"></span>Gross written<span style="margin-left:auto;font:500 12px ' + V2MONO + ';color:#fff">48,200</span></div>' +
+  '<div style="display:flex;align-items:center;gap:8px;font:400 12px Figtree;color:#A6A8AF"><span style="width:8px;height:8px;border-radius:999px;background:#60A5FA"></span>Net earned<span style="margin-left:auto;font:500 12px ' + V2MONO + ';color:#fff">31,840</span></div></div>' +
+  '<span style="font:400 12px Figtree;color:#71747C">follows the cursor at 8px · no animation · mono values</span></div>';
+
+V2_DEMOS["avatar-group"] = '<div style="' + V2F + '"><span style="display:inline-flex">' +
+  '<span style="border:2px solid #0B0B0C;border-radius:999px">' + v2av("SC", 24) + "</span>" +
+  '<span style="border:2px solid #0B0B0C;border-radius:999px;margin-left:-6px">' + v2av("AH", 24) + "</span>" +
+  '<span style="border:2px solid #0B0B0C;border-radius:999px;margin-left:-6px">' + v2av("MP", 24) + "</span>" +
+  '<span style="border:2px solid #0B0B0C;border-radius:999px;margin-left:-6px;width:24px;height:24px;background:#2C2C31;color:#A6A8AF;display:inline-flex;align-items:center;justify-content:center;font:600 10px Figtree;border-radius:999px">+3</span></span>' +
+  '<span style="font:400 12px Figtree;color:#71747C">max 3 visible · −6px overlap · 2px canvas ring · +N opens the full list</span></div>';
+
+V2_DEMOS["calendar-day"] = '<div style="' + V2F + '">' +
+  '<span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:400 14px Figtree">14</span>' +
+  '<span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:600 14px Figtree;color:#E0528B">15</span>' +
+  '<span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:600 14px Figtree;background:#C42663;color:#fff">16</span>' +
+  '<span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:400 14px Figtree;color:#565962">31</span>' +
+  '<span style="font:400 12px Figtree;color:#71747C">default · today · selected · outside month</span></div>';
+
+V2_DEMOS["calendar"] = (function () {
+  var days = '<div style="display:grid;grid-template-columns:repeat(7,32px);gap:4px;justify-items:center">' +
+    ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map(function (d) { return '<span style="font:600 11px Figtree;color:#71747C;height:24px;display:inline-flex;align-items:center">' + d + "</span>"; }).join("");
+  for (var i = -1; i < 34; i++) {
+    var n = i < 1 ? 30 + i : (i > 31 ? i - 31 : i);
+    var out = i < 1 || i > 31, sel = i === 14, today = i === 11;
+    days += '<span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:' + (sel || today ? 600 : 400) + ' 13px Figtree;' +
+      (sel ? "background:#C42663;color:#fff" : today ? "color:#E0528B" : out ? "color:#565962" : "color:#D6D7DB") + '">' + n + "</span>";
+  }
+  days += "</div>";
+  return '<div style="' + V2F + ';justify-content:center"><div style="' + V2POP + ';padding:16px">' +
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="transform:rotate(180deg);display:inline-flex">' + v2ic(V2I.chevRight, 16, "#A6A8AF") + '</span><span style="font:600 14px Figtree">March 2026</span>' + v2ic(V2I.chevRight, 16, "#A6A8AF") + "</div>" + days + "</div></div>";
+})();
+
+V2_DEMOS["date-picker"] = '<div style="' + V2F + '">' +
+  '<div style="' + V2IN + ';min-width:220px">' + v2ic(V2I.calendar, 16, "#A6A8AF") + "Mar 16, 2026</div>" +
+  '<div style="' + V2IN + ';min-width:220px;border-color:#E0528B;box-shadow:0 0 0 3px rgba(224,82,139,.2)">' + v2ic(V2I.calendar, 16, "#A6A8AF") + '<span style="color:#71747C">Pick a date…</span></div>' +
+  '<span style="font:400 12px Figtree;color:#71747C">opens the Calendar popover · typing always possible · min/max disable impossible dates</span></div>';
+
+V2_DEMOS["number-input"] = '<div style="' + V2F + '">' +
+  '<div style="height:36px;background:#18181B;border:1px solid #414449;border-radius:8px;display:inline-flex;align-items:stretch;overflow:hidden">' +
+  '<span style="display:inline-flex;align-items:center;padding:0 12px;font:400 14px ' + V2MONO + '">42</span>' +
+  '<span style="display:inline-flex;flex-direction:column;border-left:1px solid #414449">' +
+  '<span style="width:24px;flex:1;display:inline-flex;align-items:center;justify-content:center;border-bottom:1px solid #414449"><span style="transform:rotate(-90deg);display:inline-flex">' + v2ic(V2I.chevRight, 12, "#A6A8AF") + "</span></span>" +
+  '<span style="width:24px;flex:1;display:inline-flex;align-items:center;justify-content:center"><span style="transform:rotate(90deg);display:inline-flex">' + v2ic(V2I.chevRight, 12, "#A6A8AF") + "</span></span></span></div>" +
+  '<span style="font:400 12px Figtree;color:#71747C">↑↓ steps · ⇧ steps 10× · values tnum mono · wrap in Field</span></div>';
+
+V2_DEMOS["tag-input"] = '<div style="' + V2F + '"><div style="min-height:36px;background:#18181B;border:1px solid #414449;border-radius:8px;display:flex;align-items:center;gap:6px;padding:4px 8px;flex-wrap:wrap;min-width:340px">' +
+  ["Coastal", "Marine"].map(function (t) { return '<span style="' + V2TAG + ';background:#2C2C31;color:#D6D7DB;font-weight:500;font-size:12px;padding:3px 8px">' + t + v2ic(V2I.x, 12, "#A6A8AF") + "</span>"; }).join("") +
+  '<span style="font:400 14px Figtree;color:#71747C">Add scheme…</span></div>' +
+  '<span style="font:400 12px Figtree;color:#71747C">Enter/comma commits · Backspace removes last · pills stay neutral inside the field</span></div>';
+
+V2_DEMOS["file-upload"] = '<div style="' + V2F + ';justify-content:center"><div style="border:1px dashed #414449;border-radius:12px;padding:28px 40px;text-align:center;min-width:320px">' +
+  '<div style="width:40px;height:40px;border-radius:10px;background:#2C2C31;margin:0 auto 10px;display:flex;align-items:center;justify-content:center">' + v2ic(V2I.upload, 18, "#A6A8AF") + "</div>" +
+  '<div style="font:400 14px Figtree"><span style="font-weight:600;color:#E0528B">Click to upload</span> <span style="color:#A6A8AF">or drag and drop</span></div>' +
+  '<div style="font:400 12px Figtree;color:#71747C;margin-top:4px">PDF, CSV or XLSX · up to 20 MB</div></div></div>';
+
+V2_DEMOS["file-upload-item"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;max-width:460px">' +
+  '<div style="display:flex;gap:10px;align-items:center"><span style="width:32px;height:32px;border-radius:8px;background:#2C2C31;display:inline-flex;align-items:center;justify-content:center;flex:none">' + v2ic(V2I.file, 16, "#A6A8AF") + "</span>" +
+  '<div style="flex:1"><div style="font:600 13px Figtree">claims-q3.csv</div><div style="height:6px;border-radius:999px;background:#2C2C31;margin-top:6px"><div style="width:60%;height:6px;border-radius:999px;background:#C42663"></div></div></div>' +
+  '<span style="font:500 12px ' + V2MONO + ';color:#A6A8AF">60%</span>' + v2ic(V2I.x, 16, "#A6A8AF") + "</div>" +
+  '<div style="display:flex;gap:10px;align-items:center"><span style="width:32px;height:32px;border-radius:8px;background:#2C2C31;display:inline-flex;align-items:center;justify-content:center;flex:none">' + v2ic(V2I.file, 16, "#A6A8AF") + "</span>" +
+  '<div style="flex:1"><div style="font:600 13px Figtree">policy-book.xlsx</div><div style="font:400 12px Figtree;color:#71747C">4.2 MB · Uploaded</div></div>' + v2ic(V2I.check, 16, "#4ADE80") + v2ic(V2I.x, 16, "#A6A8AF") + "</div></div>";
+
+V2_DEMOS["breadcrumbs"] = '<div style="' + V2F + '"><span style="display:inline-flex;align-items:center;gap:8px">' +
+  v2ic(V2I.home, 14, "#A6A8AF") + v2ic(V2I.chevRight, 14, "#565962") +
+  '<span style="font:400 14px Figtree;color:#A6A8AF">Settings</span>' + v2ic(V2I.chevRight, 14, "#565962") +
+  '<span style="font:600 14px Figtree">Members</span></span>' +
+  '<span style="font:400 12px Figtree;color:#71747C">current page is text, never a link · &gt;3 levels collapse to …</span></div>';
+
+V2_DEMOS["pagination-item"] = '<div style="' + V2F + '">' +
+  '<span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:400 14px Figtree;color:#D6D7DB">1</span>' +
+  '<span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:400 14px Figtree;background:#232327;color:#fff">2</span>' +
+  '<span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:600 14px Figtree;background:#2C2C31">3</span>' +
+  '<span style="font:400 12px Figtree;color:#71747C">rest · hover · active</span></div>';
+
+V2_DEMOS["pagination"] = '<div style="' + V2F + ';justify-content:space-between">' +
+  '<button style="' + V2BTN + ';height:32px;background:transparent;color:#565962;font-size:13px" disabled>← Previous</button>' +
+  '<span style="display:inline-flex;gap:2px;align-items:center">' +
+  [["1", 1], ["2", 0], ["3", 0], ["…", -1], ["8", 0], ["9", 0], ["10", 0]].map(function (p) {
+    if (p[1] === -1) return '<span style="width:32px;text-align:center;font:400 14px Figtree;color:#565962">…</span>';
+    return '<span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:' + (p[1] ? "600" : "400") + ' 14px Figtree;' + (p[1] ? "background:#2C2C31" : "color:#D6D7DB") + '">' + p[0] + "</span>";
+  }).join("") + "</span>" +
+  '<button style="' + V2BTN + ';height:32px;background:transparent;color:#D6D7DB;font-size:13px">Next →</button></div>';
+
+V2_DEMOS["accordion-item"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:0"><div style="border-bottom:1px solid #26272B;padding-bottom:12px">' +
+  '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0 8px"><span style="font:600 14px Figtree">What counts as a pre-existing condition?</span><span style="transform:rotate(180deg);display:inline-flex">' + v2ic(V2I.chevDown, 16, "#A6A8AF") + "</span></div>" +
+  '<div style="font:400 14px Figtree;color:#A6A8AF;line-height:1.5">Any condition diagnosed or treated in the 24 months before the policy start date, as recorded by a licensed provider.</div></div></div>';
+
+V2_DEMOS["accordion"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:0">' +
+  '<div style="border-bottom:1px solid #26272B;padding:12px 0"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 14px Figtree">What counts as a pre-existing condition?</span><span style="transform:rotate(180deg);display:inline-flex">' + v2ic(V2I.chevDown, 16, "#A6A8AF") + "</span></div>" +
+  '<div style="font:400 14px Figtree;color:#A6A8AF;line-height:1.5;margin-top:8px">Any condition diagnosed or treated in the 24 months before the policy start date.</div></div>' +
+  '<div style="border-bottom:1px solid #26272B;padding:12px 0;display:flex;justify-content:space-between;align-items:center"><span style="font:600 14px Figtree;color:#D6D7DB">How are renewals priced?</span>' + v2ic(V2I.chevDown, 16, "#A6A8AF") + "</div>" +
+  '<div style="padding:12px 0;display:flex;justify-content:space-between;align-items:center"><span style="font:600 14px Figtree;color:#D6D7DB">Can I pause a scheme?</span>' + v2ic(V2I.chevDown, 16, "#A6A8AF") + "</div></div>";
+
+V2_DEMOS["list-item"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:0">' +
+  '<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px">' + v2av("SC", 24) +
+  '<div style="flex:1"><div style="font:600 14px Figtree">Sarah Chen</div><div style="font:400 12px Figtree;color:#A6A8AF">Approved the Northwind renewal</div></div><span style="font:400 12px Figtree;color:#71747C">2h</span></div>' +
+  '<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:#232327">' + v2av("AH", 24) +
+  '<div style="flex:1"><div style="font:600 14px Figtree">Ali Hassan</div><div style="font:400 12px Figtree;color:#A6A8AF">Flagged claim CLM-20419 for review</div></div><span style="font:400 12px Figtree;color:#71747C">5h</span></div></div>';
+
+V2_DEMOS["step-item"] = '<div style="' + V2F + '">' + v2steprow("done", 1, "Scheme details") + v2steprow("active", 2, "Members") + v2steprow("todo", 3, "Review &amp; bind") + "</div>";
+
+V2_DEMOS["stepper"] = '<div style="' + V2F + ';justify-content:center"><span style="display:inline-flex;align-items:center;gap:10px">' +
+  v2steprow("done", 1, "Scheme details") + '<span style="width:48px;height:2px;background:#C42663;border-radius:1px"></span>' +
+  v2steprow("active", 2, "Members") + '<span style="width:48px;height:2px;background:#2C2C31;border-radius:1px"></span>' +
+  v2steprow("todo", 3, "Review &amp; bind") + "</span></div>";
+
+V2_DEMOS["prompt-input"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;max-width:640px">' +
+  '<div style="display:flex;gap:8px;flex-wrap:wrap"><span style="' + V2TAG + ';background:#18181B;border:1px solid #414449;color:#D6D7DB;font-weight:400;font-size:13px">' + v2ic(V2I.sparkle, 14, "#F0366B") + 'Summarize this portfolio</span><span style="' + V2TAG + ';background:#18181B;border:1px solid #414449;color:#D6D7DB;font-weight:400;font-size:13px">' + v2ic(V2I.sparkle, 14, "#F0366B") + "Flag unusual claims</span></div>" +
+  '<div style="background:#18181B;border:1px solid #414449;border-radius:16px;min-height:120px;display:flex;flex-direction:column;justify-content:space-between;padding:14px 14px 10px">' +
+  '<span style="font:400 14px Figtree;color:#71747C">Ask about this portfolio…</span>' +
+  '<div style="display:flex;align-items:center;justify-content:space-between"><span style="display:inline-flex;align-items:center;gap:10px">' + v2ic(V2I.plus, 16, "#A6A8AF") + '<span style="font:400 12px Figtree;color:#71747C">Attach</span></span>' +
+  '<span style="width:28px;height:28px;border-radius:999px;background:#C42663;display:inline-flex;align-items:center;justify-content:center">' + v2ic(V2I.up, 14, "#fff") + "</span></div></div>" +
+  '<span style="font:400 12px Figtree;color:#71747C">fluid width — fills the thread column (min 480 / max 768) · grows to 280 then scrolls</span></div>';
+
+V2_DEMOS["attachment-card"] = '<div style="' + V2F + '"><span style="font:400 14px Figtree;color:#D6D7DB">Compare</span>' +
+  '<span style="display:inline-flex;align-items:center;gap:6px;background:#18181B;border:1px solid #414449;border-radius:8px;padding:2px 6px">' + v2ic(V2I.file, 14, "#F87171") + '<span style="font:400 14px Figtree">Treaty-2026.pdf</span>' + v2ic(V2I.x, 12, "#71747C") + "</span>" +
+  '<span style="font:400 14px Figtree;color:#D6D7DB">with</span>' +
+  '<span style="display:inline-flex;align-items:center;gap:6px;background:#18181B;border:1px solid #414449;border-radius:8px;padding:2px 6px">' + v2ic(V2I.image, 14, "#4ADE80") + '<span style="font:400 14px Figtree">Scan.png</span>' + v2ic(V2I.x, 12, "#71747C") + "</span>" +
+  '<span style="font:400 12px Figtree;color:#71747C">text-scale pill — sits on the prompt line, never reflows the sentence</span></div>';
+
+V2_DEMOS["slider"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:20px;max-width:420px">' +
+  '<div style="position:relative;height:16px;display:flex;align-items:center"><div style="height:4px;border-radius:999px;background:#2C2C31;width:100%"></div>' +
+  '<div style="position:absolute;left:0;width:60%;height:4px;border-radius:999px;background:#C42663"></div>' +
+  '<span style="position:absolute;left:60%;width:16px;height:16px;border-radius:999px;background:#fff;border:1.5px solid #565962;transform:translateX(-8px)"></span></div>' +
+  '<div style="position:relative;height:16px;display:flex;align-items:center"><div style="height:4px;border-radius:999px;background:#2C2C31;width:100%"></div>' +
+  '<div style="position:absolute;left:25%;width:40%;height:4px;border-radius:999px;background:#C42663"></div>' +
+  '<span style="position:absolute;left:25%;width:16px;height:16px;border-radius:999px;background:#fff;border:1.5px solid #565962;transform:translateX(-8px)"></span>' +
+  '<span style="position:absolute;left:65%;width:16px;height:16px;border-radius:999px;background:#fff;border:1.5px solid #565962;transform:translateX(-8px)"></span></div></div>';
+
+V2_DEMOS["otp-input"] = '<div style="' + V2F + '">' +
+  ["4", "9", "2", "", "", ""].map(function (d, i) {
+    var s = "width:36px;height:36px;background:#18181B;border:1px solid #414449;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:500 16px " + V2MONO;
+    if (i === 3) s += ";border-color:#E0528B;box-shadow:0 0 0 3px rgba(224,82,139,.16)";
+    return '<span style="' + s + '">' + d + "</span>";
+  }).join("") +
+  '<span style="font:400 12px Figtree;color:#71747C">auto-advance · paste distributes · six default, four for SMS</span></div>';
+
+V2_DEMOS["hover-card"] = '<div style="' + V2F + '"><div style="' + V2POP + ';padding:16px;width:320px">' +
+  '<div style="display:flex;gap:12px;align-items:center;padding-bottom:12px;border-bottom:1px solid #26272B;margin-bottom:12px">' + v2av("SC", 40) +
+  '<div><div style="font:600 14px Figtree">Sarah Chen</div><div style="font:400 12px Figtree;color:#A6A8AF">Underwriting lead · Wellx</div></div></div>' +
+  '<div style="display:flex;gap:16px;font:400 13px Figtree;color:#A6A8AF;margin-bottom:6px"><span style="width:96px;flex:none">Open claims</span><span style="font:500 12px ' + V2MONO + ';color:#fff">14</span></div>' +
+  '<div style="display:flex;gap:16px;font:400 13px Figtree;color:#A6A8AF"><span style="width:96px;flex:none">Last active</span><span style="color:#fff">2 hours ago</span></div></div>' +
+  '<span style="font:400 12px Figtree;color:#71747C">raised after ~500ms hover on links, chips and table cells</span></div>';
+
+V2_DEMOS["page-banner"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;padding:0;overflow:hidden;gap:0">' +
+  '<div style="display:flex;align-items:center;gap:10px;background:rgba(96,165,250,.12);color:#60A5FA;padding:10px 16px;min-height:40px"><span style="width:16px;height:16px;border-radius:999px;border:2px solid currentColor;display:inline-flex;align-items:center;justify-content:center;font:700 10px Figtree;flex:none">i</span><span style="font:400 14px Figtree;flex:1">Scheme renewal pricing updates land on March 30.</span><span style="font:600 13px Figtree">Review</span></div>' +
+  '<div style="display:flex;align-items:center;gap:10px;background:#4A0B24;color:#EA7BA7;padding:10px 16px;min-height:40px">' + v2ic(V2I.sparkle, 16, "#EA7BA7") + '<span style="font:400 14px Figtree;flex:1">The portfolio copilot is now available on this workspace.</span><span style="font:600 13px Figtree">Try it</span></div></div>';
+
+V2_DEMOS["filter-chip"] = '<div style="' + V2F + '">' +
+  '<span style="' + V2TAG + ';background:transparent;border:1px solid #414449;color:#D6D7DB;font-weight:400;font-size:14px">Status' + v2ic(V2I.chevDown, 14, "#A6A8AF") + "</span>" +
+  '<span style="' + V2TAG + ';background:#2C2C31;border:1px solid #414449;color:#D6D7DB;font-weight:400;font-size:14px">Status' + v2ic(V2I.chevDown, 14, "#A6A8AF") + "</span>" +
+  '<span style="' + V2TAG + ';background:transparent;border:1.5px solid #E0528B;color:#fff;font-weight:400;font-size:14px">Status' + v2ic(V2I.chevDown, 14, "#A6A8AF") + "</span>" +
+  '<span style="' + V2TAG + ';background:transparent;border:1px solid #414449;font-size:14px"><span style="font-weight:400;color:#A6A8AF">Status:</span><b style="font-weight:700;color:#fff">Active</b>' + v2ic(V2I.chevDown, 14, "#A6A8AF") + "</span>" +
+  '<span style="' + V2TAG + ';background:transparent;border:1px dashed #414449;color:#A6A8AF;font-weight:400;font-size:14px">' + v2ic(V2I.plus, 14, "#A6A8AF") + "Add filter</span>" +
+  '<span style="font:400 12px Figtree;color:#71747C;width:100%">default · hover · open (ring) · applied · add filter (dashed)</span></div>';
+
+V2_DEMOS["filter-options-dropdown"] = '<div style="' + V2F + '"><div style="' + V2POP + ';padding:6px;min-width:220px">' +
+  [["Active", 1], ["Churned", 0], ["Trial", 0]].map(function (o) {
+    return '<div style="height:32px;display:flex;align-items:center;gap:10px;padding:0 10px;border-radius:6px;font:400 14px Figtree">' + v2chk(o[1]) + o[0] + "</div>";
+  }).join("") +
+  '<div style="height:1px;background:#26272B;margin:6px 4px"></div><div style="height:32px;display:flex;align-items:center;padding:0 10px;font:400 13px Figtree;color:#A6A8AF">Clear filter</div></div>' +
+  '<span style="font:400 12px Figtree;color:#71747C">owned by ONE chip · real checkboxes · 220w · shadow-float</span></div>';
+
+V2_DEMOS["filter-bar"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch">' +
+  '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
+  '<span style="' + V2TAG + ';background:transparent;border:1px solid #414449;font-size:14px"><span style="font-weight:400;color:#A6A8AF">Status:</span><b style="font-weight:700;color:#fff">Active</b>' + v2ic(V2I.chevDown, 14, "#A6A8AF") + "</span>" +
+  '<span style="' + V2TAG + ';background:transparent;border:1px solid #414449;font-size:14px"><span style="font-weight:400;color:#A6A8AF">Owner:</span><b style="font-weight:700;color:#fff">Sarah</b>' + v2ic(V2I.chevDown, 14, "#A6A8AF") + "</span>" +
+  '<span style="' + V2TAG + ';background:transparent;border:1px solid #414449;color:#D6D7DB;font-weight:400;font-size:14px">Members' + v2ic(V2I.chevDown, 14, "#A6A8AF") + "</span>" +
+  '<span style="' + V2TAG + ';background:transparent;border:1px dashed #414449;color:#A6A8AF;font-weight:400;font-size:14px">' + v2ic(V2I.plus, 14, "#A6A8AF") + "Add filter</span></div>" +
+  '<div style="border:1px solid #26272B;border-radius:10px;height:46px;background:#18181B;display:flex;align-items:center;padding:0 16px;font:600 11px Figtree;letter-spacing:.06em;color:#A6A8AF">THE TABLE-CARD SITS DIRECTLY BELOW</div></div>';
+
+/* ---- organisms ---- */
+V2_DEMOS["dialog"] = '<div style="' + V2F + ';justify-content:center;background:rgba(0,0,0,.6);padding:32px"><div style="background:#18181B;border:1px solid #414449;border-radius:16px;padding:24px;max-width:420px;box-shadow:0 16px 40px rgba(0,0,0,.5)">' +
+  '<div style="font:600 16px Figtree">Allocate guest deposit</div>' +
+  '<div style="font:400 14px Figtree;color:#A6A8AF;margin-top:4px">Split <span style="font:500 13px ' + V2MONO + ';color:#D6D7DB">MVR 15,000.00</span> across the two open folios.</div>' +
+  '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:24px">' +
+  '<button style="' + V2BTN + ';background:transparent;color:#D6D7DB;border:1px solid #414449">Cancel</button>' +
+  '<button style="' + V2BTN + ';background:#C42663;color:#fff">Apply allocation</button></div></div></div>';
+
+V2_DEMOS["sheet"] = '<div style="' + V2F + ';padding:0;overflow:hidden;position:relative;min-height:240px;gap:0">' +
+  '<div style="flex:1;padding:20px;opacity:.35"><div style="font:600 16px Figtree">Claims</div><div style="height:8px;border-radius:4px;background:#2C2C31;width:70%;margin-top:12px"></div><div style="height:8px;border-radius:4px;background:#2C2C31;width:50%;margin-top:8px"></div></div>' +
+  '<div style="width:46%;min-width:240px;background:#18181B;border-left:1px solid #414449;border-radius:16px 0 0 16px;box-shadow:-16px 0 40px rgba(0,0,0,.4);display:flex;flex-direction:column">' +
+  '<div style="display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid #26272B"><span style="font:600 15px Figtree">Claim CLM-20419</span>' + v2ic(V2I.x, 16, "#A6A8AF") + "</div>" +
+  '<div style="padding:16px;flex:1;font:400 13px Figtree;color:#A6A8AF">Keeps the list visible behind it. Slides from the right edge — left in RTL.</div>' +
+  '<div style="padding:12px 16px;border-top:1px solid #26272B;display:flex;justify-content:flex-end;gap:8px"><button style="' + V2BTN + ';height:32px;font-size:13px;background:transparent;color:#D6D7DB;border:1px solid #414449">Close</button><button style="' + V2BTN + ';height:32px;font-size:13px;background:#C42663;color:#fff">Approve</button></div></div></div>';
+
+V2_DEMOS["table-header-cell"] = '<div style="' + V2F + ';padding:0;overflow:hidden"><div style="display:flex;background:#2C2C31;height:42px;align-items:center;width:100%;font:600 11px Figtree;letter-spacing:.06em;color:#A6A8AF">' +
+  '<span style="display:inline-flex;align-items:center;gap:6px;padding:0 16px">' + v2ic(V2I.sort, 14, "#A6A8AF") + "COMPANY</span>" +
+  '<span style="display:inline-flex;align-items:center;gap:6px;padding:0 16px;color:#fff">' + v2ic(V2I.sort, 14, "#E0528B") + "OWNER · SORTED</span>" +
+  '<span style="display:inline-flex;align-items:center;gap:6px;padding:0 16px">' + v2ic(V2I.sort, 14, "#A6A8AF") + "STATUS</span></div></div>";
+
+V2_DEMOS["table-cell"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:0">' +
+  '<div style="display:flex;align-items:center;height:48px;border-bottom:1px solid #26272B;font:400 14px Figtree">' +
+  '<span style="flex:1.4">Plain text</span>' +
+  '<span style="flex:1.6;display:inline-flex;align-items:center;gap:8px">' + v2av("SC", 24) + "Sarah Chen</span>" +
+  '<span style="flex:1"><span style="' + V2TAG + ';background:#E2FAE9;color:#15803D;font-size:12px;padding:3px 10px">' + V2DOT + "Active</span></span>" +
+  '<span style="flex:1;text-align:right;font:400 14px ' + V2MONO + '">4,820.00</span></div>' +
+  '<div style="display:flex;align-items:center;height:48px;font:400 14px Figtree">' +
+  '<span style="flex:1.4;color:#E0528B;text-decoration:underline">POL/2026/88431</span>' +
+  '<span style="flex:1.6;color:#71747C">—</span>' +
+  '<span style="flex:1;display:inline-flex">' + v2chk(true) + "</span>" +
+  '<span style="flex:1;text-align:right;font:400 12px Figtree;color:#71747C">text · entity · tag · numeral · link · muted · checkbox</span></div></div>';
+
+V2_DEMOS["table-toolbar"] = '<div style="' + V2F + ';justify-content:space-between">' +
+  '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
+  '<span style="' + V2TAG + ';background:transparent;border:1px solid #414449;font-size:14px"><span style="font-weight:400;color:#A6A8AF">Status:</span><b style="font-weight:700;color:#fff">Active</b>' + v2ic(V2I.chevDown, 14, "#A6A8AF") + "</span>" +
+  '<span style="' + V2TAG + ';background:transparent;border:1px dashed #414449;color:#A6A8AF;font-weight:400;font-size:14px">' + v2ic(V2I.plus, 14, "#A6A8AF") + "Add filter</span></div>" +
+  '<span style="font:400 12px Figtree;color:#71747C">default context shows only the filter bar — search, sort and the primary action are slots</span></div>';
+
+V2_DEMOS["table"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:12px">' +
+  '<div style="display:flex;gap:8px"><span style="' + V2TAG + ';background:transparent;border:1px solid #414449;color:#fff;font-weight:600">Status: <b style="font-weight:700">Active</b> ▾</span><span style="' + V2TAG + ';background:transparent;border:1px dashed #414449;color:#A6A8AF;font-weight:600">+ Add filter</span></div>' +
+  '<div style="border:1px solid #26272B;border-radius:10px;overflow:hidden;background:#18181B">' +
+  '<div style="display:flex;background:#2C2C31;padding:0 16px;height:40px;align-items:center;font:600 11px Figtree;letter-spacing:.06em;color:#A6A8AF"><span style="flex:2">↕ COMPANY</span><span style="flex:1.4">↕ OWNER</span><span style="flex:1">↕ STATUS</span><span style="flex:1;text-align:right">↕ MEMBERS</span></div>' +
+  [["Acme Corp", "Sarah Chen", "#4ADE80", "Active", "4,820"], ["Northwind", "Ali Hassan", "#4ADE80", "Active", "1,204"], ["Globex", "Maya Patel", "#F87171", "Churned", "86"]].map(function (r) { return '<div style="display:flex;padding:0 16px;height:56px;align-items:center;border-top:1px solid #26272B;font:400 14px Figtree"><span style="flex:2">' + r[0] + '</span><span style="flex:1.4;color:#A6A8AF">' + r[1] + '</span><span style="flex:1;color:' + r[2] + '">' + r[3] + '</span><span style="flex:1;text-align:right;font:400 14px ' + V2MONO + '">' + r[4] + "</span></div>"; }).join("") +
+  '<div style="padding:10px 16px;border-top:1px solid #26272B;font:400 12px Figtree;color:#A6A8AF">Showing 1 – 3&nbsp;&nbsp;·&nbsp;&nbsp;Page 1</div></div></div>';
+
+V2_DEMOS["sidebar-item"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:2px;max-width:264px">' +
+  '<div style="' + V2ROW + ';color:#D6D7DB">' + v2ic(V2I.grid, 16, "#A6A8AF") + "Dashboard</div>" +
+  '<div style="' + V2ROW + ';background:#232327;color:#fff">' + v2ic(V2I.file, 16, "#A6A8AF") + "Claims (hover)</div>" +
+  '<div style="' + V2ROW + ';background:#4A0B24;color:#EA7BA7;font-weight:600">' + v2ic(V2I.user, 16, "#EA7BA7") + 'Members<span style="margin-left:auto;font:500 12px ' + V2MONO + '">128</span></div></div>';
+
+V2_DEMOS["sidebar-group-label"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:2px;max-width:264px">' +
+  '<div style="display:flex;align-items:center;justify-content:space-between;padding:0 10px;height:24px"><span style="font:600 11px Figtree;letter-spacing:.07em;color:#71747C">WORKSPACE</span>' + v2ic(V2I.chevDown, 12, "#71747C") + "</div>" +
+  '<div style="' + V2ROW + ';color:#D6D7DB">' + v2ic(V2I.grid, 16, "#A6A8AF") + "Dashboard</div>" +
+  '<div style="' + V2ROW + ';color:#D6D7DB">' + v2ic(V2I.file, 16, "#A6A8AF") + "Claims</div></div>";
+
+V2_DEMOS["workspace-switcher"] = '<div style="' + V2F + ';max-width:300px"><div style="display:flex;align-items:center;gap:10px;width:100%;padding:6px 10px;border-radius:8px;background:#232327">' +
+  '<span style="width:24px;height:24px;border-radius:6px;background:#C42663;color:#fff;display:inline-flex;align-items:center;justify-content:center;font:700 12px Figtree">W</span>' +
+  '<span style="font:600 14px Figtree;flex:1">Wellx Labs</span>' + v2ic(V2I.chevsUpDown, 16, "#A6A8AF") + "</div></div>";
+
+V2_DEMOS["sidebar-footer"] = '<div style="' + V2F + ';max-width:300px"><div style="display:flex;align-items:center;gap:10px;width:100%;padding:6px 10px;border-radius:8px">' +
+  v2av("SC", 24) + '<span style="flex:1"><span style="display:block;font:600 13px Figtree">Sarah Chen</span><span style="display:block;font:400 11px Figtree;color:#71747C">sarah@wellx.ai</span></span>' + v2ic(V2I.dots, 16, "#A6A8AF") + "</div>" +
+  '<span style="font:400 12px Figtree;color:#71747C">the whole row is a menu — profile, preferences, settings, sign out</span></div>';
+
+V2_DEMOS["sidebar"] = '<div style="' + V2F + ';justify-content:center"><div style="width:256px;background:#18181B;border:1px solid #26272B;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:2px;min-height:340px">' +
+  '<div style="display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:8px;margin-bottom:6px"><span style="width:24px;height:24px;border-radius:6px;background:#C42663;color:#fff;display:inline-flex;align-items:center;justify-content:center;font:700 12px Figtree">W</span><span style="font:600 14px Figtree;flex:1">Wellx Labs</span>' + v2ic(V2I.chevsUpDown, 14, "#A6A8AF") + "</div>" +
+  '<div style="' + V2IN + ';height:32px;font-size:13px;justify-content:space-between;margin-bottom:8px"><span style="display:inline-flex;align-items:center;gap:8px">' + v2ic(V2I.search, 14, "#A6A8AF") + '<span style="color:#71747C">Search</span></span><span style="display:inline-flex;gap:3px">' + v2kbd("⌘") + v2kbd("K") + "</span></div>" +
+  '<span style="font:600 11px Figtree;letter-spacing:.07em;color:#71747C;padding:4px 10px">WORKSPACE</span>' +
+  '<div style="' + V2ROW + ';background:#4A0B24;color:#EA7BA7;font-weight:600">' + v2ic(V2I.grid, 16, "#EA7BA7") + "Dashboard</div>" +
+  '<div style="' + V2ROW + ';color:#D6D7DB">' + v2ic(V2I.file, 16, "#A6A8AF") + "Claims</div>" +
+  '<div style="' + V2ROW + ';color:#D6D7DB">' + v2ic(V2I.user, 16, "#A6A8AF") + 'Members<span style="margin-left:auto;font:500 12px ' + V2MONO + ';color:#71747C">128</span></div>' +
+  '<div style="flex:1"></div>' +
+  '<div style="display:flex;align-items:center;gap:10px;padding:6px 10px;border-top:1px solid #26272B;margin:6px -12px 0;padding:10px 20px 4px">' + v2av("SC", 24) + '<span style="flex:1"><span style="display:block;font:600 13px Figtree">Sarah Chen</span><span style="display:block;font:400 11px Figtree;color:#71747C">sarah@wellx.ai</span></span>' + v2ic(V2I.dots, 16, "#A6A8AF") + "</div></div></div>";
+
+V2_DEMOS["app-shell"] = '<div style="' + V2F + ';padding:0;overflow:hidden;gap:0;min-height:260px;align-items:stretch">' +
+  '<div style="width:88px;background:#18181B;border-right:1px solid #26272B;padding:10px;display:flex;flex-direction:column;gap:6px;flex:none">' +
+  '<span style="width:20px;height:20px;border-radius:5px;background:#C42663;margin-bottom:6px"></span>' +
+  '<span style="height:8px;border-radius:4px;background:#4A0B24;width:100%"></span><span style="height:8px;border-radius:4px;background:#2C2C31;width:80%"></span><span style="height:8px;border-radius:4px;background:#2C2C31;width:88%"></span></div>' +
+  '<div style="flex:1;display:flex;flex-direction:column">' +
+  '<div style="height:40px;border-bottom:1px solid #26272B;display:flex;align-items:center;justify-content:space-between;padding:0 16px"><span style="font:400 12px Figtree;color:#A6A8AF">Portfolio › Schemes</span><span style="display:inline-flex;gap:10px">' + v2ic(V2I.search, 16, "#A6A8AF") + v2ic(V2I.user, 16, "#A6A8AF") + "</span></div>" +
+  '<div style="flex:1;padding:16px;display:flex;gap:12px"><span style="flex:1;border:1px solid #26272B;border-radius:10px;background:#18181B"></span><span style="flex:1;border:1px solid #26272B;border-radius:10px;background:#18181B"></span></div>' +
+  '<div style="font:400 11px Figtree;color:#71747C;padding:0 16px 10px">256 sidebar · 56 topbar · 24px gutters · content capped at 1440, centered</div></div></div>';
+
+/* shared SVG chart bodies */
+var V2_LINE_SVG = (function () {
+  var grid = [30, 70, 110].map(function (y) { return '<line x1="0" y1="' + y + '" x2="420" y2="' + y + '" stroke="#26272B" stroke-dasharray="2 4"/>'; }).join("");
+  return '<svg viewBox="0 0 420 140" style="width:100%;max-width:460px;height:auto;display:block">' + grid +
+    '<polyline points="0,96 60,88 120,64 180,72 240,46 300,52 360,30 420,22" fill="none" stroke="#C42663" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<polyline points="0,112 60,104 120,98 180,90 240,84 300,92 360,70 420,64" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    ["Jan", "Mar", "May", "Jul", "Sep", "Nov"].map(function (m, i) { return '<text x="' + (6 + i * 80) + '" y="136" fill="#71747C" font-size="11" font-family="Figtree">' + m + "</text>"; }).join("") + "</svg>";
+})();
+
+V2_DEMOS["chart-container"] = '<div style="' + V2F + '"><div style="background:#18181B;border:1px solid #26272B;border-radius:12px;padding:20px;width:100%;max-width:520px">' +
+  '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><span style="font:600 15px Figtree">Premium over time</span>' +
+  '<span style="display:inline-flex;gap:14px"><span style="display:inline-flex;align-items:center;gap:6px;font:400 12px Figtree;color:#D6D7DB"><span style="width:8px;height:8px;border-radius:999px;background:#C42663"></span>Gross</span>' +
+  '<span style="display:inline-flex;align-items:center;gap:6px;font:400 12px Figtree;color:#D6D7DB"><span style="width:8px;height:8px;border-radius:999px;background:#60A5FA"></span>Net</span></span></div>' + V2_LINE_SVG + "</div></div>";
+
+V2_DEMOS["line-chart"] = '<div style="' + V2F + '">' + V2_LINE_SVG + '<span style="font:400 12px Figtree;color:#71747C">2px rounded strokes · dotted horizontal gridlines only · unboxed 11px axes · stretches horizontally</span></div>';
+
+V2_DEMOS["bar-chart"] = '<div style="' + V2F + '"><svg viewBox="0 0 420 140" style="width:100%;max-width:460px;height:auto;display:block">' +
+  [30, 70, 110].map(function (y) { return '<line x1="0" y1="' + y + '" x2="420" y2="' + y + '" stroke="#26272B" stroke-dasharray="2 4"/>'; }).join("") +
+  [[58, 88], [84, 62], [46, 96], [96, 50], [70, 78], [108, 40]].map(function (p, i) {
+    var x = 16 + i * 68;
+    return '<path d="M' + x + " 124 v-" + p[0] + " a3 3 0 0 1 3-3 h14 a3 3 0 0 1 3 3 v" + p[0] + ' z" fill="#C42663"/>' +
+      '<path d="M' + (x + 26) + " 124 v-" + p[1] + " a3 3 0 0 1 3-3 h14 a3 3 0 0 1 3 3 v" + p[1] + ' z" fill="#60A5FA"/>';
+  }).join("") + '<line x1="0" y1="124" x2="420" y2="124" stroke="#26272B"/></svg>' +
+  '<span style="font:400 12px Figtree;color:#71747C">20w bars · 3px top radius · bottom-aligned pairs · gaps grow with width</span></div>';
+
+V2_DEMOS["pie-chart"] = '<div style="' + V2F + '"><svg width="140" height="140" viewBox="0 0 140 140">' +
+  (function () {
+    var segs = [[0.38, "#C42663"], [0.26, "#D23A77"], [0.18, "#E0528B"], [0.12, "#EA7BA7"], [0.06, "#F2A8C6"]];
+    var r = 52, c = 2 * Math.PI * r, off = 0, out = "";
+    segs.forEach(function (s) {
+      out += '<circle cx="70" cy="70" r="' + r + '" fill="none" stroke="' + s[1] + '" stroke-width="30" stroke-dasharray="' + (s[0] * c) + " " + c + '" stroke-dashoffset="' + (-off * c) + '" transform="rotate(-90 70 70)"/>';
+      off += s[0];
+    });
+    return out;
+  })() + "</svg>" +
+  '<span style="display:inline-flex;flex-direction:column;gap:8px">' +
+  [["Medical", "#C42663", "38%"], ["Dental", "#D23A77", "26%"], ["Optical", "#E0528B", "18%"], ["Wellness", "#EA7BA7", "12%"], ["Other", "#F2A8C6", "6%"]].map(function (l) {
+    return '<span style="display:inline-flex;align-items:center;gap:8px;font:400 12px Figtree;color:#D6D7DB"><span style="width:8px;height:8px;border-radius:999px;background:' + l[1] + '"></span>' + l[0] + '<span style="font-family:' + V2MONO + ';color:#A6A8AF;margin-left:auto;padding-left:16px">' + l[2] + "</span></span>";
+  }).join("") + "</span>" +
+  '<span style="font:400 12px Figtree;color:#71747C;max-width:180px">58% donut · monochrome rose ramp, largest slice first from 12 o’clock · fixed aspect</span></div>';
+
+V2_DEMOS["radar-chart"] = '<div style="' + V2F + '"><svg width="180" height="170" viewBox="0 0 180 170">' +
+  (function () {
+    function hept(cx, cy, r) { var p = []; for (var i = 0; i < 7; i++) { var a = -Math.PI / 2 + i * 2 * Math.PI / 7; p.push((cx + r * Math.cos(a)).toFixed(1) + "," + (cy + r * Math.sin(a)).toFixed(1)); } return p.join(" "); }
+    var g = [68, 51, 34, 17].map(function (r) { return '<polygon points="' + hept(90, 88, r) + '" fill="none" stroke="#232327"/>'; }).join("");
+    function series(vals, col, fo) { var p = []; for (var i = 0; i < 7; i++) { var a = -Math.PI / 2 + i * 2 * Math.PI / 7; var r = 68 * vals[i]; p.push((90 + r * Math.cos(a)).toFixed(1) + "," + (88 + r * Math.sin(a)).toFixed(1)); } return '<polygon points="' + p.join(" ") + '" fill="' + col + '" fill-opacity="' + fo + '" stroke="' + col + '" stroke-width="2" stroke-linejoin="round"/>'; }
+    return g + series([0.9, 0.7, 0.8, 0.55, 0.75, 0.6, 0.85], "#C42663", 0.3) + series([0.6, 0.85, 0.5, 0.7, 0.45, 0.8, 0.55], "#60A5FA", 0.16);
+  })() + "</svg>" +
+  '<span style="font:400 12px Figtree;color:#71747C;max-width:200px">whisper-light heptagon grid · series 1 rose over soft fill, series 2 accent-blue at 16% · fixed aspect, never stretch</span></div>';
+
+V2_DEMOS["sparkline"] = '<div style="' + V2F + '">' +
+  '<svg width="96" height="32" viewBox="0 0 96 32"><polyline points="0,26 14,22 28,24 42,14 56,18 70,8 84,12 96,4" fill="none" stroke="#C42663" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>' +
+  '<span style="font:500 20px ' + V2MONO + '">4,820</span>' +
+  '<span style="' + V2TAG + ';padding:3px 10px;font-size:12px;background:#E2FAE9;color:#15803D">↑ +8%</span>' +
+  '<span style="font:400 12px Figtree;color:#71747C">96×32 · no axes or dots · color never changes per trend — the Delta carries good/bad</span></div>';
+
+V2_DEMOS["area-chart"] = '<div style="' + V2F + '"><svg viewBox="0 0 420 140" style="width:100%;max-width:460px;height:auto;display:block">' +
+  [30, 70, 110].map(function (y) { return '<line x1="0" y1="' + y + '" x2="420" y2="' + y + '" stroke="#26272B" stroke-dasharray="2 4"/>'; }).join("") +
+  '<path d="M0,96 60,88 120,64 180,72 240,46 300,52 360,30 420,22 L420,124 0,124 Z" fill="#C42663" fill-opacity="0.12"/>' +
+  '<polyline points="0,96 60,88 120,64 180,72 240,46 300,52 360,30 420,22" fill="none" stroke="#C42663" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+  ["Jan", "Mar", "May", "Jul", "Sep", "Nov"].map(function (m, i) { return '<text x="' + (6 + i * 80) + '" y="136" fill="#71747C" font-size="11" font-family="Figtree">' + m + "</text>"; }).join("") + "</svg>" +
+  '<span style="font:400 12px Figtree;color:#71747C">the Line chart’s volume twin — 2px stroke over a 12% same-hue fill</span></div>';
+
+V2_DEMOS["command-palette"] = '<div style="' + V2F + ';justify-content:center;background:rgba(0,0,0,.6);padding:28px"><div style="' + V2POP + ';border-radius:16px;width:100%;max-width:480px;overflow:hidden">' +
+  '<div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #26272B">' + v2ic(V2I.search, 16, "#A6A8AF") + '<span style="font:400 14px Figtree;flex:1">renew</span>' + v2kbd("esc") + "</div>" +
+  '<div style="padding:8px"><div style="font:600 10px Figtree;letter-spacing:.08em;color:#71747C;padding:6px 10px 4px">ACTIONS</div>' +
+  '<div style="' + V2ROW + ';background:#2C2C31">' + v2ic(V2I.zap, 16, "#A6A8AF") + 'Renew policy…<span style="margin-left:auto">' + v2kbd("↵") + "</span></div>" +
+  '<div style="' + V2ROW + '">' + v2ic(V2I.file, 16, "#A6A8AF") + "Open renewals report</div>" +
+  '<div style="font:600 10px Figtree;letter-spacing:.08em;color:#71747C;padding:10px 10px 4px">RECORDS</div>' +
+  '<div style="' + V2ROW + '">' + v2av("NW", 20) + "Northwind · renewal due Apr 2</div></div>" +
+  '<div style="display:flex;gap:12px;padding:10px 16px;border-top:1px solid #26272B;font:400 11px Figtree;color:#71747C;align-items:center">' + v2kbd("↑") + v2kbd("↓") + "navigate" + v2kbd("↵") + "open" + v2kbd("esc") + "close</div></div></div>";
+
+V2_DEMOS["timeline-item"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:0">' +
+  v2tlItem(v2av("SC", 24), "Sarah Chen", "approved the Northwind renewal", "Today, 14:20", false) +
+  v2tlItem('<span style="width:24px;height:24px;border-radius:999px;background:#2C2C31;display:inline-flex;align-items:center;justify-content:center;flex:none">' + v2ic(V2I.zap, 12, "#A6A8AF") + "</span>", "System", "re-rated the scheme after the census upload", "Today, 13:05", true) + "</div>";
+
+V2_DEMOS["activity-feed"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:0">' +
+  v2tlItem(v2av("SC", 24), "Sarah Chen", "approved the Northwind renewal", "Today, 14:20", false) +
+  v2tlItem('<span style="width:24px;height:24px;border-radius:999px;background:#2C2C31;display:inline-flex;align-items:center;justify-content:center;flex:none">' + v2ic(V2I.zap, 12, "#A6A8AF") + "</span>", "System", "re-rated the scheme after the census upload", "Today, 13:05", false) +
+  v2tlItem('<span style="width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;flex:none"><span style="width:8px;height:8px;border-radius:999px;background:#565962"></span></span>', "Ali Hassan", "added a note to claim CLM-20419", "Yesterday", true) + "</div>";
+
+V2_DEMOS["chat-message"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:20px">' +
+  '<div style="display:flex;justify-content:flex-end"><span style="background:#2C2C31;border-radius:12px;padding:10px 14px;max-width:320px;font:400 14px Figtree">Which schemes drive the Q3 loss spike?</span></div>' +
+  '<div><div style="font:400 14px Figtree;color:#D6D7DB;line-height:1.6">Two coastal schemes account for 71% of the increase. Northwind Marine added 14 storm claims' +
+  '<span style="display:inline-flex;width:18px;height:18px;border-radius:999px;background:#2C2C31;color:#A6A8AF;font:600 11px Figtree;align-items:center;justify-content:center;vertical-align:text-bottom;margin:0 3px">1</span>' +
+  "and Acme Coastal re-opened a reserve.</div>" +
+  '<div style="font:400 12px Figtree;color:#71747C;margin-top:6px">2 sources · 14:22</div></div>' +
+  '<span style="font:400 12px Figtree;color:#71747C">user = right bubble · assistant = NO bubble, no avatar, fill-width text</span></div>';
+
+V2_DEMOS["chat-thread"] = '<div style="' + V2F + ';flex-direction:column;align-items:stretch;gap:20px;max-width:640px">' +
+  '<div style="display:flex;justify-content:flex-end"><span style="background:#2C2C31;border-radius:12px;padding:10px 14px;max-width:320px;font:400 14px Figtree">Reprice the renewal cohort</span></div>' +
+  '<div style="font:400 14px Figtree;color:#D6D7DB;line-height:1.6">Started. I’ll re-rate all 38 schemes against the new storm loadings and flag any premium moving more than 10%.</div>' +
+  '<div style="display:flex;align-items:center;gap:10px"><span style="display:grid;grid-template-columns:repeat(3,4px);gap:2px">' +
+  [1, 0.4, 0.75, 0.55, 1, 0.3, 0.85, 0.5, 0.65].map(function (o, i) { return '<span style="width:4px;height:4px;border-radius:1px;background:#EA7BA7;opacity:' + o + ";animation:wl2pulse 1.2s ease-in-out " + (i * 0.07).toFixed(2) + 's infinite"></span>'; }).join("") +
+  '</span><span style="font:400 13px Figtree;color:#A6A8AF">Re-rating scheme 12 of 38…</span></div>' +
+  '<div style="background:#18181B;border:1px solid #414449;border-radius:16px;min-height:72px;display:flex;flex-direction:column;justify-content:space-between;padding:12px 14px 10px">' +
+  '<span style="font:400 14px Figtree;color:#71747C">Reply…</span>' +
+  '<div style="display:flex;justify-content:flex-end"><span style="width:28px;height:28px;border-radius:999px;background:#C42663;display:inline-flex;align-items:center;justify-content:center">' + v2ic(V2I.up, 14, "#fff") + "</span></div></div></div>";
+
+V2_DEMOS["agent-activity-card"] = '<div style="' + V2F + '"><div style="background:#18181B;border:1px solid #26272B;border-radius:12px;padding:16px;width:100%;max-width:440px">' +
+  '<div style="display:flex;gap:12px;align-items:center"><span style="width:28px;height:28px;border-radius:8px;background:#4A0B24;display:inline-flex;align-items:center;justify-content:center;flex:none">' + v2ic(V2I.zap, 14, "#EA7BA7") + "</span>" +
+  '<span style="flex:1"><span style="display:block;font:600 14px Figtree">Reprice renewal cohort</span><span style="display:block;font:400 12px Figtree;color:#71747C">Running · 42s</span></span>' + v2spin(16, "#EA7BA7") + "</div>" +
+  '<div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;font:400 12px Figtree;color:#A6A8AF">' +
+  '<span style="display:inline-flex;gap:8px;align-items:center">' + v2ic(V2I.check, 14, "#4ADE80") + "Pulled 38 schemes from the book</span>" +
+  '<span style="display:inline-flex;gap:8px;align-items:center">' + v2ic(V2I.check, 14, "#4ADE80") + "Applied 2026 storm loadings</span>" +
+  '<span style="display:inline-flex;gap:8px;align-items:center">' + v2spin(14, "#A6A8AF") + "Flagging premium moves &gt; 10%…</span></div></div></div>";
+
+V2_DEMOS["chat-history-item"] = '<div style="' + V2F + ';flex-direction:column;align-items:flex-start;gap:2px">' +
+  v2histrow("rest", "Q3 loss-spike drivers", "2h") + v2histrow("hover", "Northwind renewal pricing", "") + v2histrow("active", "Coastal storm exposure", "1d") +
+  '<span style="font:400 12px Figtree;color:#71747C;margin-top:8px">rest · hover (time swaps for the ⋯ menu) · active</span></div>';
+
+V2_DEMOS["chat-history"] = '<div style="' + V2F + ';justify-content:center"><div style="width:256px;background:#18181B;border:1px solid #26272B;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:2px">' +
+  '<button style="' + V2BTN + ';height:32px;font-size:13px;background:transparent;color:#fff;border:1px solid #414449;margin-bottom:8px;width:100%">' + v2ic(V2I.plus, 14, "#fff") + "&nbsp;New chat</button>" +
+  v2histrow("active", "Coastal storm exposure", "1d") + v2histrow("rest", "Q3 loss-spike drivers", "2d") + v2histrow("rest", "Member churn by scheme", "4d") +
+  '<span style="font:400 11px Figtree;color:#71747C;padding:8px 10px 2px">flat list, newest first — no folders (deliberate)</span></div></div>';
+
+var V2_GEN = [
+{ tier:"Atom", slug:"button", name:"Button", lede:"The workhorse action control, split into four sibling sets by emphasis. One Primary per view; Secondary for supporting actions; Ghost for toolbars and quiet utilities; Destructive only for dangerous actions (pair with a confirm Dialog).",
+  spec:[["Level", "Atom · composes: icon"], ["Size", "sm 32 · md 36 (default) · lg 40"], ["State", "Default · Hover · Active · Focus · Disabled · Loading"], ["Props", "Label (text, default Button) · Icon left / Icon right (boolean, default False)"], ["Tokens", "button/primary/bg(-hover/-active) · button/primary/fg · button/secondary/bg(-hover/-active) · button/secondary/fg · button/secondary/border · button/ghost/fg · button/ghost/bg-hover(-active) · button/destructive/bg(-hover) · button/destructive/fg · button/disabled/bg · button/disabled/fg · button/radius · button/gap · button/padding-x-sm|md|lg · focus/ring"], ["A11y", "Label ≥4.5:1 on every fill · focus ring on :focus-visible only · min hit target 24×24 · loading keeps label (aria-busy)"]],
+  dos:["One Primary per view", "Verb-first labels ('Create record')", "Destructive + confirm Dialog for irreversible actions", "Loading state on the pressed button"], donts:["Two Primaries side by side", "Ghost as main CTA", "Destructive as default-focused dialog action", "Icon-only without a label (that's an icon button)", "Disabling without a nearby explanation"],
+  code:"<Button variant=\"primary|secondary|ghost|destructive\" size=\"sm|md|lg\" iconLeft? iconRight? loading? disabled?>" },
+{ tier:"Atom", slug:"tag", name:"Tag", lede:"Status/category label: borderless fully-rounded tint pill, soft -surface fill + vivid -foreground text/icon (every pair ≥4.5:1). Semantic core Neutral/Success/Warning/Error/Info; expressive Teal/Magenta/Orange (revisit-later).",
+  spec:[["Level", "Atom · composes: icon"], ["Hue", "Neutral · Success · Warning · Error · Info · Teal · Magenta · Orange"], ["Props", "Label (text, default Label) · Icon (boolean, default True)"], ["Tokens", "tag/&lt;hue&gt;/bg · tag/&lt;hue&gt;/fg · tag/radius"], ["A11y", "Foreground on tint ≥4.5:1 per hue · never color-only (icon + label)"]],
+  dos:["Short labels", "Semantic hues carry meaning", "Keep the icon for CVD users"], donts:["Borders on tags", "Tags as buttons/filter chips", "Expressive hues for semantic status", "Sentences inside tags"],
+  code:"<Tag hue=\"neutral|success|warning|error|info|teal|magenta|orange\" icon?>" },
+{ tier:"Atom", slug:"avatar", name:"Avatar", lede:"Identity mark. Fully-round, sizes 24 (cells/chips) / 32 (nav/lists) / 40 (record headers). Initials on accent tint or icon fallback on muted; Image type lands in code with the same circle mask.",
+  spec:[["Level", "Atom · composes: icon"], ["Size", "24 · 32 · 40"], ["Type", "Initials · Icon"], ["Props", "Initials (text, default AB)"], ["Tokens", "avatar/bg · avatar/fg · avatar/bg-muted · avatar/fg-muted"], ["A11y", "Carries alt/aria-label with the full name · initials aria-hidden · never the only identifier"]],
+  dos:["Pair with the name in lists", "Run the fallback chain"], donts:["Square avatars", "Hand-picked tints per person", "Sizes off the 24/32/40 ladder"],
+  code:"<Avatar size=\"24|32|40\" src? initials? /> — falls back image → initials → icon" },
+{ tier:"Atom", slug:"spinner", name:"Spinner", lede:"Indeterminate loading — Lucide loader rotating 1s linear in code. 16 in buttons, 20 in controls, 24 for panel loads. text/tertiary or inherits button label color.",
+  spec:[["Level", "Atom · composes: icon"], ["Size", "16 · 20 · 24"], ["Tokens", "text/tertiary (semantic; inherits parent color in buttons)"], ["A11y", "role=status + visually-hidden text · reduced-motion: rotation → opacity pulse"]],
+  dos:["Inside the pressed button", "Prefer Skeleton when incoming layout is known"], donts:["Multiple spinners per region", "Determinate progress (Progress bar, T2)", "No timeout/error path"],
+  code:"<Spinner size=\"16|20|24\" /> — role=status, aria-label Loading" },
+{ tier:"Atom", slug:"skeleton", name:"Skeleton", lede:"Loading placeholder mirroring incoming content. background/muted fill, 1.5s shimmer in code. Text 12h radius-sm · Circle radius-full · Rect radius-md; resize instances to match the real layout.",
+  spec:[["Level", "Atom · tokens only"], ["Shape", "Text · Circle · Rect"], ["Tokens", "background/muted (semantic) · radius/sm|md|full"], ["A11y", "aria-hidden; region carries one aria-busy · shimmer pauses under reduced-motion"]],
+  dos:["Match real content's shape and count", "Reserve exact space so data doesn't reflow"], donts:["Mixing skeletons and spinners in one region", "Skeleton the whole page"],
+  code:"<Skeleton variant=\"text|circle|rect\" />" },
+{ tier:"Atom", slug:"separator", name:"Separator", lede:"The hairline — borders do all separation in this flat system. 1px border/default, stretches to its container.",
+  spec:[["Level", "Atom · tokens only"], ["Orientation", "Horizontal · Vertical"], ["Tokens", "border/default (semantic)"], ["A11y", "Decorative (aria-hidden) unless separating landmarks"]],
+  dos:["Between menu groups, table rows, sections", "Full-bleed in tables and menus"], donts:["Thicker than 1px", "Shadows as separators", "Double separation (separator + panel change)"],
+  code:"<Separator orientation=\"horizontal|vertical\" />" },
+{ tier:"Atom", slug:"label", name:"Label", lede:"Form field label — text-sm Medium foreground, exactly 8px above its control. Optional required asterisk in form/required.",
+  spec:[["Level", "Atom · tokens only"], ["State", "Default · Disabled"], ["Props", "Text (text, default Field label) · Required (boolean, default False)"], ["Tokens", "form/label · form/label-disabled · form/required"], ["A11y", "htmlFor/id wired — clicking focuses the control · required via aria-required, not the asterisk alone"]],
+  dos:["Above inputs, 8px gap", "Sentence-case noun phrases", "Mark required consistently"], donts:["Placeholder-as-label", "Colons or all-caps", "Marking every field required"],
+  code:"<Label htmlFor required?>" },
+{ tier:"Atom", slug:"helper-text", name:"Helper text", lede:"Caption under a control, 4px below (half the label gap — HIG proximity). Default text-xs form/helper; Error swaps to form/helper-error with a 12px alert icon and replaces the default helper.",
+  spec:[["Level", "Atom · composes: icon"], ["Variant", "Default · Error"], ["Props", "Text (text, default Helper text)"], ["Tokens", "form/helper · form/helper-error"], ["A11y", "Errors announced aria-live=polite · icon + text, never color alone"]],
+  dos:["Say how to fix it", "Errors after blur/submit"], donts:["Default helper + error stacked together", "Critical instructions in helper (put in label)"],
+  code:"<HelperText error?> — wired via aria-describedby" },
+{ tier:"Atom", slug:"checkbox", name:"Checkbox", lede:"Multi-select control. 16px box radius control/radius; checked/indeterminate fill control/bg-on with white 12px glyph. Label optional and clickable. Indeterminate only for parent rows of partly-selected sets.",
+  spec:[["Level", "Atom · composes: icon"], ["Value", "Unchecked · Checked · Indeterminate"], ["State", "Default · Hover · Focus · Disabled"], ["Props", "Label (boolean, default True) · Label text (text, default Checkbox label)"], ["Tokens", "control/bg-on(-hover) · control/fg-on · control/bg-off · control/border-off(-hover/-disabled) · control/bg-disabled · control/fg-disabled · control/label · control/radius · focus/ring"], ["A11y", "Native input semantics · aria-checked=mixed for indeterminate · hit target ≥24 via padding"]],
+  dos:["Zero-to-many selections", "Indeterminate only on select-all parents", "Vertical stacks at space/2"], donts:["Either/or choices (Radio)", "Instant on/off settings (Switch)", "Indeterminate as a pickable third value"],
+  code:"<Checkbox checked|indeterminate disabled? label?>" },
+{ tier:"Atom", slug:"radio", name:"Radio", lede:"Single choice among 2–5 visible options. 16px circle; selected = control/bg-on fill with 6px white dot. Radios only exist in groups.",
+  spec:[["Level", "Atom · tokens only"], ["Value", "Off · On"], ["State", "Default · Hover · Focus · Disabled"], ["Props", "Label (boolean, default True) · Label text (text, default Radio label)"], ["Tokens", "control/* family · focus/ring"], ["A11y", "One tab stop per group, arrows move selection · visible group label"]],
+  dos:["2–5 options, all visible", "Vertical stacks at space/2"], donts:["More than ~5 options (Select)", "Mixing radios and checkboxes in a group", "A single lone radio"],
+  code:"<RadioGroup value onChange> <Radio value label/> </RadioGroup>" },
+{ tier:"Atom", slug:"switch", name:"Switch", lede:"Instant on/off — applies immediately, no save step. 36×20 track radius-full, 16px white thumb; On = control/bg-on. Label states the ON meaning and never changes with state.",
+  spec:[["Level", "Atom · tokens only"], ["Value", "Off · On"], ["State", "Default · Hover · Focus · Disabled"], ["Props", "Label (boolean, default True) · Label text (text, default Switch label)"], ["Tokens", "switch/track-off(-hover) · switch/thumb(-disabled) · control/bg-on(-hover) · control/label · control/fg-disabled · focus/ring"], ["A11y", "role=switch + aria-checked · thumb slides 150ms ease-out, none under reduced-motion"]],
+  dos:["Immediate effect", "Binary settings with obvious on/off"], donts:["Inside submit forms (Checkbox)", "Changing label text on toggle", "Destructive toggles without confirm"],
+  code:"<Switch checked onChange disabled? label?> — role=switch" },
+{ tier:"Atom", slug:"input", name:"Input", lede:"Single-line text entry. 36h, radius input/radius, input/bg fill, input/border hairline; states told entirely through border + halo. Optional 16px leading/trailing icons. Compose with Label + Helper via Field.",
+  spec:[["Level", "Atom · composes: icon"], ["State", "Default · Hover · Focus · Filled · Error · Disabled"], ["Props", "Text (text, default Placeholder) · Icon left / right (boolean, default False)"], ["Tokens", "input/bg(-disabled) · input/border(-hover/-focus/-error/-disabled) · input/fg · input/placeholder · input/fg-disabled · input/icon · input/radius · input/padding-x · input/gap · focus/ring"], ["A11y", "Visible Label always · aria-describedby + aria-invalid on error · halo meets 3:1 non-text"]],
+  dos:["Label above 8px, Helper below 4px", "Error border + error helper together", "Right input types for the right keyboard"], donts:["Placeholder as the only label", "Aggressive first-keystroke validation", "Heights other than 36"],
+  code:"<Input placeholder value error? disabled? iconLeft? iconRight? />" },
+{ tier:"Atom", slug:"textarea", name:"Textarea", lede:"Multi-line entry, min 80h, top-aligned, vertically resizable in code. Same border grammar as Input; no internal icons.",
+  spec:[["Level", "Atom · tokens only"], ["State", "Default · Focus · Error · Disabled"], ["Props", "Text (text, default Placeholder)"], ["Tokens", "input/* family · focus/ring"], ["A11y", "Visible label · announce remaining chars at limits"]],
+  dos:["Rows sized to expected content", "Counter for hard limits"], donts:["Single-line values", "Icons inside", "Auto-grow without max height"],
+  code:"<Textarea rows=3 placeholder error? disabled? />" },
+{ tier:"Atom", slug:"tooltip", name:"Tooltip", lede:"Hover/focus hint — tooltip/bg (gray-900) pill, tooltip/fg white text-xs, radius 6, shadow/float, deliberately dark in both themes. Optional ⌘-shortcut chip. Floating tier: 100ms enter with 4px drift, instant exit, 500ms open delay.",
+  spec:[["Level", "Atom · tokens only"], ["Content", "Label · Shortcut"], ["Props", "Text (text, default Tooltip label) · Shortcut (text, default ⌘K)"], ["Tokens", "tooltip/bg · tooltip/fg"], ["A11y", "Shows on keyboard focus · Esc-dismissible (WCAG 1.4.13) · never essential-only content · no interactive children (Popover)"]],
+  dos:["Name every icon-only button", "Show shortcuts where they exist"], donts:["Links/buttons inside", "Tooltips on disabled elements without a focusable wrapper"],
+  code:"<Tooltip content shortcut? side=\"top|right|bottom|left\">" },
+{ tier:"Atom", slug:"delta", name:"Delta", lede:"KPI change chip — trend icon + signed tnum value on a soft status tint. Up/Down/Flat → success/error/neutral pairs. Direction reflects movement, not sentiment: invert in code for down-is-good metrics.",
+  spec:[["Level", "Atom · composes: icon"], ["Direction", "Up · Down · Flat"], ["Props", "Value (text, default +12.5%)"], ["Tokens", "delta/up|down|flat/bg · delta/up|down|flat/fg"], ["A11y", "Icon + sign carry direction, not color alone · aria-label includes the comparison period"]],
+  dos:["Always show the sign", "invert for churn/cost metrics"], donts:["Coloring the KPI numeral itself", "Deltas without a baseline period", "Using as a generic Tag"],
+  code:"<Delta value direction invert?>" },
+{ tier:"Atom", slug:"kbd", name:"Kbd", lede:"Keyboard-key cap: 20px-min chip on kbd/bg with 1px kbd/border, radius-sm, text-2xs label on kbd/fg. Purely informative — never interactive. Combos are sibling Kbds (gap 4), one key per cap; prefer symbols (⌘ ⇧ ↵ esc) over words.",
+  spec:[["Level", "Atom · tokens only"], ["Props", "key (text, default ⌘K)"], ["Tokens", "kbd/bg · kbd/fg · kbd/border · kbd/radius"], ["A11y", "Renders &lt;kbd&gt;; pair with aria-keyshortcuts on the target control"]],
+  dos:["One Kbd per key — ⌘K is two caps", "Keep beside the action it triggers"], donts:["Hover states or click handlers", "Spelling words when a symbol exists", "Using as a Tag substitute"],
+  code:"<Kbd>⌘K</Kbd>" },
+{ tier:"Atom", slug:"progress-bar", name:"Progress bar", lede:"Determinate 8px rail: progress/track muted, radius-full, rose progress/fill sized by value %. Fill is SCALE-constrained in Figma — stretching preserves the percentage. Always rose; status never recolors it. Indeterminate sweep is code-side.",
+  spec:[["Level", "Atom · tokens only"], ["Value", "25 · 50 · 75 · 100"], ["Tokens", "progress/track · progress/fill · progress/radius"], ["A11y", "role=progressbar + aria-valuenow/min/max; pair with a visible tnum % label when the number matters"]],
+  dos:["Pair with a text-xs tnum % label", "Stretch freely — ratio is preserved", "Keep 8px height in every density"], donts:["Recoloring the fill per status", "Using as a good/bad threshold meter", "Animated stripes or shimmer"],
+  code:"<Progress value max?>" },
+{ tier:"Atom", slug:"suggestion-chip", name:"Suggestion chip", lede:"AI suggestion pill (Sana grammar): chip/bg card surface, 1px chip/border, radius-full, optional 16px sparkle icon, text-sm label on chip/fg. Sits above the Prompt input; selecting inserts the text into the prompt. 2–4 chips max, verb-first labels ≤ ~4 words.",
+  spec:[["Level", "Atom · composes: icon"], ["State", "Default · Hover"], ["Props", "label (text, default Summarize this week) · icon (boolean, default true)"], ["Tokens", "chip/bg · chip/bg-hover · chip/fg · chip/border · chip/radius"], ["A11y", "Real &lt;button&gt;; label is the accessible name; standard focus-visible ring"]],
+  dos:["Verb-first, actionable labels", "Rotate by context", "Dismiss the row once a prompt is sent"], donts:["Wrapping to two lines", "Navigation use (use links/menu)", "Per-topic chip colors"],
+  code:"<SuggestionChip icon?>label</SuggestionChip>" },
+{ tier:"Atom", slug:"thinking-indicator", name:"Thinking indicator", lede:"AI activity signal: 3×3 grid of rose-300 #EA7BA7 blocks (one value, BOTH modes; blocks 25% of size, gaps 12.5%, radius ≈5.5% of size) sweeping a continuous 3.6s linear cycle — random shimmer 0–1.2s (fixed shuffle [4,0,7,2,8,3,1,6,5], 70ms stagger, 0.5s pulse) → row sweep 1.2–2.4s → column sweep 2.4–3.6s (whole line per step, 180ms stagger, 0.6s pulse). Pulse = opacity 0.18→1→0.18, rise cubic-bezier(.35,0,.25,1), fall cubic-bezier(.45,0,.55,1) — opacity only. Beside it, the operation label: text-sm Medium (14/500) live string that changes with what the model is doing ('Thinking…', 'Reading your data…', 'Writing…'), swapping via 150ms fade + 2px rise, with a continuous neutral glow sweep via background-clip:text (250% gradient, 2s linear loop) — a lighter gray band over a text/tertiary base: light gray-300 #D6D7DB over gray-500 #71747C (4.6:1), dark gray-200 #E9EAEC over #8A8F98. Color lives in the blocks only; the label stays neutral (sanctioned background-position animation; tiny paint area, progress exemption). Violet-300 is 2.41:1 on white — blocks are decorative; meaning is always carried by the label + role=status. Standalone, no avatar or mark beside it. Replaced by content on the first streamed token. Reference build + full keyframes: docs/labs-v2-thinking-blocks.html.",
+  spec:[["Level", "Atom · tokens only"], ["Props", "size (16|20|24|48, default 20) · sweep (cycle|random|rows|columns, default cycle) · label (string (current operation), default unset; use 'Thinking…' when shown)"], ["Tokens", "rose-300 #EA7BA7 (blocks, both modes) · text/tertiary gray-500 #71747C (label base light; #8A8F98 dark) · gray-300 #D6D7DB / gray-200 #E9EAEC (glow band light / dark)"], ["A11y", "role=status + sr-only mirror of the current operation; announced on label change, not per pulse; blocks and visual label are aria-hidden. Reduced motion: blocks animation:none with static diagonal frame (0.9→0.18); label loses the sweep (plain text/tertiary) but operation text still updates instantly — that change is functional."]],
+  dos:["Swap for content at first token", "Place where the text will appear — alone, no avatar/mark", "Drive the label from the real operation; announce changes via role=status", "16 inline/buttons · 20 chat (default) · 24 panel loads · 48 empty states", "Loops while waiting — the progress exemption to the no-loop rule"], donts:["Spinner + blocks together", "Non-AI loading (use Spinner/Skeleton)", "Status hues or rose-600 on blocks — rose-300, both modes", "Meaning carried by blocks alone (2.41:1 on white — label/status text is the signal)", "Isolated sweeps (random/rows/columns) as the resting default — cycle is the signature", "Glow sweep on any other text — it belongs to this component only · never brand/status hues on the label"],
+  code:"<ThinkingBlocks size=\"16|20|24|48\" sweep=\"cycle|random|rows|columns\" label? />" },
+{ tier:"Atom", slug:"citation-chip", name:"Citation chip", lede:"Inline source reference for AI answers. Number type marks a citation point in assistant prose ([1] on an 18px round chip); Source type shows a 12px favicon dot + bare domain in a text-2xs pill. Rides the muted-soft→muted hover ladder; clicking opens the source, hovering may raise a Hover card. Composes into Chat message assistant turns.",
+  spec:[["Level", "Atom · composes: icon"], ["Variants", "{'axis': 'Type', 'values': ['Number', 'Source'], 'default': 'Number'} · {'axis': 'State', 'values': ['Default', 'Hover'], 'default': 'Default'}"], ["Props", "label (text, default 1 / attio.com)"], ["Tokens", "citation/bg · citation/bg-hover · citation/fg · citation/fg-hover"], ["A11y", "Renders &lt;a&gt;; accessible name \"Source 1: attio.com\"; ring on :focus-visible only (keyboard/AT), never on click"]],
+  dos:["Cite every external claim — numbers stay in reading order", "Reuse one number for repeat citations of the same source", "Keep domains bare"], donts:["Wrapping to two lines", "Using chips for navigation — they only reference sources", "Recoloring per source — chips stay monochrome"],
+  code:"<CitationChip n={1} href/> · <CitationChip source=\"attio.com\" href/>" },
+{ tier:"Atom", slug:"copy-button", name:"Copy button", lede:"Copy-to-clipboard toggle: 24px hit cell, 16px copy glyph on the muted tier (hover foreground + muted wash). On click it flips to State=Copied — a check on status/success-foreground — for ~2s, then reverts. Consumed by the Chat message answer footer; reuse beside IDs, code blocks and share links.",
+  spec:[["Level", "Atom · composes: icon"], ["State", "Default · Copied"], ["Tokens", "text/tertiary (default) · status/success-foreground (copied)"], ["A11y", "Labelled \"Copy answer\"/context label; aria-live announces \"Copied\"; state reverts after ~2s; keyboard focus ring per policy"]],
+  dos:["Revert to the copy glyph after ~2s", "Announce Copied via aria-live"], donts:["Leaving the check permanently", "Using a toast for copy confirmation — the inline check is the feedback"],
+  code:"<CopyButton value>" },
+{ tier:"Molecule", slug:"menu-item", name:"Menu item", lede:"Row of every menu surface. 224×32, radius menu/item-radius, transparent at rest; hover menu/item-bg-hover, danger rows hover menu/item-bg-danger-hover. Optional leading icon, trailing shortcut, trailing check (single-select menus).",
+  spec:[["Level", "Molecule · composes: icon"], ["Type", "Default · Danger"], ["State", "Default · Hover · Disabled"], ["Props", "Label (text, default Menu item) · Icon (boolean, default True) · Shortcut (boolean + text, default false / ⌘D) · Checked (boolean, default False)"], ["Tokens", "menu/item-fg(-danger/-disabled) · menu/item-bg-hover · menu/item-bg-danger-hover · menu/shortcut · menu/item-radius"], ["A11y", "role=menuitem(/checkbox) · full-row hit target · arrows/Enter/Esc"]],
+  dos:["Verb-first labels", "Danger rows last after a separator"], donts:["Mixed icon/no-icon rows in one group", "Submenus beyond one level"],
+  code:"<MenuItem icon? shortcut? checked? danger? disabled?>" },
+{ tier:"Molecule", slug:"menu", name:"Menu", lede:"The floating panel behind Dropdown menu (trigger-anchored) AND Context menu (cursor-anchored) — one anatomy, two invocations. 240w, menu/bg, menu/border hairline, radius menu/radius, shadow/float, 8px padding, 2px row rhythm, muted group labels.",
+  spec:[["Level", "Molecule · composes: menu-item, separator"], ["Tokens", "menu/bg · menu/border · menu/radius · menu/group-label · shadow/float"], ["A11y", "Focus in on open, returns on close · Esc · typeahead"]],
+  dos:["Group with labels + separators", "Dropdowns below-start, context at cursor", "≤8 visible items"], donts:["Form controls inside (Popover)", "Only path to an action in a context menu"],
+  code:"<DropdownMenu trigger> / <ContextMenu target>" },
+{ tier:"Molecule", slug:"tab-item", name:"Tab item", lede:"Underline tab: text-sm (Medium active) + 2px tabs/indicator when active. Sits on the Tabs baseline.",
+  spec:[["Level", "Molecule · tokens only"], ["State", "Active · Inactive · Hover · Disabled"], ["Props", "Label (text, default Tab label)"], ["Tokens", "tabs/indicator · tabs/fg(-active/-disabled)"]],
+  dos:[], donts:[],
+  code:"get_labs_v2_component_spec(\"tab-item\")" },
+{ tier:"Molecule", slug:"tabs", name:"Tabs", lede:"Underline tab bar for sibling views (record sub-pages, settings). Items share a hairline baseline (tabs/border), gap 16, one Active always; indicator animates 150ms.",
+  spec:[["Level", "Molecule · composes: tab-item"], ["Tokens", "tabs/*"], ["A11y", "role=tablist/tab/tabpanel · roving tabindex, arrows move"]],
+  dos:["2–6 tabs, one active", "Order by usage"], donts:["Sequential steps (Wizard, T2)", "Nested tab bars", "Pill-style tabs — underline only"],
+  code:"<Tabs value onChange> <Tab value label/> </Tabs>" },
+{ tier:"Molecule", slug:"select", name:"Select", lede:"Single choice from 6+ options (fewer → Radio). Input-grammar trigger with chevrons-up-down; opens a Menu with a trailing check on the selected row. Open state = focus grammar.",
+  spec:[["Level", "Molecule · composes: menu, menu-item, icon"], ["State", "Default · Hover · Open · Filled · Error · Disabled"], ["Props", "Text (text, default Select an option)"], ["Tokens", "input/* family · menu/* · focus/ring"], ["A11y", "Combobox pattern (aria-expanded, aria-activedescendant) · typeahead · Esc closes without change"]],
+  dos:["6+ options or constrained vocabularies", "Sensible default", "Logical option order"], donts:["2–5 options (Radio)", "Huge unsearchable lists (Combobox)", "Placeholder as label"],
+  code:"<Select options value placeholder error? disabled? />" },
+{ tier:"Molecule", slug:"combobox", name:"Combobox", lede:"Searchable select for long/user-generated lists. Panel adds an auto-focused search input over the option list; multi-select uses Checked menu items; empty filter shows a 'No results' row.",
+  spec:[["Level", "Molecule · composes: menu, menu-item, input, icon"], ["State", "Default · Open · Filled · Disabled"], ["Props", "Text (text, default Search or select…)"], ["Tokens", "input/* family · menu/* · focus/ring"]],
+  dos:["15+ or user-generated options", "Debounce remote search with a Spinner row", "Summarize multi-select as 'N selected'"], donts:["Short fixed lists (Select)", "Clearing search on each selection", "Blocking typing while loading"],
+  code:"<Combobox options value multiple? onSearch />" },
+{ tier:"Molecule", slug:"field", name:"Field", lede:"The canonical form unit: Label 8px above, control, Helper 4px below (HIG proximity ratios). Swap the Input for Select/Combobox/Date picker/Textarea — the wrapper grammar is identical. Error swaps input border AND helper together.",
+  spec:[["Level", "Molecule · composes: label, input, helper-text"], ["State", "Default · Error · Disabled"], ["Props", "Helper (boolean, default True) · Label/Input/Helper (exposed instances)"], ["Tokens", "form/* · input/* · space/2 label gap · space/1 helper gap"]],
+  dos:[], donts:["Two controls under one label", "Hiding labels to save space"],
+  code:"<Field label helper error required> {control} </Field>" },
+{ tier:"Molecule", slug:"search-input", name:"Search input", lede:"Search entry with leading search icon. Shortcut=⌘K variant is RESERVED for the sidebar quick-actions search (where ⌘K is registered); Shortcut=None is the plain search for table toolbars and filter bars.",
+  spec:[["Level", "Molecule · composes: icon"], ["State", "Default · Focus · Filled"], ["Shortcut", "⌘K (sidebar only) · None (tables, filters)"], ["Props", "Text (text, default Search…)"], ["Tokens", "input/* family · focus/ring"]],
+  dos:["Filter as-you-type locally", "⌘K chip only where ⌘K works", "One search per surface"], donts:["As a generic text input", "Requiring Enter for local filtering", "Dropping the search icon"],
+  code:"<SearchInput placeholder shortcut? onSearch />" },
+{ tier:"Molecule", slug:"alert", name:"Alert", lede:"Persistent inline banner (forms, dialogs, sections): alert/&lt;tone&gt;/bg soft tint, colored 16px alert/&lt;tone&gt;/icon, alert/title Medium + alert/body. Stays until resolved — transient feedback is Toast.",
+  spec:[["Level", "Molecule · composes: icon"], ["Tone", "Info · Success · Warning · Error"], ["Props", "Title / Body (text) · Show body (boolean, default True) · Dismissible (boolean, default False)"], ["Tokens", "alert/&lt;tone&gt;/bg · alert/&lt;tone&gt;/icon · alert/title · alert/body · alert/radius"], ["A11y", "role=status (info/success) or alert (warning/error) · icon+title carry meaning"]],
+  dos:["Directly above the content it describes", "What happened + what to do", "Error tone only for blockers"], donts:["Stacked alerts", "Transient confirmations (Toast)", "Primary page actions inside alerts"],
+  code:"<Alert tone title body? dismissible? />" },
+{ tier:"Molecule", slug:"toast", name:"Toast", lede:"Transient feedback, bottom-right stack, auto-dismiss 5s (errors persist). toast/bg + toast/border + radius toast/radius + shadow/float; tone icon; optional action as a sm Secondary button (exposed nested instance). Enter 150ms rising 8px, exit 100ms, max 3 visible.",
+  spec:[["Level", "Molecule · composes: icon"], ["Tone", "Neutral · Info · Success · Warning · Error"], ["Props", "Title / Description (text) · Action (boolean, default false)"], ["Tokens", "toast/* · alert/&lt;tone&gt;/icon (tone icons) · button/secondary/* · shadow/float"], ["A11y", "aria-live polite (assertive errors) · pause on hover/focus · action keyboard-reachable"]],
+  dos:["Confirm in 2–4 words", "Undo over confirm dialogs where safe", "Persistent errors with a next step"], donts:["Validation errors as toasts", "&gt;3 stacked", "Critical info only in a toast"],
+  code:"toast({ tone, title, description?, action? })" },
+{ tier:"Molecule", slug:"card", name:"Card", lede:"Resting-tier container: card/bg, card/border hairline, radius card/radius — no shadow, ever. Header (title text-md Semi Bold + optional overflow action); Content is a Figma slot.",
+  spec:[["Level", "Molecule · composes: icon"], ["Props", "Title (text) · Action (boolean, default True) · Content (slot)"], ["Tokens", "card/bg · card/border · card/radius · card/title"]],
+  dos:["One topic per card", "4px-grid card grids with 16/24 gutters"], donts:["Drop shadows on resting cards", "Nesting cards &gt;1 level", "Cards faking tables"],
+  code:"<Card title action?> {children} </Card>" },
+{ tier:"Molecule", slug:"kpi-tile", name:"KPI tile", lede:"Dashboard stat card (Cal.com pattern): kpi/label secondary, display-sm tnum numeral in kpi/value, Delta chip + kpi/period context. The numeral never carries color — only the Delta does. Loading = Skeleton rect.",
+  spec:[["Level", "Molecule · composes: delta"], ["Trend", "Up · Down · Flat"], ["Props", "Metric label / Value / Period (text) · Delta (exposed instance)"], ["Tokens", "kpi/label · kpi/value · kpi/period · card/bg · card/border · card/radius · delta/*"]],
+  dos:["3–4 equal tiles per row", "Always give the period", "tnum everywhere"], donts:["Coloring the numeral by performance", "Deltas without baseline"],
+  code:"<KpiTile label value delta period invert? />" },
+{ tier:"Molecule", slug:"popover", name:"Popover", lede:"Anchored floating container for interactive content (filters, quick forms, pickers) — everything Tooltip must never hold. popover/bg, hairline, radius popover/radius, shadow/float, 8px from trigger, flips on collision.",
+  spec:[["Level", "Molecule · composes: icon"], ["Props", "Title (text) · Close (boolean, default True) · Content (slot)"], ["Tokens", "popover/* · shadow/float"], ["A11y", "Focus moves in/returns · Esc + outside click close · no focus trap (that's Dialog)"]],
+  dos:[], donts:["Plain text hints (Tooltip)", "Popover from popover", "Destructive flows (Dialog)"],
+  code:"<Popover trigger side align> {content} </Popover>" },
+{ tier:"Molecule", slug:"description-list", name:"Description list", lede:"Key-value fact sheet for record detail (Attio record layout): dl/term muted 120px fixed + dl/value foreground, 12px rhythm, no separators. Empty values render '—'.",
+  spec:[["Level", "Molecule · composes: description-list-item"], ["Tokens", "dl/term · dl/value"]],
+  dos:["Short consistent terms", "'—' for empty"], donts:["&gt;8 rows without grouping", "Right-aligned values", "Editable fields (that's a form)"],
+  code:"<DescriptionList items=[{term, value}] /> → <dl>" },
+{ tier:"Molecule", slug:"empty-state", name:"Empty state", lede:"Zero-data view: 40px empty/icon-bg circle with 24px empty/icon-fg Lucide, md Semi Bold title, secondary one-liner, optional Secondary+Primary pair. States the situation, never apologizes.",
+  spec:[["Level", "Molecule · composes: icon, button"], ["Action", "None · Button"], ["Props", "Title / Description (text) · Icon (exposed instance)"], ["Tokens", "empty/icon-bg · empty/icon-fg"]],
+  dos:["First-run ≠ filtered-empty ('clear filters')", "Primary = the creating action"], donts:["Apologies/blame", "Spinner as empty state", "Blank zero-data regions"],
+  code:"<EmptyState icon title description actions? />" },
+{ tier:"Molecule", slug:"legend", name:"Legend", lede:"Chart series key: 16px-gap row of items (8px dot + text-xs secondary label), top-right of the Chart container. Items toggle series (aria-pressed); toggled-off series drop to 40% in code.",
+  spec:[["Level", "Molecule · composes: legend-item"], ["Series (item)", "1 chart/series-1 · 2 chart/series-2 · 3 chart/series-3 · 4 chart/series-4"], ["Tokens", "chart/series-1..4"]],
+  dos:[], donts:["&gt;6 items (group 'Other')", "Ad-hoc series recoloring"],
+  code:"get_labs_v2_component_spec(\"legend\")" },
+{ tier:"Molecule", slug:"chart-tooltip", name:"Chart tooltip", lede:"Chart hover card: 12px Medium date header, then per-series rows of color dot · xs secondary label · 12px Medium tnum value. popover/bg + border, radius-md, shadow/float; follows cursor at 8px, no animation. Rendered by the Recharts wrapper.",
+  spec:[["Level", "Molecule · tokens only"], ["Tokens", "popover/bg · popover/border · chart/series-* · shadow/float"]],
+  dos:["Rows ordered by value", "Dots exactly match series strokes"], donts:["&gt;6 rows (aggregate)", "Actions inside chart tooltips"],
+  code:"get_labs_v2_component_spec(\"chart-tooltip\")" },
+{ tier:"Molecule", slug:"avatar-group", name:"Avatar group", lede:"Stacked collaborators: up to 3 × 24px avatars overlapping −6px with a 2px canvas ring + '+N' overflow chip (avatar/bg-muted). Click opens the full list; hover shows names via Tooltip.",
+  spec:[["Level", "Molecule · composes: avatar"], ["Props", "Overflow (text, default +3)"], ["Tokens", "avatar/* · background/default ring (semantic)"]],
+  dos:[], donts:["Overlap &gt;6px", "Truncating without the +N count"],
+  code:"get_labs_v2_component_spec(\"avatar-group\")" },
+{ tier:"Molecule", slug:"calendar-day", name:"Calendar day", lede:"One day cell, 32×32 radius-md. Selected = calendar/day-selected-bg; Today = calendar/day-today-fg Medium; Outside month = calendar/day-muted-fg; range mode adds a muted-soft band in code.",
+  spec:[["Level", "Molecule · tokens only"], ["State", "Default · Hover · Selected · Today · Outside · Disabled"], ["Props", "Day (text, default 14)"], ["Tokens", "calendar/day-*"]],
+  dos:[], donts:[],
+  code:"get_labs_v2_component_spec(\"calendar-day\")" },
+{ tier:"Molecule", slug:"calendar", name:"Calendar", lede:"The Date picker popover panel: chevron month nav + text-sm Medium title, 11px Medium weekday row, 7×5 grid of Calendar day cells (4px gaps). popover tokens + shadow/float. Range mode renders two months.",
+  spec:[["Level", "Molecule · composes: calendar-day, icon"], ["Tokens", "popover/* · calendar/day-* · shadow/float"]],
+  dos:[], donts:[],
+  code:"get_labs_v2_component_spec(\"calendar\")" },
+{ tier:"Molecule", slug:"date-picker", name:"Date picker", lede:"Date entry: input-grammar trigger with a leading calendar icon opening the Calendar popover. Typing is always possible; min/max disable impossible dates.",
+  spec:[["Level", "Molecule · composes: calendar, calendar-day, icon"], ["State", "Default · Open · Filled · Error · Disabled"], ["Props", "Value (text, default Pick a date)"], ["Tokens", "input/* family · calendar/day-* · focus/ring"], ["A11y", "Grid keyboard nav (arrows/PgUp/PgDn) · typed entry always possible"]],
+  dos:["Let users type as well as pick", "Disable impossible dates via min/max"], donts:["Calendar-only for well-known dates (birthdays)", "Forcing one locale's format", "Opening on focus alone"],
+  code:"<DatePicker value range? min? max? format=\"MMM D, YYYY\" />" },
+{ tier:"Molecule", slug:"number-input", name:"Number input", lede:"Numeric field on the exact Input recipe (36px shell, input/* state grammar incl. the 3px 16% focus halo) plus a right stepper column: two 24×18 chevron cells over a hairline. Values text-sm tnum; ↑↓ steps, ⇧ steps 10×. Shell clips content except the Focus variant (halo must render). Wrap in Field.",
+  spec:[["Level", "Molecule · composes: icon"], ["State", "Default · Hover · Focus · Filled · Error · Disabled"], ["Props", "value (text, default 0)"], ["Tokens", "input/* · focus/ring"], ["A11y", "Native input[type=number] semantics; steppers aria-hidden (keyboard already steps)"]],
+  dos:["True numbers only (seats, limits, amounts)", "Right-align in stacked forms/tables", "Set sensible step/min/max"], donts:["Phone numbers or IDs (use Input)", "Hiding the steppers", "Accepting non-numeric text"],
+  code:"<NumberInput value step min max>" },
+{ tier:"Molecule", slug:"tag-input", name:"Tag input", lede:"Multi-value field: committed values render as neutral Tag pills inside the Input shell; Enter/comma commits, Backspace removes the last, each pill gets a ✕ remove affordance in code. Pills stay neutral gray inside the field — color=meaning lives in tables. For fixed vocabularies prefer Combobox multi-select.",
+  spec:[["Level", "Molecule · composes: tag"], ["State", "Default · Focus · Error · Disabled"], ["Tokens", "input/* · tag/neutral/bg · tag/neutral/fg · focus/ring"], ["A11y", "Chips are buttons labelled 'remove {tag}'; count announced via aria-describedby"]],
+  dos:["Commit on Enter and comma", "Autocomplete when a vocabulary exists", "Wrap the field taller on overflow"], donts:["Colored pills inside the field", "Truncating pills", "Single-value picks (use Select)"],
+  code:"<TagInput value=[] onAdd onRemove suggestions?>" },
+{ tier:"Molecule", slug:"file-upload", name:"File upload", lede:"Dropzone: dashed (5-5) upload/border on upload/bg, radius-lg, centered 40px icon tile (bound upload/bg) + 'Click to upload' (upload/link-fg) 'or drag and drop' + constraints line (text-xs). Dragover flips border to upload/border-active rose + muted wash; Error swaps border and the helper message. One click target wrapping a native file input; File upload items stack below with 8px gap.",
+  spec:[["Level", "Molecule · composes: icon, file-upload-item"], ["State", "Default · Dragover · Error"], ["Tokens", "upload/bg · upload/border · upload/border-active · upload/icon · upload/link-fg · upload/radius"], ["A11y", "Labelled button + input[type=file]; drag state via aria-live; errors inline, not toasts"]],
+  dos:["State formats + size cap up front", "Inline errors in the zone", "Per-file cancel/remove"], donts:["Modal for drag-and-drop", "Hiding per-file progress", "Avatar swaps (use Avatar + menu)"],
+  code:"<FileUpload accept maxSize multiple?>" },
+{ tier:"Molecule", slug:"file-upload-item", name:"File upload item", lede:"Per-file row under the dropzone: 32px muted file tile, text-sm-medium name, then a live Progress bar + tnum % while Uploading, or size + 'Uploaded' + green check when Complete. Trailing ✕ cancels / removes.",
+  spec:[["Level", "Molecule · composes: icon, progress-bar"], ["State", "Uploading · Complete"], ["Props", "file name (text, default members-export.csv)"], ["Tokens", "upload/icon · progress/* · status/success/fg (check)"], ["A11y", "Row names file + % in text; remove button labelled per file"]],
+  dos:["One row per file, 8px stack gap"], donts:["Hiding progress during upload"],
+  code:"<FileUploadItem file progress onRemove>" },
+{ tier:"Molecule", slug:"breadcrumbs", name:"Breadcrumbs", lede:"Topbar path trail: optional home icon, 14px chevron-right separators on breadcrumb/separator-fg, parent crumbs text-sm on breadcrumb/item-fg (hover → foreground + underline), current page text-sm-medium on breadcrumb/current-fg — text, never a link. &gt;3 levels collapses middle crumbs to an ellipsis menu.",
+  spec:[["Level", "Molecule · composes: icon"], ["Props", "parent (text, default Settings) · current (text, default Members) · home icon (boolean, default true)"], ["Tokens", "breadcrumb/item-fg · breadcrumb/current-fg · breadcrumb/separator-fg"], ["A11y", "nav aria-label=Breadcrumb + ol; separators aria-hidden; current gets aria-current=page"]],
+  dos:["Truncate crumbs ~24ch with tooltip", "Collapse beyond 3 levels", "One line always"], donts:["Linking the current page", "Slash/dot separators", "Showing on top-level pages"],
+  code:"<Breadcrumbs items=[{label, href}]>" },
+{ tier:"Molecule", slug:"pagination-item", name:"Pagination item", lede:"32px square page cell, radius-md: text-sm on pagination/item-fg; Active = pagination/active-bg muted fill + text-sm-medium on pagination/active-fg. Hover shows the fill without the weight (code). Consumed by Pagination.",
+  spec:[["Level", "Molecule · tokens only"], ["State", "Default · Active"], ["Props", "page (text, default 1)"], ["Tokens", "pagination/item-fg · pagination/active-fg · pagination/active-bg · pagination/radius"], ["A11y", "Button labelled 'Page N'; active aria-current=page"]],
+  dos:[], donts:[],
+  code:"(internal — rendered by <Pagination>)" },
+{ tier:"Molecule", slug:"pagination", name:"Pagination", lede:"Table-footer pager: Previous/Next as sm Ghost buttons at the edges (disabled at range ends), page cells centered showing first 3 + last 3 with a non-interactive … between. Right-aligned under full-bleed tables beside the count summary. ←/→ move focus, Enter activates.",
+  spec:[["Level", "Molecule · composes: button, pagination-item"], ["Tokens", "pagination/* · button/ghost/*"], ["A11y", "nav aria-label=Pagination; ellipsis is never a button"]],
+  dos:["Count summary left of the pager", "Page in the URL", "First 3 + last 3 pattern"], donts:["Paginating under ~25 rows", "Mixing with infinite scroll", "Hiding disabled Previous/Next"],
+  code:"<Pagination page count pageSize onChange>" },
+{ tier:"Molecule", slug:"accordion-item", name:"Accordion item", lede:"Disclosure row: full-width trigger (text-sm-medium on accordion/trigger-fg, 12px vertical padding) + 16px chevron on accordion/icon rotating 180° over 150ms, body text-sm on accordion/body-fg, 1px accordion/border under every row. Hover tints the trigger background/muted (code).",
+  spec:[["Level", "Molecule · composes: icon"], ["State", "Closed · Open"], ["Props", "title (text, default How does billing work?)"], ["Tokens", "accordion/border · accordion/trigger-fg · accordion/body-fg · accordion/icon"], ["A11y", "button[aria-expanded][aria-controls] + labelled region; chevron decorative"]],
+  dos:[], donts:[],
+  code:"<AccordionItem title>children</AccordionItem>" },
+{ tier:"Molecule", slug:"accordion", name:"Accordion", lede:"Disclosure stack for FAQs, advanced settings, long detail panes: items flush with their own hairlines, no outer card, no zebra. Single-open by default (type=single collapsible); multi-open is a code flag. Height animation respects prefers-reduced-motion.",
+  spec:[["Level", "Molecule · composes: accordion-item"], ["Tokens", "accordion/*"], ["A11y", "Radix Accordion semantics"]],
+  dos:["Front-load trigger labels", "Optional-to-read content only", "Short bodies; link out for policy text"], donts:["Hiding required fields inside", "Nesting accordions", "Auto-opening more than the first row"],
+  code:"<Accordion type=\"single\" collapsible> <AccordionItem…/> </Accordion>" },
+{ tier:"Molecule", slug:"list-item", name:"List item", lede:"Generic vertical-list row (inboxes, member lists, notification panes — where Table is too heavy): optional 24px Avatar, title text-sm-medium on list/title-fg over supporting text-xs on list/meta-fg, trailing time/meta right-aligned. Hover/Selected wash list/bg-hover, radius-md, 8×12 padding; rows stack flush with no separators.",
+  spec:[["Level", "Molecule · composes: avatar"], ["State", "Default · Hover · Selected"], ["Props", "title (text, default Sarah Chen) · supporting (text, default sarah@acme.com) · trailing (text, default 2h ago) · avatar (boolean, default true)"], ["Tokens", "list/title-fg · list/meta-fg · list/bg-hover · list/radius"], ["A11y", "Whole row one focusable control; selected uses aria-selected; keyboard focus adds a 2px inset ring"]],
+  dos:["Truncate the title, never the trailing meta", "48–56px rows, two text lines max", "Reuse inside Command palette results"], donts:["Per-row action buttons (use a trailing … menu)", "Mixing avatar and icon rows in one list", "3+ column data (use Table)"],
+  code:"<ListItem title supporting? trailing? avatar? selected?>" },
+{ tier:"Molecule", slug:"step-item", name:"Step item", lede:"Wizard step: 24px radius-full dot + text-sm label. Todo = stepper/todo-bg muted dot, tertiary number + label; Active = rose stepper/active-bg dot, white number, text-sm-medium foreground label; Done = rose dot with 12px check, secondary label. Consumed by Stepper.",
+  spec:[["Level", "Molecule · composes: icon"], ["State", "Todo · Active · Done"], ["Props", "label (text, default Workspace) · number (text, default 2)"], ["Tokens", "stepper/active-bg · stepper/active-fg · stepper/done-bg · stepper/todo-bg · stepper/todo-fg"], ["A11y", "aria-current=step on Active; Done steps are links, Todo disabled text"]],
+  dos:[], donts:[],
+  code:"(internal — rendered by <Stepper>)" },
+{ tier:"Molecule", slug:"stepper", name:"Stepper", lede:"Horizontal wizard rail: Step items joined by 48×2 connectors — stepper/connector-done rose behind completed steps, stepper/connector muted ahead. Exactly one Active; Done steps navigate back on click, Todo steps inert. 3–5 steps; more (or long labels) → vertical variant (code-side). Tops Dialog flows and full-page setup.",
+  spec:[["Level", "Molecule · composes: step-item"], ["Tokens", "stepper/*"], ["A11y", "nav + ol; aria-current=step"]],
+  dos:["Noun step names", "Click-back on Done steps", "Merge micro-steps"], donts:["Using as tabs", "Marking Done before data is saved", "Hiding future steps"],
+  code:"<Stepper steps=[{label}] current>" },
+{ tier:"Molecule", slug:"prompt-input", name:"Prompt input", lede:"FLUID WIDTH — the composer fills its thread column (canonical 640px; column min 480 / max 768, centered in the content area); never render it as a fixed narrow bar on wide viewports. AI composer: Conductor-height radius-xl shell (min-height 140 — text at top, toolbar pinned to the bottom) on prompt/bg + prompt/border; the field grows with input to max-height 280, then the text SCROLLS inside (State=Long shows the cap + thin scrollbar thumb; the toolbar never moves) — left: PLUS (composer actions menu; never add more toolbar icons) then the MODEL PICKER (model prop: text-xs-medium label + chevron-down, opens a Menu of models) then the capability pill; right: MIC (voice input) beside the 28px radius-full send on button/primary/bg. The capability boolean shows an engaged-capability pill after the mic (tag/info tint, 12 Semi Bold label + dismiss X) — picked from the plus menu, one capability at a time, X disengages. Send idles at 40% opacity until text exists; swaps to a stop square while streaming. State=Recording (after the mic): red live dot + tnum timer + a full-width waveform replace the text area — 3px bars on a 4px gap (7px rhythm), bar count derived from width; bars animate from live input (the Figma Waveform part loops three smart-animate keyframes so prototypes move too); reduced-motion shows static level bars. Toolbar becomes cancel X (discard; esc too) and the send circle a confirm check. Confirm passes through a brief State=Transcribing — Thinking dots + Transcribing… on the placeholder tier, toolbar restored, send idle — then the text lands in State=Filled, editable, never auto-sent. Recording start/stop announced via aria-live. State=Command: typing \"/\" summons the skills &amp; commands menu above the field — menu/* panel of Menu items with /slash shortcuts, filtered as you type; up/down navigate, enter runs, esc closes — the shell keeps its resting border while the menu is open (no focus stroke; rings are keyboard-only). State=Models: the model picker dropdown — a 240px Menu floating OVER the field (shadow/float separates it), bottom edge just above the picker trigger (Auto checked default, exactly one checked row); selecting updates the model label. Enter sends, Shift+Enter breaks. Attachments flow INLINE WITH THE PROMPT (Conductor grammar): linear Attachment chips sit inside the wrapping text region, mid-sentence between text runs, inserted at the caret via the plus menu or drag-in; chips wrap with the sentence. The attachments boolean reveals leading chips in Default/Focus; State=Attachments shows the interleaved specimen. Attachments are added via the plus menu or drag-in; an attachment alone makes send active. Suggestion chips sit above. UPDATES 2026-09-23: resting border rides gray-300 (prompt/border); Focus is a solid rose-400 edge (1px border + 3px full-opacity halo — no 16% tint), shown under keyboard/AT modality only. VOICE: the mic starts Recording — the shell swaps to a pulsing red dot + tnum timer + animated waveform with ✕ cancel (left) and a radius-full rose ✓ confirm replacing send (right); confirm runs Transcribing — thinking blocks + \"Transcribing…\" in the text slot — then the transcript lands in the composer for review; send never auto-fires. Esc cancels recording.",
+  spec:[["Level", "Molecule · composes: icon, attachment-card, menu-item"], ["State", "Default · Focus · Filled · Recording · Transcribing · Long · Command · Models · Attachments"], ["Props", "prompt (text, default Ask anything about your workspace…) · attachments (boolean, default false) · capability (boolean, default false) · capability label (text, default Create website) · model (text, default Auto)"], ["Tokens", "prompt/bg · prompt/border · prompt/border-focus · prompt/icon · prompt/placeholder · prompt/radius · button/primary/bg · focus/ring · attachment/* · tag/info/bg + tag/info/fg (capability pill) · menu/* (command menu)"], ["A11y", "textarea labelled 'Message assistant'; send announces disabled; ⌘↵ alternate send · recording announced via aria-live (Recording started / stopped); timer readable as elapsed time"]],
+  dos:["Pin to the thread bottom", "Show attachments as chips inside the shell, removable per item", "Attachment chips inside the shell", "Send → stop while streaming", "New composer features go in the plus menu"], donts:["Using as a search field", "Blocking typing while streaming", "More than the one rose accent (send)"],
+  code:"<PromptInput value onSend attachments? voice?>" },
+{ tier:"Molecule", slug:"attachment-card", name:"Attachment card", lede:"Linear attachment chip (Conductor grammar): one-line pill at TEXT SCALE (≈23px tall, 2×6 padding — sits on the prompt line, center-aligned with the text runs) — 14px colored type glyph (unclipped: the absolute 2px Lucide stroke needs breathing room, container never clips) (Document = red file-text via attachment/tile-doc, Image = green image glyph; glyph color follows file type in code), filename at text-sm (matches the prompt text) truncating, inline 12px ✕ remove on the tertiary tier. White chip (attachment/bg → background/card) with a 1px attachment/border hairline, radius-md (attachment/radius re-pointed). Flows inline in rows or within message text. Labels default to UNIVERSAL type names (File · Image) — real filenames per use via the prop. State=Hover: SAME FOOTPRINT as Default (the chip never reflows the sentence) — the chip takes the muted wash and the preview card (shadow/float, radius-lg) floats absolutely above it, outside the layout flow — placeholder glyph in Figma, the real thumbnail / first page in production; opens after ~400ms hover and on keyboard focus. Consumed by Prompt input (inline with the text); reusable in Chat message.",
+  spec:[["Level", "Molecule · composes: icon"], ["Type", "Document · Image"], ["State", "Default · Hover"], ["Props", "file name (text, default File)"], ["Tokens", "attachment/bg (→ background/card) · attachment/border · attachment/name-fg · attachment/tile-doc · attachment/radius (→ radius/md) · status/success (image glyph)"], ["A11y", "Card names file + kind; remove button labelled 'remove {file}'; keyboard-reachable"]],
+  dos:["Truncate long names in the middle where possible", "Tile color by file type", "Real thumbnails for images"], donts:["Hover-only remove", "Cards outside the composer/message context (use File upload item in forms)"],
+  code:"<AttachmentCard type name onRemove thumb?>" },
+{ tier:"Molecule", slug:"slider", name:"Slider", lede:"Continuous value selection on a horizontal track — Single value or Range pair. 4px radius-full rail on slider/track-bg; filled span on slider/range-bg (primary rose); 16px bordered disc thumbs on slider/thumb-bg. Hover darkens the thumb border; Focus draws the 2px focus/ring geometry around the active thumb; Disabled is 50% opacity. Optional value-label bubbles reuse tooltip/bg·fg and show while dragging. Track stretches with width; range and thumbs scale proportionally.",
+  spec:[["Level", "Molecule · tokens only"], ["Variants", "{'axis': 'Type', 'values': ['Single', 'Range'], 'default': 'Single'} · {'axis': 'State', 'values': ['Default', 'Hover', 'Focus', 'Disabled'], 'default': 'Default'}"], ["Props", "Value label (boolean, default False)"], ["Tokens", "slider/track-bg · slider/range-bg · slider/thumb-bg · slider/thumb-border · slider/thumb-border-hover · focus/ring · tooltip/bg · tooltip/fg"], ["A11y", "role=slider per thumb; arrow keys step, Home/End jump; aria-valuetext carries units; ring on :focus-visible only (keyboard/AT) — never on pointer drag or click"]],
+  dos:["Step in units users think in (5%, 1 day, 100 AED)", "Show the value label while dragging", "Keep min/max captions outside the track (text-xs tertiary)", "Wrap in Field for label + helper"], donts:["Precise data entry — that's Number input", "Recoloring the range per status — it stays primary", "Vertical sliders — not in the system"],
+  code:"<Slider value={60} min={0} max={100} step={5}/> · <Slider range value={[20,60]}/>" },
+{ tier:"Molecule", slug:"otp-input", name:"OTP input", lede:"One-time passcode entry — one digit per 36px cell (radius-md, input-family border), auto-advance on type, paste distributes. Digits are text-md with tnum. Six cells default, four for SMS short codes; gap is otp/gap (space-2). Focus gives the active cell input/border-focus + the 3px focus/ring halo at 16% (geometry; clipsContent stays false only on Focus variants). Error borders every cell in otp/cell-border-error and clears on the next keystroke; Disabled sits on otp/cell-bg-disabled while verifying.",
+  spec:[["Level", "Molecule · tokens only"], ["Variants", "{'axis': 'Length', 'values': ['6', '4'], 'default': '6'} · {'axis': 'State', 'values': ['Default', 'Focus', 'Filled', 'Error', 'Disabled'], 'default': 'Default'}"], ["Tokens", "otp/cell-bg · otp/cell-bg-disabled · otp/cell-border · otp/cell-border-error · otp/digit-fg · otp/gap · otp/cell-radius · input/border-focus · focus/ring"], ["A11y", "autocomplete=one-time-code on the group; inputmode=numeric per cell; announced “digit N of 6”; errors via aria-live; border+halo on :focus-visible (native input behavior — typing context keeps it visible after click, per system rule)"]],
+  dos:["Auto-submit when the last digit lands", "Distribute a pasted code across cells", "Clear the error state on the next keystroke", "Wrap in Field for label + helper"], donts:["Masking digits — codes are short-lived, visibility beats secrecy", "Passwords or persistent PINs", "More than 6 cells — longer codes get a plain Input"],
+  code:"<OTPInput length={6} onComplete={verify}/>" },
+{ tier:"Molecule", slug:"hover-card", name:"Hover card", lede:"Entity preview raised after ~500ms hover on links, chips, table cells and citation chips — the Attio-style record peek. 320px, padding 16, hovercard/radius (lg), hovercard/bg (popover) with hairline hovercard/border and shadow/float (always paired). Header: 40px avatar (Person = round on avatar/bg; Company = radius-sm primary mark) + text-sm-medium name + text-xs meta line; hairline separator; up to three 16px-icon + text-xs meta rows. Preview only — click goes to the entity; dismisses on mouse-out/Esc.",
+  spec:[["Level", "Molecule · composes: icon"], ["Variants", "{'axis': 'Type', 'values': ['Person', 'Company'], 'default': 'Person'}"], ["Props", "name / meta (text, default Sara Kim …)"], ["Tokens", "hovercard/bg · hovercard/border · hovercard/title-fg · hovercard/secondary-fg · hovercard/meta-fg · hovercard/radius · avatar/bg · avatar/fg"], ["A11y", "Pointer-only enhancement — the anchor link stays the keyboard path; card is aria-hidden, never focus-trapped; closes on Esc and mouse-out"]],
+  dos:["Open after ~500ms — never on accidental pass-through", "Keep to three meta rows; the record page holds the rest", "Let click go to the entity"], donts:["Buttons or actions inside — previews only", "Nesting hover cards from links inside a card", "Making it the only path to info — touch has no hover"],
+  code:"<HoverCard entity={person} openDelay={500} closeDelay={150}/>" },
+{ tier:"Molecule", slug:"page-banner", name:"Page banner", lede:"Full-width announcement strip pinned above the page header — the page-level sibling of the inline Alert. Edge to edge, radius 0, padding 16/10, 40px min height. Tone pairs banner/&lt;tone&gt;-bg + banner/&lt;tone&gt;-fg map to the status surface/foreground trios; Brand uses the interactive/accent pair (same as sidebar-active). 16px tone icon (info / check-circle / alert-triangle / alert-circle / sparkle), text-sm message fills, optional underlined text-sm-medium action link, optional 16px dismiss ✕. One banner max per page; highest severity wins.",
+  spec:[["Level", "Molecule · composes: icon"], ["Variants", "{'axis': 'Status', 'values': ['Info', 'Success', 'Warning', 'Error', 'Brand'], 'default': 'Info'}"], ["Props", "Action (boolean, default True) · Dismissible (boolean, default True)"], ["Tokens", "banner/info-bg · banner/info-fg · banner/success-bg · banner/success-fg · banner/warning-bg · banner/warning-fg · banner/error-bg · banner/error-fg · banner/brand-bg · banner/brand-fg"], ["A11y", "role=status (info · success · brand) or role=alert (warning · error); dismiss is a labeled icon button and action a real link — both show the ring on :focus-visible only (keyboard/AT)"]],
+  dos:["Keep the message to one line where possible", "Pair every Error banner with a next step", "Persist dismissal — never re-show on reload"], donts:["Stacking banners — highest severity wins", "Form validation — that's Alert and field errors", "Feature announcements in Error or Warning tones"],
+  code:"<PageBanner status=\"warning\" action={{label, href}} onDismiss/>" },
+{ tier:"Molecule", slug:"filter-chip", name:"Filter chip", lede:"Per-field table filter trigger — one chip per filterable column, full-round, 36h, hairline border on card. States: Default ('Status' + chevron-down 16) · Hover (muted bg) · Open (1.5px ring-colored border while its dropdown is up) · Applied ('Status:' muted + value SemiBold foreground + chevron) · Applied hover (chevron swaps for the clear ×) · Add filter (dashed border, plus icon, muted — opens the field picker).",
+  spec:[["Level", "Molecule · composes: tag, icon"], ["Tokens", "background/card · background/muted · border/default · interactive/ring · text/foreground · text/muted-foreground"], ["A11y", "Button semantics; aria-expanded while its dropdown is open; the clear × is its own labelled button"]],
+  dos:["One chip per active field", "Value in SemiBold, field name muted", "Open state ring while the dropdown is visible"], donts:["A single generic 'Filter' builder chip (superseded pattern)", "Funnel icons on field chips"],
+  code:"<FilterChip field=\"Status\" values={['Active']} onOpen onClear />" },
+{ tier:"Molecule", slug:"filter-options-dropdown", name:"Filter options dropdown", lede:"The dropdown owned by ONE filter chip: a checkbox multi-select of that field's values (real Checkbox instances with label text), hairline divider, muted 'Clear filter' row. 220w, popover background, hairline border, shadow/float, radius 12. Option rows 32h, radius 6, hover muted wash.",
+  spec:[["Level", "Molecule · composes: checkbox, separator, popover"], ["Tokens", "background/popover · border/default · shadow/float · via checkbox"], ["A11y", "menu/listbox semantics with aria-multiselectable; checkbox options; Clear filter is a menuitem"]],
+  dos:["Checkbox multi-select", "Clear filter always last, below the divider"], donts:["Field/operator/value builder rows (that's a different, superseded pattern)", "Resting shadows — this is the floating tier"],
+  code:"<FilterOptionsDropdown options selected onToggle onClear />" },
+{ tier:"Molecule", slug:"filter-bar", name:"Filter bar", lede:"Chips-on-top-of-table pattern: one Applied/Default chip per active field + the dashed Add-filter chip, 8px gaps, left-aligned above the table-card. Each chip opens its own Filter options dropdown.",
+  spec:[["Level", "Molecule · composes: filter-chip"], ["Tokens", "via filter-chip"], ["A11y", "Toolbar semantics; chips are buttons"]],
+  dos:["Left-align", "Dashed Add-filter chip always last"], donts:["Right-aligning the bar", "Hiding applied filters behind a single count"],
+  code:"<FilterBar filters={[{field:'Status', values:['Active']}]} onAddFilter />" },
+{ tier:"Organism", slug:"dialog", name:"Dialog", lede:"Centered modal for focused decisions: 480w (640 max), radius dialog/radius (xl), dialog/bg, shadow/overlay on ink/40% scrim (black/60% dark). Header title+subtitle+X; Content slot; right-aligned footer (Secondary Cancel + confirm). Destructive variant embeds a warning Alert and confirms with Button/Destructive — never default-focused.",
+  spec:[["Level", "Organism · composes: button, alert, icon"], ["Variant", "Default · Destructive"], ["Props", "Title / Subtitle (text) · Content (slot)"], ["Tokens", "dialog/* · shadow/overlay"], ["A11y", "Focus trapped + returned · Esc/scrim close (blocked in destructive) · initial focus on Cancel in destructive · aria-labelledby"]],
+  dos:["One decision per dialog", "Typed confirmation for bulk-irreversible"], donts:["Nested dialogs", "Content browsing (Sheet)", "Autofocusing the destructive action"],
+  code:"<Dialog title subtitle destructive? onConfirm onCancel> {content} </Dialog>" },
+{ tier:"Organism", slug:"sheet", name:"Sheet", lede:"Side panel from the right edge (left in RTL): 400w (480 max), full height, sheet/border hairline left, shadow/overlay, radius sheet/radius (xl) on the detached corners only. Header/footer hairline-separated; Content slot scrolls. Keeps list context visible.",
+  spec:[["Level", "Organism · composes: button, icon"], ["Tokens", "sheet/* · shadow/overlay"]],
+  dos:["Record preview from table rows", "Pinned footer actions"], donts:["Sheets over sheets", "Blocking decisions (Dialog)", "&gt;480w (make it a page)"],
+  code:"<Sheet title side=\"right\" onClose> {content} </Sheet>" },
+{ tier:"Organism", slug:"table-header-cell", name:"Table header cell", lede:"Sticky header cell: 36h, 12px Medium table/header-fg label with a leading column-type icon (Attio pattern) and optional sort indicator (aria-sort button in code).",
+  spec:[["Level", "Organism · composes: icon"], ["Props", "Label (text) · Icon (boolean + exposed, default True) · Sortable (boolean, default False)"], ["Tokens", "table/header-fg"]],
+  dos:[], donts:[],
+  code:"get_labs_v2_component_spec(\"table-header-cell\")" },
+{ tier:"Organism", slug:"table-cell", name:"Table cell", lede:"Body cell, 40h comfortable (36 compact / 48 relaxed). Types: Text · Entity (24px avatar + name) · Tag · Numeral (right-aligned tnum) · Link (underlined table/link) · Muted ('—') · Checkbox (48w selection column).",
+  spec:[["Level", "Organism · composes: avatar, tag, checkbox"], ["Type", "Text · Entity · Tag · Numeral · Link · Muted · Checkbox"], ["Props", "Value (text)"], ["Tokens", "table/cell-fg · table/cell-muted · table/link"]],
+  dos:[], donts:[],
+  code:"get_labs_v2_component_spec(\"table-cell\")" },
+{ tier:"Organism", slug:"table-toolbar", name:"Table toolbar", lede:"Control strip above the table-card. Since 2026-10-20 the default Table context shows ONLY the filter bar (chips-on-top pattern), left-aligned; search, Sort and the primary action are slots that other contexts may reveal. 52h, transparent.",
+  spec:[["Level", "Organism · composes: filter-bar, search-input, button"], ["Tokens", "via composed components"]],
+  dos:[], donts:[],
+  code:"get_labs_v2_component_spec(\"table-toolbar\")" },
+{ tier:"Organism", slug:"table", name:"Table", lede:"THE FLAGSHIP, Maze-style since 2026-10-20: the data region (header + rows + footer) lives in a rounded 'table-card' — radius 10, hairline border, card background, content clipped — with the filter bar above it. Header: 42h muted-gray band, UPPERCASE labels at +6% tracking, a 16px arrow-up-down sort icon per column, transparent header cells so the band reads continuously. Rows: 56h default (airy), hairline dividers only — no zebra. Checkbox selection column. Status cells may render as PLAIN COLORED TEXT (status/*-foreground) instead of tag pills. All numerals in IBM Plex Mono, right-aligned. Footer: quiet pagination — 'Showing 1 – N · Page X'. Row states in code: hover muted-soft wash, selected accent tint, loading skeleton rows, empty = Empty state spanning the body.",
+  spec:[["Level", "Organism · composes: table-toolbar, filter-bar, table-header-cell, table-cell, separator"], ["Tokens", "table/*"], ["A11y", "Real &lt;table&gt; semantics · sortable headers are buttons with aria-sort · selection announced"]],
+  dos:["Wrap header+rows+footer in the rounded, clipped table-card (radius 10 + hairline + card bg)", "Right-align numerals in IBM Plex Mono, left-align the rest", "UPPERCASE +6% tracked header labels with the sort icon", "'—' muted for empty cells"], donts:["Zebra striping", "Center-aligned cells", "Tag pills AND colored text mixed in one status column — pick one per table", "Mixed densities on one screen", "Semantic per-column header icons (replaced by the sort glyph)"],
+  code:"<Table columns rows density=\"comfortable\" selectable sortable />" },
+{ tier:"Organism", slug:"sidebar-item", name:"Sidebar item", lede:"Nav row: 232×32, radius sidebar/item-radius, 16px icon + text-sm label + optional count. Active = sidebar/item-bg-active (interactive/accent, rose-50 tint) with Medium sidebar/item-fg-active (accent-foreground, rose-800) label + icon; hover = sidebar/item-bg-hover (muted-soft). The accent belongs to the single active item only — hover and rest stay gray. Layout=Collapsed: 40×32 icon-only cell for the 64px rail — label moves to a tooltip, count becomes a status dot (both code-side); state washes unchanged.",
+  spec:[["Level", "Organism · composes: icon"], ["State", "Default · Hover · Active"], ["Layout", "Expanded · Collapsed"], ["Props", "Label (text) · Count + Count value (boolean + text, default false / 24) · Icon (exposed instance)"], ["Tokens", "sidebar/item-* · sidebar/count"]],
+  dos:[], donts:[],
+  code:"get_labs_v2_component_spec(\"sidebar-item\")" },
+{ tier:"Organism", slug:"sidebar-group-label", name:"Sidebar group label", lede:"Collapsible section header — text-xs sidebar/group-label with chevron. Groups sit 24px apart.",
+  spec:[["Level", "Organism · composes: icon"], ["Props", "Label (text, default Workspace)"], ["Tokens", "sidebar/group-label"]],
+  dos:[], donts:[],
+  code:"get_labs_v2_component_spec(\"sidebar-group-label\")" },
+{ tier:"Organism", slug:"workspace-switcher", name:"Workspace switcher", lede:"Sidebar header row: 24px workspace mark + name + trailing slot. Logo=Round (avatar) / Square (radius-sm brand tile) show chevrons-up-down and open the workspace menu; Logo=Avatar-collapse / Logo-collapse (user-added) swap the trailing icon for the 16px sidebar collapse toggle — the Sidebar defaults to Avatar-collapse, the workspace menu opens from the row itself, and the collapse icon takes the rail to the 64px icon-only state (code-side). Collapsed-avatar / Collapsed-logo: 40×40 rail twins — centered mark only; the mark opens the workspace menu.",
+  spec:[["Level", "Organism · composes: avatar, icon, menu"], ["Logo", "Round · Square · Avatar-collapse · Logo-collapse · Collapsed-avatar · Collapsed-logo"], ["Props", "Workspace (text, default Wellx Labs)"], ["Tokens", "sidebar/item-fg-active"]],
+  dos:[], donts:[],
+  code:"get_labs_v2_component_spec(\"workspace-switcher\")" },
+{ tier:"Organism", slug:"sidebar-footer", name:"Sidebar footer", lede:"Sidebar user row: 24px Avatar + name text-sm-medium / email text-xs + trailing 16px ellipsis. The whole row is a menu trigger — profile, preferences, sign out AND Settings expand from here (Settings left the nav rail). Never a bare gear icon.",
+  spec:[["Level", "Organism · composes: avatar, icon"], ["Props", "Name / Email (text)"], ["Tokens", "sidebar/item-fg-active"]],
+  dos:[], donts:[],
+  code:"get_labs_v2_component_spec(\"sidebar-footer\")" },
+{ tier:"Organism", slug:"sidebar", name:"Sidebar", lede:"The 256px PURE WHITE app sidebar (locked override on the Attio shell), sidebar/border hairline right. Top-down: workspace switcher, ⌘K Search (Shortcut=⌘K — the only place it appears), nav items at 4px rhythm, collapsible groups 24px apart, flex space, settings + user footer. One Active item always, matching the route (aria-current=page). Bottom of the rail: a “Powered by” credit — text-2xs beside the official Wellx Labs lockup inline at 80×16 (the served PNG via get_logo, never redrawn or retypeset), centered in a single 36px row — then the user footer row. The switcher rides its Avatar-collapse variant — trailing sidebar icon = collapse toggle (64px icon-only rail, code-side); workspace menu opens from the row itself. State=Collapsed (drawable): 64px icon-only rail — expand toggle at the TOP (replaces the workspace mark), search icon button in the search slot (opens ⌘K), Layout=Collapsed items, footer avatar (account + workspace menus).",
+  spec:[["Level", "Organism · composes: workspace-switcher, search-input, sidebar-item, sidebar-group-label, sidebar-footer"], ["State", "Expanded · Collapsed"], ["Tokens", "sidebar/*"]],
+  dos:["Pure white + hairline divider", "Group beyond ~6 items", "Counts only where actionable"], donts:["Gray-tinted sidebar", "Two group levels", "Extending the accent beyond the one active item (hover/rest stay gray)", "Buttons between nav items"],
+  code:"<Sidebar sections activeRoute user workspace />" },
+{ tier:"Organism", slug:"app-shell", name:"App shell", lede:"Template root every product screen lives in: 256 Sidebar + 56h topbar (text-sm secondary breadcrumb left, ≤3 utility 20px icons right, hairline bottom) + Content with 24px gutters (32 wide; tables full-bleed). Entirely flat. Deliberately bound to SEMANTIC tokens (template chrome, not a themeable component).",
+  spec:[["Level", "Organism · composes: sidebar, icon"], ["Tokens", "background/default · border/default (semantic by design)"], ["A11y", "nav/header/main landmarks · skip-to-content first in tab order"]],
+  dos:[], donts:["Second sidebar level (rail) in T1", "Shadowed topbar", "Page titles in the topbar (they belong to content, display-xs)"],
+  code:"<AppShell sidebar topbar> {page} </AppShell>" },
+{ tier:"Organism", slug:"chart-container", name:"Chart container", lede:"The chart card: card tokens, radius-lg, flat. Header = md Semi Bold title + Legend top-right; the chart slot is FILL-width so hosted charts stretch. Swap bodies per use: Line · Bar · Pie (donut) · Radar · Area · Sparkline. Loading = Skeleton rect; empty = Empty state; error = inline Alert.",
+  spec:[["Level", "Organism · composes: legend, line-chart, bar-chart, pie-chart, radar-chart, area-chart, sparkline, chart-tooltip"], ["Tokens", "card/* · chart/*"]],
+  dos:[], donts:[],
+  code:"<ChartCard title> <LineChart series/> </ChartCard>" },
+{ tier:"Organism", slug:"line-chart", name:"Line chart", lede:"RESPONSIVE body (stretches to its card): 2px rounded series strokes (chart/series-1/2), horizontal dotted chart/grid gridlines only, unboxed axes with 11px chart/axis labels in a space-between row. Stretch is horizontal-only — same contract as the responsive Recharts wrapper.",
+  spec:[["Level", "Organism · tokens only"], ["Tokens", "chart/series-1..4 · chart/grid · chart/axis"]],
+  dos:["Violet-600 leads as series 1", "Horizontal gridlines only, dotted"], donts:["Boxed plot areas or vertical gridlines", "&gt;4 series without aggregating"],
+  code:"get_labs_v2_component_spec(\"line-chart\")" },
+{ tier:"Organism", slug:"bar-chart", name:"Bar chart", lede:"RESPONSIVE grouped bars: 20w bars, 3px top radius, chart/series-1/2 pairs in a bottom-aligned space-between row (gaps grow with width), dotted gridlines.",
+  spec:[["Level", "Organism · tokens only"], ["Tokens", "chart/series-1..4 · chart/grid · chart/axis"]],
+  dos:[], donts:["Truncated y-axis (start at zero)"],
+  code:"get_labs_v2_component_spec(\"bar-chart\")" },
+{ tier:"Organism", slug:"pie-chart", name:"Pie chart", lede:"Untitled UI-style donut: 58% inner radius, contiguous slices (no gaps), largest first from 12 o'clock, right-side dot legend. MONOCHROME ordered ramp chart/mono-1..6 (rose 600→100); fewer slices pick spaced steps for contrast. Fixed aspect — instances center, never stretch.",
+  spec:[["Level", "Organism · tokens only"], ["Slices", "2 · 3 · 4 · 5 · 6"], ["Tokens", "chart/mono-1..6"]],
+  dos:["≤6 slices", "Merge &lt;5% into 'Other'", "Always pair with the legend"], donts:["Multicolor slices — the donut ramp is monochrome rose", "Solid pie in Figma (innerRadius is a code parameter)"],
+  code:"get_labs_v2_component_spec(\"pie-chart\")" },
+{ tier:"Organism", slug:"radar-chart", name:"Radar chart", lede:"Untitled UI-style radar, 1–3 series on a whisper-light chart/grid-soft heptagon (fainter than line/bar gridlines) with muted value-tick pill chips up the top axis and secondary day labels. Series 1 = chart/mono-1 stroke over chart/mono-5 fill (55% solo / 30% overlaid); Series 2 = chart/accent-pink, Series 3 = chart/accent-blue, both 16% fills. Fixed aspect — center, never stretch.",
+  spec:[["Level", "Organism · tokens only"], ["Series", "1 · 2 · 3"], ["Tokens", "chart/mono-1 · chart/mono-5 · chart/accent-pink · chart/accent-blue · chart/grid-soft"]],
+  dos:["3–8 axes sharing a comparable scale", "≤3 series"], donts:["Incomparable axis scales (use grouped bars)", "More than 3 overlaid series"],
+  code:"get_labs_v2_component_spec(\"radar-chart\")" },
+{ tier:"Organism", slug:"sparkline", name:"Sparkline", lede:"Inline trend miniature: 96×32, one 2px rounded polyline on chart/mono-1 rose — no axes, gridlines or dots. SCALE constraints preserve the shape when stretched. Lives in KPI tiles and table cells for 30-day movement; color never changes per trend — the Delta chip carries good/bad. Production surface: coded Recharts wrapper.",
+  spec:[["Level", "Organism · tokens only"], ["Trend", "Up · Down"], ["Tokens", "chart/mono-1"], ["A11y", "aria-hidden decoration beside the real numbers (KPI value + Delta)"]],
+  dos:[], donts:[],
+  code:"<Sparkline data/>" },
+{ tier:"Organism", slug:"area-chart", name:"Area chart", lede:"Volume twin of the Line chart: identical responsive grid grammar (dotted chart/grid hairlines, unboxed axes, 11px Regular axis labels (chart-grammar exception — lighter than text-2xs Medium; owned by the Recharts wrapper in production), STRETCH gridlines + SCALE series) with each 2px series stroke over a 12% same-hue closed area fill (chart/series-1/2). Use when filled magnitude matters (revenue volume, cumulative signups); &gt;2-series stacking is code-side. Hosted by Chart container. Production surface: coded Recharts wrapper.",
+  spec:[["Level", "Organism · tokens only"], ["Tokens", "chart/grid · chart/axis · chart/series-1 · chart/series-2"], ["A11y", "Charts pair with a data table or summary for screen readers (dataviz audit pending)"]],
+  dos:[], donts:[],
+  code:"<ChartCard title><AreaChart series/></ChartCard>" },
+{ tier:"Organism", slug:"command-palette", name:"Command palette", lede:"The ⌘K surface: 560px overlay at 20vh over the ink scrim — command/bg, radius-xl, 1px command/border, shadow/overlay. Search row (16px icon + text-sm query + esc Kbd, hairline below) · grouped Menu-item results under text-2xs command/section-fg labels (Navigation · Actions · Records, ~7 rows then scroll, first row pre-selected) · footer Kbd hints (↑↓ · ↵ · esc, hairline above). Fuzzy-matches commands, navigation and records. Opened from the sidebar search or ⌘K anywhere.",
+  spec:[["Level", "Organism · composes: icon, kbd, menu-item"], ["Props", "query (text, default Type a command or search…)"], ["Tokens", "command/bg · command/border · command/section-fg · command/radius · menu/* · kbd/*"], ["A11y", "cmdk combobox: focus trap, aria-activedescendant on ↑↓, results aria-live, esc returns focus to the trigger"]],
+  dos:["Shortcut column wherever one exists", "Groups by frequency: Navigation, Actions, Records", "Return focus on close"], donts:["More than ~7 visible rows before scroll", "Destructive commands without danger styling", "Palette as the only path to a feature"],
+  code:"<CommandPalette groups results onRun>" },
+{ tier:"Organism", slug:"timeline-item", name:"Timeline item", lede:"One activity event: 24px marker (Avatar for people · timeline/dot-bg circle + 12px icon for system events · 8px dot for minor ones) over a 2px timeline/line connector that stretches to the next marker (hidden on the last item), beside actor (text-sm-medium on timeline/title-fg) + action (text-sm on timeline/body-fg) + time (text-xs on timeline/time-fg). Consumed by Activity feed.",
+  spec:[["Level", "Organism · composes: avatar, icon"], ["Marker", "Avatar · Icon · Dot"], ["Props", "actor (text) · action (text) · time (text) · connector (boolean, default true)"], ["Tokens", "timeline/line · timeline/dot-bg · timeline/dot-fg · timeline/title-fg · timeline/body-fg · timeline/time-fg"], ["A11y", "Reads as a sentence; full datetime in aria-label"]],
+  dos:[], donts:[],
+  code:"(internal — rendered by <ActivityFeed>)" },
+{ tier:"Organism", slug:"activity-feed", name:"Activity feed", lede:"Chronological event stream for record-detail panes and audit views: Timeline items stacked flush (their bottom padding sets the rhythm), newest first, connector hidden on the last item. Past ~10 items group under sticky day headers and lazy-load (code-side). Markers by event kind, never decoration.",
+  spec:[["Level", "Organism · composes: timeline-item"], ["Tokens", "timeline/*"], ["A11y", "ol of events; markers aria-hidden"]],
+  dos:["Write events as sentences (who did what)", "Collapse runs of similar events"], donts:["Mixing with comment threads (separate tabs)", "Colored markers per event type", "Raw field diffs inline"],
+  code:"<ActivityFeed events groupByDay?>" },
+{ tier:"Organism", slug:"chat-message", name:"Chat message", lede:"One conversation turn (Sana grammar): User = right-aligned chat/user-bg bubble, radius-lg, 14×10 padding, max 320px; Assistant = NO bubble, NO mark or avatar (mark removed 2026-09-23) — fill-width plain text-sm on chat/assistant-fg + text-xs source/time meta on chat/meta-fg; Thinking = Thinking indicator alone while streaming — no mark, no avatar; blocks + operation label sit where the response text will appear. Consumed by Chat thread. UPDATES 2026-09-23: every assistant answer carries a message-actions row — copy (icon flips to a green check ~1.6s on success), thumbs up/down as a mutually exclusive aria-pressed pair, regenerate (re-runs the same question) — with a sources cluster right-aligned: overlapping 20px chips + \"N sources · HH:MM\" in text-xs tertiary.",
+  spec:[["Level", "Organism · composes: icon, thinking-indicator, copy-button"], ["Role", "User · Assistant · Thinking"], ["Props", "message (text) · actions (boolean, default true) · sources (boolean, default true)"], ["Tokens", "chat/user-bg · chat/user-fg · chat/assistant-fg · chat/meta-fg · chat/radius · agent/accent"], ["A11y", "Turns are articles; role identified in the accessible name · action icons are labelled buttons (Copy answer, Good answer, Bad answer, Regenerate); feedback state announced"]],
+  dos:[], donts:[],
+  code:"(internal — rendered by <ChatThread>)" },
+{ tier:"Organism", slug:"chat-thread", name:"Chat thread", lede:"The conversation surface: Chat messages stacked with 20px gaps on the plain canvas — no thread card, no alternating tints, a centered column — min 480, max 768 on wide viewports; the Prompt input fills the same column. While streaming the last turn is Role=Thinking, replaced as tokens arrive. Agent runs render inline as Agent activity cards between turns. Prompt input docks below; Suggestion chips above it on empty threads. Auto-scroll pins to newest unless the user scrolled up.",
+  spec:[["Level", "Organism · composes: chat-message"], ["Tokens", "chat/*"], ["A11y", "role=log aria-live=polite; new assistant turns announced"]],
+  dos:["Assistant turns unboxed — bubbles are user-only", "Sources under answers that used them", "Replace Thinking at first token"], donts:["Letting the column exceed 768px — readability caps the measure", "Violet assistant text (accent lives in the mark)", "Collapsing older turns mid-conversation"],
+  code:"<ChatThread messages streaming?>" },
+{ tier:"Organism", slug:"agent-activity-card", name:"Agent activity card", lede:"Inline agent-run record (Zapier Central grammar): agent/bg card, 1px agent/border, radius-lg — 28px zap tile on agent/icon-bg, run title (text-sm-medium, verb-first outcome) + timing (text-xs agent/meta-fg), live status corner (Thinking indicator (blocks, 16) Running · green check-circle Complete · red alert-circle Failed), then per-step rows (14px check/loader/x-circle + text-xs) that stream in. Failed shows the failing step verbatim + a sm Ghost 'Retry run'. Renders in Chat threads and activity panes; completed cards are immutable — reruns create new cards.",
+  spec:[["Level", "Organism · composes: icon, thinking-indicator, button"], ["State", "Running · Complete · Failed"], ["Props", "title (text, default Enriched 3 new leads) · time (text, default Today · 14:02 · 41s)"], ["Tokens", "agent/bg · agent/border · agent/icon-bg · agent/icon-fg · agent/title-fg · agent/meta-fg · agent/radius · status/success/fg · status/error/fg"], ["A11y", "aria-busy while Running; status changes aria-live; steps are an ordered list; Retry is a real button"]],
+  dos:["Name runs by outcome", "Show the failing step verbatim", "Collapse to ~5 steps, expandable"], donts:["Auto-retrying without the user", "Agent errors in toasts", "Non-agent events in this card (use Activity feed)"],
+  code:"<AgentActivityCard run steps status onRetry?>" },
+{ tier:"Organism", slug:"chat-history-item", name:"Chat history item", lede:"One previous-conversation row: 232×32, radius-md — text-sm title on history/title-fg truncating to one line, relative time text-xs on history/time-fg. Hover swaps the time for a 16px ellipsis menu (rename · pin · delete, a Menu instance) over the history/bg-hover wash; Active = the open chat: wash + text-sm-medium on history/title-active-fg, time visible. One Active max. Consumed by Chat history.",
+  spec:[["Level", "Organism · composes: icon"], ["State", "Default · Hover · Active"], ["Props", "title (text, default Churn analysis — Q3 plans) · time (text, default 2h)"], ["Tokens", "history/title-fg · history/title-active-fg · history/bg-hover · history/time-fg · history/radius"], ["A11y", "Row is a link; active aria-current=page; row menu reachable by keyboard focus, not hover-only"]],
+  dos:[], donts:[],
+  code:"(internal — rendered by <ChatHistory>)" },
+{ tier:"Organism", slug:"chat-history", name:"Chat history", lede:"'Previous chats' panel of the Assistant surface: a FLAT list of conversation rows, newest first, 2px gaps, no group headers and no topic folders (deliberate user decision). Sized for the 256px sidebar (232 inner); also lives in a Popover or Sheet on smaller shells. A 'New chat' Secondary button (or ⌘K) sits above; rows past ~30 lazy-load; delete confirms via the destructive Dialog. Chats auto-name from the first prompt, renameable.",
+  spec:[["Level", "Organism · composes: chat-history-item"], ["Tokens", "history/*"], ["A11y", "nav aria-label='Chat history'; times carry full datetime in aria-label"]],
+  dos:["Auto-name from the first prompt", "Relative times in rows", "Confirm deletes with the destructive Dialog"], donts:["Group headers or topic folders — flat list only", "Two Active rows", "Hover-only row menus"],
+  code:"<ChatHistory chats onSelect onRename onDelete>" },
 ];
+
+
+/* Curated overrides — hand-written pages for the flagship components; everything else mirrors the spec file. */
+var V2_CURATED = {
+  "button": {
+    lede: "Four emphasis levels on the rose accent. Heights 32 / 36 / 40 with md default; labels Figtree 600 at 14; icons 16px Lucide at 2px stroke inherit the label colour.",
+    spec: [["Level", "Atom · composes: icon, spinner"], ["Heights", "32 / 36 (default) / 40 — radius-md 8"], ["Label", "text-sm 14 · Figtree 600 · sentence case, verb first"], ["Primary", "rose/600 → hover rose/500 (dark) / rose/700 (light) → active rose/400 / rose/800"], ["Focus", "2px #E0528B ring, 2px offset, :focus-visible only"], ["Loading", "spinner replaces the left icon; label stays for screen readers"]],
+    dos: ["One primary per view", "Pair icons only when they add meaning", "Keep loading state on the button"],
+    donts: ["Two primaries side by side", "Ghost for the main CTA", "Signal magenta #F0366B as a button — ever", "Disabling without explaining why nearby"],
+    code: '<Button variant="primary|secondary|ghost|destructive" size="sm|md|lg" />'
+  },
+  "tag": {
+    lede: "Borderless tint pills — a -surface + -foreground pair per family, icon always included, every pair ≥ 4.5:1. Identical values in both modes: tags sit on cards.",
+    spec: [["Level", "Atom · composes: icon"], ["Anatomy", "16px icon + Figtree 600 label, both in -foreground · full-round · no border"], ["Families", "neutral · success · warning · error · info + teal / magenta / orange expressive"], ["Contrast", "every foreground ≥ 4.5:1 on its surface"]],
+    dos: ["Icon or label always — colour is never the only signal"],
+    donts: ["Borders on tags", "Inventing new families — extend the token set first"],
+    code: '<Tag tone="success" icon={CircleCheck}>Success</Tag>'
+  },
+  "kpi-tile": {
+    lede: "Label, a display-sm numeral in IBM Plex Mono, and a delta pill. The numbers-only mono rule made visible.",
+    spec: [["Level", "Molecule · composes: card, delta, skeleton"], ["Card", "card surface · hairline · radius-lg 12 · padding 20"], ["Numeral", "display-sm 30 · IBM Plex Mono 500 · 110% leading"], ["Delta", "status tag recipe at 12px"], ["Gaps", "label → numeral → delta: 8 (space-2)"]],
+    dos: ["Mono for every digit", "One KPI per tile"],
+    donts: ["Figtree numerals", "Sparklines inside the tile without an axis note"],
+    code: '<KpiTile label="Events Created" value={4275190.63} delta={+0.12} />'
+  },
+  "field": {
+    lede: "Label → input → helper with the HIG gaps baked in (8 above, 4 below). Inputs are 36h on the card surface with the gray/700 control border.",
+    spec: [["Level", "Molecule · composes: label, input, helper-text"], ["Gaps", "label → input 8 · input → helper 4 · field → field 16 · section → section 32"], ["Control", "36h · radius-md · border input (gray/700 dark, gray/300 light)"], ["Focus", "border → ring colour + 3px halo at 20%"], ["Numeric values", "IBM Plex Mono"], ["Dark rule", "form controls must inherit color — UA black breaks dark mode"]],
+    dos: ["Helper hugs its input (4) — closer than the next field"],
+    donts: ["Placeholder as the only label", "Red helper text without the border change"],
+    code: '<Field label="Amount" helper="Safe to apply" error={err}><Input /></Field>'
+  },
+  "tabs": {
+    lede: "Underline tabs — the active item carries a 2px rose underline and the foreground colour; everything else is muted.",
+    spec: [["Level", "Molecule · composes: tab-item"], ["Anatomy", "text-sm 600 · pad 10/14 · 2px underline on active"], ["States", "active foreground+rose · rest muted · hover foreground"], ["Keyboard", "arrow keys move, Home/End jump; roving tabindex"]],
+    dos: ["Underline style only — no pill tabs in product UI"],
+    donts: ["More than 6 tabs — use a select", "Nesting tab sets"],
+    code: "<Tabs items={[...]} value={tab} onChange={setTab} />"
+  },
+  "menu": {
+    lede: "The floating tier: popover surface, hairline border, shadow-float. Items are 32h radius-md; destructive items use the error foreground.",
+    spec: [["Level", "Molecule · composes: menu-item, separator"], ["Surface", "popover + hairline + shadow-float · radius-lg · pad 6"], ["Items", "32h · radius-md · hover muted wash"], ["Enter", "fade + scale 0.98→1 · 150ms ease-out"]],
+    dos: ["Destructive last, after a separator"],
+    donts: ["Icons on some items but not others", "Scroll inside menus — cap at ~8 items"],
+    code: "<Menu items={[...]} onSelect={fn} />"
+  },
+  "card": {
+    lede: "Resting surfaces: hairline border always; dark cards are the elevated #18181B step (never a shadow); light cards may add the optional resting shadow.",
+    spec: [["Level", "Molecule · composes: separator"], ["Radius", "lg 12 · padding 20 (16 compact)"], ["Dark", "#18181B + border gray/800 — no resting shadows in dark, ever"], ["Light", "white + hairline + optional shadow-resting"], ["Gaps", "title → body 8 · body → actions 16"]],
+    dos: ["Max one nested panel level"],
+    donts: ["Boxes-in-boxes", "Shadow instead of a border"],
+    code: "<Card title>…</Card>"
+  },
+  "alert": {
+    lede: "Soft-tint inline panels per status family — icon, 600 title, regular body, all in the family foreground.",
+    spec: [["Level", "Molecule · composes: icon"], ["Anatomy", "icon 16 + title 600 + body · radius 10 · pad 14/16"], ["Tint", "status -surface; all text in -foreground"], ["Placement", "inline, above the content it describes"]],
+    dos: ["One alert per concern"],
+    donts: ["Stacking three alerts — consolidate", "Alerts for success that a toast should carry"],
+    code: '<Alert tone="warning" title="This creates a credit">…</Alert>'
+  },
+  "toast": {
+    lede: "Transient confirmation on the floating tier — slides up 8px, auto-dismisses, never blocks.",
+    spec: [["Level", "Molecule · composes: icon, button"], ["Surface", "popover + hairline + shadow-float · radius-lg"], ["Motion", "slide-up 8px + fade · 200ms enter, 150ms exit"], ["Duration", "4s default · persistent only with an action"], ["IDs", "always IBM Plex Mono"]],
+    dos: ["One action max (Undo)"],
+    donts: ["Toasts for errors needing decisions — use a dialog", "Stacking more than 3"],
+    code: 'toast.success("Renewal issued", { action: undo })'
+  },
+  "dialog": {
+    lede: "The overlay tier: 480/640 widths, radius-xl, shadow-overlay on the scrim. Destructive confirms restate the object and use the destructive button.",
+    spec: [["Level", "Organism · composes: button, alert"], ["Widths", "sm 480 · md 640 · padding 24 · radius-xl 16"], ["Scrim", "ink/40% light · black/60% dark"], ["Gaps", "content → footer 24 · buttons 8, right-aligned"], ["Focus", "trapped; returned on close; Esc cancels"]],
+    dos: ["Verb-first confirm labels (“Apply allocation”, never “OK”)"],
+    donts: ["Nesting dialogs", "Destructive confirm with a primary-rose button — use destructive red"],
+    code: '<Dialog title size="sm" footer={…} />'
+  },
+  "empty-state": {
+    lede: "A 24px icon, an 18px title, one sentence of help, one action. Lives where the content would be — never a dialog.",
+    spec: [["Level", "Molecule · composes: icon, button"], ["Anatomy", "icon 24 (in a 44 tile) · title text-lg · body text-sm muted · one action"], ["Gaps", "icon → title 12 · title → body 6 · body → action 16"]],
+    dos: ["Say what the thing is for, not just that it’s empty"],
+    donts: ["Illustrations that fight the quiet chrome", "Two actions"],
+    code: "<EmptyState icon={Plus} title action />"
+  },
+  "table": {
+    lede: "The flagship, Maze-style: the data region lives in a rounded clipped table-card; muted uppercase header band with a sort icon per column; 56px rows; mono numerals; quiet pagination footer.",
+    spec: [["Level", "Organism · composes: table-header-cell, table-cell, filter-bar, pagination, tag, checkbox"], ["Card", "radius 10 · hairline · card bg · clipped corners"], ["Header", "40–42h muted band · UPPERCASE +6% · sort icon per column"], ["Rows", "56 default · 40 comfortable · 36 compact · hairline dividers, no zebra"], ["Status", "pills or plain coloured text — one style per table"], ["Numerals", "IBM Plex Mono, right-aligned"], ["Footer", "“Showing 1 – N · Page X”"]],
+    dos: ["Filter chips above the card, left-aligned", "‘—’ muted for empty cells"],
+    donts: ["Zebra striping", "Mixing pill and text status in one column", "Semantic header icons — the sort glyph only"],
+    code: '<Table columns rows density="default" selectable />'
+  }
+};
+
+var LABS_V2_COMPONENTS = V2_GEN.map(function (c) {
+  var o = V2_CURATED[c.slug] || {};
+  return Object.assign({}, c, o, { tier: c.tier, slug: c.slug, name: c.name, demo: V2_DEMOS[c.slug] || "" });
+});

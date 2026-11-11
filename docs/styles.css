@@ -460,3 +460,8 @@ section.doc > .hint { font-size: 13px; color: var(--muted-fg); max-width: 76ch; 
 @media (max-width: 620px) {
   .intro-grid.cols-2, .intro-grid.cols-3, .intro-grid.cols-4 { grid-template-columns: 1fr; }
 }
+
+/* Labs V2 demo animations */
+@keyframes wl2spin { to { transform: rotate(360deg); } }
+@keyframes wl2pulse { 50% { opacity: .4; } }
+.nav-sub .sb-sub-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted-fg-soft, #8a8f98); margin: 12px 0 4px 12px; }

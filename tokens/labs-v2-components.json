@@ -1,12 +1,12 @@
 {
   "$name": "Wellx Labs V2 — component specs (T1 + T2 + T3 utilities)",
-  "$version": "0.5.0",
+  "$version": "0.5.1",
   "$updated": "2026-11-11",
-  "$notes": "Component recipes for Labs Design System V2 (rose #C42663 · Figtree + IBM Plex Mono numbers-only · DARK-FIRST elevated surfaces · 2px Lucide icons). Source of truth: Figma file Rr0XYMsa9OYmLmjxMCbiMz ('Wellx Labs Design System'), pages 'V2 · Components · 1 Atoms / 2 Molecules / 3 Organisms'. Every spec declares level + composes; assemble strictly bottom-up.",
+  "$notes": "Component recipes for Labs Design System V2 (rose #C42663 · Figtree + IBM Plex Mono numbers-only · DARK-FIRST elevated surfaces · 2px Lucide icons). Source of truth: Figma file Rr0XYMsa9OYmLmjxMCbiMz ('Wellx Labs Design System'), pages 'V2 · Components · 1 Atoms / 2 Molecules / 3 Organisms'. Every spec declares level + composes; assemble strictly bottom-up. 0.5.1 (2026-11-11): identity sweep completed in prose — stale 'violet'/#BE94F3 references from the Attio-era drafts now read rose (#EA7BA7 etc.), and the last 1.5px stroke mention moved to 2px, matching the restored rose identity and the 2px icon ruling.",
   "conventions": {
     "controlHeights": "32 sm · 36 md (default) · 40 lg",
     "radius": "sm 6 (checkbox) · md 8 (buttons, inputs, menu items) · lg 12 (cards, menus, popovers) · xl 16 (dialogs, sheets) · full (pills, avatars)",
-    "focus": "2px ring in interactive/ring (violet-400, both modes) at 2px offset; inputs use ring-colored border + 3px 16% halo. KEYBOARD/AT ONLY: rings render exclusively on :focus-visible (keyboard tab, screen-reader navigation) — never on mouse/touch click, and never removed without a replacement (validate() enforces both). The Figma Focus variants document this keyboard-focus appearance. Container-carried input focus (:focus-within treatments) is keyboard/AT-modality only — pointer focus shows the caret alone.",
+    "focus": "2px ring in interactive/ring (rose-400, both modes) at 2px offset; inputs use ring-colored border + 3px 16% halo. KEYBOARD/AT ONLY: rings render exclusively on :focus-visible (keyboard tab, screen-reader navigation) — never on mouse/touch click, and never removed without a replacement (validate() enforces both). The Figma Focus variants document this keyboard-focus appearance. Container-carried input focus (:focus-within treatments) is keyboard/AT-modality only — pointer focus shows the caret alone.",
     "elevation": "resting = flat (hairline borders only, shadows never) · floating (menus, popovers, toasts, tooltips) = shadow/float · overlay (dialogs, sheets) = shadow/overlay + ink/40% scrim (black/60% dark) · DARK: resting surfaces sit on the elevated card tone #18181B over the #0B0B0C canvas (border #303136) — surface + border carry grouping; still no shadows (decided 2026-09-23)",
     "icons": "Lucide, 2px absolute stroke, currentColor; 16 default · 20 topbar/icon-buttons · 24 empty states",
     "motion": "durations 100/150/200/300max · ease-out enter, ease-in exit · transform+opacity only · prefers-reduced-motion = instant",
@@ -780,7 +780,7 @@
       "figma": {
         "set": "261:284"
       },
-      "summary": "Determinate 8px rail: progress/track muted, radius-full, violet progress/fill sized by value %. Fill is SCALE-constrained in Figma — stretching preserves the percentage. Always violet; status never recolors it. Indeterminate sweep is code-side.",
+      "summary": "Determinate 8px rail: progress/track muted, radius-full, rose progress/fill sized by value %. Fill is SCALE-constrained in Figma — stretching preserves the percentage. Always rose; status never recolors it. Indeterminate sweep is code-side.",
       "code": "<Progress value max?>",
       "variants": {
         "Value": [
@@ -872,9 +872,9 @@
       "composes": [],
       "figma": {
         "component": "262:294",
-        "note": "Figma frame still shows the retired three-dot static frame; needs a 3×3 violet-300 blocks static frame (diagonal 0.9→0.18 opacities) + text/tertiary label."
+        "note": "Figma frame still shows the retired three-dot static frame; needs a 3×3 rose-300 blocks static frame (diagonal 0.9→0.18 opacities) + text/tertiary label."
       },
-      "summary": "AI activity signal: 3×3 grid of violet-300 #BE94F3 blocks (one value, BOTH modes; blocks 25% of size, gaps 12.5%, radius ≈5.5% of size) sweeping a continuous 3.6s linear cycle — random shimmer 0–1.2s (fixed shuffle [4,0,7,2,8,3,1,6,5], 70ms stagger, 0.5s pulse) → row sweep 1.2–2.4s → column sweep 2.4–3.6s (whole line per step, 180ms stagger, 0.6s pulse). Pulse = opacity 0.18→1→0.18, rise cubic-bezier(.35,0,.25,1), fall cubic-bezier(.45,0,.55,1) — opacity only. Beside it, the operation label: text-sm Medium (14/500) live string that changes with what the model is doing ('Thinking…', 'Reading your data…', 'Writing…'), swapping via 150ms fade + 2px rise, with a continuous neutral glow sweep via background-clip:text (250% gradient, 2s linear loop) — a lighter gray band over a text/tertiary base: light gray-300 #D6D7DB over gray-500 #71747C (4.6:1), dark gray-200 #E9EAEC over #8A8F98. Color lives in the blocks only; the label stays neutral (sanctioned background-position animation; tiny paint area, progress exemption). Violet-300 is 2.41:1 on white — blocks are decorative; meaning is always carried by the label + role=status. Standalone, no avatar or mark beside it. Replaced by content on the first streamed token. Reference build + full keyframes: docs/labs-v2-thinking-blocks.html.",
+      "summary": "AI activity signal: 3×3 grid of rose-300 #EA7BA7 blocks (one value, BOTH modes; blocks 25% of size, gaps 12.5%, radius ≈5.5% of size) sweeping a continuous 3.6s linear cycle — random shimmer 0–1.2s (fixed shuffle [4,0,7,2,8,3,1,6,5], 70ms stagger, 0.5s pulse) → row sweep 1.2–2.4s → column sweep 2.4–3.6s (whole line per step, 180ms stagger, 0.6s pulse). Pulse = opacity 0.18→1→0.18, rise cubic-bezier(.35,0,.25,1), fall cubic-bezier(.45,0,.55,1) — opacity only. Beside it, the operation label: text-sm Medium (14/500) live string that changes with what the model is doing ('Thinking…', 'Reading your data…', 'Writing…'), swapping via 150ms fade + 2px rise, with a continuous neutral glow sweep via background-clip:text (250% gradient, 2s linear loop) — a lighter gray band over a text/tertiary base: light gray-300 #D6D7DB over gray-500 #71747C (4.6:1), dark gray-200 #E9EAEC over #8A8F98. Color lives in the blocks only; the label stays neutral (sanctioned background-position animation; tiny paint area, progress exemption). Violet-300 is 2.41:1 on white — blocks are decorative; meaning is always carried by the label + role=status. Standalone, no avatar or mark beside it. Replaced by content on the first streamed token. Reference build + full keyframes: docs/labs-v2-thinking-blocks.html.",
       "code": "<ThinkingBlocks size=\"16|20|24|48\" sweep=\"cycle|random|rows|columns\" label? />",
       "props": [
         {
@@ -894,7 +894,7 @@
         }
       ],
       "tokens": [
-        "violet-300 #BE94F3 (blocks, both modes)",
+        "rose-300 #EA7BA7 (blocks, both modes)",
         "text/tertiary gray-500 #71747C (label base light; #8A8F98 dark)",
         "gray-300 #D6D7DB / gray-200 #E9EAEC (glow band light / dark)"
       ],
@@ -909,7 +909,7 @@
       "donts": [
         "Spinner + blocks together",
         "Non-AI loading (use Spinner/Skeleton)",
-        "Status hues or violet-600 on blocks — violet-300, both modes",
+        "Status hues or rose-600 on blocks — rose-300, both modes",
         "Meaning carried by blocks alone (2.41:1 on white — label/status text is the signal)",
         "Isolated sweeps (random/rows/columns) as the resting default — cycle is the signature",
         "Glow sweep on any other text — it belongs to this component only · never brand/status hues on the label"
@@ -1946,7 +1946,7 @@
       "figma": {
         "set": "268:775"
       },
-      "summary": "Dropzone: dashed (5-5) upload/border on upload/bg, radius-lg, centered 40px icon tile (bound upload/bg) + 'Click to upload' (upload/link-fg) 'or drag and drop' + constraints line (text-xs). Dragover flips border to upload/border-active violet + muted wash; Error swaps border and the helper message. One click target wrapping a native file input; File upload items stack below with 8px gap.",
+      "summary": "Dropzone: dashed (5-5) upload/border on upload/bg, radius-lg, centered 40px icon tile (bound upload/bg) + 'Click to upload' (upload/link-fg) 'or drag and drop' + constraints line (text-xs). Dragover flips border to upload/border-active rose + muted wash; Error swaps border and the helper message. One click target wrapping a native file input; File upload items stack below with 8px gap.",
       "code": "<FileUpload accept maxSize multiple?>",
       "variants": {
         "State": [
@@ -2281,7 +2281,7 @@
       "figma": {
         "set": "271:804"
       },
-      "summary": "Wizard step: 24px radius-full dot + text-sm label. Todo = stepper/todo-bg muted dot, tertiary number + label; Active = violet stepper/active-bg dot, white number, text-sm-medium foreground label; Done = violet dot with 12px check, secondary label. Consumed by Stepper.",
+      "summary": "Wizard step: 24px radius-full dot + text-sm label. Todo = stepper/todo-bg muted dot, tertiary number + label; Active = rose stepper/active-bg dot, white number, text-sm-medium foreground label; Done = rose dot with 12px check, secondary label. Consumed by Stepper.",
       "code": "(internal — rendered by <Stepper>)",
       "variants": {
         "State": [
@@ -2325,7 +2325,7 @@
       "figma": {
         "component": "271:821"
       },
-      "summary": "Horizontal wizard rail: Step items joined by 48×2 connectors — stepper/connector-done violet behind completed steps, stepper/connector muted ahead. Exactly one Active; Done steps navigate back on click, Todo steps inert. 3–5 steps; more (or long labels) → vertical variant (code-side). Tops Dialog flows and full-page setup.",
+      "summary": "Horizontal wizard rail: Step items joined by 48×2 connectors — stepper/connector-done rose behind completed steps, stepper/connector muted ahead. Exactly one Active; Done steps navigate back on click, Todo steps inert. 3–5 steps; more (or long labels) → vertical variant (code-side). Tops Dialog flows and full-page setup.",
       "code": "<Stepper steps=[{label}] current>",
       "props": [],
       "tokens": [
@@ -2359,7 +2359,7 @@
       "figma": {
         "set": "271:1993"
       },
-      "summary": "FLUID WIDTH — the composer fills its thread column (canonical 640px; column min 480 / max 768, centered in the content area); never render it as a fixed narrow bar on wide viewports. AI composer: Conductor-height radius-xl shell (min-height 140 — text at top, toolbar pinned to the bottom) on prompt/bg + prompt/border; the field grows with input to max-height 280, then the text SCROLLS inside (State=Long shows the cap + thin scrollbar thumb; the toolbar never moves) — left: PLUS (composer actions menu; never add more toolbar icons) then the MODEL PICKER (model prop: text-xs-medium label + chevron-down, opens a Menu of models) then the capability pill; right: MIC (voice input) beside the 28px radius-full send on button/primary/bg. The capability boolean shows an engaged-capability pill after the mic (tag/info tint, 12 Semi Bold label + dismiss X) — picked from the plus menu, one capability at a time, X disengages. Send idles at 40% opacity until text exists; swaps to a stop square while streaming. State=Recording (after the mic): red live dot + tnum timer + a full-width waveform replace the text area — 3px bars on a 4px gap (7px rhythm), bar count derived from width; bars animate from live input (the Figma Waveform part loops three smart-animate keyframes so prototypes move too); reduced-motion shows static level bars. Toolbar becomes cancel X (discard; esc too) and the send circle a confirm check. Confirm passes through a brief State=Transcribing — Thinking dots + Transcribing… on the placeholder tier, toolbar restored, send idle — then the text lands in State=Filled, editable, never auto-sent. Recording start/stop announced via aria-live. State=Command: typing \"/\" summons the skills & commands menu above the field — menu/* panel of Menu items with /slash shortcuts, filtered as you type; up/down navigate, enter runs, esc closes — the shell keeps its resting border while the menu is open (no focus stroke; rings are keyboard-only). State=Models: the model picker dropdown — a 240px Menu floating OVER the field (shadow/float separates it), bottom edge just above the picker trigger (Auto checked default, exactly one checked row); selecting updates the model label. Enter sends, Shift+Enter breaks. Attachments flow INLINE WITH THE PROMPT (Conductor grammar): linear Attachment chips sit inside the wrapping text region, mid-sentence between text runs, inserted at the caret via the plus menu or drag-in; chips wrap with the sentence. The attachments boolean reveals leading chips in Default/Focus; State=Attachments shows the interleaved specimen. Attachments are added via the plus menu or drag-in; an attachment alone makes send active. Suggestion chips sit above. UPDATES 2026-09-23: resting border rides gray-300 (prompt/border); Focus is a solid violet-400 edge (1px border + 3px full-opacity halo — no 16% tint), shown under keyboard/AT modality only. VOICE: the mic starts Recording — the shell swaps to a pulsing red dot + tnum timer + animated waveform with ✕ cancel (left) and a radius-full violet ✓ confirm replacing send (right); confirm runs Transcribing — thinking blocks + \"Transcribing…\" in the text slot — then the transcript lands in the composer for review; send never auto-fires. Esc cancels recording.",
+      "summary": "FLUID WIDTH — the composer fills its thread column (canonical 640px; column min 480 / max 768, centered in the content area); never render it as a fixed narrow bar on wide viewports. AI composer: Conductor-height radius-xl shell (min-height 140 — text at top, toolbar pinned to the bottom) on prompt/bg + prompt/border; the field grows with input to max-height 280, then the text SCROLLS inside (State=Long shows the cap + thin scrollbar thumb; the toolbar never moves) — left: PLUS (composer actions menu; never add more toolbar icons) then the MODEL PICKER (model prop: text-xs-medium label + chevron-down, opens a Menu of models) then the capability pill; right: MIC (voice input) beside the 28px radius-full send on button/primary/bg. The capability boolean shows an engaged-capability pill after the mic (tag/info tint, 12 Semi Bold label + dismiss X) — picked from the plus menu, one capability at a time, X disengages. Send idles at 40% opacity until text exists; swaps to a stop square while streaming. State=Recording (after the mic): red live dot + tnum timer + a full-width waveform replace the text area — 3px bars on a 4px gap (7px rhythm), bar count derived from width; bars animate from live input (the Figma Waveform part loops three smart-animate keyframes so prototypes move too); reduced-motion shows static level bars. Toolbar becomes cancel X (discard; esc too) and the send circle a confirm check. Confirm passes through a brief State=Transcribing — Thinking dots + Transcribing… on the placeholder tier, toolbar restored, send idle — then the text lands in State=Filled, editable, never auto-sent. Recording start/stop announced via aria-live. State=Command: typing \"/\" summons the skills & commands menu above the field — menu/* panel of Menu items with /slash shortcuts, filtered as you type; up/down navigate, enter runs, esc closes — the shell keeps its resting border while the menu is open (no focus stroke; rings are keyboard-only). State=Models: the model picker dropdown — a 240px Menu floating OVER the field (shadow/float separates it), bottom edge just above the picker trigger (Auto checked default, exactly one checked row); selecting updates the model label. Enter sends, Shift+Enter breaks. Attachments flow INLINE WITH THE PROMPT (Conductor grammar): linear Attachment chips sit inside the wrapping text region, mid-sentence between text runs, inserted at the caret via the plus menu or drag-in; chips wrap with the sentence. The attachments boolean reveals leading chips in Default/Focus; State=Attachments shows the interleaved specimen. Attachments are added via the plus menu or drag-in; an attachment alone makes send active. Suggestion chips sit above. UPDATES 2026-09-23: resting border rides gray-300 (prompt/border); Focus is a solid rose-400 edge (1px border + 3px full-opacity halo — no 16% tint), shown under keyboard/AT modality only. VOICE: the mic starts Recording — the shell swaps to a pulsing red dot + tnum timer + animated waveform with ✕ cancel (left) and a radius-full rose ✓ confirm replacing send (right); confirm runs Transcribing — thinking blocks + \"Transcribing…\" in the text slot — then the transcript lands in the composer for review; send never auto-fires. Esc cancels recording.",
       "code": "<PromptInput value onSend attachments? voice?>",
       "variants": {
         "State": [
@@ -2428,7 +2428,7 @@
       "donts": [
         "Using as a search field",
         "Blocking typing while streaming",
-        "More than the one violet accent (send)"
+        "More than the one rose accent (send)"
       ],
       "aliases": [
         "composer",
@@ -2446,7 +2446,7 @@
       "figma": {
         "set": "312:1340"
       },
-      "summary": "Linear attachment chip (Conductor grammar): one-line pill at TEXT SCALE (≈23px tall, 2×6 padding — sits on the prompt line, center-aligned with the text runs) — 14px colored type glyph (unclipped: the absolute 1.5 Lucide stroke needs breathing room, container never clips) (Document = red file-text via attachment/tile-doc, Image = green image glyph; glyph color follows file type in code), filename at text-sm (matches the prompt text) truncating, inline 12px ✕ remove on the tertiary tier. White chip (attachment/bg → background/card) with a 1px attachment/border hairline, radius-md (attachment/radius re-pointed). Flows inline in rows or within message text. Labels default to UNIVERSAL type names (File · Image) — real filenames per use via the prop. State=Hover: SAME FOOTPRINT as Default (the chip never reflows the sentence) — the chip takes the muted wash and the preview card (shadow/float, radius-lg) floats absolutely above it, outside the layout flow — placeholder glyph in Figma, the real thumbnail / first page in production; opens after ~400ms hover and on keyboard focus. Consumed by Prompt input (inline with the text); reusable in Chat message.",
+      "summary": "Linear attachment chip (Conductor grammar): one-line pill at TEXT SCALE (≈23px tall, 2×6 padding — sits on the prompt line, center-aligned with the text runs) — 14px colored type glyph (unclipped: the absolute 2px Lucide stroke needs breathing room, container never clips) (Document = red file-text via attachment/tile-doc, Image = green image glyph; glyph color follows file type in code), filename at text-sm (matches the prompt text) truncating, inline 12px ✕ remove on the tertiary tier. White chip (attachment/bg → background/card) with a 1px attachment/border hairline, radius-md (attachment/radius re-pointed). Flows inline in rows or within message text. Labels default to UNIVERSAL type names (File · Image) — real filenames per use via the prop. State=Hover: SAME FOOTPRINT as Default (the chip never reflows the sentence) — the chip takes the muted wash and the preview card (shadow/float, radius-lg) floats absolutely above it, outside the layout flow — placeholder glyph in Figma, the real thumbnail / first page in production; opens after ~400ms hover and on keyboard focus. Consumed by Prompt input (inline with the text); reusable in Chat message.",
       "code": "<AttachmentCard type name onRemove thumb?>",
       "variants": {
         "Type": [
@@ -2498,7 +2498,7 @@
         "componentSet": "339:1692",
         "doc": "343:1357"
       },
-      "summary": "Continuous value selection on a horizontal track — Single value or Range pair. 4px radius-full rail on slider/track-bg; filled span on slider/range-bg (primary violet); 16px bordered disc thumbs on slider/thumb-bg. Hover darkens the thumb border; Focus draws the 2px focus/ring geometry around the active thumb; Disabled is 50% opacity. Optional value-label bubbles reuse tooltip/bg·fg and show while dragging. Track stretches with width; range and thumbs scale proportionally.",
+      "summary": "Continuous value selection on a horizontal track — Single value or Range pair. 4px radius-full rail on slider/track-bg; filled span on slider/range-bg (primary rose); 16px bordered disc thumbs on slider/thumb-bg. Hover darkens the thumb border; Focus draws the 2px focus/ring geometry around the active thumb; Disabled is 50% opacity. Optional value-label bubbles reuse tooltip/bg·fg and show while dragging. Track stretches with width; range and thumbs scale proportionally.",
       "code": "<Slider value={60} min={0} max={100} step={5}/> · <Slider range value={[20,60]}/>",
       "variants": [
         {
@@ -3062,7 +3062,7 @@
       "figma": {
         "set": "222:261"
       },
-      "summary": "Nav row: 232×32, radius sidebar/item-radius, 16px icon + text-sm label + optional count. Active = sidebar/item-bg-active (interactive/accent, violet-50 tint) with Medium sidebar/item-fg-active (accent-foreground, violet-800) label + icon; hover = sidebar/item-bg-hover (muted-soft). The accent belongs to the single active item only — hover and rest stay gray. Layout=Collapsed: 40×32 icon-only cell for the 64px rail — label moves to a tooltip, count becomes a status dot (both code-side); state washes unchanged.",
+      "summary": "Nav row: 232×32, radius sidebar/item-radius, 16px icon + text-sm label + optional count. Active = sidebar/item-bg-active (interactive/accent, rose-50 tint) with Medium sidebar/item-fg-active (accent-foreground, rose-800) label + icon; hover = sidebar/item-bg-hover (muted-soft). The accent belongs to the single active item only — hover and rest stay gray. Layout=Collapsed: 40×32 icon-only cell for the 64px rail — label moves to a tooltip, count becomes a status dot (both code-side); state washes unchanged.",
       "variants": {
         "State": [
           "Default",
@@ -3312,7 +3312,7 @@
       "figma": {
         "set": "250:524"
       },
-      "summary": "Untitled UI-style donut: 58% inner radius, contiguous slices (no gaps), largest first from 12 o'clock, right-side dot legend. MONOCHROME ordered ramp chart/mono-1..6 (violet 600→100); fewer slices pick spaced steps for contrast. Fixed aspect — instances center, never stretch.",
+      "summary": "Untitled UI-style donut: 58% inner radius, contiguous slices (no gaps), largest first from 12 o'clock, right-side dot legend. MONOCHROME ordered ramp chart/mono-1..6 (rose 600→100); fewer slices pick spaced steps for contrast. Fixed aspect — instances center, never stretch.",
       "variants": {
         "Slices": [
           "2",
@@ -3331,7 +3331,7 @@
         "Always pair with the legend"
       ],
       "donts": [
-        "Multicolor slices — the donut ramp is monochrome violet",
+        "Multicolor slices — the donut ramp is monochrome rose",
         "Solid pie in Figma (innerRadius is a code parameter)"
       ],
       "aliases": [
@@ -3378,7 +3378,7 @@
       "figma": {
         "set": "277:438"
       },
-      "summary": "Inline trend miniature: 96×32, one 2px rounded polyline on chart/mono-1 violet — no axes, gridlines or dots. SCALE constraints preserve the shape when stretched. Lives in KPI tiles and table cells for 30-day movement; color never changes per trend — the Delta chip carries good/bad. Production surface: coded Recharts wrapper.",
+      "summary": "Inline trend miniature: 96×32, one 2px rounded polyline on chart/mono-1 rose — no axes, gridlines or dots. SCALE constraints preserve the shape when stretched. Lives in KPI tiles and table cells for 30-day movement; color never changes per trend — the Delta chip carries good/bad. Production surface: coded Recharts wrapper.",
       "code": "<Sparkline data/>",
       "variants": {
         "Trend": [

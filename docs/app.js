@@ -99,8 +99,14 @@
   $("#labsV2Sub").appendChild(v2CompToggle);
   $("#labsV2Sub").appendChild(v2CompSub);
   var setLabsV2CompOpen = wireToggle(v2CompToggle, v2CompSub);
-  LABS_V2_COMPONENTS.forEach(function (c) {
-    v2NavLink("labs-v2/components/" + c.slug, c.name, v2CompSub);
+  ["Atom", "Molecule", "Organism"].forEach(function (tier) {
+    var lbl = document.createElement("span");
+    lbl.className = "sb-sub-label";
+    lbl.textContent = tier + "s";
+    v2CompSub.appendChild(lbl);
+    LABS_V2_COMPONENTS.forEach(function (c) {
+      if (c.tier === tier) v2NavLink("labs-v2/components/" + c.slug, c.name, v2CompSub);
+    });
   });
   $("#menuBtn").addEventListener("click", function () { $("#sidebar").classList.toggle("open"); });
   $("#nav").addEventListener("click", function (e) { if (e.target.closest("a")) $("#sidebar").classList.remove("open"); });
@@ -274,10 +280,11 @@
   }
 
   function renderV2Component(c) {
-    return head("Labs V2 · Components", c.name, c.lede) +
-      '<section class="doc"><h2>Example</h2><div class="demo">' + c.demo + "</div></section>" +
+    var dos = c.dos && c.dos.length ? c.dos : null, donts = c.donts && c.donts.length ? c.donts : null;
+    return head("Labs V2 · " + (c.tier ? c.tier + "s" : "Components"), c.name, c.lede) +
+      (c.demo ? '<section class="doc"><h2>Example</h2><div class="demo">' + c.demo + "</div></section>" : "") +
       '<section class="doc"><h2>Spec</h2>' + specGrid(c.spec) + "</section>" +
-      '<section class="doc"><h2>How to use</h2>' + ddGrid(c.dos, c.donts) + "</section>" +
+      (dos || donts ? '<section class="doc"><h2>How to use</h2>' + ddGrid(dos || ["—"], donts || ["—"]) + "</section>" : "") +
       '<section class="doc"><h2>Code</h2><div class="codeblock"><button class="copy-btn" data-copy>Copy</button><pre>' + esc(c.code) + "</pre></div></section>";
   }
 
@@ -630,6 +637,7 @@
       else if (vslug === "type") html = renderV2Type();
       else if (vslug === "components") {
         var cslug = hash.split("/")[2];
+        if (cslug === "filter-family") cslug = "filter-bar";
         var vc = LABS_V2_COMPONENTS.filter(function (x) { return x.slug === cslug; })[0];
         html = vc ? renderV2Component(vc) : head("Labs V2 · Components", "Not found", "No component named “" + esc(cslug || "") + "”.");
       }
