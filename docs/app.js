@@ -71,13 +71,36 @@
     a.textContent = s.name;
     $("#labsSub").appendChild(a);
   });
+  function v2NavLink(route, label, parent) {
+    var l = document.createElement("a");
+    l.className = "nav-item";
+    l.href = "#/" + route;
+    l.dataset.route = route;
+    l.textContent = label;
+    parent.appendChild(l);
+  }
+  v2NavLink("labs-v2/overview", "Overview", $("#labsV2Sub"));
+  v2NavLink("labs-v2/colors", "Color tokens", $("#labsV2Sub"));
+  v2NavLink("labs-v2/type", "Typography", $("#labsV2Sub"));
   LABS_V2.forEach(function (s) {
-    var a = document.createElement("a");
-    a.className = "nav-item";
-    a.href = "#/labs-v2/" + s.slug;
-    a.dataset.route = "labs-v2/" + s.slug;
-    a.textContent = s.name;
-    $("#labsV2Sub").appendChild(a);
+    if (s.slug === "overview") return;
+    v2NavLink("labs-v2/" + s.slug, s.name, $("#labsV2Sub"));
+  });
+  var v2CompToggle = document.createElement("span");
+  v2CompToggle.className = "nav-item";
+  v2CompToggle.id = "labsV2ComponentsToggle";
+  v2CompToggle.setAttribute("role", "button");
+  v2CompToggle.setAttribute("tabindex", "0");
+  v2CompToggle.setAttribute("aria-expanded", "false");
+  v2CompToggle.innerHTML = 'Components <svg class="chev" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="m5 3.5 4 3.5-4 3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var v2CompSub = document.createElement("div");
+  v2CompSub.className = "nav-sub";
+  v2CompSub.id = "labsV2ComponentsSub";
+  $("#labsV2Sub").appendChild(v2CompToggle);
+  $("#labsV2Sub").appendChild(v2CompSub);
+  var setLabsV2CompOpen = wireToggle(v2CompToggle, v2CompSub);
+  LABS_V2_COMPONENTS.forEach(function (c) {
+    v2NavLink("labs-v2/components/" + c.slug, c.name, v2CompSub);
   });
   $("#menuBtn").addEventListener("click", function () { $("#sidebar").classList.toggle("open"); });
   $("#nav").addEventListener("click", function (e) { if (e.target.closest("a")) $("#sidebar").classList.remove("open"); });
@@ -200,6 +223,62 @@
 
   function renderLabsV2(s) {
     return head("Labs Design System V2 · " + s.num, s.name, s.lede) + s.body;
+  }
+
+  function renderV2Colors() {
+    var h = head("Labs Design System V2", "Color tokens",
+      "Rose accent over a quiet neutral core — dark-first, with the elevated surface ladder carrying depth in dark mode. Values mirror the Figma variables live; components consume semantics only, never a primitive, never a raw hex.");
+    h += '<section class="doc"><h2>Accent & neutral scales</h2><p class="hint">Buttons use rose/600 with 700/800 (light) or 500/400 (dark) interaction steps; the ring is rose/400 in both modes. gray/750–875 form the elevated-dark surface ladder. Signal magenta #F0366B is AI + identity only — never a button.</p>';
+    ["Rose", "Gray"].forEach(function (n) {
+      h += '<div class="scale-block"><div class="scale-name"><span>V2/' + n + '</span><span class="mono">' + Object.keys(V2_SCALES[n])[0] + ' → ' + Object.keys(V2_SCALES[n]).slice(-1)[0] + '</span></div>' + strip(V2_SCALES[n], true) + "</div>";
+    });
+    h += "</section>";
+    h += '<section class="doc"><h2>Status palettes</h2>';
+    ["Green", "Amber", "Red", "Blue", "Teal", "Magenta", "Orange"].forEach(function (n) {
+      h += '<div class="scale-block"><div class="scale-name"><span>V2/' + n + '</span><span class="mono"></span></div>' + strip(V2_SCALES[n]) + "</div>";
+    });
+    h += "</section>";
+    h += '<section class="doc"><h2>Semantics — Dark (default) / Light</h2><p class="hint">Dark first: <code>:root</code> carries these values in <code>tokens/labs-v2.css</code>; <code>data-theme="light"</code> opts into the twin.</p><div class="card scroll-x"><table class="tok-table"><thead><tr><th>Token</th><th>Dark (default)</th><th>Light</th><th>Use</th></tr></thead><tbody>';
+    V2_SEMANTICS_ROWS.forEach(function (r) {
+      h += '<tr><td><code>' + r[0] + '</code></td><td><span class="sw-pair"><span class="sw" style="background:' + r[1] + '"></span><span class="mono">' + r[1] + ' · ' + r[2] + '</span></span></td><td><span class="sw-pair"><span class="sw" style="background:' + r[3] + ';border:1px solid var(--border)"></span><span class="mono">' + r[3] + ' · ' + r[4] + '</span></span></td><td style="color:var(--muted-fg)">' + r[5] + "</td></tr>";
+    });
+    h += "</tbody></table></div></section>";
+    h += '<section class="doc"><h2>Status tags — borderless tint pills</h2><p class="hint">-surface + -foreground pairs, icon always included, every pair ≥ 4.5:1 — identical in both modes (tags sit on cards). Status colour is never the only signal; that rule is load-bearing because rose reads close to danger red under tritanopia (a known, accepted trade-off).</p><div class="demo" style="background:#18181B;border-radius:12px">' +
+      [["Neutral","#EFF0F2","#565962"],["Success","#E2FAE9","#15803D"],["Warning","#FBEFC9","#92610A"],["Error","#FDDFDD","#B91C1C"],["Info","#DBE7FE","#1D4ED8"],["Viewed","#D3F7F5","#0F766E"],["Hot lead","#F9DCFC","#A21CAF"],["Bounced","#FFEDE5","#C2410C"]].map(function (t) {
+        return '<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font:600 13px Figtree,sans-serif;background:' + t[1] + ';color:' + t[2] + '"><span style="width:8px;height:8px;border-radius:99px;background:currentColor"></span>' + t[0] + "</span>";
+      }).join("") + "</div></section>";
+    return h;
+  }
+
+  function renderV2Type() {
+    var h = head("Labs Design System V2", "Typography",
+      "Figtree carries everything visible — 400/600/700/800 only, never italic. IBM Plex Mono exists for exactly one job: numbers. Percent line heights, capped 100–120% for Latin; Arabic adds +20 points via Noto Sans Arabic.");
+    var rows = [
+      ["text-2xs", "11 · 120% · 600", "micro labels", "600", 11, "Favorites · Records · Lists"],
+      ["text-xs", "12 · 120% · 400", "captions — the floor, muted only", "400", 12, "Last active 2h ago · No communication"],
+      ["text-sm", "14 · 120% · 400", "DEFAULT UI — tables, nav, inputs, buttons", "400", 14, "Split the deposit across the two open folios before applying."],
+      ["text-md", "16 · 120% · 600/400", "card & dialog titles · large reading", "600", 16, "Allocate guest deposit"],
+      ["text-lg", "18 · 115% · 600", "large card titles, empty states", "600", 18, "Define roles and attributes"],
+      ["text-xl", "20 · 115% · 600", "section titles", "600", 20, "Event Trends"],
+      ["display-xs", "24 · 120% · 600 · −1%", "page titles", "600", 24, "Insights"],
+      ["display-md", "36 · 120% · 600 · −1.5%", "marketing hero, greetings", "600", 36, "Good morning, Alex"]
+    ];
+    h += '<section class="doc"><h2>Scale — 14px UI base, Figtree</h2>';
+    rows.forEach(function (r) {
+      h += '<div style="display:flex;gap:28px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)"><div style="width:230px;flex:none"><div class="mono" style="font-size:13px">' + r[0] + '</div><div style="font-size:11.5px;color:var(--muted-fg)">' + r[1] + '<br>' + r[2] + '</div></div><div style="font-family:Figtree,sans-serif;font-weight:' + r[3] + ';font-size:' + r[4] + 'px;line-height:1.2">' + r[5] + "</div></div>";
+    });
+    h += "</section>";
+    h += '<section class="doc"><h2>Numbers — IBM Plex Mono only</h2><p class="hint">Money, IDs, ratios, confidence values, timestamps, chart axes — never running copy, headings or non-numeric labels. Alignment is inherent to mono. display-sm (30 · 110%) is the KPI numeral style.</p><div class="demo" style="background:#18181B;border-radius:12px;color:#fff"><div style="font-family:\'IBM Plex Mono\',monospace"><div style="font-size:30px;font-weight:500;line-height:1.1">4,275,190.63</div><div style="font-size:14px;color:#A6A8AF;margin-top:8px">POL/2026/88431 · 0.91 CONF · 2026-08-24 14:07:22 GST</div></div></div></section>';
+    h += '<section class="doc"><h2>Arabic & RTL</h2><div class="card"><ul><li>Companion face: Noto Sans Arabic — Figtree has zero Arabic coverage; the stack falls back per glyph.</li><li>Every line-height gains +20 percentage points in RTL (120→140, 115→135, 110→130).</li><li>Letter-spacing is always 0 in Arabic — tracking breaks letter joining; display tracking is Latin-only.</li></ul></div><div class="demo" style="background:#18181B;border-radius:12px;color:#fff;justify-content:flex-end"><div dir="rtl" style="font-family:\'Noto Sans Arabic\',sans-serif;text-align:right"><div style="font-size:24px;font-weight:600;line-height:1.4">صباح الخير، أليكس</div><div style="font-size:14px;line-height:1.4;color:#A6A8AF;margin-top:6px">قسّم الوديعة على الحسابين المفتوحين قبل تطبيق التخصيص.</div></div></div></section>';
+    return h;
+  }
+
+  function renderV2Component(c) {
+    return head("Labs V2 · Components", c.name, c.lede) +
+      '<section class="doc"><h2>Example</h2><div class="demo">' + c.demo + "</div></section>" +
+      '<section class="doc"><h2>Spec</h2>' + specGrid(c.spec) + "</section>" +
+      '<section class="doc"><h2>How to use</h2>' + ddGrid(c.dos, c.donts) + "</section>" +
+      '<section class="doc"><h2>Code</h2><div class="codeblock"><button class="copy-btn" data-copy>Copy</button><pre>' + esc(c.code) + "</pre></div></section>";
   }
 
   function renderComponent(c) {
@@ -547,8 +626,17 @@
       html = c ? renderComponent(c) : head("Components", "Not found", "No component named “" + esc(slug) + "”.");
     } else if (isLabsV2) {
       var vslug = hash.split("/")[1];
-      var v2 = LABS_V2.filter(function (x) { return x.slug === vslug; })[0];
-      html = v2 ? renderLabsV2(v2) : head("Labs Design System V2", "Not found", "No section named “" + esc(vslug) + "”.");
+      if (vslug === "colors") html = renderV2Colors();
+      else if (vslug === "type") html = renderV2Type();
+      else if (vslug === "components") {
+        var cslug = hash.split("/")[2];
+        var vc = LABS_V2_COMPONENTS.filter(function (x) { return x.slug === cslug; })[0];
+        html = vc ? renderV2Component(vc) : head("Labs V2 · Components", "Not found", "No component named “" + esc(cslug || "") + "”.");
+      }
+      else {
+        var v2 = LABS_V2.filter(function (x) { return x.slug === vslug; })[0];
+        html = v2 ? renderLabsV2(v2) : head("Labs Design System V2", "Not found", "No section named “" + esc(vslug) + "”.");
+      }
     } else if (isLabs) {
       var lslug = hash.split("/")[1];
       var s = LABS.filter(function (x) { return x.slug === lslug; })[0];
@@ -561,6 +649,7 @@
     if (isComponent) setComponentsOpen(true);
     if (isLabs) setLabsOpen(true);
     if (isLabsV2) setLabsV2Open(true);
+    if (hash.indexOf("labs-v2/components/") === 0) setLabsV2CompOpen(true);
 
     document.querySelectorAll(".nav-item[data-route]").forEach(function (a) {
       a.classList.toggle("active", a.dataset.route === hash);
